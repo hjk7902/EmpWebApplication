@@ -7,9 +7,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import kr.co.javaspecialist.common.db.DBConn;
-
 import org.apache.log4j.Logger;
+
+import kr.co.javaspecialist.common.db.DBConn;
 
 
 public class EmpDAO implements IEmpDAO {
@@ -175,6 +175,30 @@ public class EmpDAO implements IEmpDAO {
 			DBConn.closeConnection(con);
 		}
 		return deletedRow;
+	}
+
+	@Override
+	public ArrayList<EmpVO> getAllMgr() {
+		Connection con=null;
+		ArrayList<EmpVO> mgrList = new ArrayList<EmpVO>();
+		String sql = "select empno, ename from emp";
+		try {
+			con = DBConn.getConnection();
+
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				EmpVO emp = new EmpVO();
+				emp.setEmpno(rs.getInt("empno"));
+				emp.setEname(rs.getString("ename"));
+				mgrList.add(emp);
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} finally {
+			DBConn.closeConnection(con);
+		}
+		return mgrList;
 	}
 
 }

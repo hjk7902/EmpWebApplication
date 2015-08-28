@@ -13,28 +13,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.javaspecialist.emp.model.EmpDAO;
-import kr.co.javaspecialist.emp.model.EmpVO;
-import kr.co.javaspecialist.emp.model.IEmpDAO;
-
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import kr.co.javaspecialist.emp.model.DeptDAO;
+import kr.co.javaspecialist.emp.model.DeptVO;
+import kr.co.javaspecialist.emp.model.EmpDAO;
+import kr.co.javaspecialist.emp.model.EmpVO;
+import kr.co.javaspecialist.emp.model.IDeptDAO;
+import kr.co.javaspecialist.emp.model.IEmpDAO;
 
 @WebServlet("/emp")
 public class EmpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static final Logger logger = Logger.getLogger(EmpServlet.class);
 
-	IEmpDAO dao = new EmpDAO();
+	IEmpDAO empDao = new EmpDAO();
+	IDeptDAO deptDao = new DeptDAO();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Enumeration<String> paramNames= request.getParameterNames();
 		String path = "notfound";
 		if(paramNames.hasMoreElements()) {
 			path = paramNames.nextElement();
 			if(path.equals("list")) {
-				ArrayList<EmpVO> emps = dao.getAllEmps();
+				ArrayList<EmpVO> emps = empDao.getAllEmps();
 				request.setAttribute("empList", emps);
 				logger.info(emps);
 				if("json".equals(request.getParameter("list"))) {
@@ -51,10 +55,13 @@ public class EmpServlet extends HttpServlet {
 					return;
 				}
 			}else if(path.equals("insert")) {
-
+				List<EmpVO> mgrList = empDao.getAllMgr();
+				List<DeptVO> deptList = deptDao.getAllDepts();
+				request.setAttribute("mgrList", mgrList);
+				request.setAttribute("deptList", deptList);
 			}
 		}else {
-			ArrayList<EmpVO> emps = dao.getAllEmps();
+			ArrayList<EmpVO> emps = empDao.getAllEmps();
 			request.setAttribute("empList", emps);
 			path = "list"; 
 			logger.info(emps);
@@ -64,6 +71,52 @@ public class EmpServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		Enumeration<String> paramNames= request.getParameterNames();
+		String path = "notfound";
+		if(paramNames.hasMoreElements()) {
+			path = paramNames.nextElement();
+			if(path.equals("insert")) {
+				try {
+					int empno = Integer.parseInt(request.getParameter("empno"));
+					String ename = request.getParameter("ename");
+					String job = request.getParameter("job");
+					int mgr = Integer.parseInt(request.getParameter("mgr"));
+					String hiredate = request.getParameter("hiredate");
+					double sal = Double.parseDouble(request.getParameter("sal"));
+					String commStr = request.getParameter("comm");
+					int deptno = Integer.parseInt(request.getParameter("deptno"));
+					EmpVO emp = new EmpVO();
+					emp.setEname(ename);
+					emp.setEmpno(empno);
+					emp.setJob(job);
+					emp.setMgr(mgr);
+					emp.setHiredate(java.sql.Date.valueOf(hiredate));
+					emp.setSal(sal);
+					if(commStr == null || commStr.equals("")) {
+						emp.setComm(0);
+					}else {
+						emp.setComm(Double.parseDouble(commStr));
+					}
+					emp.setDeptno(deptno);
+					empDao.insertEmp(emp);
+					response.sendRedirect("emp?list");
+					return;	
+				}catch(Exception e) {
+					logger.error(e.getMessage());
+					request.setAttribute("message", e.getMessage());
+					path="error";
+				}
+			}else if(path.equals("update")) {
+				response.sendRedirect("emp?list");
+				return;
+			}else if(path.equals("delete")) {
+				response.sendRedirect("emp?list");
+				return;
+			}
+		}
+		RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/view/emp/" + path + ".jsp");
+		disp.forward(request, response);
 	}
 
 }

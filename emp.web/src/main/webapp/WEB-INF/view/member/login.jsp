@@ -35,18 +35,25 @@ if(userid==null) {
 		String message = (String)request.getAttribute("message");
 		out.println(message);
 	--%>
-	<form action="<c:url value='/login'/>" method="post"  class="form-inline">
-	<div class="input-group">
-      <span class="input-group-addon" id="basic-addon1">ID</span>
-      <input type="text" name="userid" class="form-control" placeholder="<fmt:message key="ID"/>" aria-describedby="basic-addon1">
-    </div><p>
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon1">PW</span>
-      <input type="password" name="password" class="form-control" placeholder="<fmt:message key="PW"/>" aria-describedby="basic-addon1">
-    </div><p><p>
-	<input type="submit" class="btn btn-info" value="<fmt:message key="SIGN_IN"/>">
-	<input type="reset" class="btn btn-info" value="<fmt:message key="CANCEL"/>">
-	
+	<form action="<c:url value='/login'/>" method="post" class="form-horizontal">
+	<div class="form-group">
+      <label class="control-label col-sm-2" for="id">ID:</label>
+      <div class="col-sm-8">
+        <input type="text" name="userid" id="id" class="form-control" placeholder="<fmt:message key="ID"/>" aria-describedby="basic-addon1">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pw">PW:</label>
+      <div class="col-sm-8">
+        <input type="password" name="password" id="pw" class="form-control" placeholder="<fmt:message key="PW"/>" aria-describedby="basic-addon1">
+      </div>
+    </div>
+    <div class="form-group">
+    	<div class="col-sm-offset-2 col-sm-8">
+		<input type="submit" class="btn btn-info" value="<fmt:message key="SIGN_IN"/>">
+		<input type="reset" class="btn btn-info" value="<fmt:message key="CANCEL"/>">
+		</div>
+	</div>
 	</form>
 </c:if>
 <%--

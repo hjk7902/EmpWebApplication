@@ -28,58 +28,55 @@
 <p>
 	<form action="<c:url value='/emp?insert'/>" method="post" class="form-horizontal">
 	<div class="form-group">
-      <label class="control-label col-sm-2" for="empno"><fmt:message key="EMPNO"/></label>
-      <div class="col-sm-4">
+      <label class="control-label col-sm-2" for="empno">EMPNO</label>
+      <div class="col-sm-8">
         <input type="number" name="empno" id="empno" value="${emp.empno}" class="form-control" placeholder="<fmt:message key="EMPNO"/>">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="ename"><fmt:message key="ENAME"/></label>
-      <div class="col-sm-4">
-        <input type="text" name="ename" id="ename"class="form-control">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="job"><fmt:message key="JOB"/></label>
+      <label class="control-label col-sm-2" for="ename">ENAME</label>
       <div class="col-sm-8">
-        <input type="text" name="job" id="job"class="form-control">
+        <input type="text" name="ename" id="ename" value="${emp.ename}" class="form-control" placeholder="<fmt:message key="ENAME"/>">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="mgr"><fmt:message key="MANAGER"/></label>
-      <div class="col-sm-2">
-        <select name="mgr" id="mgr" class="form-control">
-        	<c:forEach var="mgr" items="${mgrList}">
-        	<option value="${mgr.empno}">${mgr.ename}</option>
-        	</c:forEach>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="hiredate"><fmt:message key="HIREDATE"/></label>
+      <label class="control-label col-sm-2" for="job">JOB</label>
       <div class="col-sm-8">
-        <input type="text" name="hiredate" id="hiredate"class="form-control" placeholder="2015-01-01">
+        <input type="text" name="job" id="job" value="${emp.job}" class="form-control" placeholder="<fmt:message key="ENAME"/>">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="sal"><fmt:message key="SAL"/></label>
+      <label class="control-label col-sm-2" for="manager">MANAGER</label>
       <div class="col-sm-8">
-        <input type="text" name="sal" id="sal" class="form-control">
+        <input type="text" name="manager" id="manager" value="${emp.manager}" class="form-control" placeholder="<fmt:message key="ENAME"/>">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="comm"><fmt:message key="COMM"/></label>
+      <label class="control-label col-sm-2" for="hiredate">HIREDATE</label>
       <div class="col-sm-8">
-        <input type="text" name="comm" id="comm" class="form-control">
+        <input type="text" name="hiredate" id="hiredate" value="${emp.hiredate}" class="form-control" placeholder="<fmt:message key="ENAME"/>">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="deptno"><fmt:message key="DEPTNO"/></label>
+      <label class="control-label col-sm-2" for="sal">SAL</label>
+      <div class="col-sm-8">
+        <input type="text" name="sal" id="sal" value="${emp.sal}" class="form-control" placeholder="<fmt:message key="ENAME"/>">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="comm">COMM</label>
+      <div class="col-sm-8">
+        <input type="text" name="comm" id="comm" value="${emp.comm}" class="form-control" placeholder="<fmt:message key="ENAME"/>">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="deptno">DEPTNO</label>
       <div class="col-sm-6">
         <select name="deptno" id="deptno" class="form-control">
-        	<c:forEach var="dept" items="${deptList}">
-        	<option value="${dept.deptno}">${dept.dname}(${dept.loc})</option>
-        	</c:forEach>
+        	<option value="10">10
+        	<option value="20">20
+        	<option value="30">30
+        	<option value="40">40
         </select>
       </div>
     </div>
