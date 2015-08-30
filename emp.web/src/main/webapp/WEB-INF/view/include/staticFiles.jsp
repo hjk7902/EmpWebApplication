@@ -18,9 +18,39 @@
     <link rel="stylesheet" href="<c:url value='/assets/fancybox/jquery.fancybox.css?v=2.1.5" media="screen'/>"> 
      
     <!-- Boomerang styles -->
-    <link id="wpStylesheet" type="text/css" href="<c:url value='/css/global-style.css" rel="stylesheet" media="screen'/>">  
+    <link id="wpStylesheet" type="text/css" href="<c:url value='/css/global-style.css'/>" rel="stylesheet" media="screen">  
 
     <!-- Required JS -->
-    <script src="<c:url value='/js/jquery.js'/>"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="<c:url value='/js/jquery-ui.min.js'/>"></script>
+
+
+	<!-- Essentials -->
+	<script src="<c:url value='/assets/bootstrap/js/bootstrap.min.js'/>"></script>
+	<script src="<c:url value='/js/jquery.hoverup.js'/>"></script>
+	<script src="<c:url value='/js/jquery.hoverdir.js'/>"></script>
+	<script src="<c:url value='/js/jquery.stellar.js'/>"></script>
+
+	<!-- Boomerang mobile nav - Optional  -->
+	<script src="<c:url value='/assets/responsive-mobile-nav/js/jquery.dlmenu.js'/>"></script>
+	<script src="<c:url value='/assets/responsive-mobile-nav/js/jquery.dlmenu.autofill.js'/>"></script>
+
+
+	<!-- Assets -->
+	<script src="<c:url value='/assets/hover-dropdown/bootstrap-hover-dropdown.min.js'/>"></script>
+	<script src="<c:url value='/assets/page-scroller/jquery.ui.totop.min.js'/>"></script>
+	<script src="<c:url value='/assets/mixitup/jquery.mixitup.js'/>"></script>
+	<script src="<c:url value='/assets/mixitup/jquery.mixitup.init.js'/>"></script>
+	<script src="<c:url value='/assets/fancybox/jquery.fancybox.pack.js?v=2.1.5'/>"></script>
+	<script src="<c:url value='/assets/waypoints/waypoints.min.js'/>"></script>
+	<script src="<c:url value='/assets/milestone-counter/jquery.countTo.js'/>"></script>
+
+
+	<!-- Mouse Hover menu App JS -->
+	<script src="<c:url value='/js/wp.app.js'/>"></script>
+	<!--[if lt IE 9]>
+	    <script src="<c:url value='/js/html5shiv.js'/>"></script>
+	    <script src="<c:url value='/js/respond.min.js'/>"></script>
+	<![endif]-->
+  
 </head>
