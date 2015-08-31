@@ -47,6 +47,15 @@
                         </ul>
                     </li>
                     <li class="dropdown">
+                        <a href='<c:url value="/"/>' class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="MEMBER"/></a>
+                        <ul class="dropdown-menu">
+                        	<li><a href="<c:url value='/view?member/login'/>"><fmt:message key="MY_INFO"/></a>
+                            <li><a href="<c:url value='/member?select'/>"><fmt:message key="UPDATE_USER_INFO"/></a>
+                            <li><a href="<c:url value='/member?delete'/>"><fmt:message key="EXIT_MEMBER"/></a>
+                            <li><a href="<c:url value='/login'/>"><fmt:message key="SIGN_OUT"/></a>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="SEARCH"/></a>
                         <ul class="dropdown-menu">
                             <li><a href="<c:url value='/view?manage/searchProductForm'/>"><fmt:message key="BY_NAME"/></a></li>

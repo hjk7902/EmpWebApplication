@@ -1,61 +1,47 @@
-<%@page import="kr.co.javaspecialist.member.domain.MemberVO"%>
-<%@page import="java.util.ArrayList"%>
-<%@ page contentType="text/html; charset=utf-8" %>
-<!DOCTYPE html> 
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="i18n/header" />
+<%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
+<!DOCTYPE html>
 <html>
-
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
-
 <body>
 <div class="container">
-<div class="page">
 <jsp:include page="/WEB-INF/view/include/bodyHeader.jsp"/>
+<div class="pg-opt">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2><a href="<c:url value='#'/>">Member</a></h2>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb">
+                    <li>Member</li>
+                    <li class="active"><a href="<c:url value='#'/>">List</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="content">
-<h1>회원 전체 정보</h1>
-<%
-//자바코드를 입력, scriptlet
-//JSP파일은 웹디자이너가 담당, 그래서 scriptlet코드는 되도록이면 지양
-//JSTL, EL등을 이용하면 scriptlet코드들을 없앨 수 있다.
-//JSP 내장객체(묵시적 객체) : 객체를 생성하지 않아도
-//JSP 코드(scriptlet) 내에서 사용할 수 있는 객체들 9개
-//application, request, response, session, out, page, pageContext
-//config, exception
-//request객체는 서블릿의 HttpServletRequest 타입 객체와 동일한 객체
-ArrayList<MemberVO> members = (ArrayList<MemberVO>)request.getAttribute("members");
-/*
-for(MemberVO member : members) {//enhanced for문, for each문
-	out.println(member.getUserid());
-	out.println(member.getName());
-	out.println(member.getPassword());
-	out.println(member.getPhone());
-	out.println(member.getAddress());
-	out.println("<br>");
-}
-*/
-%>
-<table border="1" width="800">
-<tr>
-	<th>아이디</th><th>이름</th><!-- th>비밀번호</th--><th>전화번호</th><th>주소</th>
-</tr>
-<% //scriptlet
-for(MemberVO member : members) {
-%>
-<tr>
-	<td><%=member.getUserid()%></td>
-	<td><%=member.getName()%></td>
-	<%-- <td><%=member.getPassword()%></td>--%>
-	<td><%=member.getPhone()%></td>
-	<td><%=member.getAddress()%></td>
-</tr>
-<%
-}
-%>
-</table>
+  <datatables:table id="member" data="${members}" row="member" theme="bootstrap3" cssClass="table table-striped" pageable="true" export="csv">
+	 <datatables:column title="USERID" cssStyle="width: 150px;" display="html">
+	    <c:out value="${member.userid}"/>
+	 </datatables:column>
+	 <datatables:column title="NAME" property="name" cssStyle="width: 200px;"/>
+	 <datatables:column title="PHONE" property="phone"/>
+	 <datatables:column cssClass="pc" cssCellClass="pc" title="ADDRESS" property="address"/>
+	 <datatables:export type="csv" cssClass="btn pc" cssStyle="height: 25px;" />
+  </datatables:table>
 </div>
+</div>
+<%--
+<c:forEach var="emp" items="${empList}">
+${emp.empno}, ${emp.ename}, ${emp.job}<br>
+</c:forEach>
+ --%>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
-</div>
-</div>
 </body>
 </html>
+

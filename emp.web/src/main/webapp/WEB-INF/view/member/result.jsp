@@ -1,11 +1,8 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page contentType="text/html; charset=utf-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html> 
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
-
 <body>
 <div class="container">
 <div class="page">

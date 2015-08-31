@@ -41,6 +41,9 @@ public class MemberServlet extends HttpServlet {
 				}
 			}else if("delete".equals(path)){ 
 				path = "delete";			
+			}else if("list".equals(path)){
+				request.setAttribute("members", dao.selectAllMembers());
+				path = "memberlist";			
 			}else {
 				request.setAttribute("message", "액션이 없습니다.");
 				path = "login";
