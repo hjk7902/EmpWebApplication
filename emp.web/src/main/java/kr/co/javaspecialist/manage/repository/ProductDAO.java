@@ -80,16 +80,17 @@ public class ProductDAO implements IProductDAO {
 			stmt.setString(1, "%"+name+"%");
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				
-				ProductVO vo = new ProductVO();
-				vo.setProductId(rs.getInt("product_id"));
-				vo.setBarcode(rs.getString("barcode"));
-				vo.setProductName(rs.getString("product_name"));
-				vo.setKeyword(rs.getString("keyword"));
-				
-				vo.setProductImage(rs.getString("product_image"));
-				logger.info(vo.toString());
-				productList.add(vo);
+				ProductVO product = new ProductVO();
+				product.setProductId(rs.getInt("product_id"));
+				product.setBarcode(rs.getString("barcode"));
+				product.setProductName(rs.getString("product_name"));
+				product.setCompany(rs.getString("company"));
+				product.setPrice(rs.getInt("price"));
+				product.setKeyword(rs.getString("keyword"));		
+				product.setProductImage(rs.getString("product_image"));
+				product.setDetails(rs.getString("details"));
+				logger.info(product.toString());
+				productList.add(product);
 			}
 		}catch(SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -110,16 +111,17 @@ public class ProductDAO implements IProductDAO {
 			stmt.setString(1, "%"+location+"%");
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				
-				ProductVO vo = new ProductVO();
-				vo.setProductId(rs.getInt("product_id"));
-				vo.setBarcode(rs.getString("barcode"));
-				vo.setProductName(rs.getString("product_name"));
-				vo.setKeyword(rs.getString("keyword"));
-				
-				vo.setProductImage(rs.getString("product_image"));
-				logger.info(vo.toString());
-				productList.add(vo);
+				ProductVO product = new ProductVO();
+				product.setProductId(rs.getInt("product_id"));
+				product.setBarcode(rs.getString("barcode"));
+				product.setProductName(rs.getString("product_name"));
+				product.setCompany(rs.getString("company"));
+				product.setPrice(rs.getInt("price"));
+				product.setKeyword(rs.getString("keyword"));		
+				product.setProductImage(rs.getString("product_image"));
+				product.setDetails(rs.getString("details"));
+				logger.info(product.toString());
+				productList.add(product);
 			}
 		}catch(SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -139,16 +141,17 @@ public class ProductDAO implements IProductDAO {
 			stmt.setString(1, "%"+deptname+"%");
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				
-				ProductVO vo = new ProductVO();
-				vo.setProductId(rs.getInt("product_id"));
-				vo.setBarcode(rs.getString("barcode"));
-				vo.setProductName(rs.getString("product_name"));
-				vo.setKeyword(rs.getString("keyword"));
-				
-				vo.setProductImage(rs.getString("product_image"));
-				logger.info(vo.toString());
-				productList.add(vo);
+				ProductVO product = new ProductVO();
+				product.setProductId(rs.getInt("product_id"));
+				product.setBarcode(rs.getString("barcode"));
+				product.setProductName(rs.getString("product_name"));
+				product.setCompany(rs.getString("company"));
+				product.setPrice(rs.getInt("price"));
+				product.setKeyword(rs.getString("keyword"));		
+				product.setProductImage(rs.getString("product_image"));
+				product.setDetails(rs.getString("details"));
+				logger.info(product.toString());
+				productList.add(product);
 			}
 		}catch(SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -169,14 +172,14 @@ public class ProductDAO implements IProductDAO {
 			stmt.setString(1, barcode);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
-
 				product.setProductId(rs.getInt("product_id"));
 				product.setBarcode(rs.getString("barcode"));
 				product.setProductName(rs.getString("product_name"));
-				product.setUserId(rs.getString("userid"));
+				product.setCompany(rs.getString("company"));
+				product.setPrice(rs.getInt("price"));
 				product.setKeyword(rs.getString("keyword"));		
-				product.setLocation(rs.getString("location"));
 				product.setProductImage(rs.getString("product_image"));
+				product.setDetails(rs.getString("details"));
 			}
 		}catch(SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -197,17 +200,17 @@ public class ProductDAO implements IProductDAO {
 			stmt.setString(1, id);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				
-				ProductVO vo = new ProductVO();
-				vo.setProductId(rs.getInt("product_id"));
-				vo.setBarcode(rs.getString("barcode"));
-				vo.setProductName(rs.getString("product_name"));
-				vo.setKeyword(rs.getString("keyword"));
-				
-				vo.setLocation(rs.getString("location"));
-				vo.setProductImage(rs.getString("product_image"));
-				logger.info(vo.toString());
-				productList.add(vo);
+				ProductVO product = new ProductVO();
+				product.setProductId(rs.getInt("product_id"));
+				product.setBarcode(rs.getString("barcode"));
+				product.setProductName(rs.getString("product_name"));
+				product.setCompany(rs.getString("company"));
+				product.setPrice(rs.getInt("price"));
+				product.setKeyword(rs.getString("keyword"));		
+				product.setProductImage(rs.getString("product_image"));
+				product.setDetails(rs.getString("details"));
+				logger.info(product.toString());
+				productList.add(product);
 			}
 		}catch(SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -237,22 +240,21 @@ public class ProductDAO implements IProductDAO {
 				pstmt = con.prepareStatement(sql);
 			}
 
-
 			ResultSet rs = pstmt.executeQuery();
 
 			while(rs.next()) {
-
-				ProductVO vo = new ProductVO();
-
-				vo.setProductId(rs.getInt("product_id"));
-				vo.setBarcode(rs.getString("barcode"));
-				vo.setProductName(rs.getString("product_name"));
-				vo.setKeyword(rs.getString("keyword"));
-				vo.setLocation(rs.getString("location"));
-				vo.setProductImage(rs.getString("product_image"));
-				logger.info(vo.toString());
-				System.out.println(vo.toString());
-				productList.add(vo);
+				ProductVO product = new ProductVO();
+				product.setProductId(rs.getInt("product_id"));
+				product.setBarcode(rs.getString("barcode"));
+				product.setProductName(rs.getString("product_name"));
+				product.setCompany(rs.getString("company"));
+				product.setPrice(rs.getInt("price"));
+				product.setKeyword(rs.getString("keyword"));		
+				product.setProductImage(rs.getString("product_image"));
+				product.setDetails(rs.getString("details"));
+				logger.info(product.toString());
+				System.out.println(product.toString());
+				productList.add(product);
 			}
 
 			

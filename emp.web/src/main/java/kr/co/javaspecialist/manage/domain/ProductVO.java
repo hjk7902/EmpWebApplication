@@ -6,10 +6,14 @@ public class ProductVO {
 	private int productId;
 	private String barcode;
 	private String productName;
+	private String company;
+	private int price;
 	private String userId;
 	private String keyword;
-	private String location;
 	private String productImage;
+	private String details;
+//	private String location;
+	
 	public int getProductId() {
 		return productId;
 	}
@@ -28,6 +32,18 @@ public class ProductVO {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -40,25 +56,25 @@ public class ProductVO {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
 	public String getProductImage() {
 		return productImage;
 	}
 	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
+	public String getDetails() {
+		return details;
+	}
+	public void setDetails(String details) {
+		this.details = details;
+	}
 	@Override
 	public String toString() {
 		return "ProductVO [productId=" + productId + ", barcode=" + barcode
-				+ ", productName=" + productName + ", userId=" + userId
-				+ ", keyword=" + keyword + ", location=" + location
-				+ ", productImage=" + productImage + "]";
+				+ ", productName=" + productName + ", company=" + company
+				+ ", price=" + price + ", userId=" + userId + ", keyword="
+				+ keyword + ", productImage=" + productImage + ", details="
+				+ details + "]";
 	}
-	
 
 }
