@@ -97,7 +97,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.0</version>
                 <configuration>
-                    <encoding>euc-kr</encoding>
+                    <encoding>utf-8</encoding>
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>

@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
-encoding//src/main/java=euc-kr
-encoding//src/test/java=euc-kr
+encoding//src/main/java=utf-8
+encoding//src/main/java/kr/co/javaspecialist/emp/web/EmpServlet.java=UTF-8
+encoding//src/main/java/kr/co/javaspecialist/member/web/LoginServlet.java=UTF-8
+encoding//src/main/java/kr/co/javaspecialist/member/web/MemberServlet.java=UTF-8
+encoding//src/test/java=utf-8
