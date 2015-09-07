@@ -5,8 +5,8 @@
 <html>
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
 <body>
-<div class="container">
 <jsp:include page="/WEB-INF/view/include/bodyHeader.jsp"/>
+<div class="container">
 <div class="content">
     <h2>검색 결과</h2>
 	<datatables:table id="products" data="${productList}" row="product"

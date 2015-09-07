@@ -6,10 +6,9 @@
 <html>
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
 <body>
-<div class="container">
 <jsp:include page="/WEB-INF/view/include/bodyHeader.jsp"/>
-<div class="pg-opt">
-    <div class="container">
+<div class="container">
+	<div class="pg-opt">
         <div class="row">
             <div class="col-md-6">
                 <h2><a href="<c:url value='/view?member/login'/>"><fmt:message key="SIGN_IN"/></a></h2>
@@ -22,7 +21,6 @@
             </div>
         </div>
     </div>
-</div>
 <div class="content">
 <%--
 String userid = (String)session.getAttribute("userid");

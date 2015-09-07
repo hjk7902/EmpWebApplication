@@ -1,18 +1,29 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page contentType="text/html; charset=utf-8" trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html> 
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="i18n/header" />
 <html>
-
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
-
 <body>
-<div class="container">
-<div class="page">
 <jsp:include page="/WEB-INF/view/include/bodyHeader.jsp"/>
+<div class="container">
+	<div class="pg-opt">
+        <div class="row">
+            <div class="col-md-6">
+                <h2><fmt:message key="UPDATE_USER_INFO"/></h2>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb">
+                    <li><fmt:message key="MEMBER"/></li>
+                    <li class="active"><fmt:message key="UPDATE_USER_INFO"/></li>
+                </ol>
+            </div>
+        </div>
+    </div>
 <div class="content">
 <h3>회원 정보 입력 폼<small>${message}</small></h3>
-<form action="<c:url value='/member/Member.do'/>" method="post" class="form-inline">
+<form action="<c:url value='/member?join'/>" method="post" class="form-inline">
 <fieldset>
 <legend>회원정보</legend>
 <table class="table">
@@ -44,8 +55,7 @@
 </form>
 
 </div>
+</div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
-</div>
-</div>
 </body>
 </html>

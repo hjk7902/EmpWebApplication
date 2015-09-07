@@ -7,8 +7,8 @@
 <html>
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
 <body>
-<div class="container">
 <jsp:include page="/WEB-INF/view/include/bodyHeader.jsp"/>
+<div class="container">
 <div class="content">
     <h3><fmt:message key="PRODUCT_LIST"/></h3>
     <c:set var="product_id" value="<fmt:message key='PRODUCT_ID'/>"/>${product_id}

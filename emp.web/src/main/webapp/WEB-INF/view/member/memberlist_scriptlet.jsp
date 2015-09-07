@@ -7,9 +7,8 @@
 <html>
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
 <body>
-<div class="container">
-<div class="page">
 <jsp:include page="/WEB-INF/view/include/bodyHeader.jsp"/>
+<div class="container">
 <div class="content">
 <h1>회원 전체 정보</h1>
 <%
@@ -51,9 +50,7 @@ for(MemberVO member : members) {
 }
 %>
 </table>
-</div>
+</div></div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
-</div>
-</div>
 </body>
 </html>

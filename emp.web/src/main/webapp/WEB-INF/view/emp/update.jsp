@@ -7,10 +7,9 @@
 <html>
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
 <body>
-<div class="container">
 <jsp:include page="/WEB-INF/view/include/bodyHeader.jsp"/>
-<div class="pg-opt">
-    <div class="container">
+<div class="container">
+	<div class="pg-opt">
         <div class="row">
             <div class="col-md-6">
                 <h2><a href="<c:url value='/emp'/>">Emp</a></h2>
@@ -23,7 +22,6 @@
             </div>
         </div>
     </div>
-</div>
 <div class="content">
 <p>
 	<form action="<c:url value='/emp?update'/>" method="post" class="form-horizontal">

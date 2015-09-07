@@ -7,8 +7,8 @@
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
 
 <body>
-<div class="container">
 <jsp:include page="/WEB-INF/view/include/bodyHeader.jsp"/>
+<div class="container">
 <div class="content">
 <section class="slice bg-white">
 <div class="col-md-12">                     
