@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setBundle basename="i18n/header" />
+<fmt:setBundle basename="i18n/emp" />
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@
             <div class="col-md-6">
                 <ol class="breadcrumb">
                     <li>Emp</li>
-                    <li class="active">New Employment</li>
+                    <li class="active">New employee data</li>
                 </ol>
             </div>
         </div>
@@ -30,25 +30,26 @@
 	<div class="form-group">
       <label class="control-label col-sm-2" for="empno"><fmt:message key="EMPNO"/></label>
       <div class="col-sm-4">
-        <input type="number" name="empno" id="empno" value="${emp.empno}" class="form-control" placeholder="<fmt:message key="EMPNO"/>">
+        <input type="number" name="empno" id="empno" min="8000" max="9999" value="${emp.empno}" class="form-control" placeholder="<fmt:message key="EMPNO"/>" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="ename"><fmt:message key="ENAME"/></label>
       <div class="col-sm-4">
-        <input type="text" name="ename" id="ename"class="form-control">
+        <input type="text" name="ename" id="ename" maxlength="10" class="form-control" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="job"><fmt:message key="JOB"/></label>
       <div class="col-sm-8">
-        <input type="text" name="job" id="job"class="form-control">
+        <input type="text" name="job" id="job" maxlength="9" class="form-control" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="mgr"><fmt:message key="MANAGER"/></label>
-      <div class="col-sm-2">
-        <select name="mgr" id="mgr" class="form-control">
+      <div class="col-sm-3">
+        <select name="mgr" id="mgr" class="form-control" required>
+        	<option value=""><fmt:message key="SELECT_MANAGER"/></option>
         	<c:forEach var="mgr" items="${mgrList}">
         	<option value="${mgr.empno}">${mgr.ename}</option>
         	</c:forEach>
@@ -56,27 +57,28 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="hiredate"><fmt:message key="HIREDATE"/></label>
-      <div class="col-sm-8">
-        <input type="text" name="hiredate" id="hiredate"class="form-control" placeholder="2015-01-01">
+      <label class="control-label col-sm-2" for="hiredate"><fmt:message key="HIREDATE"/>(YYYY-MM-DD)</label>
+      <div class="col-sm-5">
+        <input type="text" name="hiredate" id="hiredate" class="form-control" placeholder="2015-01-01" pattern="^\(?\d{4}\)?[-]\d{2}[-]\d{2}$" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="sal"><fmt:message key="SAL"/></label>
       <div class="col-sm-8">
-        <input type="text" name="sal" id="sal" class="form-control">
+        <input type="number" name="sal" id="sal" class="form-control" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="comm"><fmt:message key="COMM"/></label>
       <div class="col-sm-8">
-        <input type="text" name="comm" id="comm" class="form-control">
+        <input type="number" name="comm" id="comm" class="form-control">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="deptno"><fmt:message key="DEPTNO"/></label>
       <div class="col-sm-6">
-        <select name="deptno" id="deptno" class="form-control">
+        <select name="deptno" id="deptno" class="form-control" required>
+        	<option value=""><fmt:message key="SELECT_DEPARTMENT"/></option>
         	<c:forEach var="dept" items="${deptList}">
         	<option value="${dept.deptno}">${dept.dname}(${dept.loc})</option>
         	</c:forEach>

@@ -25,8 +25,8 @@ public class EmpDAO implements IEmpDAO {
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
 			rowCount = rs.getInt(1);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		} finally {
 			DBConn.closeConnection(con);
 		}
@@ -45,8 +45,8 @@ public class EmpDAO implements IEmpDAO {
 			while(rs.next()) {
 				listData.add(rs.getInt("empno"));
 			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		} finally {
 			DBConn.closeConnection(con);
 		}
@@ -74,7 +74,7 @@ public class EmpDAO implements IEmpDAO {
 				lists.add(vo);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		} finally { 
 			DBConn.closeConnection(con); 
 		}
@@ -97,7 +97,7 @@ public class EmpDAO implements IEmpDAO {
 				columnNames.add(metaData.getColumnName(i+1).toUpperCase());
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		} finally { 
 			DBConn.closeConnection(con); 
 		}
@@ -123,12 +123,10 @@ public class EmpDAO implements IEmpDAO {
 			pstmt.setDouble(7, vo.getComm());
 			pstmt.setInt(8, vo.getDeptno());
 			count = pstmt.executeUpdate();
-		} catch (SQLException e1) {
-//			System.out.println(e1.getMessage());
-			throw new RuntimeException(e1.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		} finally {
 			DBConn.closeConnection(con);
-//			if(con!=null) try {con.close();} catch (SQLException e1) {	}
 		}
 		return count;
 	}
@@ -153,7 +151,8 @@ public class EmpDAO implements IEmpDAO {
 			stmt.setInt(8, vo.getEmpno());
 			count = stmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new RuntimeException(e.getMessage());
+			e.printStackTrace();
+			throw new RuntimeException(e);
 		} finally {
 			DBConn.closeConnection(con);
 		}
@@ -169,8 +168,8 @@ public class EmpDAO implements IEmpDAO {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, empno);
 			deletedRow = pstmt.executeUpdate();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		} finally {
 			DBConn.closeConnection(con);
 		}
@@ -193,12 +192,45 @@ public class EmpDAO implements IEmpDAO {
 				emp.setEname(rs.getString("ename"));
 				mgrList.add(emp);
 			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
 		} finally {
 			DBConn.closeConnection(con);
 		}
 		return mgrList;
+	}
+
+	@Override
+	public EmpVO getEmpDetails(int empno) {
+		EmpVO emp = new EmpVO();
+		String sql = "select * from emp where empno=?";
+		Connection con = null;
+		try {
+			con = DBConn.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, empno);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				emp.setEmpno(empno);
+				emp.setEname(rs.getString("ename"));
+				emp.setJob(rs.getString("job"));
+				emp.setMgr(rs.getInt("mgr"));
+				emp.setHiredate(rs.getDate("hiredate"));
+				emp.setSal(rs.getDouble("sal"));
+				emp.setComm(rs.getDouble("comm"));
+				emp.setDeptno(rs.getInt("deptno"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally { 
+			DBConn.closeConnection(con); 
+		}
+		
+		return emp;
 	}
 
 }

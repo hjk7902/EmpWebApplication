@@ -11,4 +11,5 @@ public interface IEmpDAO {
 	public int getEmpCount();
 	public int insertEmp(EmpVO vo);
 	public int updateEmp(EmpVO vo);
+	public EmpVO getEmpDetails(int empno);
 }

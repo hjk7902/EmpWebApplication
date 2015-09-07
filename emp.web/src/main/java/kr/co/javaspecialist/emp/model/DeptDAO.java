@@ -26,8 +26,8 @@ public class DeptDAO implements IDeptDAO {
 				DeptVO vo = new DeptVO(rs.getInt("deptno"), rs.getString("dname"), rs.getString("loc"));
 				listData.add(vo);
 			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		} finally {
 			if(con!=null) try {con.close();} catch (SQLException e1) {	}
 		}

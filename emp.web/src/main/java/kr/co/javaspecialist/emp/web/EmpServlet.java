@@ -55,10 +55,36 @@ public class EmpServlet extends HttpServlet {
 					return;
 				}
 			}else if(path.equals("insert")) {
-				List<EmpVO> mgrList = empDao.getAllMgr();
-				List<DeptVO> deptList = deptDao.getAllDepts();
-				request.setAttribute("mgrList", mgrList);
-				request.setAttribute("deptList", deptList);
+				try {
+					List<EmpVO> mgrList = empDao.getAllMgr();
+					List<DeptVO> deptList = deptDao.getAllDepts();
+					request.setAttribute("mgrList", mgrList);
+					request.setAttribute("deptList", deptList);
+				}catch(Exception e) {
+					request.setAttribute("message", "INSERT_ERROR");
+					path = "error";
+				}
+			}else if(path.equals("update")) {
+				try {
+					int empno = Integer.parseInt(request.getParameter("update"));
+					List<EmpVO> mgrList = empDao.getAllMgr();
+					List<DeptVO> deptList = deptDao.getAllDepts();
+					EmpVO emp = empDao.getEmpDetails(empno);
+					request.setAttribute("mgrList", mgrList);
+					request.setAttribute("deptList", deptList);
+					request.setAttribute("emp", emp);
+				}catch(Exception e) {
+					request.setAttribute("message", "UPDATE_ERROR");
+					path = "error";
+				}
+			}else if(path.equals("delete")) {
+				try {
+					int empno = Integer.parseInt(request.getParameter("delete"));
+					request.setAttribute("empno", empno);
+				}catch(Exception e) {
+					request.setAttribute("message", "DELETE_ERROR");
+					path = "error";
+				}
 			}
 		}else {
 			ArrayList<EmpVO> emps = empDao.getAllEmps();
@@ -100,19 +126,66 @@ public class EmpServlet extends HttpServlet {
 					}
 					emp.setDeptno(deptno);
 					empDao.insertEmp(emp);
+					logger.info("Insert Success : " + emp.toString());
 					response.sendRedirect("emp?list");
 					return;	
+				}catch(Exception e) {
+					logger.error(e.getMessage());
+					request.setAttribute("message", "INSERT_ERROR");
+					path="error";
+				}
+			}else if(path.equals("update")) {
+				try {
+					int empno = Integer.parseInt(request.getParameter("empno"));
+					String ename = request.getParameter("ename");
+					String job = request.getParameter("job");
+					int mgr = Integer.parseInt(request.getParameter("mgr"));
+					String hiredate = request.getParameter("hiredate");
+					double sal = Double.parseDouble(request.getParameter("sal"));
+					String commStr = request.getParameter("comm");
+					int deptno = Integer.parseInt(request.getParameter("deptno"));
+					EmpVO emp = new EmpVO();
+					emp.setEname(ename);
+					emp.setEmpno(empno);
+					emp.setJob(job);
+					emp.setMgr(mgr);
+					emp.setHiredate(java.sql.Date.valueOf(hiredate));
+					emp.setSal(sal);
+					if(commStr == null || commStr.equals("")) {
+						emp.setComm(0);
+					}else {
+						emp.setComm(Double.parseDouble(commStr));
+					}
+					emp.setDeptno(deptno);
+					empDao.updateEmp(emp);
+					logger.info("Update Success : " + emp.toString());
+					response.sendRedirect("emp?list");
+					return;	
+				}catch(Exception e) {
+					logger.error(e.getMessage());
+					request.setAttribute("message", "UPDATE_ERROR");
+					path="error";
+				}
+			}else if(path.equals("delete")) {
+				try {
+					int empno = Integer.parseInt(request.getParameter("empno"));
+					String ename = request.getParameter("ename");
+					EmpVO emp = empDao.getEmpDetails(empno);
+					if(ename.equalsIgnoreCase(emp.getEname())) {
+						empDao.deleteEmp(empno);
+						logger.info("Delete Success : " + emp.toString());
+						response.sendRedirect("emp?list");
+						return;
+					}else {
+						logger.error("삭제 실패 : 사원이름이 다릅니다");
+						request.setAttribute("message", "DELETE_ERROR");
+						path="error";
+					}
 				}catch(Exception e) {
 					logger.error(e.getMessage());
 					request.setAttribute("message", e.getMessage());
 					path="error";
 				}
-			}else if(path.equals("update")) {
-				response.sendRedirect("emp?list");
-				return;
-			}else if(path.equals("delete")) {
-				response.sendRedirect("emp?list");
-				return;
 			}
 		}
 		RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/view/emp/" + path + ".jsp");

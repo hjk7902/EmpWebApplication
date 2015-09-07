@@ -37,3 +37,15 @@
 body div.content {
 	min-height: 350px;
 }
+
+<style>
+input[required] {
+    border-color: #00F;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 255, .5);
+}
+input:invalid {
+    border-color: #F00;
+    -webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .8);
+}
+</style> 
+

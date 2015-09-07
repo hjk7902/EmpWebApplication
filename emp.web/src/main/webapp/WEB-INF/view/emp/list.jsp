@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setBundle basename="i18n/header" />
+<fmt:setBundle basename="i18n/emp" />
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,7 @@
 <div class="content">
   <datatables:table id="emps" data="${empList}" row="emp" theme="bootstrap3" cssClass="table table-striped" pageable="true" export="pdf">
 	 <datatables:column title="EMPNO" cssStyle="width: 150px;" display="html">
-	    <c:out value="${emp.empno}"/>
+	    <a href="<c:url value='/emp?update=${emp.empno}'/>"><c:out value="${emp.empno}"/></a>
 	 </datatables:column>
 	 <datatables:column title="ENAME" property="ename" cssStyle="width: 200px;"/>
 	 <datatables:column title="JOB" property="job"/>
@@ -36,6 +36,9 @@
 	 <datatables:column cssClass="pc" cssCellClass="pc" title="SALARY" property="sal"/>
 	 <datatables:column cssClass="pc" cssCellClass="pc" title="COMMISSION" property="comm"/>
 	 <datatables:column title="DEPTNO" property="deptno" cssStyle="width: 100px;"/>
+	 <datatables:column title="DELETE" cssClass="pc" cssCellClass="pc" cssStyle="width: 50px;">
+	    <a href="<c:url value='/emp?delete=${emp.empno}'/>">Delete</a>
+	 </datatables:column>
 	 <datatables:export type="pdf" cssClass="btn pc" cssStyle="height: 25px;" />
 	 <datatables:export type="xls" cssClass="btn pc" cssStyle="height: 25px;" />
 	 <datatables:export type="csv" cssClass="btn pc" cssStyle="height: 25px;" />
