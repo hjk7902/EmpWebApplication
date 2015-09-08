@@ -1,0 +1,22 @@
+<!-- 파일명 : webstorage/storage_event.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script>
+	window.addEventListener("storage", function(event) {
+		console.log("수정된 key : " + event.key);
+		console.log("처음 값 : " + event.oldValue);
+		console.log("새로운 값 : " + event.newValue);
+		console.log("페이지 변경이 이루어지는 URL : " + event.url);
+		console.log("변경이 이루어지는 윈도우 : " + event.source);
+	});
+</script>
+</head>
+<body>
+개발자도구의 콘솔창을 열어 놓으세요. <br>
+그리고 다른 파일에서 localstorage에 데이터를 저장하는 예를 실행해보세요.
+
+</body>
+</html>

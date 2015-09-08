@@ -1,0 +1,38 @@
+<!-- 파일명 : webstorage/storage_json.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Storage &amp; JSON 테스트</title>
+<script>
+
+Storage.prototype.setObject = function(key, value) {
+    this.setItem(key, JSON.stringify(value));
+}
+Storage.prototype.getObject = function(key) {
+    return this.getItem(key) && JSON.parse(this.getItem(key));
+}
+
+var objA = {
+	stringValue : new String("Hello World"),
+	arrayValue : new Array("one", "two", "three")
+}
+
+localStorage.setObject("key1", objA);
+var itemA = localStorage.getObject("key1");
+console.log(itemA.stringValue);
+console.log(itemA.arrayValue.join());
+
+localStorage.setItem("key2", objA);
+var itemB = localStorage.getItem("key2");
+
+//Object item 로 선언하면서 참조객체는  JSON객체
+console.log(itemB.stringValue);
+console.log(itemB.arrayValue);
+
+</script>
+</head>
+<body>
+개발자도구를 통해 확인하세요.
+</body>
+</html>

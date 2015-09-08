@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Canvas</title>
+<link rel="stylesheet" type="text/css" href="./css/canvas.css">
+
+<script type="text/javascript">
+	var eCanvas = null;
+	var lColor = "#000000";
+	var ctx = null;
+	var lPainting = false;
+	var lX1 = -1;
+	var lY1 = -1;
+
+	function mouseDownLsnr( aEvent ) {
+		aEvent.preventDefault();
+		lPainting = true;
+		lX1 = aEvent.clientX - eCanvas.offsetLeft;
+		lY1 = aEvent.clientY - eCanvas.offsetTop;
+	}
+
+	function mouseMoveLsnr( aEvent ) {
+		aEvent.preventDefault();
+
+		if( lPainting ) {
+			var lX2 = aEvent.clientX - eCanvas.offsetLeft;
+			var lY2 = aEvent.clientY - eCanvas.offsetTop;
+
+			if( ctx != null ) {
+				ctx.beginPath();
+				ctx.moveTo( lX1, lY1 );
+				ctx.strokeStyle = lColor;
+				ctx.lineTo( lX2, lY2 );
+				ctx.stroke();
+				ctx.closePath();
+			}
+
+			lX1 = lX2;
+			lY1 = lY2;
+
+		}
+	}
+
+	function mouseUpLsnr( aEvent ) {
+		aEvent.preventDefault();
+
+		if( lPainting ) {
+			lX2 = aEvent.clientX - eCanvas.offsetLeft;
+			lY2 = aEvent.clientY - eCanvas.offsetTop;
+			if( ctx != null ) {
+				ctx.beginPath();
+				ctx.moveTo( lX1, lY1 );
+				ctx.strokeStyle = lColor;
+				ctx.lineTo( lX2, lY2 );
+				ctx.stroke();
+				ctx.closePath();
+			}
+			lPainting = false;
+		}
+	}
+	
+	function mouseOutLsnr( aEvent ) {
+		mouseUpLsnr( aEvent );
+	}
+
+	function selectColor(aColor ) {
+		lColor = aColor;
+		document.getElementById( "spanSettings" ).style.borderColor = lColor;
+	}
+
+	function doClear() {
+		if( eCanvas != null ) {
+			var lW = eCanvas.getAttribute( "width" );
+			var lH = eCanvas.getAttribute( "height" );
+			ctx.clearRect( 0, 0, lW, lH );
+		}
+	}
+
+	var lImgIdx = 0;
+	var lImages = new Array();
+
+	lImages[ 0 ] = new Image();
+	lImages[ 1 ] = new Image();
+	lImages[ 2 ] = new Image();
+
+	lImages[ 0 ].src = "1.jpg";
+	lImages[ 1 ].src = "2.jpg";
+	lImages[ 2 ].src = "3.jpg";
+
+	function paint() {
+		var lCanvas = document.getElementById( "canvas" );
+		lCanvas.clear = true;
+		var lContext = lCanvas.getContext( "2d" );
+
+		lContext.drawImage( lImages[ lImgIdx ], 0, 0 );
+		if ( lImgIdx >= 2 ) {
+			lImgIdx = 0;
+		} else {
+			lImgIdx++;
+		}
+	}
+
+	function initPage() {
+		eCanvas = document.getElementById( "canvas" );
+		ctx = eCanvas.getContext( "2d" );
+
+		eCanvas.addEventListener( "mousedown", mouseDownLsnr, false );
+		eCanvas.addEventListener( "mousemove", mouseMoveLsnr, false );
+		eCanvas.addEventListener( "mouseup", mouseUpLsnr, false );
+		eCanvas.addEventListener( "mouseout", mouseOutLsnr, false );
+
+	}
+</script>
+</head>
+
+<body onload="initPage()">
+<div> <!-- style="border:1px solid red" -->
+	<p>
+		<input class="sbtnDlg" id="sbtnClear" type="button" value="Clear" onclick="doClear();"
+			   title="Clears the current canvas.">&nbsp;
+		<input class="sbtnDlg" id="sbtnPaint" type="button" value="Paint" onclick="paint();"
+			   title="Paints some images on the canvas.">&nbsp;
+	</p>
+
+	<canvas id="canvas" width="240" height="240"
+			style="width:240px; height:240px; overflow:hidden; border:1px solid gray; cursor:crosshair; float:left" >
+	</canvas>
+	<div id="spanSettings" style="border:1px solid gray; position:relative;
+		 top: 0px; left: 5px; width:20px; height:157px; margin-bottom:80px; overflow:hidden">
+		<table border="0" cellspacing="2" cellpadding="1">
+			<colgroup><col width="20px"></colgroup>
+			<tr><td style="cursor: pointer; background-color: #000000" onclick="selectColor('#000000');"
+					title="black">&nbsp;</td></tr>
+			<tr><td style="cursor: pointer; background-color: #c0c0c0" onclick="selectColor('#c0c0c0');"
+					title="gray">&nbsp;</td></tr>
+			<tr><td style="cursor: pointer; background-color: #ff0000" onclick="selectColor('#ff0000');"
+					title="red">&nbsp;</td></tr>
+			<tr><td style="cursor: pointer; background-color: #ff00ff" onclick="selectColor('#ff00ff');"
+					title="magenta">&nbsp;</td></tr>
+			<tr><td style="cursor: pointer; background-color: #008000" onclick="selectColor('#008000');"
+					title="green">&nbsp;</td></tr>
+			<tr><td style="cursor: pointer; background-color: #0000ff" onclick="selectColor('#0000ff');"
+					title="blue">&nbsp;</td></tr>
+			<tr><td style="cursor: pointer; background-color: #ff9900" onclick="selectColor('#ff9900');"
+					title="cyan">&nbsp;</td></tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>

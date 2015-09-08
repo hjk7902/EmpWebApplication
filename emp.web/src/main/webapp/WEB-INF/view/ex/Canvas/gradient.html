@@ -1,0 +1,37 @@
+<!-- 파일명 : elements/canvas/gradient.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>gradient 예제</title>
+<script>
+window.onload = function() {
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	ctx.beginPath();
+	var grd=ctx.createLinearGradient(0,0,200,100);
+	grd.addColorStop(0,"#FF0000");
+	grd.addColorStop(1,"#00FF00");
+	ctx.fillStyle=grd;
+	ctx.fillRect(0,0,200,100);
+	ctx.closePath();
+	
+	ctx.beginPath();
+	var grd2 = ctx.createRadialGradient(100, 50, 30 , 100, 60, 50);
+	grd2.addColorStop(0, "#0000FF");
+	grd2.addColorStop(0.5, "#FF0000");
+	grd2.addColorStop(1, "#00FF00");
+	ctx.arc(100, 50, 30, 0, Math.PI*2, true);
+    ctx.fill();
+	ctx.fillStyle = grd2;
+	ctx.arc(100, 50, 50, 0, Math.PI*2, false);
+	ctx.fill();
+	ctx.closePath();
+}
+</script>
+</head>
+<body>
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;">
+브라우저가 canvas를 지원하지 않습니다.
+</canvas>
+</body>
+</html>

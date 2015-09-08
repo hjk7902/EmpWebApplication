@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>형재 선택자</title>
+<style type="text/css">
+p ~ span {
+	color : red;
+}
+p + span {
+	color : blue;
+}
+p + div {
+	font-size: 1.5em;
+}
+</style>
+</head>
+<body>
+<div>
+	<p>문단이 있습니다.</p>
+	<div>p태그와 형재인 바로 다음에 나오는 태그</div>
+	<span>p태그와 형재인 태그</span>
+</div>
+<span>p태그와 형재관계가 아닌 태그</span>
+</body>
+</html>

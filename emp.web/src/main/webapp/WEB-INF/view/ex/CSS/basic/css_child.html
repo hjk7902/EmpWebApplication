@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>후손과 자손 선택자</title>
+<style type="text/css">
+/* 자손, 태그가 바로 아래 포함하는 엘리먼트를 찾아준다. */
+div > span {
+	color: red;
+}
+/* 후손, 태그가 포함하는 다른 태그 안에 있는 엘리먼트도 찾아준다. */
+div span {
+	font-size: 1.5em;
+}
+</style>
+</head>
+<body>
+<div>
+	<p>단계별로 난이도를 조금씩 올리고 <span>예제를</span>
+	점진적으로 개선하는 방법을 선택해 <span>STL</span>의
+	동작원리와 구현 원리흘 학습한다.</p>
+	<span>뇌를 자극하는 C++ STL</span>
+</div>
+</body>
+</html>

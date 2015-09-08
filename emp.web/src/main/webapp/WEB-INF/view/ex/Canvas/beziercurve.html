@@ -1,0 +1,36 @@
+<!-- 파일명 : elements/canvas/beziercurve.html -->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>bezier curve 예제</title>
+<script>
+window.onload = function() {
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	ctx.beginPath();
+	ctx.strokeStyle = "#888888";
+	ctx.moveTo(70,145);
+	ctx.lineTo(55, 55)
+	ctx.lineTo(175, 55)
+	ctx.lineTo(270, 145);
+	ctx.stroke();
+	ctx.closePath();
+
+	ctx.beginPath();
+	ctx.strokeStyle = "#000000";
+	ctx.moveTo(70,145);
+	ctx.bezierCurveTo(55, 55, 175, 55, 270, 145);
+	ctx.stroke();
+	ctx.closePath();
+}
+</script>
+</head>
+<body>
+
+<canvas id="myCanvas" width="300" height="200" style="border:1px solid #c3c3c3;">
+브라우저가 canvas를 지원하지 않습니다.
+</canvas>
+<br>
+<img src="240px-bezier_3_big_derision.gif">
+</body>
+</html>

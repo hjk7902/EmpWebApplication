@@ -1,0 +1,38 @@
+<!-- 파일명 : drag_drop/dragout.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Drag out</title>
+<style>
+.dragout {
+	cursor: move;
+	background: #ddd;
+	padding: 6px;margin: 10px;
+    border: 1px solid #666;
+}
+</style>
+<script defer>
+window.onload = function() {
+   var files = document.querySelectorAll('.dragout');
+   for (var i=0, file; file=files[i]; ++i) {
+       file.setAttribute('draggable', 'true'); //실제 필요 없습니다. 연습삼아 넣었습니다.
+       file.addEventListener('dragstart', function(event) {
+           event.dataTransfer.setData('DownloadURL', this.getAttribute('data-downloadurl'));
+       }, false);
+   }
+}
+</script>
+</head>
+<body>
+<div>
+<section>
+	<h1>다운로드할 파일을 데스크탑으로 드래그 해보세요:</h1>
+	<div>
+	   <a href="./glasses.pdf" class="dragout" data-downloadurl="application/pdf: Chrome3DGlasses.pdf: http://consolution.co.kr/downloads/glasses.pdf">.pdf file</a>
+	</div>
+    <p>( Google Chrome에서만 사용할 수 있습니다. )</p>
+</section>
+</div>
+</body>
+</html>

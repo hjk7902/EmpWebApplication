@@ -1,0 +1,42 @@
+<!-- 파일명 : elements/global_attr/popup_badcase.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>공지사항</title>
+<meta charset="euc-kr">
+<script>
+window.onload = function() {
+    var links = document.querySelectorAll("a.popup");
+
+	for(i=0; i<links.length; i++) {
+		console.log(links[i]);
+		links[i].onclick = function(event) {
+			event.preventDefault();
+            window.open(this.href, "공지사항", "width=300,height=200");
+		}
+    }
+}
+</script>
+
+</head>
+<body>
+    <h1>Bad case 1.</h1>
+    <ul>
+        <li>
+            <a href='#' onclick="window.open('notice/info1.html', WinName, width=300, height=300);">공지사항</a>
+        </li>
+        <li>
+            <a href='notice/info1.html'onclick="window.open(this.href, WinName, width=300, height=300);">공지사항</a>
+        </li>
+    </ul>
+    <h1>Bad case 2.</h1>
+    <ul>
+        <li>
+            <a href="notice/info1.html" class="popup">공지사항 1</a>
+        </li>
+        <li>
+            <a href="notice/info2.html" class="popup">공지사항 2</a>
+        </li>
+    </ul>
+</body>
+</html>

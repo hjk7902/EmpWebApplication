@@ -1,0 +1,12 @@
+#net-status {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	text-align: right;
+	padding: 0px 10px;
+	border: solid 1px #e1c400;
+	font-size: 0.916em;
+	color: black;
+	background: #fff7c1;
+	opacity: 0.5;	
+}

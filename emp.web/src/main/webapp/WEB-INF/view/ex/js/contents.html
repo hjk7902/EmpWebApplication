@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = function() {
+	var pElement = document.querySelector("p");
+	console.log(pElement.innerHTML);
+	console.log(pElement.textContent);
+	
+	var textElement = document.querySelector("input[type='text']");
+	var buttonElement = document.querySelector("input[type='button']");
+	buttonElement.onclick = function() {
+		console.log(textElement.value);
+	}
+}
+</script>
+</head>
+<body>
+<p><span>이 부분은 SPAN태그 안에 있고</span>
+여기는 SPAN태그 밖에 있습니다</p>
+<input type="text">
+<input type="button" value="입력값 확인">
+</body>
+</html>

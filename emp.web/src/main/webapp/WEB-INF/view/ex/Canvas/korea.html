@@ -1,0 +1,105 @@
+<!-- 파일명 : elements/canvas/transformations.html -->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>transformations 예제</title>
+<script>
+window.onload = function() {
+	var canvas=document.getElementById("myCanvas");
+	var ctx=canvas.getContext("2d");
+
+	var width = 300;
+	var height = 200;
+	var r = height/4;
+	ctx.translate(width/2, height/2);
+	ctx.rotate(Math.atan(height/width));
+
+
+	ctx.beginPath();
+	ctx.fillStyle="#FF0000";
+	ctx.arc(0, 0, r, 0, Math.PI, true);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.fillStyle="#0000FF";
+	ctx.arc(0, 0, r, 0, Math.PI, false);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.fillStyle="#FF0000";
+	ctx.arc(-(r/2), 0, r/2, 0, Math.PI*2, false);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.fillStyle="#0000FF";
+	ctx.arc(+(r/2), 0, r/2, 0, Math.PI*2, true);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.rotate(-Math.atan(height/width));
+	ctx.translate(-width/2, -height/2);
+	ctx.strokeStyle="#000000";
+	ctx.lineWidth = 2*r/12;
+	ctx.moveTo(50, 62);
+	ctx.lineTo(78, 22);
+	ctx.moveTo(60, 69);
+	ctx.lineTo(88, 29);
+	ctx.moveTo(70, 76);
+	ctx.lineTo(98, 36);
+
+	ctx.moveTo(50, 137);
+	ctx.lineTo(78, 178);
+	ctx.moveTo(60, 130);
+	ctx.lineTo(88, 171);
+	ctx.moveTo(70, 123);
+	ctx.lineTo(98, 165);
+	
+	ctx.moveTo(250, 62);
+	ctx.lineTo(223, 22);
+	ctx.moveTo(240, 69);
+	ctx.lineTo(213, 29);
+	ctx.moveTo(230, 76);
+	ctx.lineTo(203, 36);
+
+	ctx.moveTo(250, 137);
+	ctx.lineTo(223, 178);
+	ctx.moveTo(240, 130);
+	ctx.lineTo(213, 171);
+	ctx.moveTo(230, 123);
+	ctx.lineTo(203, 165);
+	
+	ctx.stroke();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.strokeStyle="#FFFFFF";
+	ctx.lineWidth = 2*r/24;
+	ctx.moveTo(69, 155);
+	ctx.lineTo(78, 148);
+	
+	ctx.moveTo(221, 53);
+	ctx.lineTo(212, 59);
+	
+	ctx.moveTo(233, 45);
+	ctx.lineTo(243, 38);
+	
+	ctx.moveTo(209, 140);
+	ctx.lineTo(246, 165);
+	
+	ctx.stroke();
+	ctx.closePath();
+}
+</script>
+</head>
+<body>
+
+<canvas id="myCanvas" width="300" height="200" style="border:1px solid #c3c3c3;">
+브라우저가 canvas를 지원하지 않습니다.
+</canvas>
+
+</body>
+</html>

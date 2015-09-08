@@ -1,0 +1,70 @@
+<!-- ���ϸ� : elements/video_audio/video.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>video</title>
+<script>
+window.onload = function() {
+    var video = document.getElementById("video");
+    var videoUrl = video.currentSrc;
+    console.log(videoUrl);
+    
+    video.addEventListener("timeupdate",  function(event){
+        var progress = document.getElementById("time");
+        var percent = this.currentTime / this.duration;
+        progress.value = percent;  
+    });
+
+    var playButton = document.createElement("input");
+    playButton.id = "playButton";
+    playButton.type = "button";
+    playButton.value = "Pause";
+    console.log(playButton);
+    video.parentNode.appendChild(playButton);
+
+    playButton.onclick = function(event) {
+        event.preventDefault();
+        if(video.paused) {
+            if(videoUrl != video.currentSrc) {
+                video.src = videoUrl;
+                video.load();
+            }else {
+                video.play();
+            }
+            this.value = "Pause";
+        }else {
+            video.pause();
+            this.value = "Play";
+        }
+    }
+    
+    var fullButton = document.createElement("input");
+    fullButton.id = "fullScreen";
+    fullButton.type = "button";
+    fullButton.value = "Full Screen";
+    console.log(fullButton);
+    video.parentNode.appendChild(fullButton);
+    
+    fullButton.onclick = function() {
+		if (video.requestFullscreen) {
+		    video.requestFullscreen();
+		}
+		else if (video.mozRequestFullScreen) {
+		    video.mozRequestFullScreen();
+		}
+		else if (video.webkitRequestFullScreen) {
+		    video.webkitRequestFullScreen();
+		}
+    }
+}
+
+</script>
+</head>
+<body>
+<video id="video" width="400" height="300" autoplay >
+    <source src="mov_bbb.mp4"></source>
+    <source src="mov_bbb.ogg"></source>
+</video><br>
+<progress id="time"></progress>
+</body>
+</html>

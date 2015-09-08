@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Shared Worker 테스트</title>
+<script type="text/javascript">
+window.onload = function(){
+    var sw = new SharedWorker("dowork.js","work");
+
+    document.getElementById("send").onclick = function(){
+        var msg = document.getElementById("msg").value;
+        // TODO 워커에 메세지 전송
+        sw.port.postMessage(msg);
+		
+        //location.href="end.html";
+		window.open("end.html")
+    };
+}
+</script>
+</head>
+<body>
+    <h1>공유 워커 작업시작</h1>
+    <div>
+        <input type="text" id="msg" />
+        <input type="button" value="작업시작" id="send"/><br/>
+    </div>
+</body>
+</html>

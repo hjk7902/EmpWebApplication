@@ -1,0 +1,31 @@
+<!-- 파일명 : drag_drop/event_bubbling.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>이벤트 버블링</title>
+<script>
+window.onload = function(){
+	var a = document.getElementById("a");
+	var b = document.getElementById("b");
+	a.onclick = function(event) {
+		console.log('a');
+	}
+	b.onclick = function(event) {
+		event.preventDefault();
+		console.log('b');
+		event.stopPropagation();//event bubbling을 방지
+	}
+}
+</script>
+</head>
+<body>
+<p>개발자도구 -> Console 탭을 열고 클릭 결과를 확인하세요.</p>
+<div id="a">
+	<p>클릭하면 a가 출력되는 곳</p>
+	<div id="b">
+		<p>클릭하면 b가 출력되는곳</p>
+	</div>
+</div>
+</body>
+</html>

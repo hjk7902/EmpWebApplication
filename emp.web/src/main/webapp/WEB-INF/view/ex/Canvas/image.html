@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>image 예제</title>
+</head>
+<script>
+window.onload = function() {
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	ctx.beginPath();
+	var img = new Image();
+	img.src = "drawing/end/2.jpg";
+	
+	img.onload = function() {
+		ctx.drawImage(img, 0, 0);
+		var imgData = ctx.getImageData(10, 10, 60, 60);
+		for(var i=0; i<imgData.data.length; i++) {
+		    if(i%4 == 3) {
+		        imgData.data[i] = 255*0.7; //0.7은 투명도 70%
+		    }
+		}
+		ctx.putImageData(imgData, 100, 60);
+	}
+}
+</script>
+<body>
+<canvas id="myCanvas" width="240" height="120" style="border:1px solid #c3c3c3;"></canvas>
+</body>
+</html>

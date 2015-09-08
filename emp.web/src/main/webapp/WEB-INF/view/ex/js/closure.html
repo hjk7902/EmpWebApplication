@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript">
+function outer() {
+	var x=0;
+	return function() {
+		return ++x;
+	}
+}
+var f = outer();
+var g = outer();
+console.log(f());
+console.log(f());
+console.log(f());
+console.log("----------------");
+console.log(g());
+console.log(g());
+console.log(g());
+</script>
+</head>
+<body>
+
+</body>
+</html>

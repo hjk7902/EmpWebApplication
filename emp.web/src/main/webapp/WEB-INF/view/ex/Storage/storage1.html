@@ -1,0 +1,29 @@
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Web Storage Demo</title>
+  <meta   charset="utf-8"> 
+</head>
+<body> 
+
+  <h1>Web Storage Demo</h1>
+  <script>
+    if (typeof(localStorage) == 'undefined' ) {
+      alert('당신의 브라우저는 HTML5 localStorage를 지원하지 않습니다. 브라우저를 업그레이드하세요.');
+    } else {
+      try {
+        localStorage.setItem("name", "Hello World!"); // key-value 형식으로 저장
+      } catch (e) {
+         if (e == QUOTA_EXCEEDED_ERR) {
+           alert('할당량 초과!'); // 할당량 초과로 인하여 데이터를 저장할 수 없음
+        }
+      }
+     
+      document.write(localStorage.getItem("name")); // 저장된 값 호출
+      localStorage.removeItem("name"); // 스토리지로 부터 일치하는 아이템 삭제
+    }
+  </script>
+
+</body> 
+</html> 

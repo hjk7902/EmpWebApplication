@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>circle 예제</title>
+<script>
+window.onload = function() {
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+
+	ctx.beginPath();
+	ctx.fillStyle="#FF0000";
+	ctx.arc(100, 50, 30, 0, Math.PI, true);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.fillStyle="#0000FF";
+	ctx.arc(100, 50, 30, 0, Math.PI, false);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.fillStyle="#FF0000";
+	ctx.arc(100-15, 50, 30/2, 0, Math.PI, false);
+	ctx.fill();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.fillStyle="#0000FF";
+	ctx.arc(100+15, 50, 30/2, 0, Math.PI, true);
+	ctx.fill();
+	ctx.closePath();
+}
+</script>
+</head>
+<body>
+
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;">
+브라우저가 canvas를 지원하지 않습니다.
+</canvas>
+
+</body>
+</html>

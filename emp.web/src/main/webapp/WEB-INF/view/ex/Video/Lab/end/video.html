@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>video</title>
+<style>
+#time, #seekbar { width: 400px; }
+</style>
+<script>
+//페이지가 로드되면 실행
+window.onload = function() {
+	//video 엘리먼트의 DOM객체를 반환받아 저장
+    var video = document.querySelector("#video");
+    var videoUrl = video.currentSrc;//현재 플레이되고 있는 파일의 경로
+    console.log(videoUrl);//개발자도구 -> Console에 출력
+ 
+    //id 속성의 값이 time인 엘리먼트를 찾는다.
+    var progress = document.querySelector("#time");
+    
+    //video 엘리먼트에 이벤트 설정, timeupdate 이벤트
+    video.addEventListener("timeupdate", function(event){
+    	//현재 플레이시간/총시간 -> percent에 저장
+        var percent = this.currentTime / this.duration;
+        progress.value = percent;  //Progress 엘리먼트의 값으로 설정
+    });
+    
+    //input 엘리먼트를 생성한다.
+    var playButton = document.createElement("input");
+    //만들어진 input엘리먼트에 속성을 부여
+    playButton.id = "playButton";
+    playButton.type = "button"; //input 요소가 버튼이 되도록
+    playButton.value = "Pause"; //버튼의 이름
+    console.log(playButton);
+    //video 엘리먼트의 부모 엘리먼트
+    video.parentNode.appendChild(playButton);
+    
+    //플레이버튼의 클릭 이벤트 설정
+    playButton.onclick = function(event) {
+        event.preventDefault();//버튼이 가지고 있는 기본 이벤트 취소
+        if(video.paused) { //비디오가 중단된 상태이면
+            if(videoUrl != video.currentSrc) {
+                video.src = videoUrl;
+                video.load();  //비디오를 로드시킴
+            }else {
+                video.play();  //플레이되는 도중에 중단되었기 때문에 다시 플레이
+            }
+            this.value = "Pause"; //플레이버튼의 레이블을 Pause로 변경
+        }else {
+            video.pause();  //비디오를 중단시킴
+            this.value = "Play"; //플레이버튼의 레이블을 Play로 변경
+        }
+    };
+    
+    
+    //풀스크린을 지원하는 브라우저에 풀스크린 기능을 추가하기 위한 코드
+    if(video.requestFullscreen || video.mozRequestFullScreen || video.webkitRequestFullScreen) {
+    	//엘리먼트 생성 - 풀스크린버튼
+        var fullButton = document.createElement("input");
+        fullButton.id = "fullScreen";
+        fullButton.type = "button"; //버튼 엘리먼트가 되도록 함
+        fullButton.value = "Full Screen";//버튼의 레이블
+        console.log(fullButton);
+        video.parentNode.appendChild(fullButton);//body태그의 맨 아래에
+    
+        //풀스크린버튼이 클릭되면
+        fullButton.onclick = function() {
+        	//var fullScreen = video.requestFullscreen || video.mozRequestFullScreen || video.webkitRequestFullScreen; 
+			//if(fullScreen) {
+			//	fullScreen();
+			//}
+        	if (video.requestFullscreen) {
+                video.requestFullscreen();
+            }
+            else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            }
+            else if (video.webkitRequestFullScreen) {
+                video.webkitRequestFullScreen();
+            }
+        };
+    }
+    
+    //슬라이더 컨트롤을 찾아서(range)
+    var range = document.querySelector("#seekbar");
+    
+    //슬라이더 컨트롤의 위치가 변경되면
+    //현재 플레이 시간을 변경
+    range.addEventListener("click", function(event) {
+        video.currentTime = this.value / video.duration ;
+    });
+};
+</script>
+</head>
+<body>
+
+<video id="video" width="400" height="300" autoplay >
+    <source src="mov_bbb.mp4" />
+    <source src="mov_bbb.ogg" />
+</video><br>
+
+<progress id="time"></progress><br>
+
+<input type="range" id="seekbar" min="0" max="100"><br>
+
+<!-- 이 곳은 vodeo.parentNode.appendChild()할 때 엘리먼트가 추가되는 곳 -->
+</body>
+</html>

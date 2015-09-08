@@ -1,0 +1,40 @@
+input[type="button"].sbtnDlg {
+	font-size: 10pt;
+	font-family: inherit;
+	border: 1px solid #808080;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	margin: 1px;
+	color: white;
+	background-color: #81a0b5;
+	width: 100px;
+}
+
+input[type="button"].sbtnDlg:hover {
+	margin: 1px;
+	background-color: #006bb5;
+}
+
+input[type="button"].sbtnDlg:active {
+	margin: 1px;
+	font-weight: bold;
+	background-color: #006bb5;
+}
+
+input[type="button"].sbtnDlg:focus {
+	margin: 0px;
+	font-weight: bold;
+	background-color: #006bb5;
+}
+
+input[type="button"].inpBtnEm {
+	border: 1px solid #444;
+	margin: 1px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 11pt;
+	color: white;
+	background-color: #81a0b5;
+	width:140px;
+	height:22px;
+}

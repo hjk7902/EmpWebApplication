@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script> 
+function f_disp1(form){
+	alert("입력한 이름은 "+form.txt1.value+" 입니다,");
+} 
+function f_disp2(form){ 
+	form.txt3.value="19" + form.txt2.value.substring(0, 2);
+}
+</script>
+</head>
+<body>
+<form name=frm1>
+이름: <input type=text name=txt1 value=홍길동 onblur=f_disp1(this.form)><br>
+주민번호: <input type=text name=txt2 onblur=f_disp2(this.form)><br> 
+생일: <input type=text name=txt3 size=4>년 
+</form> 
+</body>
+<p>
+<form name=frm2>
+이름: <input type=text name=txt1 value=홍길동 onchange=f_disp1(this.form)><br>
+주민번호: <input type=text name=txt2 onchange=f_disp2(this.form)><br> 
+생일: <input type=text name=txt3 size=4>년 
+</form> 
+</body>  
+</html>

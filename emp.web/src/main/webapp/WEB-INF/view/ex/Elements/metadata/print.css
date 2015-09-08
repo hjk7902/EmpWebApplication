@@ -1,0 +1,4 @@
+/* ÆÄÀÏ¸í : print.css */
+a:after {
+	content: " (" attr(href) ") ";
+}

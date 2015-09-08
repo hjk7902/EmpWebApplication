@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Copyright ?Microsoft Corporation. All Rights Reserved. -->
+    <!-- Demo Author: TBD, Microsoft Corporation -->   
+    <!-- [insert credits here] --> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="IE10 Test Drive Demo" />
+    <meta name="t_omni_demopage" content="1" />
+    <title>requestAnimationFrame API</title>
+    <link rel="stylesheet" type="text/css" href="./css/BaseStyles.css" />
+    <link rel="stylesheet" type="text/css" href="./css/DemoTemplate.css" />
+    <link rel="stylesheet" type="text/css" href="./css/ReturnAndShareControls.css" />
+    <link rel="stylesheet" type="text/css" href="./css/Demo.css" />
+    <link rel="shortcut icon" href="../../Includes/Image/FavIcon.ico" />
+    <script type="text/javascript" src="./js/FeatureDetection.js" data-detect=""></script>	
+</head>
+<body>
+    <div id="ReturnAndShareControls"></div>    
+    <h1 id="DemoTitle">
+        requestAnimationFrame API
+    </h1>
+    <div id="DemoScreenreaderText">
+        Screenreader Text Goes Here
+    </div>
+    <div id="DemoIntroduction">
+        <p>
+            The <a href="http://www.w3.org/TR/animation-timing/">requestAnimationFrame API</a> 
+            gives web developers a means to create power efficient and smooth animations.
+            This API will take page visibility and the display's refresh rate into account to 
+            determine how many frames per second to allocate to the animation. 
+            In this demo, the left clock animation is powered by <code>setTimeout</code>, and
+            the right clock animation is powered by <code>requestAnimationFrame</code>. The time 
+            shown is the same as both clocks are animated using time based animation. However, 
+            the <code>requestAnimationFrame</code> based clock is smoother and more efficient. 
+            Try changing the setTimeout period or minimizing your browser to see the difference in efficiency. 
+        </p>
+    </div>
+    <div id="DemoContent" >
+        <div id="leftPane" >
+            <div id="leftTitle">
+                    <b>setTimeout based animations</b> - 
+                    <a id="period1" href="#" onclick="updatePeriod(1)">1ms</a> / <a id="period10" href="#" style="text-decoration:underline;" onclick="updatePeriod(10)">10ms</a> / <a id="period1000" href="#" onclick="updatePeriod(15)">15ms</a>
+            </div>
+            <table>
+                <tr>
+                    <td>Expected callbacks: </td>
+                    <td id="leftExpectedCallbacks"> 0</td>
+                </tr>
+                <tr>
+                    <td>Actual callbacks: </td>
+                    <td id="leftActualCallbacks"> 0</td>                
+                </tr>
+                <tr>
+                    <td>Callback Efficiency: </td>
+                    <td id="leftCallbackEfficency"> 100%</td>
+                </tr>
+                <tr>
+                    <td>CPU Efficiency: </td>
+                    <td id="leftCPUEfficency" style="color:orange;">Medium</td>
+                </tr>
+                <tr>
+                    <td>Power Consumption: </td>
+                    <td id="leftPowerConsumption" style="color:orange;"> Medium</td>
+                </tr>
+                <tr>
+                    <td>Background Interference: </td>
+                    <td id="leftBackgroundInterference" style="color:red;">High</td>
+                </tr>
+            </table> 
+            <br /><br />
+            <canvas id="leftCanvas" width="350" height="350"></canvas>
+        </div>
+        <div id="rightPane">
+            <div id="rightTitle"><b>requestAnimationFrame based animations</b></div>
+            <table>
+                <tr>
+                    <td>Actual callbacks: </td>
+                    <td id="rightActualCallbacks"> 0</td>
+                </tr>
+                <tr>
+                    <td>Expected callbacks: </td>
+                    <td id="rightExpectedCallbacks"> 0</td>
+                </tr>
+                <tr>
+                    <td>Callback Efficiency: </td>
+                    <td id="rightCallbackEfficency"> 100%</td>
+                </tr>
+                <tr>
+                    <td>CPU Efficiency: </td>
+                    <td id="rightCPUEfficency" style="color:Green;">High</td>
+                </tr>
+                <tr>
+                    <td>Power Consumption: </td>
+                    <td id="rightPowerConsumption" style="color:Green;">Low</td>
+                </tr>
+                <tr>
+                    <td>Background Interference: </td>
+                    <td id="rightBackgroundInterference" style="color:green;">Low</td>
+                </tr>
+            </table> 
+            <br /><br />
+            <canvas id="rightCanvas" width="350" height="350"></canvas>
+        </div>
+        <div id="DemoWarning">
+            Your browser does not currently support the requestAnimationFrame API, an emerging 
+        specification in the <a href="http://www.w3.org/2010/webperf/">Web Performance Working Group</a>.
+        </div>
+        <img id="img1" src="fancyclock.png" style="display:none;">
+        <img id="img2" src="hour.png" style="display:none;">
+        <img id="img3" src="minute.png" style="display:none;">
+        <img id="img4" src="second.png" style="display:none;">
+    </div>
+    <div id="DemoDetails">
+       <h4>About the requestAnimationFrame API</h4>
+        <p>
+            Until now, the web platform did not provide an efficient means for web developers
+            to schedule graphics timers for animations. Animations are commonly overdrawing ?
+            causing choppier animations and increased power consumption. Further efficiency is 
+            lost as animations are drawn without knowledge of whether the page is visible to the user.
+        </p>
+        <p>
+           For example, most animations use a timer period of less than 16.7ms to draw animations, 
+           even though most monitors can only display at 60Hz frequency or 16.7ms periods. For example,
+           using setTimeout with a 10ms period results in every third callback not being painted, as
+           another callback occurs prior to the display refresh. This overdrawing results in not only
+           choppy animations, as every third frame being lost, but an overall increased resource consumption. 
+           This can be seen in the power consumption and CPU efficiency ratings above. Try changing the setTimeout period;
+           you will be able to see that the animation on the left is slightly choppy and has a higher
+           resource consumption than the animation on the right. 
+        </p>
+        <p>
+           The requestAnimationFrame API also takes the visibility of the page into account. Without knowing 
+           the visibility state of a page, timers typically fire as if the page is always visible. Try minimizing
+           the browser for a few moments and then return to this demo. You will notice that the animation 
+           using requestAnimationFrame has had fewer callbacks than the animation using setTimeout. This is 
+           because requestAnimationFrame will automatically throttle callbacks when the page is not visible, to be
+           more power conscious. Because of this reason, setTimeout always has higher background interference than 
+           requestAnimationFrame.
+        </p>
+        <p>
+           The requestAnimationFrame API is being designed in the <a href="http://www.w3.org/2010/webperf/">Web 
+           Performance Working Group</a>. As this API is an emerging standard, this interface has been implemented 
+           with a <code>ms</code> vendor prefix. Special thanks to the Google, Mozilla and other members of the working 
+           group in helping design this interface.
+        </p>
+
+    </div>
+    <script type="text/javascript" src="./js/Demo.js"></script>
+    <script type="text/javascript" src="./js/TestDriveCommon.js"></script>
+    <script type="text/javascript" src="./js/ReturnAndShareControls.js"></script>
+</body>
+</html>

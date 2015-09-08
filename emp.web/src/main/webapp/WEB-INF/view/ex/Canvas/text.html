@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>text 예제</title>
+<script>
+window.onload = function() {
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	var txt="Hello World"
+	ctx.font="30px Arial";
+	ctx.fillText(txt, 10, 50);
+	ctx.strokeText(txt, 10, 90);
+	console.log(ctx.measureText(txt));
+	ctx.fillText("width:" + ctx.measureText(txt).width, 10, 130);
+}
+</script>
+</head>
+<body>
+
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid #d3d3d3;">
+브라우저가 canvas를 지원하지 않습니다.</canvas>
+
+</body>
+</html>
+

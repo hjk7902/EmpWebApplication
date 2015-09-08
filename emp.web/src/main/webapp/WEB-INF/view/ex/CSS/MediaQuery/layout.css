@@ -1,0 +1,36 @@
+/* ÆÄÀÏ¸í : layout.css */
+#content {
+	column-gap: 20px;
+    column-rule: 1px solid #ddccb5;
+    -webkit-column-gap: 20px;
+    -webkit-column-rule: 1px solid #ddccb5;
+	-moz-column-gap: 20px;
+    -moz-column-rule: 1px solid #ddccb5;
+}
+
+@media screen and (min-width:1024px) {
+    #content {
+        color: blue;
+        -webkit-column-count: 4;
+    }
+}
+
+@media screen and (min-width:640px) and (max-width:1023px) {
+    #content {
+        color: red;
+        -webkit-column-count: 3;
+    }
+}
+
+@media screen and (min-width:420px) and (max-width:639px) {
+    #content {
+        color: green;
+        -webkit-column-count: 2;
+    }
+}
+@media screen and (max-width:419px) {
+    #content {
+        color: green;
+        -webkit-column-count: 1;
+    }
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="content-language" content="ko">
+<title>Emp 정보 입력</title>
+<link rel="stylesheet" href="default.css" type="text/css" >
+</head>
+<body>
+<!-- wrap start -->
+<div id="wrap">	
+
+	<div id="middle_content">
+		<!-- 현재위치 네비게이션 시작 -->
+		<div id="cur_loc">
+			<div id="cur_loc_align">
+				<ul>
+					<li>HOME</li>
+					<li>&gt;</li>
+					<li>테이블 관리</li>
+					<li>&gt;</li>
+					<li><strong>Emp 테이블 관리</strong></li>
+				</ul>
+			</div>
+		</div>
+		<div id="content_field">
+			<!-- 여기부터 본문의 내용이 들어갑니다. -->
+			<div class="form_div">
+			<div><h2>Emp 정보</h2></div>
+				<h3></h3>
+				<form action="http://consolution.co.kr/form_result.jsp" method="post">
+				<table>
+				<tr>
+				<td>사원번호 : </td>
+				<td><input type="text" name="empno" value=""
+					></td>
+				</tr>
+				<tr>
+				<td>이름 : </td>
+				<td><input type="text" name="ename" value=""></td>
+				</tr>
+				<tr>
+				<td>성별 : </td>
+				<td><label><input type="radio" name="sex" value="M">남자</label> <label><input type="radio" name="sex" value="F">여자</label></td>
+				</tr>
+				<tr>
+				<td>직업 : </td>
+				<td><input type="text" name="job" value=""></td>
+				</tr>
+				<tr>
+				<td>상사 : </td>
+				<td><select name="mgr">
+						
+						<option value="7369" >
+						7369
+						</option>
+						
+						<option value="7499" >
+						7499
+						</option>
+						
+						<option value="7521" >
+						7521
+						</option>
+						
+						<option value="7566" >
+						7566
+						</option>
+						
+						<option value="7654" >
+						7654
+						</option>
+						
+						<option value="7698" >
+						7698
+						</option>
+						
+						<option value="7782" >
+						7782
+						</option>
+						
+						<option value="7788" >
+						7788
+						</option>
+						
+						<option value="7839" >
+						7839
+						</option>
+						
+						<option value="7844" >
+						7844
+						</option>
+						
+						<option value="7876" >
+						7876
+						</option>
+						
+						<option value="7900" >
+						7900
+						</option>
+						
+						<option value="7902" >
+						7902
+						</option>
+						
+						<option value="7934" >
+						7934
+						</option>
+						
+					</select></td>
+				</tr>
+				<tr>
+				<td>입사일 : </td>
+				<td><input type="text" name="hiredate" value='' placeholder="2012-01-01">예: 2012-01-01</td>
+				</tr>
+				<tr>
+				<td>급여 : </td>
+				<td><input type="text" name="sal" value=""></td>
+				</tr>
+				<tr>
+				<td>커미션 : </td>
+				<td><input type="text" name="comm" value=""></td>
+				</tr>
+				<tr>
+				<td>부서번호 : </td>
+				<td><select name="deptno">
+						
+						<option value="10" >
+						10 ACCOUNTING NEW YORK
+						</option>
+						
+						<option value="20" >
+						20 RESEARCH DALLAS
+						</option>
+						
+						<option value="30" >
+						30 SALES CHICAGO
+						</option>
+						
+						<option value="40" >
+						40 OPERATIONS BOSTON
+						</option>
+						
+					</select></td>
+				</tr>
+				<tr>
+				<td></td><td><input type="submit" value='  저장  '>
+				<input type="reset" value=" 취소 "></td>
+				</tr>
+				</table>
+				</form>
+			</div>
+			<!-- 여기까지 본문의 내용입니다. -->
+		</div>
+	</div>
+</div>
+
+<!-- //wrap end -->
+</body>
+</html>

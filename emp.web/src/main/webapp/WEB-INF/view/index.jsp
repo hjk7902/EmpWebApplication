@@ -12,12 +12,12 @@
 	<div class="pg-opt">
         <div class="row">
             <div class="col-md-6">
-                <h2><a href="<c:url value='/'/>">Dashboard</a></h2>
+                <h2><fmt:message key="HOME"/></h2>
             </div>
             <div class="col-md-6">
                 <ol class="breadcrumb">
-                    <li>Dashboard</li>
-                    <li class="active"><a href="<c:url value='/'/>">Home</a></li>
+                    <li><fmt:message key="DASHBOARD"/></li>
+                    <li class="active"><fmt:message key="HOME"/></li>
                 </ol>
             </div>
         </div>

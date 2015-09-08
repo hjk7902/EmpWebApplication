@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Enent Test</title>
+<script type="text/javascript">
+function handler() {
+	console.log("이벤트 발생함");
+}
+window.onload = function() {
+	var pElement = document.querySelector("#two");
+	pElement.onclick = function() {
+		console.log(pElement.textContent);
+		console.log(event);//파라미터로 event를 정의하지 않아도 evnet 객체 전달됨
+	}
+	
+	var naverElement = document.querySelector("#naver");
+	naverElement.onclick = function(event) {
+		event.preventDefault();//엘리먼트의 기본 액션을 취소시킴
+		console.log(naverElement.href);
+		//return false;//엘리먼트의 기본 액션을 취소시킴
+	}
+	
+	//var threeElement = document.querySelector("#three");
+	var threeElement = document.getElementById("three");
+	threeElement.addEventListener("click", function() {
+		console.log(threeElement.textContent);	
+	});
+};
+</script>
+</head>
+<body>
+개발자 도구에서 확인하세요.
+<p onclick="handler()">첫 번째 문장입니다.</p>
+<p id="two">두 번째 문장입니다.</p>
+<a href="http://www.naver.com" id="naver">네이버</a>
+<p id="three">세 번째 문장입니다.</p>
+
+</body>
+</html>

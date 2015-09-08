@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>css link</title>
+<style type="text/css">
+a { text-decoration: none; } /*링크되는 곳의 밑줄을 없앰*/
+a:link, a:visited { color: red; } /*링크되는 곳의 글자 색을 빨간색 */
+a:hover { text-decoration: underline; } /* 마우스를 위치시키면 밑줄 */
+@media print { /*프린터로 출력시에 적용할 스타일 */
+	a:link, a:visited { color: black;}
+	a:link::after { content: ' (' attr(href) ') '; }
+}
+</style>
+</head>
+<body>
+<h1>CSS Link</h1>
+<h2><a href="http://www.w3schools.com">W3Schools</a></h2>
+<h2><a href="http://www.consolbook.com">ConSolBook</a></h2>
+<h2><a href="http://www.w3.org">W3C</a></h2>
+</body>
+</html>

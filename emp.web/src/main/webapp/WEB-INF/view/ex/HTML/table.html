@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+table은 표를 만들어 줍니다.<br>
+caption은 표의 제목을 만들어 줍니다.<br>
+thead, tfoot와 tbody는 표의 헤더, 푸터, 표의 바디를 구분합니다.<br>
+tr(table row)은 행을 만들어줍니다.<br>
+td(table data)는 행에 들어가는 셀 하나를 만들어줍니다.<br>
+th(table header)는 td 대신 제목 셀을 표현할 때 사용합니다.<br>
+<hr>
+<table width="80%" border="1" cellspacing="0" cellpadding="5"
+ 	style="border-collapse:collapse" align="center">
+<caption>표의 제목입니다.</caption>
+<tr align="center" bgcolor="red">
+	<td colspan="2">셀 하나</td>
+	<!-- td>셀 하나</td-->
+	<td bgcolor="yellow">셀 하나</td>
+</tr>
+<tr>
+	<td bgcolor="blue">셀 하나</td>
+	<td>셀 하나</td>
+	<td rowspan="2">셀 하나</td>
+</tr>
+<tr>
+	<td>셀 하나</td>
+	<td>셀 하나</td>
+	<!-- td>셀 하나</td-->
+</tr>
+</table>
+
+</body>
+</html>

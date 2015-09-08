@@ -1,0 +1,34 @@
+<!-- 파일명 : server-sent-event/stockdisplay.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>server sent event</title>
+<script type="text/javascript">
+window.onload = function() {
+    var source = new EventSource("stockserver.jsp");
+    source.addEventListener(
+        "message", 
+        function(event) {
+            var data = event.data.split("\n");
+            var symbol = data[0];
+            var delta = parseInt(data[1], 10);
+            var cell = document.getElementById(symbol);
+            var currentValue = parseInt(cell.textContent, 10);
+            cell.textContent = currentValue + delta;
+        }, 
+        false
+    );
+};
+</script>
+</head>
+<body>
+<h1>Server-Sent Event 예제</h1>
+<p>주가를 실시간으로 표시합니다.</p>
+<table border="1">
+<tr><th>Samsung</th><th>LG</th><th>ConSolution</th></tr>
+<tr><td id="Samsung">100</td><td id="LG">100</td><td id="ConSolution">100</td></tr>
+</table>
+
+</body>
+</html>

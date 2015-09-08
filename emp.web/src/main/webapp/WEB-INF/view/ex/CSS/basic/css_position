@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS3 Property Basic</title>
+    <style>    	
+        body > div {/*p221*/
+            width: 400px; height: 100px;
+            border: 3px solid black;
+            position: relative; 
+            overflow: scroll;
+        }
+        .box { /*p218*/
+            width: 100px; height: 100px; 
+            position: absolute; /*fixed를 absolute*/
+        }
+        .box:nth-child(1) {
+            background-color: red;
+            left: 10px; top: 10px;
+            z-index: 100;
+        }
+        .box:nth-child(2) {
+            background-color: green;
+            left: 50px; top: 50px;
+            z-index: 10;
+        }
+        .box:nth-child(3) { 
+            background-color: blue;
+            left: 90px; top: 90px;
+            z-index: 1;
+        }     
+    </style>
+</head>
+<!--  p218, 219,221 -->
+<body>
+    <h1>Lorem ipsum dolor amet</h1>
+    <div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    <h1>Lorem ipsum dolor amet</h1>
+</body>
+</html>

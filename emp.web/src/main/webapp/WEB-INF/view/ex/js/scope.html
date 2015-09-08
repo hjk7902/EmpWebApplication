@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript">
+function sum(num) {
+	var result=0;
+	for(var i=0; i<=num; i++) {
+		result = result + i;
+	}
+	console.log(result);
+	console.log(i);//자바스크립트에서 변수의 유효범위는
+	// scope{ }가 아니고 함수이다.
+	{
+		var data = 10;
+	}
+	console.log(data);
+}
+sum(100);
+</script>
+</head>
+<body>
+개발자도구를 열어 확인하세요.
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>image ¿¹Á¦</title>
+</head>
+<script>
+window.onload = function() {
+	var canvas=document.getElementById("myCanvas");
+	var ctx=canvas.getContext("2d");
+
+	ctx.fillStyle="red";
+	ctx.fillRect(20,20,75,50);
+	ctx.fillStyle="blue";	
+	ctx.globalAlpha=0.2;
+	ctx.fillRect(50,50,75,50);
+
+	ctx.globalAlpha=1;
+	ctx.fillStyle="red";
+	ctx.fillRect(150,20,75,50);
+	ctx.fillStyle="blue";
+	ctx.globalCompositeOperation="source-over";
+	ctx.fillRect(180,50,75,50);	
+	
+	ctx.fillStyle="red";
+	ctx.fillRect(280,20,75,50);
+	ctx.fillStyle="blue";
+	ctx.globalCompositeOperation="destination-over";
+	ctx.fillRect(310,50,75,50);	
+}
+</script>
+<body>
+<canvas id="myCanvas" width="400" height="120" style="border:1px solid #c3c3c3;"></canvas>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!-- 파일명 : drag_drop/cart/index.html -->
+<!DOCTYPE html>
+<html manifest="cart.manifest">
+<head>
+    <meta charset="utf-8" />
+    <title>Drag and Drop Shopping Cart</title>
+    <link rel="stylesheet" href="default.css" />
+<script>
+window.onload = function() {
+	var msg = document.querySelector(".statusmsg");
+	var submit = document.querySelector("input[type=submit]");
+	
+	//브라우저가 페이지를 로딩했을 때 네트워크 상태 체크
+	var status = navigator.onLine ? "online" : "offline";
+	if(status == "offline") {
+		console.log("오프라인 상태 입니다.");
+		msg.innerText = "오프라인 상태 입니다.";
+		submit.disabled = true;
+	}else {
+		console.log("온라인 상태 입니다.");
+		msg.innerText = "온라인 상태 입니다.";
+		submit.disabled = false;
+	}
+	
+	//캐시 업데이트 기능
+	window.applicationCache.onupdateready = function() {
+		applicationCache.swapCache();
+		if(confirm('페이지가 수정되었습니다. 페이지를 다시 로드할까요?')) {
+			window.location.reload();
+		}
+
+	}
+	
+	//인터넷 연결이 끊겼을 때
+	window.onoffline = function() {
+		console.log("offline");
+		msg.innerText = "인터넷 연결이 끊겼습니다.";
+		submit.disabled = true;
+		console.log(submit);
+	}
+	
+	//인터넷 연결되었을 때
+	window.ononline = function() {
+		console.log("online");
+		msg.innerText = "인터넷이 연결되었습니다.";
+		submit.disabled = false;
+		console.log(submit);
+	}
+	
+	//페이지가 로딩되었을 때 로컬스토리지의 데이터를 불러와 카트에 추가함
+	for(i=0; i<localStorage.length; i++) {		//추가//
+		var id = localStorage.key(i);			//추가//
+//        var id = evt.dataTransfer.getData('text'),	//삭제//
+        var item = $('#' + id),
+            cartList = $("#cart ul"),
+            total = $("#total span"),
+            price = $('p:eq(1) span', item).text(),
+            prevCartItem = null,
+            notInCart = (function () {
+                var lis = $('li', cartList),
+                    len = lis.length,
+                    i;
+
+                for (i = 0; i < len; i++ ) {
+                    var temp = $(lis[i]);
+                    if (temp.data('id') === id) {
+                        prevCartItem = temp;
+                        return false;
+                    }
+                }
+                return true;
+            } ()),
+            quantLeftEl, quantBoughtEl, quantLeft;
+
+        $("h2").fadeOut('fast');
+
+        if (notInCart) {
+            prevCartItem = $('<li />', {
+                text : $('p:first', item).text(),
+                data : { id : id }
+            }).prepend($('<span />', {
+                'class' : 'quantity',
+                text : '0'
+            })).prepend($('<span />', {
+                'class' : 'price',
+                text : price
+            })).appendTo(cartList);
+        }
+
+        quantLeftEl = $('p:last span', item);
+        //저장되어 있는 상품의 개수
+        var cnt = parseInt(localStorage.getItem(id), 10);//추가//
+        quantLeft   = parseInt(quantLeftEl.text(), 10) - cnt;//변경//
+        quantBoughtEl = $('.quantity', prevCartItem);
+        //드롭하기 전 상품의 갯수 + 1을 로컬스토리지에 저장
+        //console.log(parseInt(quantBoughtEl.text(), 10)+1);		//삭제//
+        //localStorage.setItem(id, parseInt(quantBoughtEl.text(), 10)+1); //삭제//
+        
+        quantBoughtEl.text(parseInt(quantBoughtEl.text(), 10) + cnt);//변경//
+        quantLeftEl.text(quantLeft);
+
+        if (quantLeft === 0) {
+            item.fadeOut('fast');
+        }
+
+        total.text((parseFloat(total.text(), 10) + parseFloat(price.split('$')[1])).toFixed(2));
+	}
+	
+	//주문 버튼을 클릭했을 경우 상품 주문 프로세스로 전달
+	submit.onclick = function() {
+		console.log("주문");
+		var xmlHttp = new XMLHttpRequest();
+		var url = "order.jsp";
+		var params = "";	//iphome=2&iMac=1
+		for(i=0; i<localStorage.length; i++) {
+			var id = localStorage.key(i);
+			params += (id + "=" + localStorage.getItem(id) + "&");
+		}
+		
+		xmlHttp.open("POST", url, true);
+		xmlHttp.setRequestHeader("Content-type", 
+				"application/x-www-form-urlencoded");
+		
+		xmlHttp.send(params);
+		
+		xmlHttp.onreadystatechange = function() {
+			if(xmlHttp.readyState == 4) {
+				if(xmlHttp.status == 200) {
+					alert(xmlHttp.responseText);
+				}
+			}
+		}
+	}//여기까지 주문버튼 클릭 처리
+	
+}//end window.onload
+</script>
+</head>
+<body>
+    <!-- icons from  http://www.iconfinder.net/search/?q=iconset:superpack | author site : http://officinadigitale.forumcommunity.net/-->
+    <ul id="products">
+        <li><a class="item" href="#" id="imac" draggable="true">
+            <img src="images/imac.png" />
+            <div>
+                <p><strong>iMac</strong></p>
+                <p><strong>Price</strong>: <span>$1199.00</span></p>
+                <p><strong>Quantity</strong>: <span>10</span></p>
+            </div>
+        </a></li>
+        <li><a class="item" href="#" id="iphone" draggable="true">
+            <img src="images/iphone.png" />
+            <div>
+                <p><strong>iPhone</strong></p>
+                <p><strong>Price</strong>: <span>$199.00</span></p>
+                <p><strong>Quantity</strong>: <span>16</span></p>
+            </div>
+        </a></li>
+        <li><a class="item" href="#" id="appletv" draggable="true">
+            <img src="images/appletv.png" />
+            <div>
+                <p><strong>AppleTV</strong></p>
+                <p><strong>Price</strong>: <span>$299.00</span></p>
+                <p><strong>Quantity</strong>: <span>9</span></p>
+            </div>
+        </a></li>
+        <li><a class="item" href="#" id="dislpay" draggable="true">
+            <img src="images/display.png" />
+            <div>
+                <p><strong>Cinema Display</strong></p>
+                <p><strong>Price</strong>: <span>$899.00</span></p>
+                <p><strong>Quantity</strong>: <span>4</span></p>
+            </div>
+        </a></li>
+        <li><a class="item" href="#" id="nano" draggable="true">
+            <img src="images/nano.png" />
+            <div>
+                <p><strong>iPod Nano</strong></p>
+                <p><strong>Price</strong>: <span>$149.00</span></p>
+                <p><strong>Quantity</strong>: <span>20</span></p>
+            </div>
+        </a></li>
+        <li><a class="item" href="#" id="macbook" draggable="true">
+            <img src="images/macbook.png" />
+            <div>
+                <p><strong>Macbook</strong></p>
+                <p><strong>Price</strong>: <span>$1199.00</span></p>
+                <p><strong>Quantity</strong>: <span>13</span></p>
+            </div>
+        </a></li>
+        <li><a class="item" href="#" id="mini" draggable="true">
+            <img src="images/mini.png" />
+            <div>
+                <p><strong>Mac Mini</strong></p>
+                <p><strong>Price</strong>: <span>$599.00</span></p>
+                <p><strong>Quantity</strong>: <span>18</span></p>
+            </div>
+        </a></li>
+    </ul>
+    <div id="cart">
+        <h1>Shopping Cart</h1>
+        <ul></ul>
+        <p id="total"><strong>Total:</strong> $<span>0.00</span></p>
+        <input type="submit" value=" 주  문 ">
+        <h2>Drop here to add to cart</h2>
+    </div>
+    <section id="status">
+    	<div>
+    		<p class="statusmsg">상태메시지</p>
+    	</div>
+    </section>
+    <script src="jquery.min.js"></script>
+    <script src="jquery.ndd.js"></script>
+    <script src="dragdrop.js"></script>
+</body>
+</html>

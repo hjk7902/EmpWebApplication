@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript">
+function add(x, y) {
+	return x+y;
+}
+var add2 = function(x, y) {
+	return x + y;
+}
+var add3 = new Function("x", "y", "return x+y");
+
+console.log(add(10, 20));
+console.log(add2(100, 200));
+console.log(add3(1000, 2000));
+
+var add4 = function() {
+	var sum=0
+	console.log(arguments.length);
+	for(var data in arguments) {
+		//console.log(arguments[data]);
+		sum = sum + arguments[data];
+	}
+	return sum;
+}
+
+console.log(add4(10, 20, 30, 40));
+console.log(add4(10, 20, 30));
+
+var fact = (function(n) {
+	//console.log(arguments.callee);
+	var self = arguments.callee;
+
+	if(n==0)
+		return 1;
+	else
+		return (n * self(n-1));
+})(10);
+console.log(fact)//3628800
+</script>
+</head>
+<body>
+개발자 도구를 확인하세요.
+</body>
+</html>

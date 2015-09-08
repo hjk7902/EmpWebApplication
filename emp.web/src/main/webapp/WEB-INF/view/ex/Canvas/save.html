@@ -1,0 +1,30 @@
+<!-- 파일명 : elements/canvas/save.html -->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>save 예제</title>
+<script>
+window.onload = function() {
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	ctx.font = '10pt 굴림';
+	ctx.fillText("안녕하세요-10pt", 10, 10);
+	ctx.save();
+	
+	ctx.font = '20pt 굴림';
+	ctx.fillText("안녕하세요-20pt", 10, 60);
+	ctx.save();
+	
+	ctx.font= '30pt 굴림';
+	ctx.restore();
+	//ctx.restore();
+	ctx.fillText("안녕하세요-?", 10, 110);
+}
+</script>
+</head>
+<body>
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid #c3c3c3;">
+브라우저가 canvas를 지원하지 않습니다.
+</canvas>
+</body>
+</html>

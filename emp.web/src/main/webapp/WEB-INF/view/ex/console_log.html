@@ -1,0 +1,32 @@
+<!-- 파일명 : console_log.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Console</title>
+<script>
+window.onload = function() {
+    console.log("Hello");
+    var animal = "코끼리";
+    var count = 10;
+    console.log("헉! %s가 %d층짜리 건물을 뛰어넘습니다.", animal, count);
+    console.log("헉!", animal, "가 ", count, "층짜리 건물을 뛰어넘습니다.");
+    
+    var myName = "허진경";
+    var thing1 = "스마트폰";
+    var thing2 = "노트북";
+    var thing3 = "자동차";
+    console.log("이름: %s. 소지품 목록:", myName, thing1, thing2, thing3);
+    
+    console.log('%c배경은 green, 글자색은 red로 표시됩니다.', 'color:red; background-color:green');
+    console.error("이름: %s. 소지품 목록:", myName, thing1, thing2, thing3);
+    console.warn("이름: %s. 소지품 목록:", myName, thing1, thing2, thing3);
+    console.info("이름: %s. 소지품 목록:", myName, thing1, thing2, thing3);
+    console.debug("이름: %s. 소지품 목록:", myName, thing1, thing2, thing3);
+}
+</script>
+</head>
+<body>
+<p>브라우저 개발자 도구를 열어서 확인하세요</p>
+</body>
+</html>

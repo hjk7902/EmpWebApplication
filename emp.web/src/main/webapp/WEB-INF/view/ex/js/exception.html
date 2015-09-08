@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript">
+try {
+	//var a = 10;
+    console.log(a);
+    console.log("예외 발생할 가능성이 있는 코드 아래")
+}catch(error) {
+    console.info(error.message);
+    console.info(error.name);
+}finally {
+    console.info("return resource");
+}
+</script>
+</head>
+<body>
+개발자 도구를 열어보세요.
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!-- 파일명 : elements/canvas/linejoin.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>linejoin 예제</title>
+
+<script>
+window.onload = function() {
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	ctx.lineWidth=10;
+	
+	ctx.beginPath();
+	ctx.lineJoin="bevel";
+	ctx.moveTo(20,20);
+	ctx.lineTo(100,50);
+	ctx.lineTo(20,100);
+	ctx.stroke();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.lineJoin="round";
+	ctx.moveTo(70,20);
+	ctx.lineTo(150,50);
+	ctx.lineTo(70,100);
+	ctx.stroke();
+	ctx.closePath();
+	
+	ctx.beginPath();
+	ctx.lineJoin="miter";
+	ctx.moveTo(120,20);
+	ctx.lineTo(200,50);
+	ctx.lineTo(120,100);
+	ctx.stroke();
+	ctx.closePath();
+}
+</script>
+</head>
+<body>
+
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid #d3d3d3;">
+</canvas>
+
+</body>
+</html>
+

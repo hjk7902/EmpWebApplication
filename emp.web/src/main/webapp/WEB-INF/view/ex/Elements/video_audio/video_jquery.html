@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>미디어 제어</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+<script type="text/javascript">
+$(function() {
+	var video = $("video");
+	var videoUrl = video.val();
+	
+	video.bind("timeupdate", function(){
+		$("#time").val( this.currentTime / this.duration );
+	});
+	
+	var button = $("<input id='playButton' type='button' value='Pause'>");
+	button.insertAfter(video);
+	
+	button.click( function(event) {
+		event.preventDefault();
+
+		if(video[0].paused) {
+			if(videoUrl != video[0].src) {
+				video[0].src = videoUrl;
+				video[0].load();
+			}else {
+				video[0].play();
+			}
+			$("#playButton").val("Pause");
+		}else {
+			video[0].pause();
+			$("#playButton").val("Play");
+		}
+	});
+});
+</script>
+</head>
+<body>
+<video id="video" width="400" height="300" autoplay controls>
+    <source src="movie.mp4"></source>
+    <source src="movie.ogg"></source>
+</video><br>
+<progress id="time"></progress>
+</body>
+</html>

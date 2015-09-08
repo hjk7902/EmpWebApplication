@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="ahoh.js"></script>
+<script>
+//Calls the library function 'ahoh' - defined in 'ahoh.js' file.
+function load(filename) {
+	ahoh(filename,"content");
+}
+</script>
+
+</head>
+<body>
+<a href="link1.jsp">동기 요청</a><p>
+<a href="javascript:load('link1.jsp');">비동기 요청</a>
+<div id="content"></div>
+</body>
+</html>

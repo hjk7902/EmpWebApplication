@@ -1,0 +1,38 @@
+@CHARSET "EUC-KR";
+
+@font-face { 
+	font-family:'SCRIPT 9Web';
+	src:url('./fonts/script9.eot');
+	src:local('¡Ø'), url('./fonts/script9.woff') format('woff'),
+		url('./fonts/SCRIPT 9.ttf') format('truetype');
+}
+
+.html5demo { 
+	font-family:"SCRIPT 9Web", "µ¸¿ò"; 
+}
+
+.html5demo div {
+	max-height: 200px;
+	overflow: auto; 
+}
+
+.html5demo h1 {
+	margin: 10px 0 0;
+	line-height:1.2em;
+	font-weight: bold;
+	padding-left: 16px;
+	list-style: none; 
+	background: url(../images/gfx/li.gif) 5px 10px no-repeat;
+}
+
+.html5demo ul {
+	margin: 0;
+	font-size: 1.0em;
+}
+
+.html5demo ul li {
+	padding-left: 26px;
+	list-style: none;
+	background: none; 
+}
+

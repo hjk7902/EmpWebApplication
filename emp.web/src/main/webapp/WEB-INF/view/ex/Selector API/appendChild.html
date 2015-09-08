@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="euc-kr">
+<title>컨텐츠 제어</title>
+<script>
+window.onload = function() {
+    var contentArea = document.getElementById("content");
+
+    var showBtn = document.getElementById("show");
+    var hideBtn = document.getElementById("hide");
+
+    var imgElem = document.createElement("img");
+        imgElem.setAttribute("src", "victory.png");
+
+    showBtn.onclick = function() {
+        contentArea.innerHTML = "<img src='victory.png'>";
+        //contentArea.appendChild(imgElem);
+    }
+    hideBtn.onclick = function() {
+        contentArea.innerHTML = "";
+        //contentArea.removeChild(imgElem);
+
+    }
+}
+</script>
+</head>
+
+<body>
+<input type="button" id="show" value="Show">
+<input type="button" id="hide" value="Hide">
+<div id="content"></div>
+</body>
+</html>
