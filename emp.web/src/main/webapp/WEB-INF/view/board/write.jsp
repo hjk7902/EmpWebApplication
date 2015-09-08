@@ -43,14 +43,15 @@
 			<td><textarea cols="100" class="form-control" rows="10" name="content">${board.content}</textarea></td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td></td>
+			<td>
 			<input type="hidden" name="action" value="${next}">
 			<input type="hidden" name="bbsno" value="${board.bbsno}">
 			<input type="hidden" name="masterid" value="${board.masterid}">
 			<input type="hidden" name="replynumber" value="${board.replynumber}">
 			<input type="hidden" name="replystep" value="${board.replystep}">
 			<input type="hidden" name="page" value="${page}">
-			<div align="right"><input type="submit" class="btn btn-danger" value=" 저 장 "> <input type="reset" class="btn btn-danger" value=" 취 소 "></div>
+			<input type="submit" class="btn btn-danger" value=" 저 장 "> <input type="reset" class="btn btn-danger" value=" 취 소 ">
 			</td>
 		</tr>
 		</table>

@@ -14,10 +14,13 @@ import javax.servlet.http.HttpSession;
 import kr.co.javaspecialist.member.domain.MemberDAO;
 import kr.co.javaspecialist.member.domain.MemberVO;
 
+import org.apache.log4j.Logger;
+
 @WebServlet("/member")
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	static final Logger logger = Logger.getLogger(MemberServlet.class);
+
 	MemberDAO dao = new MemberDAO();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,19 +36,22 @@ public class MemberServlet extends HttpServlet {
 				if(userid != null && !userid.equals("")) {
 					MemberVO member = dao.selectMember(userid);
 					request.setAttribute("member", member);
-					path = "memberform";
+					path = "update";
 				}else {
 					//userid가 세션에 없을 경우 (로그인 하지 않았을 경우)
-					request.setAttribute("message", "로그인 하지 않은 사용자입니다.");
+					request.setAttribute("message", "NOT_LOGGED_IN_USER");
 					path = "login";
 				}
 			}else if("delete".equals(path)){ 
 				path = "delete";			
+			}else if("join".equals(path)){ 
+				//forward to join.jsp
+
 			}else if("list".equals(path)){
 				request.setAttribute("members", dao.selectAllMembers());
 				path = "memberlist";			
 			}else {
-				request.setAttribute("message", "액션이 없습니다.");
+				request.setAttribute("message", "NO_ACTION");
 				path = "login";
 			}
 		}
@@ -55,49 +61,81 @@ public class MemberServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 파라미터 조회
 		request.setCharacterEncoding("utf-8");
-		String name = request.getParameter("name");
-		String password = request.getParameter("password");
-		String userid = request.getParameter("userid");
-		String phone = request.getParameter("phone");
-		String address = request.getParameter("address");
-		
-		//VO객체 생성
-		MemberVO member = new MemberVO();
-		member.setUserid(userid);
-		member.setPassword(password);
-		member.setName(name);
-		member.setPhone(phone);
-		member.setAddress(address);
-		
-		//2. dao 메서드 호출
-		//3. 실행결과 request에 저장
+
 		Enumeration<String> paramNames= request.getParameterNames();
 		String path = "login";
 		if(paramNames.hasMoreElements()) {
 			path = paramNames.nextElement();
-			try {
-				if("update".equals(path)) {
+			if("update".equals(path)) {
+				try {
+					String userid = request.getParameter("userid");
+					String password = request.getParameter("password");
+					String name = request.getParameter("name");		
+					String phone = request.getParameter("phone");
+					String address = request.getParameter("address");
+					
+					MemberVO member = new MemberVO();
+					member.setUserid(userid);
+					member.setPassword(password);
+					member.setName(name);
+					member.setPhone(phone);
+					member.setAddress(address);
+					
 					dao.update(member);
-					request.setAttribute("message", "회원정보가 수정되었습니다.");
+					request.setAttribute("message", "UPDATED_MEMBER_INFO");
 					request.setAttribute("member", member);
-					path = "memberform";
-				}else if("delete".equals(path)){
+					path = "update";
+				}catch(Exception e){
+					request.setAttribute("message", e.getMessage());
+					e.printStackTrace();
+					path = "error";
+				}
+			}else if("delete".equals(path)){
+				try {
 					HttpSession session = request.getSession();
+					MemberVO member = new MemberVO();
 					member.setUserid((String)session.getAttribute("userid"));
 					dao.delete(member);
 					session.invalidate();//삭제되었으면 로그아웃 처리
 					response.sendRedirect("/WEB-INF/view/index.jsp");//메인 페이지로 이동
 					return;
-				}else{
-					dao.insert(member);
-					request.getSession().invalidate();//회원가입시 로그인했던 사용자 로그아웃 시킴
+				}catch(Exception e){
+					request.setAttribute("message", e.getMessage());
+					e.printStackTrace();
+					path = "error";
 				}
-			}catch(RuntimeException e) {
-				request.setAttribute("message", e.getMessage());
-				e.printStackTrace();
+			}else if("join".equals(path)) {
+				try {
+					HttpSession session = request.getSession();
+	
+					String userid = request.getParameter("userid");
+					String password = request.getParameter("password");
+					String name = request.getParameter("name");		
+					String phone = request.getParameter("phone");
+					String address = request.getParameter("address");
+	
+					MemberVO member = new MemberVO();
+					member.setUserid(userid);
+					member.setPassword(password);
+					member.setName(name);
+					member.setPhone(phone);
+					member.setAddress(address);
+					
+					dao.insert(member);
+					session.invalidate();
+					logger.debug("join");
+					response.sendRedirect("view?member/login");
+					return;
+				}catch(Exception e){
+					request.setAttribute("message", e.getMessage());
+					e.printStackTrace();
+					path = "error";
+				}
+			}else {
+				request.getSession().invalidate();//회원가입시 로그인했던 사용자 로그아웃 시킴
 			}
+
 		}		
 //		4. jsp로 forward
 		RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/view/member/" + path + ".jsp");

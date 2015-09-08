@@ -37,7 +37,7 @@ public class MemberDAO {
 		try {
 			con = getConnection();
 			//1. 쿼리 작성
-			String sql = "insert into member values (?, ?, ?, ?, ?)";
+			String sql = "insert into member (userid, name, password, phone, address) values (?, ?, ?, ?, ?)";
 			//2. statement 객체 생성 
 			PreparedStatement stmt = con.prepareStatement(sql);
 			//3. 쿼리 파라미터 설정

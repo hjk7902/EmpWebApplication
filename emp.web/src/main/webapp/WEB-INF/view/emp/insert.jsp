@@ -12,22 +12,21 @@
 	<div class="pg-opt">
         <div class="row">
             <div class="col-md-6">
-                <h2><a href="<c:url value='/emp'/>">Emp</a></h2>
+                <h2><fmt:message key="NEW_EMPLOYMENT"/></h2>
             </div>
             <div class="col-md-6">
                 <ol class="breadcrumb">
-                    <li>Emp</li>
-                    <li class="active">New employee data</li>
+                    <li><fmt:message key="EMP_TEST"/></li>
+                    <li class="active"><fmt:message key="NEW_EMPLOYMENT"/></li>
                 </ol>
             </div>
         </div>
     </div>
-<div class="content">
-<p>
+	<div class="content">
 	<form action="<c:url value='/emp?insert'/>" method="post" class="form-horizontal">
 	<div class="form-group">
       <label class="control-label col-sm-2" for="empno"><fmt:message key="EMPNO"/></label>
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <input type="number" name="empno" id="empno" min="8000" max="9999" value="${emp.empno}" class="form-control" placeholder="<fmt:message key="EMPNO"/>" required>
       </div>
     </div>
@@ -56,19 +55,19 @@
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="hiredate"><fmt:message key="HIREDATE"/>(YYYY-MM-DD)</label>
-      <div class="col-sm-5">
-        <input type="text" name="hiredate" id="hiredate" class="form-control" placeholder="2015-01-01" pattern="^\(?\d{4}\)?[-]\d{2}[-]\d{2}$" required>
+      <div class="col-sm-4">
+        <input type="date" name="hiredate" id="hiredate" class="form-control" placeholder="2015-01-01" pattern="^\(?\d{4}\)?[-]\d{2}[-]\d{2}$" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="sal"><fmt:message key="SAL"/></label>
-      <div class="col-sm-8">
+      <div class="col-sm-3">
         <input type="number" name="sal" id="sal" class="form-control" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="comm"><fmt:message key="COMM"/></label>
-      <div class="col-sm-8">
+      <div class="col-sm-3">
         <input type="number" name="comm" id="comm" class="form-control">
       </div>
     </div>
@@ -90,7 +89,7 @@
 		</div>
 	</div>
 	</form>
-</div>
+	</div>
 </div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
 </body>

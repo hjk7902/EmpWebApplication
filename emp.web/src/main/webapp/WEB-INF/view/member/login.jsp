@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setBundle basename="i18n/header" />
+<fmt:setBundle basename="i18n/member" />
 <!DOCTYPE html> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -11,12 +11,12 @@
 	<div class="pg-opt">
         <div class="row">
             <div class="col-md-6">
-                <h2><a href="<c:url value='/view?member/login'/>"><fmt:message key="SIGN_IN"/></a></h2>
+                <h2><fmt:message key="LOGIN"/><small> <fmt:message key="${not empty message ? message : 'BLANK'}"/></small></h2>
             </div>
             <div class="col-md-6">
                 <ol class="breadcrumb">
-                    <li>Member</li>
-                    <li class="active">Login</li>
+                    <li><fmt:message key="MEMBER"/></li>
+                    <li class="active"><fmt:message key="LOGIN"/></li>
                 </ol>
             </div>
         </div>
@@ -27,7 +27,7 @@ String userid = (String)session.getAttribute("userid");
 if(userid==null) {
 --%>
 <c:if test="${empty sessionScope.userid}">
-	<h4><fmt:message key="${not empty message ? message : 'BLANK'}"/></h4>
+	<%--h4><fmt:message key="${not empty message ? message : 'BLANK'}"/></h4--%>
 	<%--= request.getAttribute("message") --%>
 	<%-- 
 		String message = (String)request.getAttribute("message");
@@ -35,15 +35,15 @@ if(userid==null) {
 	--%>
 	<form action="<c:url value='/login'/>" method="post" class="form-horizontal">
 	<div class="form-group">
-      <label class="control-label col-sm-2" for="id">ID:</label>
+      <label class="control-label col-sm-2" for="id"><fmt:message key="MEMBER_ID"/></label>
       <div class="col-sm-8">
-        <input type="text" name="userid" id="id" class="form-control" placeholder="<fmt:message key="ID"/>" aria-describedby="basic-addon1">
+        <input type="text" name="userid" id="id" class="form-control" placeholder="<fmt:message key="MEMBER_ID"/>" aria-describedby="basic-addon1">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="pw">PW:</label>
+      <label class="control-label col-sm-2" for="pw"><fmt:message key="MEMBER_PW"/></label>
       <div class="col-sm-8">
-        <input type="password" name="password" id="pw" class="form-control" placeholder="<fmt:message key="PW"/>" aria-describedby="basic-addon1">
+        <input type="password" name="password" id="pw" class="form-control" placeholder="<fmt:message key="MEMBER_PW"/>" aria-describedby="basic-addon1">
       </div>
     </div>
     <div class="form-group">

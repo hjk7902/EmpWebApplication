@@ -42,17 +42,17 @@ public class PagingHandler extends TagSupport {
 		} 
 		try {
 			if(nowPageBlock>1) {
-				out.print("<A HREF=\"" + contextPath + "/board/Board.do?page=" + (startPage-1) + "&action=list\">");
+				out.print("<A HREF=\"" + contextPath + "/board?list=" + (startPage-1) + "\">");
 				out.print("◀</A>");
 			}
 			for(int i=startPage; i<=endPage; i++) {
 				out.print(" ");
-				out.print("<A HREF=\"" + contextPath + "/board/Board.do?page=" + (i) + "&action=list\">");
+				out.print("<A HREF=\"" + contextPath + "/board?list=" + (i) + "\">");
 				out.print(i);
 				out.print("</A> ");
 			} 
 			if(nowPageBlock<totalPageBlock) {
-				out.print("<A HREF=\"" + contextPath + "/board/Board.do?page=" + (endPage+1) + "&action=list\">");
+				out.print("<A HREF=\"" + contextPath + "board?list=" + (endPage+1) + "\">");
 				out.print("▶</A>");
 			}
 		} catch (IOException ioe) {

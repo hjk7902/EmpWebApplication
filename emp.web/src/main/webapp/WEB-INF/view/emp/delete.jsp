@@ -12,12 +12,12 @@
 	<div class="pg-opt">
         <div class="row">
             <div class="col-md-6">
-                <h2><a href="<c:url value='/emp'/>"><fmt:message key="DELETE_EMPLOYEE_DATA"/></a></h2>
+                <h2><fmt:message key="DELETE_EMPLOYEE_DATA_MSG"/></h2>
             </div>
             <div class="col-md-6">
                 <ol class="breadcrumb">
-                    <li>Emp</li>
-                    <li class="active">Delete employee data</li>
+                    <li><fmt:message key="EMP_TEST"/></li>
+                    <li class="active"><fmt:message key="DELETE_EMPLOYEE_DATA"/></li>
                 </ol>
             </div>
         </div>

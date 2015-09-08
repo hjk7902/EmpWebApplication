@@ -4,30 +4,22 @@
 <html>
 <jsp:include page="/WEB-INF/view/include/staticFiles.jsp"/>
 <body>
-<div class="container">
 <jsp:include page="/WEB-INF/view/include/bodyHeader.jsp"/>
-<div class="pg-opt">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>Board</h2>
-                </div>
-                <div class="col-md-6">
-                    <ol class="breadcrumb">
-                        <li>Board</li>
-                        <li class="active">Update</li>
-                    </ol>
-                </div>
+<div class="container">
+	<div class="pg-opt">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Board</h2>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb">
+                    <li>Board</li>
+                    <li class="active">Update</li>
+                </ol>
             </div>
         </div>
     </div>
 
-  <section class="slice bg-white">
-   <div class="wp-section">
-				<div class="container">
-					<div class="row">
-						<div class="container">
-<div class="box-content">
 <div class="content">
 <form action='<c:url value="/board?update"/>' method="post" class="form-inline">
 <table class="table">
@@ -64,7 +56,7 @@
 </table>
 </form>
 </div>
-</div></div></div></div></div></section></div>
+</div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
 </body>
 </html>

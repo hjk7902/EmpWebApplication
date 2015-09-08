@@ -12,30 +12,34 @@
 	<div class="pg-opt">
         <div class="row">
             <div class="col-md-6">
-                <h2><a href="<c:url value='/emp'/>">Emp</a></h2>
+                <h2><fmt:message key="EMP_LIST"/></h2>
             </div>
             <div class="col-md-6">
                 <ol class="breadcrumb">
-                    <li>Emp</li>
-                    <li class="active"><a href="<c:url value='/emp'/>">List</a></li>
+                    <li><fmt:message key="EMP_TEST"/></li>
+                    <li class="active"><fmt:message key="EMP_LIST"/></li>
                 </ol>
             </div>
         </div>
     </div>
 <div class="content">
+  <fmt:message key="EMPNO" var="empno"/><fmt:message key="DEPTNO" var="deptno"/>
+  <fmt:message key="ENAME" var="ename"/><fmt:message key="JOB" var="job"/><fmt:message key="MANAGER" var="manager"/>
+  <fmt:message key="HIREDATE" var="hiredate"/><fmt:message key="SAL" var="salary"/><fmt:message key="COMM" var="commission"/>
+  <fmt:message key="DELETE" var="delete"/>
   <datatables:table id="emps" data="${empList}" row="emp" theme="bootstrap3" cssClass="table table-striped" pageable="true" export="pdf">
-	 <datatables:column title="EMPNO" cssStyle="width: 150px;" display="html">
+	 <datatables:column title="${empno}" display="html">
 	    <a href="<c:url value='/emp?update=${emp.empno}'/>"><c:out value="${emp.empno}"/></a>
 	 </datatables:column>
-	 <datatables:column title="ENAME" property="ename" cssStyle="width: 200px;"/>
-	 <datatables:column title="JOB" property="job"/>
-	 <datatables:column cssClass="pc" cssCellClass="pc" title="MANAGER" property="mgr"/>
-	 <datatables:column cssClass="pc" cssCellClass="pc" title="HIREDATE" property="hiredate"/>
-	 <datatables:column cssClass="pc" cssCellClass="pc" title="SALARY" property="sal"/>
-	 <datatables:column cssClass="pc" cssCellClass="pc" title="COMMISSION" property="comm"/>
-	 <datatables:column title="DEPTNO" property="deptno" cssStyle="width: 100px;"/>
-	 <datatables:column title="DELETE" cssClass="pc" cssCellClass="pc" cssStyle="width: 50px;">
-	    <a href="<c:url value='/emp?delete=${emp.empno}'/>">Delete</a>
+	 <datatables:column title="${ename}" property="ename"/>
+	 <datatables:column title="${job}" property="job"/>
+	 <datatables:column title="${manager}" property="mgr" cssClass="pc" cssCellClass="pc"/>
+	 <datatables:column title="${hiredate}" property="hiredate" cssClass="pc" cssCellClass="pc"/>
+	 <datatables:column title="${salary}" property="sal" cssClass="pc" cssCellClass="pc"/>
+	 <datatables:column title="${commission}" property="comm" cssClass="pc" cssCellClass="pc"/>
+	 <datatables:column title="${deptno}" property="deptno" cssClass="pc" cssCellClass="pc" cssStyle="text-align: center;"/>
+	 <datatables:column title="${delete}" cssClass="pc" cssCellClass="pc">
+	    <a href="<c:url value='/emp?delete=${emp.empno}'/>">${delete}</a>
 	 </datatables:column>
 	 <datatables:export type="pdf" cssClass="btn pc" cssStyle="height: 25px;" />
 	 <datatables:export type="xls" cssClass="btn pc" cssStyle="height: 25px;" />
