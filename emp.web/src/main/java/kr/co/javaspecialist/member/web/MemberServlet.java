@@ -96,10 +96,15 @@ public class MemberServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 					MemberVO member = new MemberVO();
 					member.setUserid((String)session.getAttribute("userid"));
-					dao.delete(member);
-					session.invalidate();//삭제되었으면 로그아웃 처리
-					response.sendRedirect("/WEB-INF/view/index.jsp");//메인 페이지로 이동
-					return;
+					member.setPassword(request.getParameter("password"));
+					if(dao.delete(member) > 0) {
+						session.invalidate();//삭제되었으면 로그아웃 처리
+						response.sendRedirect("/");//메인 페이지로 이동
+						return;
+					}else {
+						request.setAttribute("message", "DELETE_FAIL");
+						path = "error";
+					}
 				}catch(Exception e){
 					request.setAttribute("message", e.getMessage());
 					e.printStackTrace();

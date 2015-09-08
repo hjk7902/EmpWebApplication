@@ -149,8 +149,9 @@ public class MemberDAO {
 		}
 	}
 
-	public void delete(MemberVO member) {
+	public int delete(MemberVO member) {
 		Connection con = null;
+		int count=0;
 		try{
 			con = getConnection();
 			String sql = "delete from member where userid=? and password=?";
@@ -158,12 +159,13 @@ public class MemberDAO {
 			stmt.setString(1, member.getUserid());
 			stmt.setString(2, member.getPassword());
 			
-			stmt.executeUpdate();
+			count = stmt.executeUpdate();
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}finally{
 			closeConnection(con);
 		}
+		return count;
 	}
 }
 

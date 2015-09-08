@@ -32,7 +32,7 @@
 	<div class="form-group">
       <label class="control-label col-sm-2" for="password"><fmt:message key="MEMBER_PW"/></label>
       <div class="col-sm-4">
-        <input type="text" name="password" id="password" value="${member.password}" class="form-control" required>
+        <input type="password" name="password" id="password" value="${member.password}" class="form-control" required>
       </div>
     </div>
 	<div class="form-group">
