@@ -24,7 +24,7 @@
     </div>
 
 	<div class="content">
-	HTML5
+	<jsp:include page="/ex/${param.file}.html"/>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>

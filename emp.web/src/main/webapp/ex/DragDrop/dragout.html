@@ -1,4 +1,4 @@
-<!-- ÆÄÀÏ¸í : drag_drop/dragout.html -->
+<!-- íŒŒì¼ëª… : drag_drop/dragout.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,7 @@
 window.onload = function() {
    var files = document.querySelectorAll('.dragout');
    for (var i=0, file; file=files[i]; ++i) {
-       file.setAttribute('draggable', 'true'); //½ÇÁ¦ ÇÊ¿ä ¾ø½À´Ï´Ù. ¿¬½À»ï¾Æ ³Ö¾ú½À´Ï´Ù.
+       file.setAttribute('draggable', 'true'); //ì‹¤ì œ í•„ìš” ì—†ìŠµë‹ˆë‹¤. ì—°ìŠµì‚¼ì•„ ë„£ì—ˆìŠµë‹ˆë‹¤.
        file.addEventListener('dragstart', function(event) {
            event.dataTransfer.setData('DownloadURL', this.getAttribute('data-downloadurl'));
        }, false);
@@ -27,11 +27,11 @@ window.onload = function() {
 <body>
 <div>
 <section>
-	<h1>´Ù¿î·ÎµåÇÒ ÆÄÀÏÀ» µ¥½ºÅ©Å¾À¸·Î µå·¡±× ÇØº¸¼¼¿ä:</h1>
+	<h1>ë‹¤ìš´ë¡œë“œí•  íŒŒì¼ì„ ë°ìŠ¤í¬íƒ‘ìœ¼ë¡œ ë“œë˜ê·¸ í•´ë³´ì„¸ìš”:</h1>
 	<div>
 	   <a href="./glasses.pdf" class="dragout" data-downloadurl="application/pdf: Chrome3DGlasses.pdf: http://consolution.co.kr/downloads/glasses.pdf">.pdf file</a>
 	</div>
-    <p>( Google Chrome¿¡¼­¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù. )</p>
+    <p>( Google Chromeì—ì„œë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. )</p>
 </section>
 </div>
 </body>

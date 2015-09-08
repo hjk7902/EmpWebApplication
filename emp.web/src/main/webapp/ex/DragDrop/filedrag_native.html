@@ -1,17 +1,12 @@
-<!-- ÆÄÀÏ¸í : drag_drop/filedrag.html -->
+<!-- íŒŒì¼ëª… : drag_drop/filedrag.html -->
 <!DOCTYPE html>
 <html>
 <head>
-<title>drag &amp; drop Å×½ºÆ®</title>
-<style type="text/css">
-.hover {
-    border: 10px solid #000;
-    background-color: #bbb;
-}
-</style>
-<script defer>
+<title>drag &amp; drop í…ŒìŠ¤íŠ¸</title>
+<script>
 window.onload = function() {
     var readButton = document.getElementById("read");
+
     readButton.onclick = function(event) {
         readFile(document.getElementById("file").files[0]);
         if(event.preventDefault) event.preventDefault(); 
@@ -26,13 +21,15 @@ window.onload = function() {
     }
     
     target.ondragenter = function(event){
-        target.classList.add('hover');
+        changecss("#droparea", "border", "10px solid #000");
+        changecss("#droparea", "background-color", "#bbb");
         if(event.preventDefault) event.preventDefault();
         return false;
     }
 
     target.ondragleave = function(event){
-        target.classList.remove('hover');
+        changecss("#droparea", "border", "1px solid #ddd");
+        changecss("#droparea", "background-color", "#fff");
         if(event.preventDefault) event.preventDefault(); 
         return false;
     }
@@ -44,13 +41,14 @@ window.onload = function() {
     
     target.ondrop = function(event){
         if(event.preventDefault) event.preventDefault();
-        target.classList.remove('hover');
+        changecss("#droparea", "border", "1px solid #ddd");
+        changecss("#droparea", "background-color", "#fff");
         var filedata = event.dataTransfer.files[0];
         readFile(filedata);
     }
 }
 
-//ÆÄÀÏÀÇ ³»¿ëÀ» ÀĞ´Â ÇÔ¼ö
+//íŒŒì¼ì˜ ë‚´ìš©ì„ ì½ëŠ” í•¨ìˆ˜
 function readFile(file) {
     document.getElementById("fileName").textContent = file.name;
     document.getElementById("fileSize").textContent = "(" + file.size + "byte)";
@@ -70,26 +68,58 @@ function readFile(file) {
     var encoding = encodingList.options[encodingList.selectedIndex].value;  
 
     reader.readAsText(file, encoding);
-};
+}
+
+function changecss(theSelector,element,value) {
+    var cssRules;
+    if (document.all) {
+        cssRules = 'rules';
+    }else if (document.getElementById) {
+        cssRules = 'cssRules';
+    }
+ 
+    var added = false;
+ 
+    for (var S = 0; S < document.styleSheets.length; S++) { 
+        for (var R = 0; R < document.styleSheets[S][cssRules].length; R++) {
+            if (document.styleSheets[S][cssRules][R].selectorText == theSelector) {
+                if(document.styleSheets[S][cssRules][R].style[element]) {
+                    document.styleSheets[S][cssRules][R].style[element] = value;
+                    added=true;
+                    break;
+                }
+            }
+        }
+  
+        if(!added) {
+            if(document.styleSheets[S].insertRule) {
+                document.styleSheets[S].insertRule(theSelector+' { '+element+': '+value+';}',document.styleSheets[S][cssRules].length); 
+            } else if (document.styleSheets[S].addRule) {
+                document.styleSheets[S].addRule(theSelector,element+': '+value+';'); 
+            }
+        }
+    }
+}
+
 </script>
 </head>
 
 <body>
 <section id="content">
-    <h1>Drag &amp; Drop ±×¸®°í File I/O ¿¹Á¦</h1>
-    <p>ÅØ½ºÆ® ÆÄÀÏÀ» ²ø¾î´Ù ³õ¾Æº¸¼¼¿ä.</p>
+    <h1>Drag &amp; Drop ê·¸ë¦¬ê³  File I/O ì˜ˆì œ</h1>
+    <p>í…ìŠ¤íŠ¸ íŒŒì¼ì„ ëŒì–´ë‹¤ ë†“ì•„ë³´ì„¸ìš”.</p>
     <article>
     <input id="file" type="file">
     <select id="encoding">
         <option>EUC-KR</option>
         <option>UTF-8</option>
     </select>
-    <button id="read">ÀĞ±â</button><br />
+    <button id="read">ì½ê¸°</button><br />
     <div>
         <span id="fileName">File Name</span>
         <span id="fileSize">File Size</span>
     </div>
-    <textarea id="droparea" class="droparea" readonly style="width:600px; height:400px;"></textarea>
+    <textarea id="droparea" readonly style="width:600px; height:400px;"></textarea>
     </article>
 </section>
 </body>

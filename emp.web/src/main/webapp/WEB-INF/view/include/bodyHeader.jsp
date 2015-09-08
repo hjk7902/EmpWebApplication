@@ -76,10 +76,10 @@
                 <li class="dropdown">
                     <a href='#' class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="EXPERIENCE"/></a>
                     <ul class="dropdown-menu">
-                        <li><a href='<c:url value="/view?ex/html5"/>'><fmt:message key="HTML5"/></a></li>
- 						<li><a href='<c:url value="/view?ex/css3"/>'><fmt:message key="CSS3"/></a></li>
- 						<li><a href='<c:url value="/view?ex/html5ape"/>'><fmt:message key="HTML5API"/></a></li>
- 						<li><a href='<c:url value="/view?ex/js"/>'><fmt:message key="JS"/></a></li>
+                        <li><a href='<c:url value="/view?html5"/>'><fmt:message key="HTML5"/></a></li>
+ 						<li><a href='<c:url value="/view?css3"/>'><fmt:message key="CSS3"/></a></li>
+ 						<li><a href='<c:url value="/view?html5ape"/>'><fmt:message key="HTML5API"/></a></li>
+ 						<li><a href='<c:url value="/view?js"/>'><fmt:message key="JS"/></a></li>
                     </ul>
                 </li>
                 <li class="dropdown dropdown-aux animate-click" data-animate-in="animated bounceInUp" data-animate-out="animated fadeOutDown" style="z-index:500;">
