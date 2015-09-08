@@ -22,7 +22,7 @@
         </div>
     </div>
 	<div class="content">
-	<form action="<c:url value='/board?write'/>" method="post" class="form-horizontal">
+	<form action="<c:url value='/board?update'/>" method="post" class="form-horizontal">
 	<div class="form-group">
       <label class="control-label col-sm-2" for="name"><fmt:message key="WRITER"/></label>
       <div class="col-sm-2">
