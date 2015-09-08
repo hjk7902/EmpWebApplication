@@ -2,6 +2,7 @@
 <!DOCTYPE html> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="i18n/board" />
 <%@ taglib prefix="jk" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@ taglib prefix="jk2" tagdir="/WEB-INF/tags" %>
 <html>
@@ -12,12 +13,12 @@
 	<div class="pg-opt">
 	    <div class="row">
 	        <div class="col-md-6">
-	            <h2><a href="<c:url value='/board?list'/>">Board</a></h2>
+	            <h2><fmt:message key="BOARD_LIST"/></h2>
 	        </div>
 	        <div class="col-md-6">
 	            <ol class="breadcrumb">
-	                <li>Board</li>
-	                <li class="active"><a href="<c:url value='/board?list'/>">List</a></li>
+	                <li><fmt:message key="BOARD"/></li>
+	                <li class="active"><fmt:message key="BOARD_LIST"/></li>
 	            </ol>
 	        </div>
 	    </div>
@@ -25,7 +26,15 @@
 
 	<div class="content">
 	    <table class="table table-bordered">
-		<thead><tr><td>No</td><td class="pc">bbsno</td><td>작성자</td><td>제목</td><td class="pc">조회수</td></tr></thead>
+		<thead>
+		<tr>
+			<td><fmt:message key="NO"/></td>
+			<td class="pc"><fmt:message key="BOARD_ID"/></td>
+			<td><fmt:message key="WRITER"/></td>
+			<td><fmt:message key="SUBJECT"/></td>
+			<td class="pc"><fmt:message key="READ_COUNT"/></td>
+		</tr>
+		</thead>
 		<c:set var="seq" value="0" scope="page" />
 		<c:forEach var="board" items="${boardList}">
 		<tr>
@@ -43,7 +52,7 @@
 		</c:forEach>
 		</table>
 		<nav class=.center><ul class="pagination"><li><jk:paging total="totalPageCount" now="page"/></li></ul></nav>
-		<div align="right"><a href='<c:url value="/board?write"/>'><button type="button" class="btn btn-danger">글쓰기</button></a></div>
+		<div align="right"><a href='<c:url value="/board?write"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a></div><p>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
