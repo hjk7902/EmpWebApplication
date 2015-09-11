@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">5.2</P></td>
+        <td width="518">
+		<p class="TitleTitle">위임형 이벤트모델 - JDK 1.1+</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="621">
+        <ul>
+		<P>JDK 1.0의 문제점을 해결하기 위해 JDK 1.1에서는 새로운 모델을 채택하였는데 바로 위임형 이벤트모델(delegation event model) 방식이다. 이 모델은 컴포넌트를 기반으로 한 자바 빈즈(Beans)와의 호환을 위해 자바 빈즈에 적용된 방식을 자바에서도 채택한 것이다.
+		<P>위임형 이벤트모델 방식은 이벤트 발생 객체가 이벤트를 생성하여 이벤트 처리객체(혹은 이벤트 리스너)에게 위임하는 방식이다. 이벤트 발생 객체는 각 이벤트 처리 객체를 명시하여 등록하고 이벤트 처리객체는 리스너 인터페이스를 구현하여 이벤트 처리를 책임지게 된다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV237.GIF" BORDER=0 WIDTH="523" HEIGHT="158" HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P>JDK 1.1에서는 다양한 이벤트 타입을 지원하며 이벤트 리스너 인터페이스와 연관되어 있다. 자바에서는 이벤트 자체도 클래스이며, 모든 이벤트는 계층을 이룬다.
+		<P>이벤트객체는 java.util.EventObject에서 상속되며, java.util.EventObject 가 최상위 클래스로 이벤트를 발생시킨 객체(Event Object)를 저장하고 있다. 이 객체를 얻으려면 이벤트를 발생시킨 객체를 반환하는 getSource() 메소드를 사용한다.
+		<P>다음은 자바에서 제공하는 이벤트 클래스의 계층 구조를 나타낸 것이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV238.GIF" BORDER=0 WIDTH=496 HEIGHT=298 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P>EventObject의 하위클래스인 java.awt.AWTEvent 클래스는 위임형 이벤트 모델의 최상위 클래스가 된다. 이 클래스는 이벤트의 정확한 특성을 정의한 정수형 이벤트 ID값을 갖게되는데, 예를 들어 키를 누르는 이벤트가 발생하였을 때 어떤 키인지를 상수로 표현한 것이다. 이 이벤트 ID값을 얻기 위해서는 java. awt.AWTEvent 클래스 안의 getID() 메소드를 이용한다.
+		<P>AWTEvent 클래스를 상속받은 이벤트 타입은 낮은 등급 이벤트 클래스와 시멘틱(Semantic) 이벤트 클래스로 구분된다. 낮은 등급 이벤트란 키 누름, 마우스 누름, 마우스 이동, 포커스 변화 등의 컴포넌트에서 발생하는 사용자 입력이나 시스템 레벨의 이벤트를 말하며, 시멘틱 이벤트는 보다 고수준의 이벤트로 특정 컴포넌트에 의해서 만들어진다. 
+		<P>다음은 낮은 등급 이벤트와 시멘틱 이벤트를 분류한 것이다. 하지만 모두 동일한 처리 기법을 사용하므로 등급을 구별하는 것은 의미가 없다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=4%></td>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>이벤트 이름</TD>
+			<TD WIDTH=73%>
+			<P ALIGN=CENTER>이벤트가 발생할 경우</TD>
+		</tr>
+		<TR>
+			<TD ROWSPAN=7 WIDTH=4%>
+			<P ALIGN=CENTER>저수준
+			<P ALIGN=CENTER>이벤트</TD>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>ComponentEvent</TD>
+			<TD WIDTH=73%>
+			<P>컴포넌트 크기변경, 이동 등 컴포넌트에 변화가 있을 때</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>ContainerEvent</TD>
+			<TD WIDTH=73%>
+			<P>컴포넌트를 추가하거나 삭제할 때</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>FocusEvent</TD>
+			<TD WIDTH=73%>
+			<P>컴포넌트가 포커스를 잃거나 얻었을 때</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>KeyEvent</TD>
+			<TD WIDTH=73%>
+			<P>키보드의 키를 누르거나 놓을 때</TD>
+		</tr>
+		<TR>
+			<TD ROWSPAN=2 WIDTH=22%>
+			<P ALIGN=CENTER>MouseEvent</TD>
+			<TD WIDTH=73%>
+			<P>마우스를 누르거나 뗄 때, 누를 때, 마우스 포인터가 컴포넌트 영역으로 들어가거나 밖으로 나왔을 때</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=73%>
+			<P>마우스 포인터를 이동하거나 끌(drag) 때</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>WindowEvent</TD>
+			<TD WIDTH=73%>
+			<P>윈도우가 열리거나 닫힐 때, 아이콘을 표시하거나 복구할 때</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=4%></td>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>이벤트 이름</TD>
+			<TD WIDTH=73%>
+		<P ALIGN=CENTER>이벤트가 발생할 경우</TD>
+		</tr>
+		<TR>
+			<TD ROWSPAN=4 WIDTH=4%>
+			<P ALIGN=CENTER>시멘틱
+			<P ALIGN=CENTER>이벤트</TD>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>ActionEvent</TD>
+			<TD WIDTH=73%>
+			<P>컴포넌트 특유의 동작이 일어날 때
+			<P>  - Button : 클릭
+			<P>  - List : 아이템 선택
+			<P>  - MenuItem : 클릭하거나 Enter키를 눌러 선택했을 때
+			<P>  - TextField : Enter키를 누를 때</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>AdjustmentEvent</TD>
+			<TD WIDTH=73%>
+			<P>스크롤 바 값이 변경되었을 때</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>ItemEvent</TD>
+			<TD WIDTH=73%>
+			<P>아이템을 갖는 컴포넌트의 아이템을 선택하였을 때
+			<P>  - Choice : 아이템이 선택되었을 때
+			<P>  - List : 아이템을 누르거나 방향키로 선택했을 때
+			<P>  - Checkbox : 체크박스가 체크되거나 해제될 때
+			<P>  - CheckboxMenuItem : 체크박스 메뉴 아이템이 체크되거나 해제될 때</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=22%>
+			<P ALIGN=CENTER>TextEvent</TD>
+			<TD WIDTH=73%>
+			<P>TextField나 TextArea 컴포넌트의 텍스트를 변경할 때</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">5.2.1 EventListener
+		<ul>
+		<P>이벤트 리스너(Event Listener)는 특정 이벤트를 처리하는 인터페이스로, 프로그래머가 사용자 이벤트에 응답할 프로그램 고유의 코드를 구현하는 곳이다. 
+		<P>이벤트 전달은 처리할 이벤트를 등록시켜 리스너로 전달할 준비가 끝난 다음 이벤트가 발생하면 객체화하여 상태를 저장하고, 리스너 인터페이스에 정의된 응답 메소드에 상태객체를 넘김으로써 이벤트를 처리하게 된다. 따라서 이벤트 리스너는 가장 중요한 역할을 하고 있는 것이다. 리스너의 이름은 &quot;이벤트_이름+Listener&quot;의 형태로 java.awt.event 패키지에 포함되어 있다. 예를 들어 ActionEvent의 리스너 인터페이스 이름은 ActionListener가 되고, WindowEvent의 리스너 인터페이스 이름은 WindowListener가 된다.
+		<P>리스너를 이용하여 컴포넌트로부터 이벤트 클래스를 받기 위해 리스너를 등록하려면 컴포넌트에 &quot;add+이벤트_이름+Listener()&quot;의 형식으로 리스너를 등록할 수 있는데, ActionEvent 객체를 등록시키려면 addActionListener() 메소드를 이용한다. 
+		<P>등록된 리스너를 제거하려면 &quot;remove+이벤트_이름+Listener&quot; 메소드를 이용한다. 컴포넌트는 여러 리스너를 가질 수 있지만 등록된 순서에 따라 처리되지는 않는다.
+		<P>다음 프로그램은 &quot;종료&quot; 버튼을 누르면 윈도우가 종료되는 예를 보인 것으로  ActionListener 인터페이스를 이용하여 구현하였다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ListenerExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class ListenerExample implements ActionListener {
+			<P class="CStep2">private Frame f;
+			<P class="CStep3">private Button btn;
+			<P class="CStep3">public ListenerExample() {
+			<P class="CStep3">f = new Frame(&quot;리스너 이벤트 처리 예제&quot;);
+			<P class="CStep3">btn = new Button(&quot;종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">btn.addActionListener(this);
+			<P class="CStep3">f.add(btn, &quot;South&quot;);
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">ListenerExample lt = new ListenerExample();
+			<P class="CStep3">lt.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep2">public void actionPerformed(ActionEvent evt) {
+			<P class="CStep3">String str = evt.getActionCommand();
+			<P class="CStep3">if(str.equals(&quot;종료&quot;))
+			<P class="CStep4">System.exit(0);
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">4:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class ListenerExample implements ActionListener {</TD>
+		</tr>
+		</TABLE>
+		<P>Frame클래스는 윈도우 창을 만들기 위해  상속받고, 액션 이벤트(ActionEvent)를 사용하기 위해 Listener 인터페이스(ActionListener)를 구현하였다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">14:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">btn.addActionListener(this);</TD>
+		</tr>
+		</TABLE>
+		<P>버튼을 누를 때 이벤트가 발생하도록 버튼 객체 btn에 액션 리스너를 등록한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">25:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public void actionPerformed(ActionEvent evt) {</TD>
+		</tr>
+		</TABLE>
+		<P>실제 이벤트가 수행될 내용을 구현한 부분이다. actionPerformed() 메소드는 ActionListener 인터페이스 내에 이미 정의가 되어있다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">26:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">String str = evt.getActionCommand();</TD>
+		</tr>
+		</TABLE>
+		<P>이벤트가 발생하는 객체의 레이블(여기에서는 버튼의 title)을 받아서 스트링형 변수에 저장한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">28:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">System.exit(0);</TD>
+		</tr>
+		</TABLE>
+		<P>exit() 메소드의 인자값으로 0을 주면 윈도우를 정상적으로 종료시킨다.
+		<P>앞의 예에서처럼 이벤트 리스너를 이용할 경우 인터페이스로 정의되어 있어 사용하지 않는 메소드까지도 처리 메소드를 구현해 주어야 한다. 그렇지 않으면 abstract로 선언되어야 한다. 또 이벤트를 처리할 메소드는 모두 public으로 선언해야하며, void형이어야 한다.
+		<P>다음 프로그램은 앞의 윈도우 종료를 MouseListener 인터페이스를 이용하여 구현한 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MouseListenerExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26: 
+			<p class="CNumber">27: </TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class MouseListenerExample implements MouseListener {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">private Button btn;
+			<P class="CStep2">public MouseListenerExample() {
+			<P class="CStep3">f = new Frame(&quot;마우스 이벤트 처리 예제&quot;)
+			<P class="CStep3">btn = new Button(&quot;종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">btn.addMouseListener(this);
+			<P class="CStep3">f.add(btn, &quot;South&quot;);
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">MouseListenerExample mt = new MouseListenerExample();
+			<P class="CStep3">mt.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep2">public void mouseClicked(MouseEvent ae) {
+			<P class="CStep3">System.exit(0);			
+			<P class="CStep2">}
+			<P class="CStep2">public void mouseEntered (MouseEvent evt) { }
+			<P class="CStep2">public void mouseExited (MouseEvent evt) { }
+			<P class="CStep2">public void mousePressed (MouseEvent evt) { }
+			<P class="CStep2">public void mouseReleased (MouseEvent evt) { }
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<p>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">4:
+			<P class="CNumber">&nbsp;</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class MouseListenerExample implements MouseListener
+			<P class="CStep1">{</TD>
+		</tr>
+		</TABLE>
+		<P>마우스 이벤트를 사용하기 위한 기능이다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">14:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">btn.addMouseListener(this);</TD>
+		</tr>
+		</TABLE>
+		<P>버튼 객체에 마우스 이벤트 리스너를 등록시킨다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public void mouseClicked(MouseEvent ae) {			
+			<P class="CStep1">System.exit(0);
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>마우스를 누를 때 수행될 내용이다. 17번째 줄은 윈도우를 종료시키는 명령이다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">28:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public void mouseEntered (MouseEvent evt) { }</TD>
+		</tr>
+		</TABLE>
+		<P>28 : ∼ 31 : 실제 사용하지 않는 메소드를 구현한 것으로 리스너 인터페이스를 구현했을 때의 단점이다. 이처럼 사용되지 않는 메소드도 구현해야 한다.
+		<P>이벤트 처리 순서는 다음과 같다.
+		<P>  1) 이벤트가 발생될 컴포넌트에 대해 이벤트 소스와 이벤트를 선택한다.
+		<P>  2) 선택한 이벤트의 처리를 위해 이벤트 핸들러를 작성한다.
+		<P>  3) addXxxListener() 메소드를 이용하여 이벤트 핸들러를 추가한다.
+		<P>이벤트를 처리하기 위해 만드는 핸들러는 메소드를 어떤 클래스에 구현하느냐에 따라 다음과 같은 5가지로 나눌 수 있다.
+		<P>  &middot; 이벤트 발생 클래스와 동일 클래스 : 이벤트가 발생하는 클래스에서 Listener 인터페이스를 만든다.
+		<P>  &middot; 이벤트가 발생하는 클래스와 별개의 클래스 : 별도로 클래스를 만들어 Listener 인터페이스를 구현한다.
+		<P>  &middot; Inner 클래스 : 클래스 안에 클래스를 선언하여 핸들러로 사용한다.
+		<P>  &middot; Local 클래스 : 메소드 안에 Local 클래스를 선언하여 핸들러로 사용한다.
+		<P>  &middot; Anonymous 클래스 : addXxxListener() 메소드 인자로 직접 핸들러를 구현한다. 
+		<P>다음 프로그램은 이벤트가 발생하는 클래스와 동일 클래스에서 핸들러를 만든 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ListenerExample1.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class ListenerExample1 <B>implements WindowListener</B> {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public ListenerExample1() {
+			<P class="CStep3">f = new Frame(&quot;Listener인터페이스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.addWindowListener( <B>this</B> );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">ListenerExample1 lt1 = new ListenerExample1();
+			<P class="CStep3">lt1.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep2"><B>public void windowClosing(WindowEvent e) {</B>
+			<P class="CStep3"><B>System.exit(0);</B>
+			<P class="CStep2"><B>}</B>
+			<P class="CStep2"><B>public void windowOpened(WindowEvent e){}</B>
+			<P class="CStep2"><B>public void windowClosed(WindowEvent e){}</B>
+			<P class="CStep2"><B>public void windowIconified(WindowEvent e){}</B>
+			<P class="CStep2"><B>public void windowDeiconified(WindowEvent e){}</B>
+			<P class="CStep2"><B>public void windowActivated(WindowEvent e){}</B>
+			<P class="CStep2"><B>public void windowDeactivated(WindowEvent e){}</B>	
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음 프로그램은 이벤트가 발생하는 클래스와 별도의 클래스로 핸들러를 만든 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ListenerExample2.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class ListenerExample2 {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public ListenerExample2() {
+			<P class="CStep3">f = new Frame(&quot;Listener인터페이스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.addWindowListener( <B>new MyWindowHandler() </B>);
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">ListenerExample2 lt2 = new ListenerExample2();
+			<P class="CStep3">lt2.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyWindowHandler.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1"><B>public class MyWindowHandler implements WindowListener {</B>
+			<P class="CStep2">public void windowClosing(WindowEvent e) {
+			<P class="CStep3">System.exit(0);
+			<P class="CStep2">}
+			<P class="CStep2">public void windowOpened(WindowEvent e){}
+			<P class="CStep2">public void windowClosed(WindowEvent e){}
+			<P class="CStep2">public void windowIconified(WindowEvent e){}
+			<P class="CStep2">public void windowDeiconified(WindowEvent e){}
+			<P class="CStep2">public void windowActivated(WindowEvent e){}
+			<P class="CStep2">public void windowDeactivated(WindowEvent e){}	
+			<P class="CStep1"><B>}</B></TD>
+		</tr>
+		</TABLE>
+		<P>다음 프로그램은 이벤트가 발생하는 클래스 안의 클래스인 Inner 클래스로 핸들러를 만든 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ListenerExample3.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class ListenerExample3 {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public ListenerExample3() {
+			<P class="CStep3">f = new Frame(&quot;Listener인터페이스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.addWindowListener( <B>new MyInnerHandler()</B> );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">ListenerExample3 lt3 = new ListenerExample3();
+			<P class="CStep3">lt3.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep2"><B>private class MyInnerHandler implements WindowListener {</B>
+			<P class="CStep3"><B>public void windowClosing(WindowEvent e) {</B>
+			<P class="CStep4"><B>System.exit(0);</B>
+			<P class="CStep3"><B>}</B>
+			<P class="CStep3"><B>public void windowOpened(WindowEvent e){}</B>
+			<P class="CStep3"><B>public void windowClosed(WindowEvent e){}</B>
+			<P class="CStep3"><B>public void windowIconified(WindowEvent e){}</B>
+			<P class="CStep3"><B>public void windowDeiconified(WindowEvent e){}</B>
+			<P class="CStep3"><B>public void windowActivated(WindowEvent e){}</B>
+			<P class="CStep3"><B>public void windowDeactivated(WindowEvent e){}</B>	
+			<P class="CStep2"><B>}</B>
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음 프로그램은 핸들러 객체를 사용하는 메소드 안에 Local 클래스로 선언한 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ListenerExample4.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class ListenerExample4 {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public ListenerExample4() {
+			<P class="CStep3">f = new Frame(&quot;Listener인터페이스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3"><B>class MyInnerHandler implements WindowListener {</B>
+			<P class="CStep4"><B>public void windowClosing(WindowEvent e) {</B>
+			<P class="CStep5"><B>System.exit(0);</B>
+			<P class="CStep4"><B>}</B>
+			<P class="CStep4"><B>public void windowOpened(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowClosed(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowIconified(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowDeiconified(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowActivated(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowDeactivated(WindowEvent e){}</B>	
+			<P class="CStep3"><B>}</B>
+			<P class="CStep3">f.addWindowListener( <B>new MyInnerHandler() </B>);
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">ListenerExample4 lt4 = new ListenerExample4();
+			<P class="CStep3">lt4.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P class="CStep1">다음 프로그램은 Anonymous 클래스로 핸들러를 만든 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ListenerExample5.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class ListenerExample5 {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public ListenerExample5() {
+			<P class="CStep3">f = new Frame(&quot;Listener인터페이스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.addWindowListener( <B>new WindowListener() {</B>
+			<P class="CStep4"><B>public void windowClosing(WindowEvent e) {</B>
+			<P class="CStep5"><B>System.exit(0);</B>
+			<P class="CStep4"><B>}</B>
+			<P class="CStep4"><B>public void windowOpened(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowClosed(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowIconified(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowDeiconified(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowActivated(WindowEvent e){}</B>
+			<P class="CStep4"><B>public void windowDeactivated(WindowEvent e){}</B>	
+			<P class="CStep3"><B>}</B>
+			<P class="CStep3">);
+			<P class="CStep2">f.setSize(300, 200);
+			<P class="CStep2">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">ListenerExample5 lt5 = new ListenerExample5();
+			<P class="CStep3">lt5.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음 표는 11개의 이벤트 처리를 위한 각각의 리스너 인터페이스와 인터페이스 메소드 그리고 add 메소드를 나타낸 것이다.
+		<p>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="353" HEIGHT=906 style="margin-right:0; margin-left:0;">
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">Event</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">Listener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">Interface Method</font></TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">Add Method</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">ActionEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">ActionListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">actionPerformed</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(ActionEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addActionListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">AdjustmentEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">AdjustmentListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">adjustmentValueChanged</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(AdjustmentEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addAdjustmentListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">ComponentEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">ComponentListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">componentHidden</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(ComponentEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">componentMoved</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(ComponentEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">componentResized</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(ComponentEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">componentShown</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(ComponentEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addComponentListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">ContainerEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">ContainerListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">componentAdded</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(ComponentEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">componentRemoved</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(ComponentEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">FocusEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">FocusListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">focusGained</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(FocusEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">focusLost</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(FocusEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addFocusListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">ItemEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">ItemListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">itemStateChanged</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(ItemEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addItemListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">KeyEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">KeyListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">keyPressed</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(KeyEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">keyReleased</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(KeyEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">keyTyped</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(KeyEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addKeyListener()</font></TD>
+		</tr>
+		<TR>
+			<TD ROWSPAN=2 WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">MouseEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">MouseListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">mouseClicked</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(MouseEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">mouseEntered</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(MouseEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">mouseExited</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(MouseEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">mousePressed</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(MouseEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">mouseReleased</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(MouseEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addMouseListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">MouseMotionListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">mouseDragged</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(MouseEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">mouseMoved</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(MouseEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addMouseMotionListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">MouseWheelEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">MouseWheelListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">mouseWheelMoved</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(MouseWheelEvent e)</font></p>
+ </TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addMouseWheelListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">TextEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">TextListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">textValueChanged</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(TextEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addTextListener()</font></TD>
+		</tr>
+		<TR>
+			<TD ROWSPAN=3 WIDTH="24%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">WindowEvent</font></TD>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">WindowListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowActivated</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowClosed</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowClosing</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowDeactivated</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowDeiconified</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowIconified</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowOpened</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+</TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addWindowListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">WindowFocusListener</font> </TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowGainedFocus</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+ 
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowLostFocus</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+ </TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addWindowFocusListener()</font></TD>
+		</tr>
+		<TR>
+			<TD WIDTH="29%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">WindowStateListener</font></TD>
+			<TD WIDTH="39%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">windowStateChanged</font>
+            <p align="center" style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">(WindowEvent e)</font></p>
+ </TD>
+			<TD WIDTH="-2%">
+			<P ALIGN=CENTER style="line-height:100%; margin-top:0; margin-bottom:0;"><font size="1">addWindowStateListener()</font></TD>
+		</tr>
+		</TABLE>
+		<P>다음 표는 컴포넌트 타입에 따라 발생할 수 있는 이벤트를 나타낸 것이다.
+		<p>
+&nbsp;
+<p align="center"><img src="images/FYXIV390.GIF" width="449" height="468" border="0"></p>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=50%>
+			<P><B>Act</B> - ActionListener
+			<P><B>Adj</B> - AdjustmentListener
+			<P><B>Cmp</B> - ComponentListener
+			<P><B>Cnt</B> - ContainerListener
+			<P><B>Foc</B> - FocusListener
+			<P><B>Itm</B> - ItemListener</TD>
+			<TD WIDTH=49%>
+			<P><B>Key</B> - KeyListener
+			<P><B>Mou</B> - MouseListener
+			<P><B>MM </B>- MouseMotionListener
+			<P><B>MW </B>- MouseWheelListener
+			<P><B>Txt</B> - TextListener
+			<P><B>Win</B> - WindowListener</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">5.2.2 Adapter 클래스
+		<ul>
+		<P>시멘틱 리스너는 하나의 메소드만 갖는 반면 저수준(Low-Level)리스너는 2개 이상의 메소드를 갖는다. 특히 앞의 WindowListener 경우 최대 7개의 메소드를 가지고 있는데, 이 리스너가 인터페이스로 선언되면 윈도우가 닫히는 단 하나의 처리를 위해 6개의 불필요한 메소드까지 구현해 주어야 한다. 
+		<P>이와 같은 문제점을 해소하기 위해 어댑터 클래스를 이용한다. 어댑터 클래스는 리스너 인터페이스의 모든 메소드를 사용하지 않는 디폴트 메소드로 정의해 주는 추상 클래스이다. 이 어댑터 클래스를 상속받아 이벤트처리 객체로 등록하고, 원하는 메소드를 재정의 하여 사용하면 불필요한 메소드까지 선언하는 수고를 덜 수 있다.
+		<P>어댑터 클래스의 이름은 &quot;이벤트_이름+Adapter&quot;형태인데 예를 들어 WindowListener의 경우에는 WindowAdapter가 있다. 하지만 메소드가 하나만 존재하는 인터페이스는 어댑터 클래스가 존재하지 않는다. MouseMotionListener의 경우 이벤트 이름이 MouseEvent이지만 어댑터 이름은 MouseMotion -Adapter이다.
+		<P>어댑터 클래스를 상속받아 핸들러를 만들 경우 여러 가지 클래스로 만들 수가 있는데, 다음 프로그램은 이벤트가 발생하는 클래스와 동일 클래스에서 어댑터클래스를 상속받아 핸들러를 구현하는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>AdapterExample1.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class AdapterExample1 <B>extends WindowAdapter</B>{
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public AdapterExample1() {
+			<P class="CStep3">f = new Frame(&quot;Adapter클래스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.addWindowListener( <B>this</B> );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String[] args) {
+			<P class="CStep3">AdapterExample1 at1 = new AdapterExample1();
+			<P class="CStep3">at1.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep2"><B>public void windowClosing(WindowEvent e) {</B>
+			<P class="CStep3"><B>System.exit(0);</B>
+			<P class="CStep2"><B>}</B>
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음 프로그램은 이벤트가 발생하는 클래스와 별도의 클래스로 핸들러를 만든 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>AdapterExample2.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class AdapterExample2 {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public AdapterExample2() {
+			<P class="CStep3">f = new Frame(&quot;Adapter클래스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.addWindowListener( <B>new MyWindowAdapterHandler()</B> );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String[] args) {
+			<P class="CStep3">AdapterExample2 at2 = new AdapterExample2();
+			<P class="CStep3">at2.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyWindowAdapterHandler.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1"><B>public class MyWindowAdapterHandler extends WindowAdapter</B>
+			<P class="CStep1"><B>{</B>
+			<P class="CStep2"><B>public void windowClosing(WindowEvent e) {</B>
+			<P class="CStep3"><B>System.exit(0);</B>
+			<P class="CStep2"><B>}</B>
+			<P class="CStep1"><B>}</B></TD>
+		</tr>
+		</TABLE>
+		<P>다음 프로그램은 이벤트가 발생하는 클래스 안에 Inner 클래스로 핸들러를 만든 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>AdapterExample3.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class AdapterExample3 {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public AdapterExample3() {
+			<P class="CStep3">f = new Frame(&quot;Adapter클래스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.addWindowListener( <B>new MyInnerHandler()</B> );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String[] args) {
+			<P class="CStep3">AdapterExample3 at3 = new AdapterExample3();
+			<P class="CStep3">at3.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep2"><B>private class MyInnerHandler extends WindowAdapter {</B>
+			<P class="CStep3"><B>public void windowClosing(WindowEvent e) {</B>
+			<P class="CStep4"><B>System.exit(0);</B>
+			<P class="CStep3"><B>}</B>
+			<P class="CStep2"><B>}</B>
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		다음 프로그램은 메소드 안에 Local클래스로 핸들러를 구현한 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>AdapterExample4.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:</p>
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class AdapterExample4 {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public AdapterExample4() {
+			<P class="CStep3">f = new Frame(&quot;Adapter클래스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3"><B>class MyInnerHandler extends WindowAdapter {</B>
+			<P class="CStep4"><B>public void windowClosing(WindowEvent e) {</B>
+			<P class="CStep5"><B>System.exit(0);</B>
+			<P class="CStep4"><B>}</B>
+			<P class="CStep3"><B>}</B>
+			<P class="CStep3">f.addWindowListener( <B>new MyInnerHandler()</B> );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String[] args) {
+			<P class="CStep3">AdapterExample4 at4 = new AdapterExample4();
+			<P class="CStep3">at4.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		다음 프로그램은 Anonymous 클래스로 핸들러를 만든 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>AdapterExample5.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class AdapterExample5 {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public AdapterExample5() {
+			<P class="CStep3">f = new Frame(&quot;Adapter클래스를 이용한 윈도우 종료&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.addWindowListener( <B>new WindowAdapter() {</B>
+			<P class="CStep4"><B>public void windowClosing(WindowEvent e) {</B>
+			<P class="CStep5"><B>System.exit(0);</B>
+			<P class="CStep4"><B>}</B>
+			<P class="CStep3"><B>}</B>
+			<P class="CStep3">);
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String[] args) {
+			<P class="CStep3">AdapterExample5 at5 = new AdapterExample5();
+			<P class="CStep3">at5.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+	    </ul></td>
+    </tr>
+</table>
+</body>
+</html>

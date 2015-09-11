@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+	    <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">4.2</P></td>
+        <td width="518">
+        <p class="TitleTitle" align="left"> 레이아웃 관리자</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td>
+		<ul>
+		<P>&nbsp;레이아웃 관리자(Layout Manager)는 컨테이너 내에서 컴포넌트의 배치를 결정하는데 사용하며, 레이아웃 관리자의 특정 인스턴스를 계속 참조하다가 컴포넌트의 위치를 결정할 때 컨테이너가 레이아웃 관리자를 호출하게된다. 
+		<P>일반적으로 레이아웃 관리자는 컨테이너 내에서 컴포넌트의 크기와 위치를 결정하는 일을 하기 때문에 프로그래머가 이를 직접 설정해서는 안된다. 만약 setLocation() 이나 setSize() 또는 setBounds() 등의 메소드를 이용하여 직접 설정한다 해도 레이아웃 관리자는 설정된 값을 무시하게된다.
+		<P>특별히 컴포넌트의 크기와 위치를 결정해야 할 경우라면 컨테이너에 대해 다음 메소드를 이용하여 LayoutManager를 사용할 수 없게 만들 수 있다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=356>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<P>setLayout(null);</TD>
+		</tr>
+		</TABLE>
+		<P>이렇게 지정한 후 컴포넌트의 위치와 크기를 설정하려면 해당 컴포넌트에 대해 setLocation(), setSize() 또는 setBounds() 등의 메소드를 이용해야 하지만  시스템과 글꼴 크기의 차이 때문에 플랫폼과 관계없는 레이아웃이 만들어진다. 따라서, 다른 방법으로 LayoutManager의 새 클래스를 만들어 사용하는 방법이 더 효율적일 수있다.
+		<P>▒ 자바 AWT에서 사용할 수 있는 레이아웃 관리자의 종류는 다음과 같다.
+		<P> &middot;  FlowLayout - 판넬 클래스의 기본 레이아웃 관리자이며, 컨테이너의 컴포넌트를 페이지상의 단어처럼 왼쪽에서 오른쪽으로, 위에서 아래로 배열한다. 이 클래스는 한 행에 컴포넌트를 최대한 채워 넣은 후 그 다음 행으로 넘어간다.
+		<P> &middot;  BorderLayout - Window, Dialog, Frame클래스의 기본 레이아웃 관리자이며, &quot;North&quot;, &quot;South&quot;, &quot;East&quot;, &quot;West&quot;, &quot;Center&quot; 등의 이름으로 컨테이너에 추가된 컴포넌트를 배열한다. 지정된 컴포넌트는 컨테이너의 위, 아래, 오른쪽, 왼쪽 그리고 중앙에 배열된다.
+		<P> &middot;  GridLayout - 컨테이너를 지정된 수의 행과 열로 나눈 다음 그 행과 열에 왼쪽에서 오른쪽, 위에서 아래로 컴포넌트를 배치시킨다.
+		<P> &middot;  CardLayout - 컴포넌트의 크기를 컨테이너 크기와 같게 한 번에 한 컴포넌트만 나타나게 한다.
+		<P> &middot;  GridBagLayout - java.awt 패키지에서 가장 복잡하면서도 가장 강력한 레이아웃 관리자이다. 이 클래스는 컨테이너를 눈금모양의 행과 열로 나눈 다음 눈금 안에 넣고 필요하면 눈금의 크기를 조절하여 컴포넌트가 서로 겹쳐지지 않게 한다.
+		</ul>
+		<P class="TSubmenu">4.2.1 FlowLayout
+		<ul>
+		<P>FlowLayout 관리자는 Panel의 기본 레이아웃 관리자로서 컨테이너 내의 컴포넌트를 왼쪽에서 오른쪽, 위에서 아래로 차례대로 배치한다. 즉, 문서 편집기에서 텍스트를 입력할 때 왼쪽에서 오른쪽으로 글이 입력되고, 한 줄이되면 다음 줄로 넘어가는 방식처럼 컴포넌트를 차례대로 왼쪽에서 오른쪽을 배치하고, 한 줄이 넘어가면 새 줄을 시작하는 방식이다.
+		<P>  
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=39%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV173.GIF" BORDER=0 WIDTH=153 HEIGHT=102 HSPACE=3 ALIGN=BOTTOM></TD>
+			<TD WIDTH=60%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV175.GIF" BORDER=0 WIDTH=263 HEIGHT=102 HSPACE=3 ALIGN=BOTTOM></TD>
+		</tr>
+		<TR>
+			<TD WIDTH=39%>
+			<P ALIGN=CENTER>  크기 변경 전</TD>
+			<TD WIDTH=60%>
+			<P ALIGN=CENTER>  크기 변경 후</TD>
+		</tr>
+		</TABLE>
+		<P>다른 레이아웃 관리자와 달리 FlowLayout은 자신이 관리하는 컴포넌트의 크기를 제한하지 않고 컴포넌트의 크기가 최적이 되도록한다. 또 관리하는 영역의 크기가 변경되면 포함된 컴포넌트의 배치도 재설정된다. 옵션을 사용하면 기본값인 중앙정렬을 왼쪽정렬이나 오른쪽정렬 방식으로 배열할 수 있다. 또 Inset을 지정하여 컴포넌트 사이의 테두리 영역을 더 크게 만들 수도 있다.
+		<P>다음은 setLayout() 메소드를 이용하여 FlowLayout 관리자를 생성하는 예제 코드를 나타낸 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<P>setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 40));
+			<P>setLayout(new FlowLayout(FlowLayout.LEFT));
+			<P>setLayout(new FlowLayout());</TD>
+		</tr>
+		</TABLE>
+		<P>매개변수 FlowLayout.RIGHT는 컴포넌트를 오른쪽정렬 방식으로 설정하고, FlowLayout.LEFT는 왼쪽정렬방식으로 설정한다. 매개변수 20과 40은 컴포넌트 사이의 수평 여백(20)과 수직 여백(40)을 나타내는데, 여백을 주지 않으면 기본 간격이 5픽셀로 설정된다.
+		<P>다음 프로그램은 FlowLayout관리자를 지정한 Frame에 버튼을 배열하는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>FlowLayoutExample.java</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class FlowLayoutExample {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public FlowLayoutExample() {
+			<P class="CStep3">f = new Frame(&quot;FlowLayout Example&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.setLayout(new FlowLayout());
+			<P class="CStep3">f.add(new Button(&quot;Button 1&quot;));
+			<P class="CStep3">f.add(new Button(&quot;Button 2&quot;));
+			<P class="CStep3">f.add(new Button(&quot;Button 3&quot;));
+			<P class="CStep3">f.setSize(150, 100);
+			<P class="CStep3">f.setTitle(&quot;FlowLayout&quot;);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">FlowLayoutExample fl = new FlowLayoutExample();
+			<P class="CStep3">fl.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+		<TD WIDTH=7%>
+			<P class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">f.setLayout(new FlowLayout());</TD>
+		</tr>
+		</TABLE>
+		<P>setLayout() 메소드를 이용하여 레이아웃 관리자를 플로우레이아웃으로 지정한다.
+		<P>플로우레이아웃 클래스의 객체 생성자와 주요 메소드를 살펴보면 다음과 같다.
+		<P>▒ 필드
+		<P> &middot;  static int LEFT : 플로우레이아웃 관리자의 왼쪽정렬 값을 나타낸다.
+		<P> &middot;  static int CENTER : 플로우레이아웃 관리자의 가운데정렬 값을 나타낸다.
+		<P> &middot;  static int RIGHT : 플로우레이아웃 관리자의 오른쪽정렬 값을 나타낸다.
+		<P> &middot;  static int LEADING : 플로우레이아웃 관리자의 리딩에지(leading edge) 정렬 값을 나타낸다.
+		<P> &middot;  static int TRAILING : 플로우레이아웃 관리자의 트레일링 에지(trailing edge) 정렬 값을 나타낸다.
+		<P>▒ 생성자
+		<P> &middot;  FlowLayout() : 디폴트로 중앙정렬을 하고, 수평과 수직 간격이 5인 플로우레이아웃 관리자를 생성한다.
+		<P> &middot;  FlowLayout(int align) : 주어진 정렬을 하고, 수평과 수직 간격이 5인 플로우 레이아웃 관리자를 생성한다.
+		<P> &middot;  FlowLayout(int align, int hgap, int vgap) : 주어진 정렬을 하고, 수평과 수직 간격이 각각 hgap과 vgap인 플로우레이아웃 관리자를 생성한다.
+		<P>▒ 메소드
+		<P> &middot;  void addLayoutComponent(String name, Component comp) : 주어진 이름으로 컴포넌트를 추가한다.
+		<P> &middot;  void removeLayoutComponent(Component comp) : 컴포넌트를 제거한다.
+		<P> &middot;  int getAlignment() : 정렬 방식의 값을 얻는다.
+		<P> &middot;  void setAlignment(int align) : 정렬 방식을 설정한다.
+		<P> &middot;  void layoutContainer(Container target) : 컨테이너에 대한 레이아웃을 행한다.
+		<P> &middot;  int getHgap() : 수평 간격을 얻는다.
+		<P> &middot;  int getVgap() : 수직 간격을 얻는다.
+		<P> &middot;  void setHgap(int hgap) : 수평 간격을 설정한다.
+		<P> &middot;  void setVgap(int vgap) : 수직 간격을 설정한다.
+		</ul>
+		<P class="TSubmenu">4.2.2 BorderLayout
+		<ul>
+		<P>BorderLayout 관리자는 Window, Frame, Dialog의 기본 레이아웃 관리자이다. 컨테이너에 포함된 컴포넌트는 North, South, East, West 및 Center 중에서 하나의 영역에 배치될 수 있다. North는 위를 차지하며, East는 오른쪽을 차지하고, Center영역은 North, South, East, West 등의 영역이 채워진 후에 남는 영역 전체이다. 이들 영역에는 각각 하나의 컴포넌트만 추가할 수 있으며, 하나 이상의 컴포넌트를 추가해도 하나만 나타난다. 만약 한 영역을 사용하지 않으면 그 영역의 최적크기는 0&times;0이 된다. 따라서 컴포넌트를 하나도 넣지 않으면 가운데 영역은 배경으로 나타나고, 주위영역은 0(Zero) 상태로 줄어들어 보이지 않게 된다.
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=38%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV177.GIF" BORDER=0 WIDTH=184 HEIGHT=194 HSPACE=3 ALIGN=BOTTOM></TD>
+			<TD WIDTH=61%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV179.GIF" BORDER=0 WIDTH=280 HEIGHT=184 HSPACE=3 ALIGN=BOTTOM></TD>
+		</tr>
+		<TR>
+			<TD WIDTH=38%>
+			<P ALIGN=CENTER>  크기 변경 전</TD>
+			<TD WIDTH=61%>
+			<P ALIGN=CENTER>  가로방향 크기 변경 후</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=38%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV177.GIF" BORDER=0 WIDTH=204 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM></TD>
+			<TD WIDTH=61%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV183.GIF" BORDER=0 WIDTH=204 HEIGHT=295 HSPACE=2 ALIGN=BOTTOM></TD>
+		</tr>
+		<TR>
+			<TD WIDTH=38%>
+			<P ALIGN=CENTER>  크기 변경 전</TD>
+			<TD WIDTH=61%>
+			<P ALIGN=CENTER>  세로방향 크기 변경 후</TD>
+		</tr>
+		</TABLE>
+		<P>BorderLayout 관리자를 사용할 때는 &quot;North&quot;, &quot;South&quot;, &quot;East&quot;, &quot;West&quot;, &quot;Center&quot; 등과 같은 문자열의 영역이름을 지정한다. 이러한 영역은 미리 정의된 상수인 BorderLayout.NORTH, BorderLayout. SOUTH, BorderLayout.EAST,  BorderLayout.WEST, BorderLayout.CENTER 등을 이용한다.
+		<P>다음 프로그램은 BorderLayout을 만드는 예이다. 실행 후 창의 크기를 변경하여 BorderLayout 관리자가 어떻게 반응하는지 살펴보기 바란다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>BorderLayoutExample.java</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class BorderLayoutExample {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public BorderLayoutExample() {
+			<P class="CStep3">f = new Frame(&quot;BorderLayout Example&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep2">//	f.setLayout(new BorderLayout());
+			<P class="CStep3">f.add(&quot;East&quot;, new Button(&quot;East&quot;));
+			<P class="CStep3">f.add(&quot;West&quot;, new Button(&quot;West&quot;));
+			<P class="CStep3">f.add(&quot;North&quot;, new Button(&quot;North&quot;));
+			<P class="CStep3">f.add(&quot;Center&quot;, new Button(&quot;Center&quot;));
+			<P class="CStep3">f.add(&quot;South&quot;, new Button(&quot;South&quot;));
+			<P class="CStep3">f.setSize(200, 200);
+			<P class="CStep3">f.setTitle(&quot;BorderLayout&quot;);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">BorderLayoutExample ble = new BorderLayoutExample();
+			<P class="CStep3">ble.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">//	setLayout(new BorderLayout());</TD>
+		</tr>
+		</TABLE>
+		<P>주석처리하여 레이아웃관리자를 지정하지 않았는데 그 이유는 프레임 클래스의 레이아웃관리자가 BorderLayout관리자이기 때문이다. 즉, 여기서는 6번째 줄이 주석 처리되건 그렇지 않건 상관없다.
+		<P>BorderLayout 클래스의 객체 생성자와 주요 메소드를 살펴보면 다음과 같다.
+		<P>▒ 생성자
+		<P> &middot;  BorderLayout() : 컴포넌트간의 수평간격과 수직간격이 0인 Border 레이아웃 관리자를 생성한다.
+		<P> &middot;  BorderLayout(int hgap, int vgap) : 컴포넌트간의 수평간격(hgap)과 수직간격(vgap)을 갖는 Border 레이아웃 관리자를 생성한다. 
+		<P>▒ 메소드
+		<P> &middot;  int getHgap() : 컴포넌트간의 수평간격(hgap)을 얻는다.
+		<P> &middot;  int getVgap() : 컴포넌트간의 수직간격(vgap)을 얻는다.
+		<P> &middot;  void setHgap(int hgap) : 컴포넌트간의 수평간격(hgap)을 설정한다.
+		<P> &middot;  void setVgap(int vgap) : 컴포넌트간의 수직간격(vgap)을 설정한다.
+		</ul>
+		<P class="TSubmenu">4.2.3 GridLayout
+		<ul>
+		<P>GridLayout 관리자는 컨테이너의 영역을 주어진 행과 열 크기로 나누고, 같은 크기의 셀에 컴포넌트를 배치시키는 레이아웃 관리자이다. 예를 들어 new GridLayout(3, 2)문으로 Grid 레이아웃을 만들면 아래 그림처럼 여섯 개의 셀(3개의 행과 2개의 열)이 나타난다. 이 때 모든 셀의 폭은 동일하며 사용 가능한 폭을 셀 수로 나누는 간단한 방식으로 결정된다. 셀 높이도 동일하며, 사용 가능한 높이를 행  수로 나누어 간단하게 결정할 수 있다. 나눈 셀의 수보다 더 많거나 적게 컴포넌트를 삽입하면 먼저 행은 고정되고, 열 수가 변한다.
+		<P>  
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=500>
+			<TD WIDTH=37%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV185.GIF" BORDER=0 WIDTH=114 HEIGHT=97 HSPACE=3 ALIGN=BOTTOM></TD>
+			<TD WIDTH=62%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV187.GIF" BORDER=0 WIDTH=234 HEIGHT=144 HSPACE=3 ALIGN=BOTTOM></TD>
+		</tr>
+		<TR>
+			<TD WIDTH=37%>
+			<P ALIGN=CENTER>  크기 변경 전</TD>
+			<TD WIDTH=62%>
+			<P ALIGN=CENTER>  크기 변경 후</TD>
+		</tr>
+		</TABLE>
+		<P>BorderLayout관리자와 마찬가지로 컨테이너 크기를 변경해도 컴포넌트의 상대적 위치는 변함이 없고, 컴포넌트의 크기만 변경된다.
+		<P>다음 프로그램은 앞 그림의 GridLayout 관리자에 대한 사용 예를 나타낸 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>GridLayoutExample.java</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class GridLayoutExample {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">public GridLayoutExample() {
+			<P class="CStep3">f = new Frame(&quot;GridLayout Example&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.setLayout(new GridLayout(3, 2));
+			<P class="CStep3">f.add(new Button(&quot;1&quot;));
+			<P class="CStep3">f.add(new Button(&quot;2&quot;));
+			<P class="CStep3">f.add(new Button(&quot;3&quot;)); 
+			<P class="CStep3">f.add(new Button(&quot;4&quot;));
+			<P class="CStep3">f.add(new Button(&quot;5&quot;));
+			<P class="CStep3">f.add(new Button(&quot;6&quot;));
+			<P class="CStep3">f.pack();
+			<P class="CStep3">f.setTitle(&quot;GridLayout&quot;);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">GridLayoutExample gle = new GridLayoutExample();
+			<P class="CStep3">gle.launchFrame();
+			<P class="CStep3">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%><P class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">f.setLayout(new GridLayout(3, 2));</TD>
+		</tr>
+		</TABLE>
+		<P>3행 2열의 Grid 레이아웃을 설정한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">20:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">f.pack();</TD>
+		</tr>
+		</TABLE>
+		<P>pack() 메소드 호출은 프레임의 크기를 그 프레임 내에 포함된 모든 컴포넌트의 최적 크기와 일치되게 설정한다. 따라서, 프레임이 적절한 크기로 설정된다. 
+		<P>GridLayout 클래스의 객체 생성자와 주요 메소드는 다음과 같다.
+		<P>▒ 생성자
+		<P>  &middot; GridLayout() : 하나의 행을 갖고 각 컴포넌트가 하나의 열을 차지하도록 Grid 레이아웃관리자를 생성한다.
+		<P>  &middot; GridLayout(int rows, int cols) : 주어진 행과 열을 갖는 Grid 레이아웃 관리자를 생성한다.
+		<P>  &middot; GridLayout(int rows, int cols, int hgap, int vgap) : 주어진 행과 열을 갖고 수평과 수직 간격이 각각 hgap과 vgap인 Grid 레이아웃 관리자를 생성한다.
+		<P>   
+		<P>▒ 메소드
+		<P>  &middot; void addLayoutComponent(String name, Component comp) : 주어진 이름으로 컴포넌트를 추가한다.
+		<P>  &middot; int getColumns() : 열의 크기를 얻는다.
+		<P>  &middot; int getHgap() : 수평간격을 얻는다.
+		<P>  &middot; int getRows() : 행의 크기를 얻는다.
+		<P>  &middot; int getVgap() : 수직간격을 얻는다.
+		<P>  &middot; void layoutContainer(Container parent) : 컨테이너를 레이아웃 한다.
+		<P>  &middot; void removeLayoutComponent(Component comp) : 주어진 컴포넌트를 제거한다.
+		<P>  &middot; void setColumns(int cols) : 열의 크기를 설정한다.
+		<P>  &middot; void setHgap(int hgap) : 수평간격을 설정한다.
+		<P>  &middot; void setRows(int rows) : 행의 크기를 설정한다.
+		<P>  &middot; void setVgap(int vgap) : 수직간격을 설정한다.
+		</ul>
+		<P class="TSubmenu">4.2.4 CardLayout
+		<ul>
+		<P>인터페이스를 한 번에 한 장씩 나타나는 카드처럼 다룰 수 있다. 즉, 여러 장의 카드를 겹쳐 배치하는 식으로 관리하여 컨테이너가 포함한 컴포넌트를 한 장씩 볼 수 있게 한다. 윈도우에서 탭 대화상자와 유사하다. 여러장으로 겹쳐진 경우 맨 처음 등록된 컴포넌트를 디폴트로 보여준다.
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=50%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV189.GIF" BORDER=0 WIDTH=204 HEIGHT=102 HSPACE=3 ALIGN=BOTTOM></TD>
+			<TD WIDTH=50%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV191.GIF" BORDER=0 WIDTH=204 HEIGHT=102 HSPACE=3 ALIGN=BOTTOM></TD>
+		</tr>
+		</TABLE>
+		<P>다음 프로그램은 앞의 그림처럼 마우스를 클릭 할 때마다 두 개의 Panel을 번갈아 보여주는 예제이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>CardLayoutExample.java</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:
+			<p class="CNumber">29:
+			<p class="CNumber">30:
+			<p class="CNumber">31:
+			<p class="CNumber">32:
+			<p class="CNumber">33:
+			<p class="CNumber">34:
+			<p class="CNumber">35:
+			<p class="CNumber">36:
+			<p class="CNumber">37:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">public class CardLayoutExample implements MouseListener {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">private Panel cardPanel, p1, p2;
+			<P class="CStep2">private CardLayout myCardLayout;
+			<P class="CStep2">public CardLayoutExample() {
+			<P class="CStep3">f = new Frame(&quot;CardLayout Example&quot;);
+			<P class="CStep3">myCardLayout = new CardLayout();
+			<P class="CStep3">cardPanel = new Panel();
+			<P class="CStep3">p1 = new Panel();
+			<P class="CStep3">p2 = new Panel();
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">cardPanel.setLayout(myCardLayout);
+			<P class="CStep3">p1.setBackground(Color.yellow);
+			<P class="CStep3">p2.setBackground(Color.red);
+			<P class="CStep3">p1.addMouseListener(this);
+			<P class="CStep3">p2.addMouseListener(this);
+			<P class="CStep3">cardPanel.add(p1, &quot;First&quot;);
+			<P class="CStep3">cardPanel.add(p2, &quot;Second&quot;);
+			<P class="CStep3">f.add(cardPanel);
+			<P class="CStep3">f.setSize(200, 100);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">CardLayoutExample cle = new CardLayoutExample();
+			<P class="CStep3">cle.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep2">public void mousePressed(MouseEvent me) {
+			<P class="CStep3">myCardLayout.next(cardPanel);
+			<P class="CStep2">}
+			<P class="CStep2">public void mouseClicked(MouseEvent me) {}
+			<P class="CStep2">public void mouseReleased(MouseEvent me) {}
+			<P class="CStep2">public void mouseEntered(MouseEvent me) {}
+			<P class="CStep2">public void mouseExited(MouseEvent me) {}
+			<P class="CStep1">}</td>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">4:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class CardLayoutExample implements MouseListener {</TD>
+		</tr>
+		</TABLE>
+		<P>마우스 이벤트를 사용하기 위해 MouseListener 인터페이스를 구현한 것이다. 이벤트에 대한 자세한 내용은 뒤에서 자세히 다루기로 한다. 
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">6:
+			<P class="CNumber">7:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">private Panel cardPanel, p1, p2;
+			<P class="CStep1">private CardLayout myCardLayout;</TD>
+		</tr>
+		</TABLE>
+		<P>Panel객체와 CardLayout객체를 선언한다. 선언된 Panel객체 중 cardPanel객체는 또 다른 Panel 객체인 p1과 p2객체를 포함시킬 패널이다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">myCardLayout = new CardLayout();</TD>
+		</tr>
+		</TABLE>
+		<P>7번째 줄에서 선언한 CardLayout 객체의 인스턴스를 생성한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">cardPanel = new Panel();
+			<P class="CStep1">p1 = new Panel();
+			<P class="CStep1">p2 = new Panel();</TD>
+		</tr>
+		</TABLE>
+		<P>6번째 줄에서 선언한 Panel의 인스턴스를 생성한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">18:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">cardPanel.setLayout(myCardLayout);</TD>
+		</tr>
+		</TABLE>
+		<P>CardLayout객체의 인스턴스인 myCardLayout을 이용하여 cardPanel객체의 레이아웃 관리자를 CardLayout으로 설정한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<p class="CNumber">20:
+			<p class="CNumber">21:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">p1.setBackground(Color.yellow);
+			<P class="CStep1">p2.setBackground(Color.red);</TD>
+		</tr>
+		</TABLE>
+		<P>Panel객체 p1의 배경색은 노란색으로, p2의 배경색은 빨간색으로 설정한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">22:
+			<P class="CNumber">23:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">p1.addMouseListener(this);
+			<P class="CStep1">p2.addMouseListener(this);</TD>
+		</tr>
+		</TABLE>
+		<P>Panel객체 p1과 p2에 마우스 이벤트 처리 객체를 등록시켜 p1과 p2를 이벤트 발생시키는 객체로 만든다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">25:
+			<P class="CNumber">26:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">cardPanel.add(p1, &quot;First&quot;);
+			<P class="CStep1">cardPanel.add(p2, &quot;Second&quot;);</TD>
+		</tr>
+		</TABLE>
+		<P>Panel객체 p1과 p2를 6번째 줄에서 선언된 Panel객체인 cardPanel에 부착한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">28:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">f.add(cardPanel);</TD>
+		</tr>
+		</TABLE>
+		<P>cardPanel객체를 프레임에 부착한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">37:
+			<P class="CNumber">38:
+			<P class="CNumber">39:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public void mousePressed(MouseEvent me) {
+			<P class="CStep2">myCardLayout.next(cardPanel);
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>이벤트 처리 루틴을 구현하는 부분이다. 
+		<P>39 : 다음 컴포넌트를 보여준다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">40:
+			<P class="CNumber">∼</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public void mouseClicked(MouseEvent me) {}
+			<P class="CStep1">...</TD>
+		</tr>
+		</TABLE>
+		<P>41 : ∼ 44 : 인터페이스를 사용했을 때는 사용하지 않더라도 인터페이스 내에 선언되어있는 모든 메소드를 프로그램 내에서 모두 구현해야 한다.
+		<P>CardLayout 클래스의 객체 생성자와 주요 메소드를 살펴보면 다음과 같다.
+		<P>▒ 생성자
+		<P>  &middot; CardLayout() : 컴포넌트 간의 수평간격과 수직간격이 0인 카드레이아웃 관리자를 생성한다.
+		<P>  &middot; CardLayout(int hgap, int vgap) : 컴포넌트간의 수평간격이 hgap이고, 수직간격이 vgap인 카드레이아웃 관리자를 생성한다.
+		<P>▒ 메소드
+		<P>  &middot; void addLayoutComponent(Component comp, Object constraints) : 주어진 컴포넌트를 카드레이아웃 관리자의 내부 이름테이블에 삽입한다.
+		<P>  &middot; void first(Container parent) : 주어진 컨테이너에 포함된 첫 번째 카드를 보여준다.
+		<P>  &middot; void last(Container parent) : 주어진 컨테이너에 포함된 마지막 카드를 보여준다.
+		<P>  &middot; void next(Container parent) : 주어진 컨테이너에 포함된 다음카드를 보여준다.
+		<P>  &middot; void previous(Container parent) : 주어진 컨테이너에 포함된 이전카드를 보여준다.
+		<P>  &middot; void show(Container parent, String name) : 주어진 컨테이너에 포함된 컴포넌트 중 주어진 이름을 가진 컴포넌트로 전환하여 보여준다.
+		<P>  &middot; void removeLayoutComponent(Component comp) : 주어진 컴포넌트를 제거한다.
+		<P>  &middot; void layoutContainer(Container parent) : 이 카드 레이아웃 관리자를 이용하여 주어진 컨테이너에 포함된 컴포넌트를 레이아웃 시킨다.
+		<P>  &middot; int getHgap() : 컴포넌트간의 수평간격(hgap)을 얻는다.
+		<P>  &middot; int getVgap() : 컴포넌트간의 수직간격(vgap)을 얻는다.
+		<P>  &middot; void setHgap(int hgap) : 컴포넌트간의 수평간격(hgap)을 설정한다.
+		<P>  &middot; void setVgap(int vgap) : 컴포넌트간의 수직간격(vgap)을 설정한다.
+		</ul>
+		<P class="TSubmenu">4.2.5 GridBagLayout
+		<ul>
+		<P>GridBagLayout는 레이아웃 관리자 중에서 가장 복잡하면서도 다양한 형태를 가지고있다. 이 레이아웃 관리자는 각 컴포넌트를 격자나 셀을 기준으로 배치한다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV193.GIF" BORDER=0 WIDTH=306 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>GridBagLayout 관리자는 컴포넌트를 출력할 때 각 컴포넌트가 차지하는 셀의 위치(수평크기, 수직크기) 등을 설정할 때 GridBagConstraints 클래스를 이용한다. 
+		<P>GridBagConstraints 클래스의 기능은 다음과 같다.
+		<P> &middot; GridBagConstraints.gridx, GridBagConstraints.gridy : 컴포넌트가 위치할 셀의 x 값과 y 값을 나타낸다.
+		<P>- 맨 왼쪽 위 셀의 gridx과 gridy 값은 0이다.
+		<P>- 컴포넌트를 순서대로 배치할 때는 GridBagConstraints.RELATIVE를 이용한다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=50%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV194.GIF" BORDER=0 WIDTH="223" HEIGHT="75" ALIGN=BOTTOM></TD>
+			<TD WIDTH=49%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV196.GIF" BORDER=0 WIDTH="206" HEIGHT="69" ALIGN=BOTTOM></TD>
+		</tr>
+		<TR>
+			<TD WIDTH=50%>
+			<P ALIGN=CENTER>&gt; Button 5의 gridx 값 : 1</TD>
+			<TD WIDTH=49%>
+			<P ALIGN=CENTER>&gt; Button 5의 gridx 값 : 2</TD>
+		</tr>
+		</TABLE>
+		<P> &middot; GridBagConstraints.gridwidth, GridBagConstraints.gridheight : 컴포넌트가 차지할 폭과 높이를 나타내는 셀의 개수를 나타낸다.
+		<P>- 디폴트값은 1이다.
+		<P>- gridwidth를 GridBagConstraints.REMAINDER 값으로 설정하면 현재 행의 마지막 셀이된다.
+		<P>- gridheight를 GridBagConstraints.REMAINDER 값으로 설정하면 현재 열의 마지막 셀이된다.
+		<P>- gridwidth를 GridBagConstraints.RELATIVE 값으로 설정하면 현재 행의 다음 셀부터 마지막 셀까지 차지하도록 한다.
+		<P>- gridheight 를 GridBagConstraints.RELATIVE 값으로 설정하면 현재 열의 다음 셀부터 마지막 셀까지 차지하도록 한다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=479>
+			<TD WIDTH=100%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV198.GIF" BORDER=0 WIDTH=277 HEIGHT=94 ALIGN=BOTTOM></TD>
+		</tr>
+		<TR>
+			<TD WIDTH=100%>
+			<P ALIGN=CENTER>&gt; Button 4의 gridwidth 값 : GridBagConstraints.REMAINDER</TD>
+		</tr>
+		</TABLE>
+		<P> &middot; GridBagConstraints.fill : 컴포넌트 영역이 요청한 크기보다 클 때, 크기설정을 다시 할 것인가를 결정한다. GridBagConstraints 클래스는 다음과 같은 값을 가능한 값으로 제공한다.
+		<P>- GridBagConstraints.NONE : 디폴트값.
+		<P>- GridBagConstraints.HORIZONTAL : 수평방향으로 확장하고 수직방향으로는 확장하지 않는다.
+		<P>- GridBagConstraints.VERTICAL : 수직방향으로 확장하고 수평방향으로는 확장하지 않는다.
+		<P>- GridBagConstraints.BOTH : 수평 및 수직으로 확장한다. 
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=383>
+			<TD WIDTH=100%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV200.GIF" BORDER=0 WIDTH=277 HEIGHT=94 ALIGN=BOTTOM></TD>
+		</tr>
+		<TR>
+			<TD WIDTH=100%>
+			<P ALIGN=CENTER>&gt; Button 5의 fill 값 : GridBagConstraints.BOTH</TD>
+		</tr>
+		</TABLE>
+		<P> &middot; GridBagConstraints.ipadx, GridBagConstraints.ipady : 컴포넌트 폭의 최소값에 (ipadx * 2) 픽셀을 더하고, 높이의 최소값에 (ipady * 2) 픽셀을 더한다. 
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=486>
+			<TD WIDTH=50%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV202.GIF" BORDER=0 WIDTH=204 HEIGHT=153 ALIGN=BOTTOM></TD>
+			<TD WIDTH=50%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV204.GIF" BORDER=0 WIDTH=204 HEIGHT=153 ALIGN=BOTTOM></TD>
+		</tr>
+		<TR>
+			<TD WIDTH=50%>
+			<P ALIGN=CENTER>&gt; ipadx 값 : 10
+			<P ALIGN=CENTER>&gt; ipady 값 : 50</TD>
+			<TD WIDTH=50%>
+			<P ALIGN=CENTER>&gt; ipadx 값 : 50
+			<P ALIGN=CENTER>&gt; ipady 값 : 10</TD>
+		</tr>
+		</TABLE>
+		<P> &middot; GridBagConstraints.insets : 컴포넌트와 디스플레이 영역의 경계선 사이 공간크기를 나타낸다.
+		<P> &middot; GridBagConstraints.anchor : 컴포넌트가 디스플레이 영역보다 작을 때, 컴포넌트가 위치할 값을 나타낸다.
+		<P>- GridBagConstraints.CENTER : 디폴트 값.
+		<P>- GridBagConstraints.NORTH
+		<P>- GridBagConstraints.NORTHEAST
+		<P>- GridBagConstraints.EAST
+		<P>- GridBagConstraints.SOUTHEAST
+		<P>- GridBagConstraints.SOUTH
+		<P>- GridBagConstraints.SOUTHWEST
+		<P>- GridBagConstraints.WEST
+		<P>- GridBagConstraints.NORTHWEST
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=421>
+			<TD WIDTH=100%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV206.GIF" BORDER=0 WIDTH=277 HEIGHT=94 ALIGN=BOTTOM></TD>
+		</tr>
+		<TR>
+			<TD WIDTH=100%>
+			<P ALIGN=CENTER>&gt; Button5의 anchor값은 GridBagConstraints.WEST</TD>
+		</tr>
+		</TABLE>
+		<P> &middot; GridBagConstraints.weightx, GridBagConstraints.weighty : 컴포넌트 영역이 요청한 크기보다 클 때 남는 영역을 각 컴포넌트에게 배분해 주어야 하는데, 이 때 컴포넌트가 차지할 폭(weightx)과 높이(weighty)에 대한 가중값(weight)을 나타낸다. 가중값은 컴포넌트마다 다르게 줄 수 있으며, 가중값이 0이면 디스플레이 영역이 커지더라도(사용자가 윈도우의 창을 키울 때) 각 컴포넌트에 할당되는 영역이 없으므로 모든 컴포넌트가 한군데 위치하게 되고 남는 영역은 빈 공간으로 나타나게 된다.
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=43%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV208.GIF" BORDER=0 WIDTH=277 HEIGHT=61 ALIGN=BOTTOM></TD>
+			<TD COLSPAN=2 WIDTH=28%>
+			<P ALIGN=CENTER>&gt; Button 1, 2, 3
+			<P ALIGN=CENTER>  - weightx값 : 0
+			<P ALIGN=CENTER>  - weighty값 : 0</TD>
+			<TD WIDTH=27%>
+			<P ALIGN=CENTER>&gt; Button 4
+			<P ALIGN=CENTER>  - weightx값 : 1
+			<P ALIGN=CENTER>  - weighty값 : 0</TD>
+		</tr>
+		<TR>
+			<TD COLSPAN=2 WIDTH=58%>
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV210.GIF" BORDER=0 WIDTH=369 HEIGHT=61 ALIGN=BOTTOM></TD>
+			<TD COLSPAN=2 WIDTH=41%>
+			<P ALIGN=CENTER>&gt; 윈도우를 가로로 확대한 모습</TD>
+		</tr>
+		</TABLE>
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=58%>
+			<P>
+			<IMG SRC="images/FYXIV212.GIF" BORDER=0 WIDTH=277 HEIGHT=122 ALIGN=BOTTOM></TD>
+			<TD WIDTH=41%>
+			<P ALIGN=CENTER>&gt; 윈도우를 세로로 확대한 보습</TD>
+		</tr>
+		</TABLE>
+		<P>다음 프로그램은 GridBagConstraints 객체값을 적당하게 설정하여 각 컴포넌트를 컨테이너에 등록한 후, 그리드백 레이아웃 관리자를 이용하는 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>GridBagLayoutExample.java</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:
+			<p class="CNumber">29:
+			<p class="CNumber">30:
+			<p class="CNumber">31:
+			<p class="CNumber">32:
+			<p class="CNumber">33:
+			<p class="CNumber">34:
+			<p class="CNumber">35:
+			<p class="CNumber">36:
+			<p class="CNumber">37:
+			<p class="CNumber">38:
+			<p class="CNumber">39:
+			<p class="CNumber">40:
+			<p class="CNumber">41:
+			<p class="CNumber">42:
+			<p class="CNumber">43:
+			<p class="CNumber">44:
+			<p class="CNumber">45:
+			<p class="CNumber">46:
+			<p class="CNumber">47:
+			<p class="CNumber">48:
+			<p class="CNumber">49:
+			<p class="CNumber">50:
+			<p class="CNumber">51:
+			<p class="CNumber">52:
+			<p class="CNumber">53:
+			<p class="CNumber">54:
+			<p class="CNumber">55:
+			<p class="CNumber">56:
+			<p class="CNumber">57:
+			<p class="CNumber">58:
+			<p class="CNumber">59:
+			<p class="CNumber">60:
+			<p class="CNumber">61:
+			<p class="CNumber">62:
+			<p class="CNumber">63:
+			<p class="CNumber">64:
+			<p class="CNumber">65:
+			<p class="CNumber">66:
+			<p class="CNumber">67:
+			<p class="CNumber">68:
+			<p class="CNumber">69:
+			<p class="CNumber">70:
+			<p class="CNumber">71:
+			<p class="CNumber">72:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class GridBagLayoutExample {		//extends Frame {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">private GridBagLayout gridbag;
+			<P class="CStep2">private GridBagConstraints c;
+			<P class="CStep2">public GridBagLayoutExample() {
+			<P class="CStep3">f = new Frame(&quot;GridBagLayout&quot;);
+			<P class="CStep3">gridbag = new GridBagLayout();
+			<P class="CStep3">c = new GridBagConstraints();
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {	
+			<P class="CStep2">f.setLayout(gridbag);
+			<P class="CStep3">c.ipadx = 8;
+			<P class="CStep3">c.ipadx = 8;
+			<P class="CStep3">c.fill = GridBagConstraints.BOTH;
+			<P class="CStep3">c.weightx = 1.0; c.weighty = 1.0;
+			<P class="CStep3">Button button1 = new Button(&quot;Button1&quot;);
+			<P class="CStep3">gridbag.setConstraints(button1, c);
+			<P class="CStep3">f.add(button1);
+			<P class="CStep3">Button button2 = new Button(&quot;Button2&quot;);
+			<P class="CStep3">gridbag.setConstraints(button2, c);
+			<P class="CStep3">f.add(button2);
+			<P class="CStep3">Button button3 = new Button(&quot;Button3&quot;);
+			<P class="CStep3">gridbag.setConstraints(button3, c);
+			<P class="CStep3">f.add(button3);
+			<P class="CStep3">c.gridwidth = GridBagConstraints.REMAINDER;
+			<P class="CStep3">//end row
+			<P class="CStep3">Button button4 = new Button(&quot;Button4&quot;);
+			<P class="CStep3">gridbag.setConstraints(button4, c);
+			<P class="CStep3">f.add(button4);
+			<P class="CStep3">c.fill = GridBagConstraints.BOTH;
+			<P class="CStep3">c.weightx = 0.0;  c.weighty = 0.0;
+			<P class="CStep3">//reset to the default
+			<P class="CStep3">Button button5 = new Button(&quot;Button5&quot;);
+			<P class="CStep3">gridbag.setConstraints(button5, c);
+			<P class="CStep3">f.add(button5);
+			<P class="CStep3">//another row
+			<P class="CStep3">c.gridwidth = GridBagConstraints.RELATIVE;
+			<P class="CStep3">//next-to-last in row
+			<P class="CStep3">Button button6 = new Button(&quot;Button6&quot;);
+			<P class="CStep3">gridbag.setConstraints(button6, c);
+			<P class="CStep3">f.add(button6);
+			<P class="CStep3">c.gridwidth = GridBagConstraints.REMAINDER;
+			<P class="CStep3">//end row
+			<P class="CStep3">c.weightx = 0.75; c.weighty = 0.75;
+			<P class="CStep3">Button button7 = new Button(&quot;Button7&quot;);
+			<P class="CStep3">gridbag.setConstraints(button7, c);
+			<P class="CStep3">f.add(button7);
+			<P class="CStep3">c.gridwidth = 1; 		//reset to the default
+			<P class="CStep3">c.gridheight = 2;
+			<P class="CStep3">c.weightx = 0.25; c.weighty = 0.25;
+			<P class="CStep3">Button button8 = new Button(&quot;Button8&quot;);
+			<P class="CStep3">gridbag.setConstraints(button8, c);
+			<P class="CStep3">f.add(button8);
+			<P class="CStep3">c.weighty = 0.0; 		//reset to the default
+			<P class="CStep3">c.gridwidth = GridBagConstraints.REMAINDER;
+			<P class="CStep3">//end row
+			<P class="CStep3">c.gridheight = 1; 		//reset to the default
+			<P class="CStep3">Button button9 = new Button(&quot;Button9&quot;);
+			<P class="CStep3">gridbag.setConstraints(button9, c);
+			<P class="CStep3">f.add(button9);
+			<P class="CStep3">Button button10 = new Button(&quot;Button10&quot;);
+			<P class="CStep3">gridbag.setConstraints(button10, c);
+			<P class="CStep3">f.add(button10);
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">GridBagLayoutExample gbl = new GridBagLayoutExample();
+			<P class="CStep3">gbl.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</td>
+		</tr>
+		</TABLE>
+		<P>앞의 프로그램을 실행한 후, 윈도우 크기를 적당하게 조절해 보면, 주어진 가중값에  따라 남는 영역이 분배되므로 가중값에 따라 각 컴포넌트의 크기가 변하는 것을 알 수 있다. 
+		<P>그리고, GridBagConstraints.REMAINDER와 GridBagConstraints.RELATIVE의 차이점도 알 수 있다.
+		<P>GridBagLayout 클래스의 객체 생성자와 주요 메소드는 다음과 같다.
+		<P>▒ 생성자
+		<P> &middot; GridBagLayout() : 그리드백 레이아웃 관리자를 생성한다.
+		<P>▒ 메소드
+		<P> &middot; void addLayoutComponent(Component comp, Object constraints) : 주어진 컴포넌트를 주어진 constraints 객체를 이용하여 추가한다.
+		<P> &middot; void addLayoutComponent(String name, Component comp) : 주어진 이름으로 컴포넌트를 추가한다.
+		<P> &middot; GridBagConstraints getConstraints(Component comp) : 주어진 컴포넌트에 연결된 GridBagConstraints 객체를 얻는다.
+		<P> &middot; Point getLayoutOrigin() : 레이아웃 그리드의 시작 위치값을 얻는다.
+		<P> &middot; double[][] getLayoutWeights() : 레이아웃 그리드의 행과 열이 갖는 가중값 배열을 얻는다.
+		<P> &middot; void invalidateLayout(Container target) : 레이아웃을 무효화시킨다.
+		<P> &middot; void layoutContainer(Container parent) : 그리드백 레이아웃 관리자를 이용하여 주어진 컨테이너를 레이아웃 시킨다.
+		<P> &middot; void removeLayoutComponent(Component comp) : 주어진 컴포넌트를 제거한다.
+		<P> &middot; void setConstraints(Component comp, GridBagConstraints constraints) : 주어진 컴포넌트에 대한 constraints를 설정한다.
+		</ul>
+		<P class="TSubmenu">4.2.6 복합 레이아웃(Complex Layout)
+		<ul>
+		<P>프레임과 패널은 AWT에서 필수 컨테이너라고 할 수 있다. 
+		<P>프레임은 제목, 테두리, 크기조절용 모서리 등이 있는 &quot;최상위 레벨&quot; 창이다. 창의 모양과 동작 방식은 사용하는 플랫폼에 따라 다르며, setLayout() 메소드를 사용하여 레이아웃 관리자를 지정하지 않으면 BorderLayout이 프레임의 기본 레이아웃 관리자가 된다. 일반적으로 GUI 환경으로 프로그램을 작성할 때는 적어도 하나의 프레임을 사용하게 되지만 하나의 코드 내에서 여러 프레임을 사용할 수도 있다. 프레임의 상위 클래스인 Window도 BorderLayout을 기본 레이아웃 관리자로 한다.
+		<P>패널에서 setLayout() 메소드를 명시적으로 사용하지 않으면 FlowLayout 관리자가 사용된다. 패널은 독립적인 모양도 없고 독립적인 창으로 사용할 수도 없지만, 컴포넌트(버튼, 레이블 등) 뿐만 아니라 다른 컨테이너(패널, 프레임 등)를 넣을 수 있다. 패널을 컨테이너에 넣으면 독립적으로 다른 레이아웃 관리자를 사용할 수 있다. 패널 클래스의 하위 클래스인 Applet도 FlowLayout을 기본 관리자로 한다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV214.GIF" BORDER=0 WIDTH=275 HEIGHT=138 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P>앞의 그림에서 &quot;버튼 1&quot;과 &quot;버튼 2&quot;가 있는 패널은 FlowLayout관리자가 적용되었고, &quot;버튼 3&quot;과 &quot;버튼 4&quot;가 있는 패널에는 BorderLayout관리자가 적용되었다. 
+		<P>다음 프로그램은 앞의 ComplexLayoutExample에 대한 결과를 출력하는 예를 보인 것이다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ComplexLayoutExample.java</TD>
+		</tr>
+			<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:
+			<p class="CNumber">29:
+			<p class="CNumber">30:
+			<p class="CNumber">31:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class ComplexLayoutExample {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">private Panel p1, p2;
+			<P class="CStep2">private Button b1, b2, b3, b4;
+			<P class="CStep2">public ComplexLayoutExample() {
+			<P class="CStep3">f = new Frame(&quot;ComplexLayout Example&quot;);
+			<P class="CStep3">p1 = new Panel();
+			<P class="CStep3">p2 = new Panel();
+			<P class="CStep3">b1 = new Button(&quot;버튼 1&quot;);
+			<P class="CStep3">b2 = new Button(&quot;버튼 2&quot;);
+			<P class="CStep3">b3 = new Button(&quot;버튼 3&quot;);
+			<P class="CStep3">b4 = new Button(&quot;버튼 4&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">p1.setLayout(new FlowLayout());
+			<P class="CStep3">p2.setLayout(new BorderLayout());
+			<P class="CStep3">p1.add(b1);
+			<P class="CStep3">p1.add(b2);
+			<P class="CStep3">p2.add(&quot;West&quot;, b3);
+			<P class="CStep3">p2.add(&quot;Center&quot;,b4);
+			<P class="CStep3">f.add(&quot;North&quot;, p1);
+			<P class="CStep3">f.add(&quot;Center&quot;, p2);
+			<P class="CStep3">f.setSize(300, 150);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">ComplexLayoutExample cl = new ComplexLayoutExample();
+			<P class="CStep3">cl.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%>
+			<p class="CNumber">10:
+			<p class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">Panel p1 = new Panel();
+			<P class="CStep1">Panel p2 = new Panel();</TD>
+		</tr>
+		</TABLE>
+		<P>두 개의 패널 객체를 생성한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%>
+			<P class="CNumber">19:
+			<P class="CNumber">20:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">p1.setLayout(new FlowLayout());
+			<P class="CStep1">p2.setLayout(new BorderLayout());</TD>
+		</tr>
+		</TABLE>
+		<P>10번째 줄과 11번째 줄에서 생성된 패널객체 p1은 FlowLayout을 레이아웃 관리자로 하고, p2는 BorderLayout을 레이아웃 관리자로 한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%>
+			<P class="CNumber">22:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">p1.add(b1);</TD>
+		</tr>
+		</TABLE>
+		<P>11번째 줄에서 만들어진 버튼 객체를 p1에 포함시킨다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%>
+			<P class="CNumber">25:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">p2.add(&quot;West&quot;, b3);</TD>
+		</tr>
+		</TABLE>
+		<P>16번째 줄에서 만들어진 버튼 객체를 p2에 포함시킨다. p2패널의 레이아웃 관리자가 BorderLayout이므로 add() 메소드에 위치를 명시해준다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%>
+			<P class="CNumber">28:
+			<P class="CNumber">29:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">f.add(&quot;North&quot;, p1);
+			<P class="CStep1">f.add(&quot;Center&quot;, p2);</TD>
+		</tr>
+		</TABLE>
+		<P>21번째 줄과 22번째 줄은 패널 객체 p1과 p2를 프레임에 부착한다. 프레임의 기본 레이아웃 관리자는 BorderLayout이므로 위치를 명시한 것이다.
+		</ul>
+		<P class="TSubmenu">4.2.7 레이아웃 관리자를 사용하지 않는 레이아웃
+		<ul>
+		<P>원하는 곳에 직접 컴포넌트를 배치하려면 먼저 레이아웃을 사용하지 않아야 하므로 레이아웃 관리자를 null(setLayout(null))로 설정한다. 그리고 각 컴포넌트의 크기와 위치 결정은 setSize(), setLocation() 메소드 또는 setBounds() 메소드 등을 이용하여 결정한다. 레이아웃 관리자를 지정하지 않을 경우 플랫폼에 따라 의도한 것과 다르게 나타날 수 있으므로 주의해야 한다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV215.GIF" BORDER=0 WIDTH=221 HEIGHT=112 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 앞의 NoLayoutExample을 출력하기 위한 예를 보인 것으로 레이아웃 관리자를 사용하지 않고, 컴포넌트의 위치를 직접 설정해 주는 방법을 보여주는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>NoLayoutExample.java</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">18:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:
+		</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class NoLayoutExample {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">private Button b1, b2, b3;
+			<P class="CStep2">private Insets insets;
+			<P class="CStep2">public NoLayoutExample() {
+			<P class="CStep3">f = new Frame(&quot;NoLayout Example&quot;);
+			<P class="CStep3">b1 = new Button(&quot;one&quot;);
+			<P class="CStep3">b2 = new Button(&quot;two&quot;);
+			<P class="CStep3">b3 = new Button(&quot;three&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.setLayout(null);
+			<P class="CStep3">f.setSize(200, 100);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep3">insets = f.getInsets();
+			<P class="CStep3">b1.setBounds(50 + insets.left, 5 +
+			<P class="CStep3">insets.top, 50, 20);
+			<P class="CStep3">b2.setLocation(new 	Point(70 + insets.left,
+			<P class="CStep3">35 + insets.top));
+			<P class="CStep3">b2.setSize(new Dimension(50, 20));
+			<P class="CStep3">b3.setLocation(130 + insets.left, 15 + insets.top);
+			<P class="CStep3">b3.setSize(50, 30);
+			<P class="CStep3">f.add(b1);  f.add(b2);  f.add(b3);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">NoLayoutExample nt = new NoLayoutExample();
+			<P class="CStep3">nt.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%>
+			<P class="CNumber">6:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">private Insets insets;</TD>
+		</tr>
+		</TABLE>
+		<P>Insets 객체를 이용해 프레임 경계선의 두께를 얻는다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">16:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">f.setLayout(null);</TD>
+		</tr>
+		</TABLE>
+		<P>레이아웃 관리자를 사용하지 않는다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">17:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">f.setSize(200, 100);</TD>
+		</tr>
+		</TABLE>
+		<P>프레임 윈도우의 크기를 가로 200픽셀 세로 100픽셀로 지정한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">18:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">f.setVisible(true);</TD>
+		</tr>
+		</TABLE>
+		<P>자바에서 테두리를 구하려면 먼저 컴포넌트가 보이는(visible) 상태여야 한다. 그렇지 않으면 테두리(inset) 값은 모두 0이 된다. 따라서, 이 부분을 20번째 줄 이후로 옮겨 실행시키면 다음과 같은 결과를 얻을 수 있다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV216.GIF" BORDER=0 WIDTH=204 HEIGHT=102 HSPACE=3 ALIGN=BOTTOM>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">20:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">insets = getInsets();</TD>
+		</tr>
+		</TABLE>
+		<P>프레임의 경계선 두께를 얻는다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">21:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">b1.setBounds(50 + insets.left, 5 + insets.top, 50, 20);</TD>
+		</tr>
+		</TABLE>
+		<P>setBound()는 컴포넌트의 크기와 위치를 동시에 지정할 수 있으므로 가로 50픽셀, 세로 20픽셀로 크기를 지정하고, 위치는 원점(0, 0)에서 (50, 5) 부분에 컴포넌트의 왼쪽 상단 모서리를 배치한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">22:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">b2.setLocation(new 	Point(70 + insets.left, 35 + insets.top));</TD>
+		</tr>
+		</TABLE>
+		<P>setLocation() 메소드는 컴포넌트의 위치를 지정해 주는 메소드로 좌표(70, 35)에 배치한다. 여기서는 Point클래스(Point클래스는 x좌표와 y좌표를 가지고 있다.)를 이용하여 위치를 지정했지만 23번째 줄처럼 Point클래스를 사용하지 않아도 된다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">23:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">b2.setSize(new Dimension(50, 20));</TD>
+		</tr>
+		</TABLE>
+		<P>setSize() 메소드는 컴포넌트의 크기를 지정해 주는 메소드이다. 가로 50픽셀, 세로 20픽셀 크기의 컴포넌트를 생성한다. 여기서는 Dimension 클래스를 이용했지만 24번째 줄처럼 Dimension 클래스를 사용하지 않아도 된다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">27:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">f.add(b1);  f.add(b2);  f.add(b3);</TD>
+		</tr>
+		</TABLE>
+		<P>버튼 컴포넌트를 프레임에 부착시킨다.
+		<P>컴포넌트의 크기와 위치에 관련된 주요 메소드를 살펴보면 다음과 같다.
+		<P> &middot; void setLocation(int x, int y) : 컴포넌트를 새로운 위치로 옮긴다.
+		<P> &middot; void setLocation(Point p) : 컴포넌트를 새로운 위치로 옮긴다.
+		<P> &middot; void setSize(Dimension d) : 컴포넌트의 폭과 높이를 각각 d.width와 d.height로 설정한다.
+		<P> &middot; void setSize(int width, int height) : 컴포넌트의 폭과 높이를 각각 width와 height로 설정한다.
+		<P> &middot; void setBounds(int x, int y, int width, int height) : 컴포넌트를 주어진 위치로 옮기고 크기를 변경한다.
+		<P> &middot; void setBounds(Rectangle r) : 컴포넌트를 주어진 위치로 옮기고 크기를 변경한다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=100%>
+			<P>Inset 클래스</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=100%>
+			<P>&bull; 컨테이너에서 테두리를 나타내는 클래스로 레이아웃을 지정할 때 유용하다. 즉, 컨테이너 영역 중에서 실제 컴포넌트를 표현하거나 작업할 수 있는 영역은 inset이 가리키는 테두리 영역이라 할 수 있다. 
+			<P>Inset 클래스는 다음과 같은 변수와 메소드를 제공한다.
+			<P>▒ 변수
+			<P> &middot; int bottom : 테두리 아래쪽크기를 나타낸다.
+			<P> &middot; int left : 테두리 왼쪽크기를 나타낸다.
+			<P> &middot; int right : 테두리 오른쪽크기를 나타낸다.
+			<P> &middot; int top : 테두리 위쪽크기를 나타낸다.
+			<P>▒ 생성자
+			<P> &middot; Insets(int top, int left, int bottom, int right) : 주어진 크기의 inset을 생성한다.
+			<P>▒ 메소드
+			<P> &middot; String toString() : inset 객체를 문자열로 표현하여 되돌려준다.</TD>
+		</tr>
+		</TABLE>
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV217.GIF" BORDER=0 WIDTH=360 HEIGHT=233 ALIGN=BOTTOM>
+		</ul></td>
+    </tr>
+	</table>
+</body>
+</html>

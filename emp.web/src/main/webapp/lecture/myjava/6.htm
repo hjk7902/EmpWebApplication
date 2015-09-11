@@ -1,0 +1,1251 @@
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=euc-kr">
+<title>6.1 애플릿의 개념 </title>
+<meta name="generator" content="Namo WebEditor v5.0">
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<P>&nbsp;<P>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV245.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">6.1   </FONT><FONT FACE="바탕">애플릿의</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">개념</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">애플릿(Applet)이란 HTML 내의 &lt;applet&gt; 태그에 의해, 서버에서 내려받은 내용이 웹브라우저에서 수행되는 자바 클래스를 말한다. 즉 애플릿은 웹 페이지 안에서 동적으로 사용자의 입력에 반응하거나 실시간으로 변하는 프로그램이 모두 애플릿이며, 일반 프로그램과 같이 독자적으로 실행되는 프로그램은 모두 자바 어플리케이션이다. 자바가 웹프로그래밍의 표준언어로 등장하게 된 이유는 무엇보다 자바 애플릿이 큰 영향을 주었다고 볼 수 있다.</FONT>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.1.1 </FONT><FONT FACE="바탕">애플릿</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">프로그램</FONT><FONT FACE="HY부활M">(Hello World! )</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음은 웹 브라우저 화면에 &quot;Hello, World!&quot;라는 문자열을 표시하는 애플릿 프로그램의 예이다. 단순히 화면에 &quot;Hello, World!&quot;라는 문자열만 출력하는 어플리케이션에 비해 웹브라우저 안에서 표현하는 애플릿은 그래픽으로 문자열을 그려야 한다는 점에서 좀 더 복잡하다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=187>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">HelloWorldApplet.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.Graphics;</FONT>
+<P><FONT FACE="Courier New">import java.applet.Applet;</FONT>
+<P><FONT FACE="Courier New">public class HelloWorldApplet extends Applet {</FONT>
+<P>	<FONT FACE="Courier New">public void paint(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">g.drawString(&quot;Hello, World!&quot; , 100, 100);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.1.2 </FONT><FONT FACE="바탕">프로그램</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">분석</FONT><FONT FACE="HY부활M">(HelloWorldApplet)</FONT></SPAN></FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=53>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.Graphics;</FONT>
+<P><FONT FACE="Courier New">import java.applet.Applet;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">1 : ∼ 2 : 프로그램에서 사용할 클래스파일을 포함하는 패키지를 import한다. C언어의 include문과 유사하며, 여기서는 그래픽에 관련된 java.awt.Graphics  클래스를 import하였고, 애플릿 프로그램을 작성하기 위해 java.awt.Applet 클래스를 import하였다. 이 부분은 좀더 쉽게 표현하면, Graphics 클래스는 java.awt 패키지내에 있고, Applet 클래스는 java.awt 패키지 내에 있으므로 다음과 같이 기술해도 결과는 동일하다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=48>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.applet.*;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">3:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class HelloWorldApplet extends Applet {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">클래스 선언부로 Applet 클래스를 상속받았다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<FONT FACE="Courier New">public void paint(Graphics g) {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">화면에 무언가를 그리는 paint() 메소드를 선언하였다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">5:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">g.drawString(&quot;Hello, World!&quot; , 100, 100);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">g라는 그래픽 객체를 애플릿 화면의 (100, 100) 위치에 Hello, World!라는 문자열을 출력한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">앞의 프로그램과 같은 애플릿은 독자적으로 실행되지 않고, 앞서 언급한 것처럼 다음과 같은 HTML 코드를 필요로 한다.</FONT>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.1.3 HTML </FONT><FONT FACE="바탕">프로그램</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">애플릿 프로그램도 어플리케이션의 경우 처럼 저장 및 컴파일 방법은 같지만, 웹브라우저에서 실행되므로 반드시 웹브라우저가 있어야 실행시킬 수 있지만 애플릿뷰어(appletviewer)를 이용하면 웹브라우저 없이도 실행시킬 수 있다. 앞의 애플릿을 다음 프로그램처럼 HTML 문서 안에 포함시킨다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=192>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">HelloWorldApplet.html</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><B><FONT FACE="Courier New">4:</FONT></B>
+<P><B><FONT FACE="Courier New">5:</FONT></B>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">HTML&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">HEAD&gt;&lt;TITLE&gt;Hello Applet&lt;/TITLE&gt;&lt;/HEAD&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">BODY&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=</FONT><B><FONT FACE="Courier New">HelloWorldApplet.class</FONT></B><FONT FACE="Courier New"> width=300 height=200&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/BODY&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/HTML&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=53>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">applet code=</FONT><B><FONT FACE="Courier New">HelloWorldApplet.class</FONT></B><FONT FACE="Courier New"> width=300 height=200&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">4 : ∼ 5 : HTML 안에 애플릿 프로그램을 포함시키는 구문이다. 컴파일 후 생성된 클래스파일을 HTML 문서 내에서 지시할 때 &lt;applet&gt;태그가 사용된다. 이 태그에서 code 와 width 그리고 height는 반드시 기술해야하는 기본 옵션이다. width와 height는 애플릿의 가로와 세로 크기를 지정하고, code는 실행될 애플릿 프로그램을 지정하는 부분으로, 컴파일 후 생성된 클래스파일을 지정한다. HTML 문서는 대문자와 소문자를 구분하지 않지만 code 옵션에서 지정하는 클래스파일의 이름은 대문자와 소문자를 구분한다. HTML 문서이름은 어느 것을 지정해도 관계없다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.1.4 </FONT><FONT FACE="바탕">애플릿의</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">실행</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">웹브라우저로 클래스파일을 지정한 HTML파일을 불러오거나 다음과 같이 애플릿뷰어(appletviewer.exe)를 이용하여 실행시킬 수 있다.</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=44>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> &gt;<FONT FACE="Courier New"> </FONT><B><FONT FACE="Courier New">appletviewer</FONT></B><FONT FACE="Courier New"> HelloWorld.html</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P ALIGN=CENTER>
+<CENTER>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=397 HEIGHT=249>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV018.GIF" BORDER=0 WIDTH=235 HEIGHT=205 ALIGN=BOTTOM></TD>
+    </tr>
+<TR>
+<TD VALIGN=TOP WIDTH=100%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">애플릿뷰어로 실행시킨 결과화면.</FONT></SPAN></FONT>
+<BR></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+    </tr>
+</TABLE>
+</CENTER>
+<P ALIGN=CENTER>
+<CENTER>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=595 HEIGHT=354>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">.</FONT></SPAN></FONT>
+<IMG SRC="file:///C|/지빠귀/FYXIV019.GIF" BORDER=0 WIDTH=420 HEIGHT=328 ALIGN=BOTTOM></TD>
+    </tr>
+<TR>
+<TD VALIGN=TOP WIDTH=100%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">웹브라우저로 실행시킨 결과화면.</FONT></SPAN></FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+    </tr>
+</TABLE>
+</CENTER>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV250.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">6.2   </FONT><FONT FACE="바탕">애플릿의</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">이해</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">애플릿은 웹브라우저에서 수행되므로 실행할 내용을 서버에서 내 컴퓨터로 내려받아 웹브라우저에서 실행된다. 애플릿이 실행되려면 반드시 JVM(Java Virtual Machine) 또는 JRE(Java Runtime Environment)가 필요한데, JVM은 웹브라우저 내에 이미 설치되어 있다. 이 때 JVM의 버전은 Netscape 4.X와, Explorer 5.X는 모두 1.1.X버전까지만 지원하지만 Netscape 6.0의 경우는 Java2(1.3)까지를 내장하고 있으며 Netscape 6.0을 설치할 때 JRE가 같이 설치된다. 이 사실은 매우 중요한데, 최근에 발표된 java 2 즉, JDK 1.2이상에서 추가된 새로운 기능을 애플릿에서 사용해도 현재 사용중인 브라우저가 그 애플릿을 수행 할 수 없다는 점이다. 다시 말해 웹브라우저가 가지고 있는 JDK의 버전이 너무 낮아서 java2를 지원하지 않는다는 것이다. 실제로, 스윙(AWT를 토대로 향상된 GUI 프로그래밍을 도와주는 Java2의 핵심 API 중의 하나)을 이용하여 애플릿을 만들어도 브라우저가 지원하지 않기 때문에 사용할 수가 없다. 
+</FONT><P><FONT FACE="바탕">이에 대한 해결방법은 다음과 같다. 즉, JDK1.2를 설치하면 자동으로 JDK1.2가 웹브라우저에 플러그인 되며, 그때부터 JDK1.2의 기능을 가진 애플릿도 수행할 수 있다. 그러나, JDK1.2의 설치를 강요할 수 없으므로 웹브라우저가 JDK1.2이상의 버전을 가지고 출시되기를 기다리거나, HTML 변환기를 이용하여 &lt;APPLET&gt; 태그를 &lt;OBJECT&gt; 태그 또는 &lt;EMBED&gt; 태그로 변환해서 실행시켜야 한다. HTML 변환기는 다음 사이트에서 얻을 수 있다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=597 HEIGHT=53>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">http://java.sun.com/products/plugin/</FONT>
+<P><FONT FACE="Courier New">http://java.sun.com/products/plugin/1.3/converter.html</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV251.GIF" BORDER=0 WIDTH=505 HEIGHT=227 HSPACE=3 VSPACE=4 ALIGN=BOTTOM>
+<P><FONT FACE="바탕">애플릿은 다른 컴퓨터에서 내려받아 실행되기 때문에 보안을 위해 다음과 같은 작업을 금지하고 있다.</FONT>
+<BR>
+<P><FONT FACE="바탕">- 클라이언트 컴퓨터의 어떤 프로그램도 실행할 수 없다.</FONT>
+<P><FONT FACE="바탕">- 클라이언트 컴퓨터의 파일을 읽거나 쓸 수 없다.</FONT>
+<P><FONT FACE="바탕">- 운영체제의 Native 메소드를 수행할 수 없다.</FONT>
+<P><FONT FACE="바탕">- 애플릿은 자신을 보내준 서버와만 통신할 수 있다. 즉, 애플릿은 내려받은 서버를 제외한 다른 컴퓨터와 네트워크연결을 할 수 없다.</FONT>
+<BR>
+<P><FONT FACE="바탕">그러나 항상 이상의 작업을 못하는건 아니고 Signed 애플릿을 이용하면 할 수도 있다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.2.1 </FONT><FONT FACE="바탕">애플릿의</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">라이프사이클</FONT><FONT FACE="HY부활M">(init(), start(), stop(), destroy())</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">어플리케이션 프로그램의 시작부분은 main() 메소드인데 애플릿은 어플리케이션과는 다르기 때문에 다음 내용을 반드시 기억해야 한다. 설명하려는 메소드는 이미 애플릿에 정의되어있는 메소드이므로 재정의 해서 사용해야 한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">6.2.1.1 init()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">이 메소드는 애플릿을 실행시킬 때, 브라우저가 가장먼저 실행시키는 메소드이다. 물론 애플릿의 해당 생성자가 있으면 먼저 실행되지만 애플릿에서는 생성자 대신 init() 메소드를 주로 이용한다.</FONT>
+<P><FONT FACE="바탕">init() 메소드의 주된 기능은 생성자가 하는 일을 하는데, 멤버변수의 초기화나 기타 애플릿이 본격적으로 수행되기 전의 초기화 작업을 담당하며, 단 한번만 수행된다.  즉, 애플릿이 있는 A 웹페이지를 보고 나서 B 웹페이지로 이동하면 애플릿 수행이 중단되고 새로운 웹페이지가 화면에 나타나는데 다시 A 웹페이지로 이동해도 내려 받기를 한번 더 수행하지 않고 이미 메모리에 저장되어 있던 A의 애플릿이 재 수행된다. 이때 init() 메소드는 수행되지 않는다. init() 메소드는 처음 애플릿을 내려 받았을 때만 수행되며, 웹브라우저를 종료시키면 애플릿은 메모리에서 없어진다.</FONT>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">6.2.1.2 start()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">start() 메소드는 init() 수행 후 웹브라우저가 수행하는데, 애플릿이 화면에서 재 수행될 때 호출된다. A 웹페이지에서 B 웹페이지로 갔다가 다시 A 웹페이지로 오면 A 웹페이지의 애플릿이 재 수행되는데 이때, init() 메소드부터 실행하지 않고 바로 start() 메소드가 수행된다. 또, 웹브라우저가 아이콘화 되었다가 다시 화면에 나타날 때도 애플릿이 다시 실행되어야 하므로 start() 메소드가 수행된다. 따라서, 이 메소드가 어플리케이션 프로그램의 main() 메소드와 유사함을 알 수 있다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">6.2.1.3 stop()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">stop() 메소드는 start() 메소드의 반대 기능을 한다. 브라우저가 아이콘화 되거나, 다른 URL로 이동할 때 stop() 메소드를 호출한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">6.2.1.4 destroy()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">destroy() 메소드는 애플릿이 확보한 자원을 반납할 때 주로 사용된다. 애플릿은 한번 내려받으면 메모리에 남아있는데, 브라우저가 이를 삭제할 때 이 메소드가 수행된다. 특별한 경우가 아니면 구현할 필요는 없고, 다만 애플릿이 init() 메소드 안에서 여러 쓰레드(Thread)를 수행시켰을 경우에 쓰레드를 종료시키거나 웹브라우저가 종료될 때에 구현해준다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">6.2.1.5 </FONT><FONT FACE="바탕">예제프로그램</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 init(), start(), stop() 메소드의 사용 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=298>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AppletExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.applet.*;</FONT>
+<P><FONT FACE="Courier New">public class AppletExample extends Applet {</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">init</FONT></B><FONT FACE="Courier New">() {</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;init() </FONT><FONT FACE="바탕">메소드</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">실행됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">start</FONT></B><FONT FACE="Courier New">() {</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;start() </FONT><FONT FACE="바탕">메소드</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">실행됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">stop</FONT></B><FONT FACE="Courier New">() {</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;stop() </FONT><FONT FACE="바탕">메소드</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">실행됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">앞의 프로그램을 컴파일 한 후 실행시키려면 다음과 같은 HTML파일을 만들어야 한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=214>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AppletExample.html</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><B><FONT FACE="Courier New">5:</FONT></B>
+<P><B><FONT FACE="Courier New">6:</FONT></B>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">html&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">head&gt;&lt;title&gt;</FONT><FONT FACE="바탕">애플릿</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">태스트&lt;</FONT><FONT FACE="Courier New">/title&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/head&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">body&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=AppletExample.class width=500 height=500&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/body&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/html&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">5 : &lt;applet&gt; 태그의 code 속성에 생성된 클래스파일명을 입력하고, width와 height는 애플릿의 크기를 지정한다. 이렇게 .class 파일과 .html 파일이 만들어지면 브라우저를 통해서 실행시킨다.</FONT>
+<BR>
+<P><FONT FACE="바탕">한가지 주의할 사항으로 이 예제는 단지 init(), start(), stop() 메소드가 언제 수행되는지를 나타낸 예제일 뿐이므로 앞의 프로그램을 웹브라우저로 실행시키면 아무것도 나타나지 않는다. 따라서, 웹브라우저에서 결과를 보려면 콘솔창을 띄워야 하는데, 익스플로러의 경우 &quot;도구&quot; 메뉴의 &quot;인터넷 옵션&quot;을 선택한 후 다음과 같은 &quot;인터넷 옵션&quot; 창이 나타나면 고급 탭에서 &quot;Java 콘솔 사용&quot;을 선택한 후 시스템을 재 시작한다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV252.GIF" BORDER=0 WIDTH=374 HEIGHT=340 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">시스템이 재 시작된 후 다시 익스플로러를 실행시켜 &quot;보기&quot; 메뉴에서 &quot;Java 콘솔&quot;을 선택하면 다음과 같은 자바 콘솔 창이 나타난다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV253.GIF" BORDER=0 WIDTH=393 HEIGHT=349 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">웹 브라우저에서 위와 같은 콘솔 창이 나타난 후 앞의 AppletExample.html파일을 실행시키면 결과를 확인할 수 있다.</FONT>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.2.2 </FONT><FONT FACE="바탕">애플릿</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">디스플레이</FONT><FONT FACE="HY부활M">(paint(), repaint(), update())</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">애플릿은 그래픽 환경에서 수행되기 때문에 println() 메소드는 사용할 필요가 없다. 애플릿에서는 글을 쓰는 것이 아니라 글을 그리는 것이다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">6.2.2.1 paint()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">먼저 다음 프로그램을 보면서 설명하기로 한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=253>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">HelloWorld.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.applet.*;</FONT>
+<P><FONT FACE="Courier New">public class HelloWorld extends Applet {</FONT>
+<P>	<FONT FACE="Courier New">int paintCount = 0;</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">paint</FONT></B><FONT FACE="Courier New">(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">g.drawString(&quot;Hello World!&quot;, 25, 25);</FONT>
+<P>		<FONT FACE="Courier New">paintCount++;</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(paintCount);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">앞의 프로그램을 실행시키기 위해 HTML 파일을 만들고 appletviewer로 실행시키면 아래와 같은 화면이 생성된다. (HTML 파일에서 applet 태그의 width와 height 값은 각각 100으로 주었다고 가정)</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV254.GIF" BORDER=0 WIDTH=175 HEIGHT=172 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<P><FONT FACE="바탕">화면에 &quot;Hello World&quot;라는 문자가 나타나는데 사용한 메소드는 paint()이다. 이 메소드도 Applet 클래스에 정의되어 있는데, 정확히 말하면 부모 클래스인 Component 클래스에 정의되어 있다.</FONT>
+<P><FONT FACE="바탕">paint() 메소드가 수행되는 시점은 start() 메소드와 비슷하여 애플릿이 화면에 다시 그려질 때 호출된다. 예를 들어 다음 그림을 보자.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV255.GIF" BORDER=0 WIDTH=317 HEIGHT=282 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<P><FONT FACE="바탕">이 그림을 잘 보면, 애플릿의 일부 영역이 탐색기 창에 가려져 있다. 만약 애플릿 창을 마우스로 클릭하면 애플릿 창이 탐색기 창 위로 올라오고 이때 탐색기에 가려졌던 부분이 다시 화면에 그려지게 된다. 이렇게 애플릿이 다시 그려질 필요가 있을 때 paint() 메소드가 브라우저에 의해 자동 호출된다. 물론 이전에 가려졌던 부분만 다시 그려지게 된다. 이처럼 애플릿의 화면 일부가 깨져서 다시 그리는 것을 Exposure라고 한다.</FONT>
+<P><FONT FACE="바탕">paint() 메소드의 인자는 Graphics 객체에서 넘어오며, Graphics 객체를 통해서 컴포넌트에 여러 가지 형태를 그릴 수 있다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">6.2.2.2 repaint()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">repaint() 메소드는 인자가 없으며 다른 메소드와 달리 사용자가 직접 호출하여 사용한다. 만약 주식정보 그래프를 그리는 애플릿을 개발할 때 실시간으로 정보를 갱신해야한다. 이처럼 화면에 무언가를 그릴 때는 paint() 메소드 안에 있거나 관련이 있어야 하는데 브라우저가 paint() 메소드를 자동으로 호출해 주기 때문에 일반적으로 직접 호출하지 못하므로 대신 repaint() 메소드를 사용하게 된다. 이 메소드를 직접 호출하면 자동으로 paint() 메소드를 호출해 준다. 정확히 말하면 repaint() 메소드는 update() 메소드를 호출하고, update() 메소드는 화면을 한번 지운 후 다시 paint() 메소드를 호출한다.</FONT>
+<P><FONT FACE="바탕">이 내용을 그림으로 표현하면 다음과 같다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV256.GIF" BORDER=0 WIDTH=457 HEIGHT=305 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<P> 
+<P><FONT FACE="바탕">여기서 참고할 사항은 update() 메소드가 화면을 한번씩 지우면 화면이 깜박거릴 수 있는데 이를 방지하려면 update() 메소드를 다음과 같이 재정의(overriding)하여 사용한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=655 HEIGHT=75>
+<TD VALIGN=TOP WIDTH=9%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=90%>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">update</FONT></B><FONT FACE="Courier New">(Graphics g) {</FONT>
+<P>		<B><FONT FACE="Courier New">paint</FONT></B><FONT FACE="Courier New">(g);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.2.3 &lt;applet&gt; </FONT><FONT FACE="바탕">태그와</FONT><FONT FACE="HY부활M"> &lt;param&gt; </FONT><FONT FACE="바탕">태그</FONT></SPAN></FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">6.2.3.1 &lt;applet&gt; </FONT><FONT FACE="바탕">태그</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">애플릿을 홈페이지에 설치하려면 &lt;applet&gt; 태그의 정확한 이해가 필요하다. 핫자바 1.0 알파 버전이 지원하던 JDK 1.0에서는 HTML 태그가 &lt;applet&gt;이 아니라 &lt;app&gt;였다. &lt;app&gt; 태그는 다음과 같이 하나의 태그 안에 모든 속성을 기술하는 형식을 사용하는데 현재 웹브라우저는 &lt;app&gt; 태그를 지원하지 않기 때문에 관심을 둘 필요는 없다. 
+</FONT><P><FONT FACE="바탕">이와는 달리 &lt;applet&gt; 태그는 HTML 명령의 규격을 준수하여 &lt;applet&gt;으로 시작해서 &lt;/applet&gt;으로 끝나며, 속성은 &lt;param&gt; 태그를 이용하여 값을 주게된다.</FONT>
+<BR>
+<P>&lt;<FONT FACE="바탕">applet&gt; 태그의 형식은 다음과 같다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=636 HEIGHT=416>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P>&lt;<FONT FACE="Courier New">applet [ archive=&quot;</FONT><FONT FACE="바탕">압축파일</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">리스트</FONT><FONT FACE="Courier New">&quot; ]</FONT>
+<P>	<FONT FACE="Courier New">code=&quot;</FONT><I><FONT FACE="바탕">클래스</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이름</FONT></I><FONT FACE="Courier New">&quot;</FONT>
+<P>	<FONT FACE="Courier New">width=&quot;</FONT><I><FONT FACE="바탕">픽셀</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">단위의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">애플릿</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">폭</FONT></I><FONT FACE="Courier New">&quot;</FONT>
+<P>	<FONT FACE="Courier New">height=&quot;</FONT><I><FONT FACE="바탕">픽셀</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">단위의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">애플릿</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">높이</FONT></I><FONT FACE="Courier New">&quot; </FONT>
+<P>	<FONT FACE="Courier New">[ codebase=&quot;</FONT><I><FONT FACE="바탕">애플릿</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">파일이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">존재하는</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">기반</FONT><FONT FACE="Courier New"> URL</FONT></I><FONT FACE="Courier New">&quot; ]</FONT>
+<P>	<FONT FACE="Courier New">[ alt=&quot;</FONT><I><FONT FACE="바탕">텍스트</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">전용</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">브라우저에서</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">대신</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">사용하는</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">텍스트</FONT></I><FONT FACE="Courier New">&quot; ]</FONT>
+<P>	<FONT FACE="Courier New">[ name=&quot;</FONT><I><FONT FACE="바탕">별명</FONT><FONT FACE="Courier New">-</FONT><FONT FACE="바탕">같은</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">문서에서는</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이름으로</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">사용할</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">수</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">있다</FONT></I><FONT FACE="Courier New">&quot; ]</FONT>
+<P>	<FONT FACE="Courier New">[ align=&quot;</FONT><I><FONT FACE="바탕">애플릿</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">정렬</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">방식</FONT></I><FONT FACE="Courier New">&quot; ]</FONT>
+<P>	<FONT FACE="Courier New">[ vspace=&quot;</FONT><I><FONT FACE="바탕">세로</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">방향의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">여백</FONT></I><FONT FACE="Courier New">&quot; ]</FONT>
+<P>	<FONT FACE="Courier New">[ hspace=&quot;</FONT><I><FONT FACE="바탕">가로</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">방향의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">여백</FONT></I><FONT FACE="Courier New">&quot; ]</FONT>
+<P>&gt;
+<BR>
+<P><FONT FACE="Courier New">[ &lt;param name=&quot;</FONT><I><FONT FACE="바탕">속성</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이름</FONT></I><FONT FACE="Courier New">&quot; value=&quot;</FONT><I><FONT FACE="바탕">속성</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">값</FONT></I><FONT FACE="Courier New">&quot;&gt; ]</FONT>
+<P><FONT FACE="Courier New">[ &lt;param ...&gt; ]</FONT>
+<P><FONT FACE="Courier New">[ ... ]</FONT>
+<BR>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><I><FONT FACE="바탕">[ ] 안의 부분은 생략이 가능하다.</FONT></I></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음은 &lt;applet&gt; 태그의 속성에 대한 설명이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=733 HEIGHT=379>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">[archive]</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">애플릿이 여러 클래스와 함께 수행될 때, 필요한 클래스를 jar, zip 형태로 압축해서 내려받을 때 사용한다.</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">code</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">실제 수행할 애플릿 클래스이다. class확장자를 붙인다.</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">width</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">애플릿의 폭을 픽셀단위로 지정한다.</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">height</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">애플릿의 길이(높이)를 픽셀단위로 지정한다.</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">[codebase]</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">애플릿 파일이 있는 URL을 지정한다.</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">[alt]</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">애플릿을 지원하지 않는 브라우저일 경우 애플릿을 대치할 글을 지정한다.</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">[name]</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">HTML 상에서 애플릿 이름을 지정한다.</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">[align]</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">애플릿의 정렬방식을 결정한다.</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">[vspace]</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">애플릿과 다른 태그나 글 사이의 높이 간격을 나타낸다.</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=15%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><B><FONT FACE="바탕">[hspace]</FONT></B></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=84%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">애플릿과 다른 태그나 글 사이의 넓이 간격을 나타낸다.</FONT></SPAN></FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">6.2.3.2 &lt;param&gt; </FONT><FONT FACE="바탕">태그</FONT></SPAN></FONT>
+<BR>
+<P>&lt;<FONT FACE="바탕">param&gt; 태그를 설명하기 전에 어플리케이션 프로그램에 대해 잠깐 설명하기로 한다. 먼저, 다음 예를 보면,</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=44>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> <B><FONT FACE="Courier New">&gt;java Test 10 20</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">Test.class를 수행하는 문장이다. 여기서 10과 20은 인자값으로 main(String[] args) 메소드의 인자로 넘어가는 값이다. 이와 같이 애플릿에서 클래스에 인자값을 전달할 때 &lt;param&gt; 태그를 이용한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 HTML 파일이 ParamExample.class 파일을 호출하면서 &lt;param&gt; 태그를 사용하고 있다. 즉 애플릿을 호출하면서 인자를 넘기고 있는데, 이름은 pValue이고 값은 &quot;Hello, Java&quot; 이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=148>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ParamExample.html</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">html&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=ParamExample.class width=200 height=200&gt;</FONT>
+<P><B>&lt;<FONT FACE="Courier New">param name=pValue value=&quot;Hello, Java&quot;&gt;</FONT></B>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/html&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=209>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ParamExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class ParamExample extends Applet</FONT>
+<P>	<FONT FACE="Courier New">public void init(){</FONT>
+<P>		<FONT FACE="Courier New">String s = </FONT><B><FONT FACE="Courier New">getParameter</FONT></B><FONT FACE="Courier New">(&quot;pValue&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void paint(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">g.drawString(s, 50, 50);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">HTML 파일에서 넘겨준 인자값을 읽을 때는 getParameter() 메소드를 이용한다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.2.4 </FONT><FONT FACE="바탕">그림</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">그리기</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">화면에 그림을 그리는 예를 알아보기로 하자. 
+</FONT><BR>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 서버에서 그림을 내려받아 화면에 그려주는 예제이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=121>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">DrawImageExample.html</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">html&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=DrawImageExample.class width=200 height=150&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/html&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=276>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">DrawImageExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.applet.Applet;</FONT>
+<P><FONT FACE="Courier New">public class DrawImageExample extends Applet {</FONT>
+<P>	<B><FONT FACE="Courier New">Image</FONT></B><FONT FACE="Courier New"> logoImage;</FONT>
+<P>	<FONT FACE="Courier New">public void init() {</FONT>
+<P>		<FONT FACE="Courier New">logoImage = </FONT><B><FONT FACE="Courier New">getImage</FONT></B><FONT FACE="Courier New">(</FONT><B><FONT FACE="Courier New">getDocumentBase</FONT></B><FONT FACE="Courier New">(), &quot;images/duke.gif&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void paint(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">g.</FONT><B><FONT FACE="Courier New">drawImage</FONT></B><FONT FACE="Courier New">(logoImage, 25, 25, this);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">4 : Image 객체를 가리킬 reference를 만들고 있다.</FONT>
+<P><FONT FACE="바탕">6 : getImage() 메소드를 이용해 실제 이미지를 지정한다. getImage() 메소드의 첫 번째 인자 값으로 이미지의 정확한 위치를 URL 방식으로 지정한다. 이를 위해 getDocumentBase() 메소드를 이용하는데 이는 클래스 파일을 지정하는 HTML의 URL을 알려주는 메소드이다. 두 번째 인자 값으로는 그림의 이름을 스트링형으로 지정해 준다. 즉, HTML 파일이 있는 곳에 images 디렉토리가 있고, 그 안에 duke.gif 파일을 지정함을 나타낸다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV257.GIF" BORDER=0 WIDTH=556 HEIGHT=223 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">9 : 실제 그림을 화면에 나타낸다. 이때 서버에서 내려받게 된다. getImage() 메소드는 그림이 있는 곳을 알려준다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV258.GIF" BORDER=0 WIDTH=163 HEIGHT=211 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 &lt;param&gt; 태그를 이용하여 그림파일을 HTML 파일 내에서 지정하게 한 예인데, 앞의 프로그램은 그림 이름을 자바 소스코드 내에 지정했기 때문에 다른 그림을 부르고 싶으면 그때마다 코드를 수정한 후 다시 컴파일을 해야 하는 불편함이 있다.  
+</FONT><BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=148>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">DrawImageExample.html</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">html&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=DrawImageExample.class width=200 height=200&gt;</FONT>
+<P><B>&lt;<FONT FACE="Courier New">param name=logo value=&quot;duke.gif&quot;&gt;</FONT></B>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/html&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=298>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">DrawImageExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.applet.*;</FONT>
+<P><FONT FACE="Courier New">public class DrawImageExample extends Applet {</FONT>
+<P>	<FONT FACE="Courier New">Image logo;</FONT>
+<P>	<FONT FACE="Courier New">public void init() {</FONT>
+<P>		<FONT FACE="Courier New">String imageName = </FONT><B><FONT FACE="Courier New">getParameter</FONT></B><FONT FACE="Courier New">(&quot;logo&quot;);</FONT>
+<P>		<FONT FACE="Courier New">logo = getImage(getDocumentBase(), imageName);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void paint(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">g.drawImage(logo, 0, 0, this);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.2.5 </FONT><FONT FACE="바탕">오디오</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">클립</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 오디오 클립을 사용하는 예제이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=121>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">PlayAudio.html</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">html&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=PlayAudio.class width=200 height=100&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/html&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=214>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">PlayAudio.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.Graphics;</FONT>
+<P><FONT FACE="Courier New">import java.applet.Applet;</FONT>
+<P><FONT FACE="Courier New">public class PlayAudio extends Applet {</FONT>
+<P>	<FONT FACE="Courier New">public void paint(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">g.drawString(&quot;</FONT><FONT FACE="바탕">야</FONT><FONT FACE="Courier New">~ </FONT><FONT FACE="바탕">소리가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">들린다</FONT><FONT FACE="Courier New">.&quot;, 25, 25);</FONT>
+<P>		<B><FONT FACE="Courier New">play</FONT></B><FONT FACE="Courier New">(</FONT><B><FONT FACE="Courier New">getCodeBase</FONT></B><FONT FACE="Courier New">(), &quot;etca.mid&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">6 : play()는 소리를 내는 메소드이다. getCodeBase()는 바로 앞 예제의 getDocumentBase() 메소드와 유사하며 HTML 파일이 있는 곳을 나타내지만, getCodeBase()는 class 파일이 있는 곳을 나타낸다. 이 줄의 전체적인 의미는 class 파일의 디렉토리에 있는 anytime.mid 파일을 읽어서 클라이언트에서 연주한다. 지원하는 파일 형식은 .au, .wav, .mid 등 흔히 접할 수 있는 대부분의 형태를 연주할 수 있다. (JDK 1.3 의 기준이다. 그 이전의 JDK에서는 지원하지 않는 형태가 있을 수 있다.) 
+</FONT><P><FONT FACE="바탕">이 예제에서는 소리를 내는 play() 메소드가 paint() 메소드 안에 있기 때문에 paint() 메소드가 호출될 때마다 음악이 연주된다.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV259.GIF" BORDER=0 WIDTH=212 HEIGHT=172 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 음악을 반복해서 연주하기 위해 loop() 메소드를 이용하는 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=121>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">LoopPlayAudio.html</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">html&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=LoopPlayAudio.class width=200 height=100&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/html&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=408>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">LoopPlayAudio.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.Graphics;</FONT>
+<P><FONT FACE="Courier New">import java.applet.*;</FONT>
+<P><FONT FACE="Courier New">public class LoopPlayAudio extends Applet {</FONT>
+<P>	<FONT FACE="Courier New">AudioClip sound;</FONT>
+<P>	<FONT FACE="Courier New">public void init() {</FONT>
+<P>		<FONT FACE="Courier New">sound = </FONT><B><FONT FACE="Courier New">getAudioClip</FONT></B><FONT FACE="Courier New">(getCodeBase(), &quot;etca.mid&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">paint</FONT></B><FONT FACE="Courier New">(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">g.drawString(&quot;</FONT><FONT FACE="바탕">아름다운</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">소리입니까</FONT><FONT FACE="Courier New">?&quot;, 25, 25);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void start() {</FONT>
+<P>		<FONT FACE="Courier New">sound.</FONT><B><FONT FACE="Courier New">loop</FONT></B><FONT FACE="Courier New">();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void stop() {</FONT>
+<P>		<FONT FACE="Courier New">sound.</FONT><B><FONT FACE="Courier New">stop</FONT></B><FONT FACE="Courier New">();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">이 예제는 애플릿이 화면에 나타나면서 계속 연주하게 된다. 
+</FONT><P><FONT FACE="바탕">5 : init() 메소드에서 getAudioClip()를 통해 오디오파일을 지정한다.</FONT>
+<P><FONT FACE="바탕">11 : start() 메소드에서 loop() 메소드를 호출한다. 이는 오디오 파일을 반복시키는 기능이다. 그런데, 다른 URL로 이동을 하면 stop() 메소드가 호출되어(15번째 줄) 음악을 멈춘다. 이렇게 지정하지 않으면 브라우저를 닫을 때까지 계속 연주하게 된다. 애플릿을 아이콘화 시켜켜 확인하기 바란다.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV260.GIF" BORDER=0 WIDTH=212 HEIGHT=172 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.2.6 </FONT><FONT FACE="바탕">애플릿</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">이벤트</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">모델</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">여기서는 애플릿에서 사용자가 발생시킨 이벤트를 다루는 방법에 대해 설명하기로 한다. 다음과 같은 애플릿을 만들어 애플릿 위에서 마우스를 클릭하면 그 자리에 &quot;클릭&quot;이라는 글자가 출력되게 한다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=121>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ClickHere.html</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">html&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=ClickHere.class width=200 height=200&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/html&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=523>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ClickHere.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.Graphics;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<P><FONT FACE="Courier New">import java.applet.*;</FONT>
+<P><FONT FACE="Courier New">public class ClickHere extends Applet </FONT><B><FONT FACE="Courier New">implements MouseListener</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>	<FONT FACE="Courier New">int mouseX = -1;</FONT>
+<P>	<FONT FACE="Courier New">int mouseY = -1;</FONT>
+<P>	<FONT FACE="Courier New">public void init() {</FONT>
+<P>		<FONT FACE="Courier New">addMouseListener(this); 	// Applet</FONT><FONT FACE="바탕">에</FONT><FONT FACE="Courier New"> MouseListener</FONT><FONT FACE="바탕">를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">붙임</FONT><FONT FACE="Courier New">.</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void paint(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">if (mouseX != -1 &amp;&amp; mouseY != -1)</FONT>
+<P>		<FONT FACE="Courier New">g.drawString(&quot;</FONT><FONT FACE="바탕">클릭</FONT><FONT FACE="Courier New">&quot;, mouseX, mouseY);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">mousePressed</FONT></B><FONT FACE="Courier New">(MouseEvent evt) {</FONT>
+<P>		<FONT FACE="Courier New">mouseX = evt.getX();</FONT>
+<P>		<FONT FACE="Courier New">mouseY = evt.getY();</FONT>
+<P>		<B><FONT FACE="Courier New">repaint</FONT></B><FONT FACE="Courier New">();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseClicked(MouseEvent e) {}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseEntered(MouseEvent e) {}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseExited(MouseEvent e) {}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseReleased(MouseEvent e) {}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">4 : 애플릿을 상속받으면서 MouseListener까지 implements하고있다. 즉 ClickHere라는 클래스는 애플릿이면서 이벤트 핸들러이다.</FONT>
+<P><FONT FACE="바탕">7 : init() 메소드 안에 8번째 줄의 addMouseListener(this);가 있다. 즉 애플릿에 이벤트리스너(EventListener)를 붙였기 때문에 이 애플릿에서 일어나는 마우스와 관련된 이벤트를 처리할 수 있다.</FONT>
+<P><FONT FACE="바탕">10 : paint() 메소드에서는 mouseX, mouseY 값을 이용 화면에 &quot;클릭&quot;이라는 문자열을 출력한다. mouseX와 mouseY값은  15번째와 16번째 줄에서 얻는다.</FONT>
+<P><FONT FACE="바탕">14 : mousePressed() 메소드는 사용자가 애플릿에서 마우스를 누를 때 호출되며, mouseX, mouseY 변수값을 지정한다. evt.getX(), evt.getY()에서 evt는 이 메소드에 전달된 Event 객체인데, getX()와 gety() 메소드를 호출하여 클릭한 곳의 x,y 좌표를 얻는다.</FONT>
+<P><FONT FACE="바탕">17 : repaint() 메소드를 호출한다. repaint()는 update() 메소드를 호출하고, update() 메소드는 화면을 한번 지우고 다시 paint() 메소드를 호출한다. 
+</FONT><P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV261.GIF" BORDER=0 WIDTH=212 HEIGHT=274 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">앞 예제의 22번째 줄 다음에 아래의 메소드를 추가하여 실행시킨 후 결과를 확인하기 바란다.</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=75>
+<TD VALIGN=TOP WIDTH=7%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">update</FONT></B><FONT FACE="Courier New">(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">paint(g);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV262.GIF" BORDER=0 WIDTH=212 HEIGHT=274 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<P> 
+<P><FONT FACE="바탕">다음 프로그램은 앞에서 만든 ClickHere 애플릿을 변형하여 애플릿 위에서 마우스를 드래그(drag)하며 &quot;끌기&quot;라는 문자열을 끌고 다니는 예제이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=119>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">html&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=DragHere.class width=200 height=200&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/html&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>  
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=767>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<BR>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.Graphics;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<P><FONT FACE="Courier New">import java.applet.*;</FONT>
+<P><FONT FACE="Courier New">public class DragHear extends Applet </FONT>
+<P>	<B><FONT FACE="Courier New">implements MouseListener, MouseMotionListener </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>	<FONT FACE="Courier New">int mouseX = -1;</FONT>
+<P>	<FONT FACE="Courier New">int mouseY = -1;</FONT>
+<P>	<FONT FACE="Courier New">public void init() {</FONT>
+<P>		<FONT FACE="Courier New">addMouseListener(this); 	// Applet</FONT><FONT FACE="바탕">에</FONT><FONT FACE="Courier New"> MouseListener</FONT><FONT FACE="바탕">를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">붙임</FONT><FONT FACE="Courier New">.</FONT>
+<P>		<FONT FACE="Courier New">addMouseMotionListener(this);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void paint(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">if (mouseX != -1 &amp;&amp; mouseY != -1)</FONT>
+<P>		<FONT FACE="Courier New">g.drawString(&quot;</FONT><FONT FACE="바탕">끌기</FONT><FONT FACE="Courier New">&quot;, mouseX, mouseY);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">mousePressed</FONT></B><FONT FACE="Courier New">(MouseEvent evt) {</FONT>
+<P>		<FONT FACE="Courier New">mouseX = evt.getX();</FONT>
+<P>		<FONT FACE="Courier New">mouseY = evt.getY();</FONT>
+<P>		<B><FONT FACE="Courier New">repaint</FONT></B><FONT FACE="Courier New">();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseClicked(MouseEvent e) {}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseEntered(MouseEvent e) {}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseExited(MouseEvent e) {}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseReleased(MouseEvent e) {}</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">mouseDragged</FONT></B><FONT FACE="Courier New">(MouseEvent evt) {</FONT>
+<P>		<FONT FACE="Courier New">mouseX = evt.getX();</FONT>
+<P>		<FONT FACE="Courier New">mouseY = evt.getY();</FONT>
+<P>		<B><FONT FACE="Courier New">repaint</FONT></B><FONT FACE="Courier New">();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseMoved(MouseEvent e) {}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">5 : MouseMotionListener를 implements하였다. 
+</FONT><P><FONT FACE="바탕">10 : 애플릿에 이 Listener를 붙인다.</FONT>
+<P><FONT FACE="바탕">26 : ∼부터는 mouseDragged() 메소드를 구현하고 있다.</FONT>
+<P><FONT FACE="바탕">이 프로그램을 실행하면 다음 결과화면처럼 마우스를 드래그할 때 &quot;끌기&quot;라는 문자열이 따라다닌다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV263.GIF" BORDER=0 WIDTH=183 HEIGHT=237 ALIGN=BOTTOM>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">6.2.7 Dual Purpose Code</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 하나의 코드로 애플릿으로도 사용하고 어플리케이션으로도 사용할 수 있는 예제이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=121>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">DualPurposeExample.html</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>&lt;<FONT FACE="Courier New">html&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">applet code=DualPurposeExample.class width=250 height=100&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/applet&gt;</FONT>
+<P>&lt;<FONT FACE="Courier New">/html&gt;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=485>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">DualPurposeExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.applet.Applet;</FONT>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<P><FONT FACE="Courier New">import java.util.*;</FONT>
+<P><FONT FACE="Courier New">public class DualPurposeExample </FONT><B><FONT FACE="Courier New">extends Applet</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>	<FONT FACE="Courier New">Date d;</FONT>
+<P>	<FONT FACE="Courier New">public static void </FONT><B><FONT FACE="Courier New">main</FONT></B><FONT FACE="Courier New">(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">Frame f = new Frame(&quot;Java Application&quot;);</FONT>
+<P>		<FONT FACE="Courier New">DualPurposeExample m = new DualPurposeExample(); </FONT>
+<P>		<FONT FACE="Courier New">f.add(m, BorderLayout.CENTER);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize (250, 150);</FONT>
+<P>		<B><FONT FACE="Courier New">m.init();</FONT></B>
+<P>		<B><FONT FACE="Courier New">m.start();</FONT></B>
+<P>		<FONT FACE="Courier New">f.</FONT><B><FONT FACE="Courier New">setVisible</FONT></B><FONT FACE="Courier New">(true); // paint() </FONT><FONT FACE="바탕">수행</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">init</FONT></B><FONT FACE="Courier New">() {</FONT>
+<P>		<FONT FACE="Courier New">d = new Date();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void </FONT><B><FONT FACE="Courier New">paint</FONT></B><FONT FACE="Courier New">(Graphics g) {</FONT>
+<P>		<FONT FACE="Courier New">g.drawString(&quot;</FONT><FONT FACE="바탕">현재</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">시간</FONT><FONT FACE="Courier New"> : &quot;, 25, 25);</FONT>
+<P>		<FONT FACE="Courier New">g.drawString(d.toString(), 25, 60);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">먼저 애플릿의 관점에서 설명하면 이 클래스는 분명히 애플릿이며 애플릿은 Panel임을 기억해야 한다. 실행될 때 제일먼저 16번째 줄의 init() 메소드가 처리되는데, 여기서는 현재 시간을 알아내서 저장한다. 그리고 브라우저에 의해 19번째 줄의 paint() 메소드가 수행되면 화면에 시간이 표시된다. 7번째 줄에서 main() 메소드가 있지만, 애플릿에서는 무시된다. 결과화면은 다음 그림과 같다.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV264.GIF" BORDER=0 WIDTH=263 HEIGHT=172 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<P> 
+<P><FONT FACE="바탕">두 번째로 어플리케이션의 관점에서 보자. 이 어플리케이션 프로그램의 시작점은 당연히 main() 메소드이다. DualPurposeExample 클래스는 패널(Applet은 Panel의 하위 클래스)임으로 독립적으로 화면에 출력되지 않고 프레임같은 컨테이너가 필요하다. 그래서 8번째 줄에서 프레임을 생성하고, 9번째 줄에서 패널을 생성하고, 10번째 줄에서 프레임에 패널을 붙인다. 12번째 줄에서 애플릿이라면 웹브라우저가 init() 메소드를 자동으로 호출하지만, 어플리케이션에서는 직접 호출하여 현재 시간을 저장한다. 그리고 13번째 줄에서 start() 메소드를 호출하는데 어플리케이션에서는 필요없다. 14번째 줄에서 setVisible(true)메소드를 호출하는데, 이때 paint() 메소드가 호출된다. paint() 메소드는 화면에 그림을 그릴 때 자동으로 호출된다. setVisible() 메소드는 프레임과 그 안의 컴포넌트를 나타낼 때 사용되므로 setVisible() 메소드를 호출하는 시점이 paint()가 호출되는 시점이다. 결과화면은 다음과 같다. 
+</FONT><BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV265.GIF" BORDER=0 WIDTH=255 HEIGHT=153 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV266.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV267.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV268.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV269.GIF" BORDER=0 ALIGN=LEFT>
+<P ALIGN=RIGHT><FONT SIZE=7 COLOR=WHITE><SPAN STYLE="font-size:35pt;"><FONT FACE="바탕">[프로그래밍 기법]</FONT></SPAN></FONT>
+<P>
+<BR>
+<P><FONT SIZE=4><SPAN STYLE="font-size:15pt;"><FONT FACE="바탕">이 장에서는 클래스 안의 클래스인 내부 클래스, 예외처리, 쓰레드 제어 그리고 객체를 저장하는 컬렉션(Collection) 등 프로그램에서 부가적으로 사용할 수 있는 몇 가지 기능에 대해 설명하기로 한다.</FONT></SPAN></FONT>
+<BR>
+<P>
+<P>
+<BR>
+</body>
+
+</html>

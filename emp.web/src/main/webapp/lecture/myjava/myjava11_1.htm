@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">11.1</P></td>
+        <td width="518">
+        <p class="TitleTitle">스윙의 기본적인 이해</p></td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P>&nbsp;스윙에서 사용할 수 있는 각종 컴포넌트를 설명하기에 앞서 스윙에 관계된 용어와 정의를 간단하게 익히고 구체적인 내용을 설명하기로 한다. 
+		</ul>
+		<P class="TSubmenu">11.1.1 JFC
+		<ul>
+		<P>&nbsp;자바는 JDK1.1.x에서 JDK1.2로 넘어갈 때 많은 변화가 있었다. 특히 AWT의 단순한 사용자 인터페이스를 개선할 목적으로 5가지 그래픽 API 세트를 추가했는데 바로 JFC(Java Foundation Classes)이다. 이 라이브러리는 자바 1.2.x 이상에 추가되어 기존 AWT의 단순함을 벗어나 상업용으로 사용할 수 있는 화려한 사용자 인터페이스를 제공하게 되었다.
+		<P>JFC에 포함된 5가지 API를 설명하면 다음과 같다.
+		<P>  Ⅰ AWT : AWT는 JDK1.1.x에도 포함되어있다.
+		<P>  Ⅱ Java 2D : 자바 2D는 그래픽 기능을 보다 다양하게 표현하기 위한 라이브러리로 2D 그래픽 프로그램을 개발할 때 이용하는 고수준의 API를 제공한다. 참고로 Java 2D를 경험하려면 아래와 같이 JDK 1.2 이상 버전에서 JAVA_HOME 폴더의 demo 폴더에서 Java2Demo.html이나 Java2Demo.jar를 실행시키면 된다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=539>
+			<TD WIDTH=100%>
+			<p class="TStep1"> <B>C:\j2sdk\demo\jfc\Java2D&gt;java </B>-jar Java2Demo.jar</TD>
+		</tr>
+		</TABLE>
+		<P>  Ⅲ 접근성 : 스크린 확대 등의 기능을 제공하는데, 이를 이용하면 특별한 입출력 장비를 제어할 수 있는 프로그램을 개발할 수 있다. 예를 들어 음성으로 인식되는 키보드나, 터치 스크린을 제어하는 프로그램을 개발할 수 있다. 
+		<P>  Ⅳ 드래그 앤 드롭 : 이 기능은 자바 어플리케이션과 자바가 아닌  기존 프로그램과의 데이터 교환에 사용된다. 
+		<P>  Ⅴ 스윙(Swing) : 스윙을 이용하면 AWT를 사용할 때 다양하고 화려한 어플리케이션을 만들 수 있다. 또, AWT가 플랫폼 의존적인 컴포넌트를 이용하는 반면 스윙은 경량 컴포넌트(light weight compolent)를 이용하는 점이 다르다. 경량 컴포넌트는 AWT 1.1에서 소개되었으며, 운영체제에 독립적인 컴포넌트를 작성할 수 있다. 
+		</ul>
+		<P class="TSubmenu">11.1.2 룩앤필(Look and Feel)
+		<ul>
+		<P>스윙을 설명할 때 가장 먼저 언급하는 용어가 &quot;Look and Feel&quot;이다. &quot;Look and Feel&quot;을 &quot;Pluggable Look and Feel&quot;이라고도 하는데, 이는 운영체제와 독립적인 어플리케이션을 개발 할 수 있게 해주는 스윙만의 독특한 특징이다.
+		<P>앞서 설명한 AWT로 어플리케이션을 만들어 실행시키면 사용하는 플랫폼에 따라 모양이 달라지는 것을 알 수 있었다. 즉, AWT 어플리케이션을 윈도우에서 수행했을 때와, 리눅스의 X-Window에서 실행했을 때의 결과는 다르다. 이것은 매우 중요한 의미를 갖는데, AWT가 화면에 GUI 컴포넌트를 그릴 때, 운영체제에게 요청을 하므로 운영체제마다 그리는 방식이나 모양이 달라 결과가 같지 않은 것이다. 물론 중요한 문제는 아닐 수도 있다. &quot;Look and Feel&quot;을 이용하면 AWT와 다르게 개발한 프로그램 모습을 운영체제에 상관없이 똑같은 모양으로 보여줄 수 있다. 이것은 AWT처럼 그림을 그리는 일을 운영체제에 맡기는 것이 아니라 그 일 조차도 자바가 한다는 것이다. 그러므로 개발자는 자신만의 고유한 형태로 GUI 컴포넌트를 만들어 사용할 수 있게된다. 예를 들어 5각형 모양의 버튼이 있다면 운영체제의 종류에 관계없이 모양 그대로 화면에 출력된다. 뿐만 아니라, 윈도우 화면에서 X-Window의 기분을 낼 수 있도록 GUI의 모양을 바꿀 수도 있다.
+		<P>다음과 같이 하여 예제 파일을 실행해보자.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=553>
+			<TD WIDTH=100%>
+			<p class="TStep1"> <B>C:\j2sdk\demo\jfc\SwingSet2&gt;java </B>-jar SwingSet2.jar</TD>
+		</tr>
+		</TABLE>
+		<P>AWT의 경우 대부분의 GUI 컴포넌트는 Component 클래스를 상속받아 구현되지만 스윙 GUI 컴포넌트는 JComponent라는 클래스를 상속받아 구현된다. 따라서, 대부분의 컴포넌트 이름이 J로 시작되는 것을 알 수 있다.
+		<P>다음은 자바공식 사이트인 java.sun.com에 있는 내용을 보인 것이다.
+		<P>http://java.sun.com/docs/books/tutorial/uiswing/components/components_pics.html
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV361.GIF" BORDER=0 WIDTH=476 HEIGHT=439 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+	    </ul></td>
+    </tr>
+	</table>
+</body>
+</html>

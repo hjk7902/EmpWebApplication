@@ -1,0 +1,3690 @@
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>5.1 계층형 이벤트 모델 - JDK 1.0 </title>
+<meta name="generator" content="Namo WebEditor v5.0">
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<P>
+&nbsp;<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV234.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">5.1   </FONT><FONT FACE="바탕">계층형</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">이벤트</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">모델</FONT><FONT FACE="Bookman Old Style"> - JDK 1.0</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">상속 이벤트모델 또는 drill-up/drill-down 방식이라고도 하며 JDK 1.02버전 모델로 지금은 권장하지 않는 방법이다. 계층형 이벤트 모델은 포함(containment)이라는 개념에 기초한 것으로 컴포넌트에 이벤트가 발생하면 시스템 안에서 이벤트 객체를 생성시킨 다음 프로그램의 최하위 컨테이너로부터 최상위 컴포넌트까지 이벤트를 전달한다. 이렇게 전달된 이벤트는 컴포넌트에 의해 사용 여부가 결정되고 처리가 되면 true를 반환한다. 만약 false를 반환하면 이벤트가 처리되지 않고 컨테이너에게 전달된다.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV235.GIF" BORDER=0 WIDTH=548 HEIGHT=159 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">예를 들어 앞의 그림처럼 프레임에 패널이 포함되어 있고 그 안에 버튼 컴포넌트가 있을 때, 버튼을 누르면 이벤트 제어기는 버튼행위에 대한 이벤트를 처리할 제어기를 찾게된다. 만약 버튼의 실행이벤트가 처리되지 않으면 바로 위의 패널 객체로 전달되어 패널에서 이벤트 제어기를 찾게되고, 여기서도 이벤트가 처리되지 않으면 다시 상위 계층인 프레임으로 이벤트가 전달되는 방식이다. 이러한 작업은 이벤트를 받아 처리할 제어기를 찾거나 맨 위 계층에 이를 때까지 계속되는데, 이런 형태의 이벤트 처리 방식은 순수 객체지향 프로그래밍 방식에 위배될 뿐만 아니라 이벤트 처리와 관계없는 객체까지 체크동작을 함으로써 시스템 자원의 낭비를 초래하는 단점을 안고 있다.</FONT>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV236.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">5.2  </FONT><FONT FACE="바탕">위임형</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">이벤트모델</FONT><FONT FACE="Bookman Old Style"> - JDK 1.1+</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">JDK 1.0의 문제점을 해결하기 위해 JDK 1.1에서는 새로운 모델을 채택하였는데 바로 위임형 이벤트모델(delegation event model) 방식이다. 이 모델은 컴포넌트를 기반으로 한 자바 빈즈(Beans)와의 호환을 위해 자바 빈즈에 적용된 방식을 자바에서도 채택한 것이다.</FONT>
+<P><FONT FACE="바탕">위임형 이벤트모델 방식은 이벤트 발생 객체가 이벤트를 생성하여 이벤트 처리객체(혹은 이벤트 리스너)에게 위임하는 방식이다. 이벤트 발생 객체는 각 이벤트 처리 객체를 명시하여 등록하고 이벤트 처리객체는 리스너 인터페이스를 구현하여 이벤트 처리를 책임지게 된다.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV237.GIF" BORDER=0 WIDTH=699 HEIGHT=188 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">JDK 1.1에서는 다양한 이벤트 타입을 지원하며 이벤트 리스너 인터페이스와 연관되어 있다. 자바에서는 이벤트 자체도 클래스이며, 모든 이벤트는 계층을 이룬다.</FONT>
+<P><FONT FACE="바탕">이벤트객체는 java.util.EventObject에서 상속되며, java.util.EventObject 가 최상위 클래스로 이벤트를 발생시킨 객체(Event Object)를 저장하고 있다. 이 객체를 얻으려면 이벤트를 발생시킨 객체를 반환하는 getSource() 메소드를 사용한다.</FONT>
+<BR>
+<BR>
+<BR>
+<BR>
+<P><FONT FACE="바탕">다음은 자바에서 제공하는 이벤트 클래스의 계층 구조를 나타낸 것이다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV238.GIF" BORDER=0 WIDTH=510 HEIGHT=305 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<P><FONT FACE="바탕">EventObject의 하위클래스인 java.awt.AWTEvent 클래스는 위임형 이벤트 모델의 최상위 클래스가 된다. 이 클래스는 이벤트의 정확한 특성을 정의한 정수형 이벤트 ID값을 갖게되는데, 예를 들어 키를 누르는 이벤트가 발생하였을 때 어떤 키인지를 상수로 표현한 것이다. 이 이벤트 ID값을 얻기 위해서는 java. awt.AWTEvent 클래스 안의 getID() 메소드를 이용한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">AWTEvent 클래스를 상속받은 이벤트 타입은 낮은 등급 이벤트 클래스와 시멘틱(Semantic) 이벤트 클래스로 구분된다. 낮은 등급 이벤트란 키 누름, 마우스 누름, 마우스 이동, 포커스 변화 등의 컴포넌트에서 발생하는 사용자 입력이나 시스템 레벨의 이벤트를 말하며, 시멘틱 이벤트는 보다 고수준의 이벤트로 특정 컴포넌트에 의해서 만들어진다. 
+</FONT><BR>
+<P><FONT FACE="바탕">다음은 낮은 등급 이벤트와 시멘틱 이벤트를 분류한 것이다. 하지만 모두 동일한 처리 기법을 사용하므로 등급을 구별하는 것은 의미가 없다.</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=689 HEIGHT=234>
+<TD VALIGN=MIDDLE WIDTH=4%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">이벤트 이름</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">이벤트가 발생할 경우</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE ROWSPAN=7 WIDTH=4%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">저수준</FONT></SPAN></FONT>
+<BR>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">이벤트</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ComponentEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">컴포넌트 크기변경, 이동 등 컴포넌트에 변화가 있을 때</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ContainerEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">컴포넌트를 추가하거나 삭제할 때</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">FocusEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">컴포넌트가 포커스를 잃거나 얻었을 때</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">KeyEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">키보드의 키를 누르거나 놓을 때</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE ROWSPAN=2 WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">MouseEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">마우스를 누르거나 뗄 때, 누를 때, 마우스 포인터가 컴포넌트 영역으로 들어가거나 밖으로 나왔을 때</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">마우스 포인터를 이동하거나 끌(drag) 때</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">WindowEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">윈도우가 열리거나 닫힐 때, 아이콘을 표시하거나 복구할 때</FONT></SPAN></FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=689 HEIGHT=322>
+<TD VALIGN=MIDDLE WIDTH=4%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">이벤트 이름</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">이벤트가 발생할 경우</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE ROWSPAN=4 WIDTH=4%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">시멘틱</FONT></SPAN></FONT>
+<BR>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">이벤트</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ActionEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">컴포넌트 특유의 동작이 일어날 때</FONT></SPAN></FONT>
+<P>  <FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">- Button : 클릭</FONT></SPAN></FONT>
+<P>  <FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">- List : 아이템 선택</FONT></SPAN></FONT>
+<P>  <FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">- MenuItem : 클릭하거나 Enter키를 눌러 선택했을 때</FONT></SPAN></FONT>
+<P>  <FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">- TextField : Enter키를 누를 때</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">AdjustmentEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">스크롤 바 값이 변경되었을 때</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ItemEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">아이템을 갖는 컴포넌트의 아이템을 선택하였을 때</FONT></SPAN></FONT>
+<P>  <FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">- Choice : 아이템이 선택되었을 때</FONT></SPAN></FONT>
+<P>  <FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">- List : 아이템을 누르거나 방향키로 선택했을 때</FONT></SPAN></FONT>
+<P>  <FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">- Checkbox : 체크박스가 체크되거나 해제될 때</FONT></SPAN></FONT>
+<P>  <FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">- CheckboxMenuItem : 체크박스 메뉴 아이템이 체크되거나 해제될 때</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=22%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">TextEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=73%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">TextField나 TextArea 컴포넌트의 텍스트를 변경할 때</FONT></SPAN></FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.2.1 EventListener</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">이벤트 리스너(Event Listener)는 특정 이벤트를 처리하는 인터페이스로, 프로그래머가 사용자 이벤트에 응답할 프로그램 고유의 코드를 구현하는 곳이다. 
+</FONT><BR>
+<P><FONT FACE="바탕">이벤트 전달은 처리할 이벤트를 등록시켜 리스너로 전달할 준비가 끝난 다음 이벤트가 발생하면 객체화하여 상태를 저장하고, 리스너 인터페이스에 정의된 응답 메소드에 상태객체를 넘김으로써 이벤트를 처리하게 된다. 따라서 이벤트 리스너는 가장 중요한 역할을 하고 있는 것이다. 리스너의 이름은 &quot;이벤트_이름+Listener&quot;의 형태로 java.awt.event 패키지에 포함되어 있다. 예를 들어 ActionEvent의 리스너 인터페이스 이름은 ActionListener가 되고, WindowEvent의 리스너 인터페이스 이름은 WindowListener가 된다.</FONT>
+<P><FONT FACE="바탕">리스너를 이용하여 컴포넌트로부터 이벤트 클래스를 받기 위해 리스너를 등록하려면 컴포넌트에 &quot;add+이벤트_이름+Listener()&quot;의 형식으로 리스너를 등록할 수 있는데, ActionEvent 객체를 등록시키려면 addActionListener() 메소드를 이용한다. 
+</FONT><BR>
+<P><FONT FACE="바탕">등록된 리스너를 제거하려면 &quot;remove+이벤트_이름+Listener&quot; 메소드를 이용한다. 컴포넌트는 여러 리스너를 가질 수 있지만 등록된 순서에 따라 처리되지는 않는다.</FONT>
+<P><FONT FACE="바탕">다음 프로그램은 &quot;종료&quot; 버튼을 누르면 윈도우가 종료되는 예를 보인 것으로  ActionListener 인터페이스를 이용하여 구현하였다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=695>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ListenerExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ListenerExample implements ActionListener {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	<FONT FACE="Courier New">private Button btn;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ListenerExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;</FONT><FONT FACE="바탕">리스너</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이벤트</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">처리</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">예제</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>		<FONT FACE="Courier New">btn = new Button(&quot;</FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">btn.addActionListener(this);</FONT>
+<P>		<FONT FACE="Courier New">f.add(btn, &quot;South&quot;);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ListenerExample lt = new ListenerExample();</FONT>
+<P>		<FONT FACE="Courier New">lt.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void actionPerformed(ActionEvent evt) {</FONT>
+<P>		<FONT FACE="Courier New">String str = evt.getActionCommand();</FONT>
+<P>		<FONT FACE="Courier New">if(str.equals(&quot;</FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;))</FONT>
+<P>			<FONT FACE="Courier New">System.exit(0);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class ListenerExample implements ActionListener {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">Frame클래스는 윈도우 창을 만들기 위해  상속받고, 액션 이벤트(ActionEvent)를 사용하기 위해 Listener 인터페이스(ActionListener)를 구현하였다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">14:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">btn.addActionListener(this);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">버튼을 누를 때 이벤트가 발생하도록 버튼 객체 btn에 액션 리스너를 등록한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">25:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<FONT FACE="Courier New">public void actionPerformed(ActionEvent evt) {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">실제 이벤트가 수행될 내용을 구현한 부분이다. actionPerformed() 메소드는 ActionListener 인터페이스 내에 이미 정의가 되어있다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">26:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">String str = evt.getActionCommand();</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">이벤트가 발생하는 객체의 레이블(여기에서는 버튼의 title)을 받아서 스트링형 변수에 저장한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">28:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>			<FONT FACE="Courier New">System.exit(0);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">exit() 메소드의 인자값으로 0을 주면 윈도우를 정상적으로 종료시킨다.</FONT>
+<BR>
+<P><FONT FACE="바탕">앞의 예에서처럼 이벤트 리스너를 이용할 경우 인터페이스로 정의되어 있어 사용하지 않는 메소드까지도 처리 메소드를 구현해 주어야 한다. 그렇지 않으면 abstract로 선언되어야 한다. 또 이벤트를 처리할 메소드는 모두 public으로 선언해야하며, void형이어야 한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 앞의 윈도우 종료를 MouseListener 인터페이스를 이용하여 구현한 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=546>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MouseListenerExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class MouseListenerExample implements MouseListener {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	<FONT FACE="Courier New">private Button btn;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public MouseListenerExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;</FONT><FONT FACE="바탕">마우스</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이벤트</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">처리</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">예제</FONT><FONT FACE="Courier New">&quot;)</FONT>
+<P>		<FONT FACE="Courier New">btn = new Button(&quot;</FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">btn.addMouseListener(this);</FONT>
+<P>		<FONT FACE="Courier New">f.add(btn, &quot;South&quot;);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">MouseListenerExample mt = new MouseListenerExample();</FONT>
+<P>		<FONT FACE="Courier New">mt.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=232>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MouseListenerExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<BR>
+<P>	<FONT FACE="Courier New">public void mouseClicked(MouseEvent ae) {</FONT>
+<P>		<FONT FACE="Courier New">System.exit(0);</FONT>			
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void mouseEntered (MouseEvent evt) { }</FONT>
+<P>	<FONT FACE="Courier New">public void mouseExited (MouseEvent evt) { }</FONT>
+<P>	<FONT FACE="Courier New">public void mousePressed (MouseEvent evt) { }</FONT>
+<P>	<FONT FACE="Courier New">public void mouseReleased (MouseEvent evt) { }</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=766 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class MouseListenerExample implements MouseListener {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">마우스 이벤트를 사용하기 위한 기능이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=766 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">14:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">btn.addMouseListener(this);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">버튼 객체에 마우스 이벤트 리스너를 등록시킨다.</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=766 HEIGHT=70>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<FONT FACE="Courier New">public void mouseClicked(MouseEvent ae) {</FONT>			
+<P>		<FONT FACE="Courier New">System.exit(0);</FONT>
+<P>	<FONT FACE="바탕">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">마우스를 누를 때 수행될 내용이다. 17번째 줄은 윈도우를 종료시키는 명령이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=766 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">28:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<FONT FACE="Courier New">public void mouseEntered (MouseEvent evt) { }</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">28 : ∼ 31 : 실제 사용하지 않는 메소드를 구현한 것으로 리스너 인터페이스를 구현했을 때의 단점이다. 이처럼 사용되지 않는 메소드도 구현해야 한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">이벤트 처리 순서는 다음과 같다.</FONT>
+<BR>
+<P>  <FONT FACE="바탕">1) 이벤트가 발생될 컴포넌트에 대해 이벤트 소스와 이벤트를 선택한다.</FONT>
+<P>  <FONT FACE="바탕">2) 선택한 이벤트의 처리를 위해 이벤트 핸들러를 작성한다.</FONT>
+<P>  <FONT FACE="바탕">3) addXxxListener() 메소드를 이용하여 이벤트 핸들러를 추가한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">이벤트를 처리하기 위해 만드는 핸들러는 메소드를 어떤 클래스에 구현하느냐에 따라 다음과 같은 5가지로 나눌 수 있다.</FONT>
+<BR>
+<P>  <FONT FACE="돋움">∘ 이벤트 발생 클래스와 동일 클래스 : 이벤트가 발생하는 클래스에서 Listener 인터페이스를 만든다.</FONT>
+<P>  <FONT FACE="돋움">∘ 이벤트가 발생하는 클래스와 별개의 클래스 : 별도로 클래스를 만들어 Listener 인터페이스를 구현한다.</FONT>
+<P>  <FONT FACE="돋움">∘ Inner 클래스 : 클래스 안에 클래스를 선언하여 핸들러로 사용한다.</FONT>
+<P>  <FONT FACE="돋움">∘ Local 클래스 : 메소드 안에 Local 클래스를 선언하여 핸들러로 사용한다.</FONT>
+<P>  <FONT FACE="돋움">∘ Anonymous 클래스 : addXxxListener() 메소드 인자로 직접 핸들러를 구현한다. 
+</FONT><BR>
+<P><FONT FACE="바탕">다음 프로그램은 이벤트가 발생하는 클래스와 동일 클래스에서 핸들러를 만든 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=820>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ListenerExample1.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ListenerExample1 </FONT><B><FONT FACE="Courier New">implements WindowListener</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ListenerExample1() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Listener</FONT><FONT FACE="바탕">인터페이스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">this</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ListenerExample1 lt1 = new ListenerExample1();</FONT>
+<P>		<FONT FACE="Courier New">lt1.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>		<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>	<B><FONT FACE="Courier New">}</FONT></B>
+<P>	<B><FONT FACE="Courier New">public void windowOpened(WindowEvent e){}</FONT></B>
+<P>	<B><FONT FACE="Courier New">public void windowClosed(WindowEvent e){}</FONT></B>
+<P>	<B><FONT FACE="Courier New">public void windowIconified(WindowEvent e){}</FONT></B>
+<P>	<B><FONT FACE="Courier New">public void windowDeiconified(WindowEvent e){}</FONT></B>
+<P>	<B><FONT FACE="Courier New">public void windowActivated(WindowEvent e){}</FONT></B>
+<P>	<B><FONT FACE="Courier New">public void windowDeactivated(WindowEvent e){}</FONT></B>	
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 이벤트가 발생하는 클래스와 별도의 클래스로 핸들러를 만든 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=507>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ListenerExample2.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ListenerExample2 {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ListenerExample2() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Listener</FONT><FONT FACE="바탕">인터페이스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new MyWindowHandler() </FONT></B><FONT FACE="Courier New">);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ListenerExample2 lt2 = new ListenerExample2();</FONT>
+<P>		<FONT FACE="Courier New">lt2.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=388>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MyWindowHandler.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><B><FONT FACE="Courier New">public class MyWindowHandler implements WindowListener {</FONT></B>
+<BR>
+<P>	<FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT>
+<P>		<FONT FACE="Courier New">System.exit(0);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void windowOpened(WindowEvent e){}</FONT>
+<P>	<FONT FACE="Courier New">public void windowClosed(WindowEvent e){}</FONT>
+<P>	<FONT FACE="Courier New">public void windowIconified(WindowEvent e){}</FONT>
+<P>	<FONT FACE="Courier New">public void windowDeiconified(WindowEvent e){}</FONT>
+<P>	<FONT FACE="Courier New">public void windowActivated(WindowEvent e){}</FONT>
+<P>	<FONT FACE="Courier New">public void windowDeactivated(WindowEvent e){}</FONT>	
+<P><B><FONT FACE="Courier New">}</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 이벤트가 발생하는 클래스 안의 클래스인 Inner 클래스로 핸들러를 만든 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=894>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ListenerExample3.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ListenerExample3 {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ListenerExample3() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Listener</FONT><FONT FACE="바탕">인터페이스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new MyInnerHandler()</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ListenerExample3 lt3 = new ListenerExample3();</FONT>
+<P>		<FONT FACE="Courier New">lt3.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">private class MyInnerHandler implements WindowListener {</FONT></B>
+<BR>
+<P>		<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>			<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>		<B><FONT FACE="Courier New">}</FONT></B>
+<BR>
+<P>		<B><FONT FACE="Courier New">public void windowOpened(WindowEvent e){}</FONT></B>
+<P>		<B><FONT FACE="Courier New">public void windowClosed(WindowEvent e){}</FONT></B>
+<P>		<B><FONT FACE="Courier New">public void windowIconified(WindowEvent e){}</FONT></B>
+<P>		<B><FONT FACE="Courier New">public void windowDeiconified(WindowEvent e){}</FONT></B>
+<P>		<B><FONT FACE="Courier New">public void windowActivated(WindowEvent e){}</FONT></B>
+<P>		<B><FONT FACE="Courier New">public void windowDeactivated(WindowEvent e){}</FONT></B>	
+<P>	<B><FONT FACE="Courier New">}</FONT></B>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 핸들러 객체를 사용하는 메소드 안에 Local 클래스로 선언한 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=871>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ListenerExample4.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ListenerExample4 {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ListenerExample4() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Listener</FONT><FONT FACE="바탕">인터페이스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">class MyInnerHandler implements WindowListener {</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>				<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>			<B><FONT FACE="Courier New">}</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowOpened(WindowEvent e){}</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowClosed(WindowEvent e){}</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowIconified(WindowEvent e){}</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowDeiconified(WindowEvent e){}</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowActivated(WindowEvent e){}</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowDeactivated(WindowEvent e){}</FONT></B>	
+<P>		<B><FONT FACE="Courier New">}</FONT></B>
+<BR>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new MyInnerHandler() </FONT></B><FONT FACE="Courier New">);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ListenerExample4 lt4 = new ListenerExample4();</FONT>
+<P>		<FONT FACE="Courier New">lt4.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 Anonymous 클래스로 핸들러를 만든 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=869>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ListenerExample5.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ListenerExample5 {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ListenerExample5() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Listener</FONT><FONT FACE="바탕">인터페이스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new WindowListener() {</FONT></B>
+<P>				<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>					<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>				<B><FONT FACE="Courier New">}</FONT></B>
+<BR>
+<P>				<B><FONT FACE="Courier New">public void windowOpened(WindowEvent e){}</FONT></B>
+<P>				<B><FONT FACE="Courier New">public void windowClosed(WindowEvent e){}</FONT></B>
+<P>				<B><FONT FACE="Courier New">public void windowIconified(WindowEvent e){}</FONT></B>
+<P>				<B><FONT FACE="Courier New">public void windowDeiconified(WindowEvent e){}</FONT></B>
+<P>				<B><FONT FACE="Courier New">public void windowActivated(WindowEvent e){}</FONT></B>
+<P>				<B><FONT FACE="Courier New">public void windowDeactivated(WindowEvent e){}</FONT></B>	
+<P>			<B><FONT FACE="Courier New">}</FONT></B>
+<P>		<FONT FACE="Courier New">);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ListenerExample5 lt5 = new ListenerExample5();</FONT>
+<P>		<FONT FACE="Courier New">lt5.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 표는 11개의 이벤트 처리를 위한 각각의 리스너 인터페이스와 인터페이스 메소드 그리고 add 메소드를 나타낸 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=776 HEIGHT=906>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Event</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Listener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Interface Method</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Add Method</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ActionEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ActionListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">actionPerformed(ActionEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addActionListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">AdjustmentEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">AdjustmentListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:9pt;"><FONT FACE="바탕">adjustmentValueChanged(AdjustmentEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addAdjustmentListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ComponentEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ComponentListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">componentHidden(ComponentEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">componentMoved(ComponentEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">componentResized(ComponentEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">componentShown(ComponentEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addComponentListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ContainerEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ContainerListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">componentAdded(ComponentEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">componentRemoved(ComponentEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">FocusEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">FocusListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">focusGained(FocusEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">focusLost(FocusEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addFocusListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ItemEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ItemListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">itemStateChanged(ItemEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addItemListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">KeyEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">KeyListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">keyPressed(KeyEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">keyReleased(KeyEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">keyTyped(KeyEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addKeyListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE ROWSPAN=2 WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">MouseEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">MouseListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">mouseClicked(MouseEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">mouseEntered(MouseEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">mouseExited(MouseEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">mousePressed(MouseEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">mouseReleased(MouseEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addMouseListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:9pt;"><FONT FACE="바탕">MouseMotionListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">mouseDragged(MouseEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">mouseMoved(MouseEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addMouseMotionListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:9pt;"><FONT FACE="바탕">MouseWheelEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">MouseWheelListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">mouseWheelMoved(MouseWheelEvent e) </FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addMouseWheelListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">TextEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">TextListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">textValueChanged(TextEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addTextListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE ROWSPAN=3 WIDTH=16%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">WindowEvent</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">WindowListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowActivated(WindowEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowClosed(WindowEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowClosing(WindowEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowDeactivated(WindowEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowDeiconified(WindowEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowIconified(WindowEvent e)</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowOpened(WindowEvent e)</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addWindowListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:9pt;"><FONT FACE="바탕">WindowFocusListener </FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowGainedFocus(WindowEvent e) </FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowLostFocus(WindowEvent e) </FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addWindowFocusListener()</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=18%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:9pt;"><FONT FACE="바탕">WindowStateListener</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=39%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">windowStateChanged(WindowEvent e) </FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=25%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">addWindowStateListener()</FONT></SPAN></FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 표는 컴포넌트 타입에 따라 발생할 수 있는 이벤트를 나타낸 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=740 HEIGHT=505>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Component Type</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Act</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Adj</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Cmp</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Cnt</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Foc</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Itm</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Key</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Mou</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">MM</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">MW</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Txt</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Win</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Button</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Canvas</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Checkbox</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">CheckboxMenuItem</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Choice</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Component</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Container</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Dialog</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Frame</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Label</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">List</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">MenuItem</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Panel</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Scrollbar</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ScrollPane</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">TextArea</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">TextField</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=23%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Window</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=6%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">◹</FONT></SPAN></FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=741 HEIGHT=200>
+<TD VALIGN=TOP WIDTH=50%>
+<P><B><FONT FACE="Courier New">Act</FONT></B><FONT FACE="Courier New"> - ActionListener</FONT>
+<P><B><FONT FACE="Courier New">Adj</FONT></B><FONT FACE="Courier New"> - AdjustmentListener</FONT>
+<P><B><FONT FACE="Courier New">Cmp</FONT></B><FONT FACE="Courier New"> - ComponentListener</FONT>
+<P><B><FONT FACE="Courier New">Cnt</FONT></B><FONT FACE="Courier New"> - ContainerListener</FONT>
+<P><B><FONT FACE="Courier New">Foc</FONT></B><FONT FACE="Courier New"> - FocusListener</FONT>
+<P><B><FONT FACE="Courier New">Itm</FONT></B><FONT FACE="Courier New"> - ItemListener</FONT></TD>
+<TD VALIGN=TOP WIDTH=49%>
+<P><B><FONT FACE="Courier New">Key</FONT></B><FONT FACE="Courier New"> - KeyListener</FONT>
+<P><B><FONT FACE="Courier New">Mou</FONT></B><FONT FACE="Courier New"> - MouseListener</FONT>
+<P><B><FONT FACE="Courier New">MM </FONT></B><FONT FACE="Courier New">- MouseMotionListener</FONT>
+<P><B><FONT FACE="Courier New">MW </FONT></B><FONT FACE="Courier New">- MouseWheelListener</FONT>
+<P><B><FONT FACE="Courier New">Txt</FONT></B><FONT FACE="Courier New"> - TextListener</FONT>
+<P><B><FONT FACE="Courier New">Win</FONT></B><FONT FACE="Courier New"> - WindowListener</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.2.2 Adapter </FONT><FONT FACE="바탕">클래스</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">시멘틱 리스너는 하나의 메소드만 갖는 반면 저수준(Low-Level)리스너는 2개 이상의 메소드를 갖는다. 특히 앞의 WindowListener 경우 최대 7개의 메소드를 가지고 있는데, 이 리스너가 인터페이스로 선언되면 윈도우가 닫히는 단 하나의 처리를 위해 6개의 불필요한 메소드까지 구현해 주어야 한다. 
+</FONT><P><FONT FACE="바탕">이와 같은 문제점을 해소하기 위해 어댑터 클래스를 이용한다. 어댑터 클래스는 리스너 인터페이스의 모든 메소드를 사용하지 않는 디폴트 메소드로 정의해 주는 추상 클래스이다. 이 어댑터 클래스를 상속받아 이벤트처리 객체로 등록하고, 원하는 메소드를 재정의 하여 사용하면 불필요한 메소드까지 선언하는 수고를 덜 수 있다.</FONT>
+<P><FONT FACE="바탕">어댑터 클래스의 이름은 &quot;이벤트_이름+Adapter&quot;형태인데 예를 들어 WindowListener의 경우에는 WindowAdapter가 있다. 하지만 메소드가 하나만 존재하는 인터페이스는 어댑터 클래스가 존재하지 않는다. MouseMotionListener의 경우 이벤트 이름이 MouseEvent이지만 어댑터 이름은 MouseMotion -Adapter이다.</FONT>
+<BR>
+<P><FONT FACE="바탕">어댑터 클래스를 상속받아 핸들러를 만들 경우 여러 가지 클래스로 만들 수가 있는데, 다음 프로그램은 이벤트가 발생하는 클래스와 동일 클래스에서 어댑터클래스를 상속받아 핸들러를 구현하는 예이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=626>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdapterExample1.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class AdapterExample1 </FONT><B><FONT FACE="Courier New">extends WindowAdapter</FONT></B><FONT FACE="Courier New">{</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public AdapterExample1() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Adapter</FONT><FONT FACE="바탕">클래스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">this</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">AdapterExample1 at1 = new AdapterExample1();</FONT>
+<P>		<FONT FACE="Courier New">at1.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>		<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>	<B><FONT FACE="Courier New">}</FONT></B>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 이벤트가 발생하는 클래스와 별도의 클래스로 핸들러를 만든 예이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=459>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdapterExample2.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class AdapterExample2 {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public AdapterExample2() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Adapter</FONT><FONT FACE="바탕">클래스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new MyWindowAdapterHandler()</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">AdapterExample2 at2 = new AdapterExample2();</FONT>
+<P>		<FONT FACE="Courier New">at2.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=225>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MyWindowAdapterHandler.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><B><FONT FACE="Courier New">public class MyWindowAdapterHandler extends WindowAdapter {</FONT></B>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>		<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>	<B><FONT FACE="Courier New">}</FONT></B>
+<BR>
+<P><B><FONT FACE="Courier New">}</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 이벤트가 발생하는 클래스 안에 Inner 클래스로 핸들러를 만든 예를 보인 것이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=182>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdapterExample3.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class AdapterExample3 {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public AdapterExample3() {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=480>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdapterExample3.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Adapter</FONT><FONT FACE="바탕">클래스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new MyInnerHandler()</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">AdapterExample3 at3 = new AdapterExample3();</FONT>
+<P>		<FONT FACE="Courier New">at3.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">private class MyInnerHandler extends WindowAdapter {</FONT></B>
+<P>		<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>			<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>		<B><FONT FACE="Courier New">}</FONT></B>
+<P>	<B><FONT FACE="Courier New">}</FONT></B>
+<BR>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 메소드 안에 Local클래스로 핸들러를 구현한 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=416>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdapterExample4.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class AdapterExample4 {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public AdapterExample4() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Adapter</FONT><FONT FACE="바탕">클래스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">class MyInnerHandler extends WindowAdapter {</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>				<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>			<B><FONT FACE="Courier New">}</FONT></B>
+<P>		<B><FONT FACE="Courier New">}</FONT></B>
+<BR>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new MyInnerHandler()</FONT></B><FONT FACE="Courier New"> );</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=253>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdapterExample4.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">AdapterExample4 at4 = new AdapterExample4();</FONT>
+<P>		<FONT FACE="Courier New">at4.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 Anonymous 클래스로 핸들러를 만든 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=629>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdapterExample5.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class AdapterExample5 {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public AdapterExample5() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Adapter</FONT><FONT FACE="바탕">클래스를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new WindowAdapter() {</FONT></B>
+<P>				<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>					<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>				<B><FONT FACE="Courier New">}</FONT></B>
+<P>			<B><FONT FACE="Courier New">}</FONT></B>
+<P>		<FONT FACE="Courier New">);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">AdapterExample5 at5 = new AdapterExample5();</FONT>
+<P>		<FONT FACE="Courier New">at5.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV239.GIF" BORDER=0 ALIGN=LEFT><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">5.3  </FONT><FONT FACE="바탕">주요</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">이벤트</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">클래스</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">여기서는 각 이벤트별 리스너 인터페이스와 어댑터 클래스에 대해 설명하고 발생할 수 있는 메소드에 대해 구체적으로 언급하기로 한다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.1. ActionEvent</FONT></SPAN></FONT>
+<P> 
+<P><FONT FACE="바탕">Action 이벤트는 Button, List, MenuItem, TextField가 다음과 같은 상황일 때 발생된다.</FONT>
+<BR>
+<P><FONT FACE="바탕">- Button : 마우스를 누를 때</FONT>
+<P><FONT FACE="바탕">- List : 아이템을 선택하거나 선택을 해제했을 때</FONT>
+<P><FONT FACE="바탕">- MenuItem : 메뉴아이템을 선택했을 때</FONT>
+<P><FONT FACE="바탕">- TextField : 텍스트필드에서 엔터 키를 눌렀을 때</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.1.1 ActionListener</FONT></SPAN></FONT>
+<P> 
+<P><FONT FACE="바탕">동작(Action) 이벤트를 처리할 리스너의 기능을 정의하는 인터페이스이다. 따라서, 동작 이벤트를 처리하려면 이 인터페이스를 구현해야 하고, 객체를 생성한 후 컴포넌트의 addActionListener() 메소드를 이용하여 컴포넌트에 등록한다. 동작이 일어나면 해당 ActionListener의 actionPerformed() 메소드가 호출된다.</FONT>
+<P> 
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.1.2 ActionListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void actionPerformed(ActionEvent e) : 동작이 발생할 때 호출된다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 Action 이벤트의 사용 예를 보인 것이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=253>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ActionExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ActionExample </FONT><B><FONT FACE="Courier New">implements ActionListener</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	<FONT FACE="Courier New">private MenuBar mb;</FONT>
+<P>	<FONT FACE="Courier New">private Menu fileMenu;</FONT>
+<P>	<FONT FACE="Courier New">private MenuItem exitItem;</FONT>
+<P>	<FONT FACE="Courier New">private TextField inputField;</FONT>
+<P>	<FONT FACE="Courier New">private Button sendButton;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=1010>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ActionExample.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT>
+<P><FONT FACE="Courier New">36:</FONT>
+<P><FONT FACE="Courier New">37:</FONT>
+<P><FONT FACE="Courier New">38:</FONT>
+<P><FONT FACE="Courier New">39:</FONT>
+<P><FONT FACE="Courier New">40:</FONT>
+<P><FONT FACE="Courier New">41:</FONT>
+<P><FONT FACE="Courier New">42:</FONT>
+<P><FONT FACE="Courier New">43:</FONT>
+<P><FONT FACE="Courier New">44:</FONT>
+<P><FONT FACE="Courier New">45:</FONT>
+<P><FONT FACE="Courier New">46:</FONT>
+<P><FONT FACE="Courier New">47:</FONT>
+<P><FONT FACE="Courier New">48:</FONT>
+<P><FONT FACE="Courier New">49:</FONT>
+<P><FONT FACE="Courier New">50:</FONT>
+<P><FONT FACE="Courier New">51:</FONT>
+<P><FONT FACE="Courier New">52:</FONT>
+<P><FONT FACE="Courier New">53:</FONT>
+<P><FONT FACE="Courier New">54:</FONT>
+<P><FONT FACE="Courier New">55:</FONT>
+<P><FONT FACE="Courier New">56:</FONT>
+<P><FONT FACE="Courier New">57:</FONT>
+<P><FONT FACE="Courier New">58:</FONT>
+<P><FONT FACE="Courier New">59:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<FONT FACE="Courier New">private Panel p = new Panel();</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ActionExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Action Event&quot;);</FONT>
+<P>		<FONT FACE="Courier New">mb = new MenuBar();</FONT>
+<P>		<FONT FACE="Courier New">fileMenu = new Menu(&quot;</FONT><FONT FACE="바탕">파일</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>		<FONT FACE="Courier New">exitItem = new MenuItem(&quot;</FONT><FONT FACE="바탕">종료</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>		<FONT FACE="Courier New">p = new Panel();</FONT>
+<P>		<FONT FACE="Courier New">inputField = new TextField();</FONT>
+<P>		<FONT FACE="Courier New">sendButton = new Button(&quot;Send&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.setMenuBar(mb);</FONT>
+<P>		<FONT FACE="Courier New">mb.add(fileMenu);</FONT>
+<P>		<FONT FACE="Courier New">fileMenu.add(exitItem);</FONT>
+<P>		<FONT FACE="Courier New">p.setLayout(new BorderLayout());</FONT>
+<P>		<FONT FACE="Courier New">p.add(inputField, BorderLayout.CENTER);</FONT>
+<P>		<FONT FACE="Courier New">p.add(sendButton, BorderLayout.EAST);</FONT>
+<P>		<FONT FACE="Courier New">f.add(p, BorderLayout.SOUTH);</FONT>
+<P>		<B><FONT FACE="Courier New">exitItem.addActionListener(this);</FONT></B>
+<P>		<B><FONT FACE="Courier New">inputField.addActionListener(this);</FONT></B>
+<P>		<B><FONT FACE="Courier New">sendButton.addActionListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.setSize(200, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ActionExample win = new ActionExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void actionPerformed(ActionEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">if(</FONT><B><FONT FACE="Courier New">e.getSource() == exitItem</FONT></B><FONT FACE="Courier New">) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">종료메뉴가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">선택되었습니다</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<FONT FACE="Courier New">System.exit(0);</FONT>
+<P>		<FONT FACE="Courier New">}else if(</FONT><B><FONT FACE="Courier New">e.getSource() == inputField</FONT></B><FONT FACE="Courier New">) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">텍스트</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">필드에서</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">엔터</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(inputField.getText() + &quot;</FONT><FONT FACE="바탕">입력</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<FONT FACE="Courier New">inputField.setText(&quot;&quot;);</FONT>
+<P>		<FONT FACE="Courier New">}else if(</FONT><B><FONT FACE="Courier New">e.getSource() == sendButton</FONT></B><FONT FACE="Courier New">) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">버튼이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">클릭되었습니다</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(inputField.getText() + &quot;</FONT><FONT FACE="바탕">입력</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<FONT FACE="Courier New">inputField.setText(&quot;&quot;);</FONT>
+<P>			<FONT FACE="Courier New">inputField.requestFocus();</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.2 AdjustmentEvent</FONT></SPAN></FONT>
+<P> 
+<P><FONT FACE="바탕">스크롤바의 값이 변경되었을 때 발생한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.2.1 AdjustmentListener 
+</FONT></SPAN></FONT><P> 
+<P><FONT FACE="바탕">리스너가 구현해야할 기능을 정의하고 있는 인터페이스로 Adjustment 이벤트를 처리하려면 이 인터페이스를 구현해야 한다.</FONT>
+<P><FONT FACE="바탕">AdjustmentListener를 사용하면 스크롤바 컴포넌트에 등록하기 위해 다음과 같은 메소드를 사용한다.</FONT>
+<P> 
+<P> <FONT FACE="돋움">∘ void addAdjustmentListener(AdjustmentListener l) : Adjustment Listener를 추가한다.</FONT>
+<P> <FONT FACE="돋움">∘ void removeAdjustmentListener(AdjustmentListener l) : 주어진 Listener를 제거한다.</FONT>
+<P> 
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.2.2 AdjustmentListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void adjustmentValueChanged(AdjustmentEvent e) : 스크롤바 컴포넌트의 값이 변할 때 호출된다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 Adjustment 이벤트를 사용하는 예를 보인 것이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=474>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdjustmentExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class AdjustmentExample </FONT><B><FONT FACE="Courier New">implements AdjustmentListener </FONT></B><FONT FACE="Courier New">{</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	<FONT FACE="Courier New">private Scrollbar mySlider;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public AdjustmentExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Adjustment Event&quot;);</FONT>
+<P>		<FONT FACE="Courier New">mySlider = new Scrollbar(Scrollbar.HORIZONTAL, 100, 20, 0, 255);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.add(mySlider, BorderLayout.SOUTH);</FONT>
+<P>		<B><FONT FACE="Courier New">mySlider.addAdjustmentListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.setSize(300, 100);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=231>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdjustmentExample.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">AdjustmentExample win = new AdjustmentExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void adjustmentValueChanged(AdjustmentEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(</FONT><B><FONT FACE="Courier New">e.getValue()</FONT></B><FONT FACE="Courier New"> + &quot;</FONT><FONT FACE="바탕">으로</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">값이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">변경됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">} </FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.3 ComponentEvent</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">MenuItem과 CheckboxMenuItem을 제외한 모든 컴포넌트에서 발생하는 이벤트이다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.3.1 ComponentListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">Component 이벤트의 리스너를 정의한 인터페이스이며, 이벤트를 처리하려면 이 ComponentListener 인터페이스를 implements하여 메소드를 구현하거나 ComponentAdapter 클래스를 상속받아야 한다.</FONT>
+<P><FONT FACE="바탕">컴포넌트의 addComponentListener() 메소드에 의해 등록되며, 컴포넌트 크기나  위치 또는 가시화(Visibility) 등의 변화가 일어날 때 Component 이벤트가 발생한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.3.2 ComponentAdapter 
+</FONT></SPAN></FONT><P> 
+<P><FONT FACE="바탕">Component 이벤트 처리를 위한 abstract adapter 클래스를 제공한다. 이 클래스는 ComponentListener 인터페이스가 정의하고 있는 메소드를 구현하고 있지만, 메소드의 몸체 부분은 비어 있기 때문에 처리하고자 하는 이벤트의 메소드만 재정의 해주면 된다.</FONT>
+<P> 
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.3.3 ComponentListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void componentMoved(ComponentEvent e) : 컴포넌트 위치 변경시 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void componentResized(ComponentEvent e) : 컴포넌트 크기 변경시 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void componentShown(ComponentEvent e) : 컴포넌트를 보이게 할 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void componentHidden(ComponentEvent e) : 컴포넌트를 보이지 않게 할 때 호출된다.</FONT>
+<P> 
+<BR>
+<P>  <FONT FACE="바탕">다음 프로그램은 Component 이벤트의 사용 예를 보인 것이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=859>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AdjustmentExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ComponentExample </FONT><B><FONT FACE="Courier New">implements ComponentListener </FONT></B><FONT FACE="Courier New">{</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ComponentExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Component Event&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">f.addComponentListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.setSize(300, 100);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ComponentExample win = new ComponentExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void componentMoved(ComponentEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(e.getSource() + &quot; </FONT><FONT FACE="바탕">위치</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">변경</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void componentResized(ComponentEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(e.getSource() + &quot; </FONT><FONT FACE="바탕">크기</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">변경</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void componentShown(ComponentEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(e.getSource() + &quot;</FONT><FONT FACE="바탕">가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">보여짐</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void componentHidden(ComponentEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(e.getSource() + &quot;</FONT><FONT FACE="바탕">가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">없어짐</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.4 ContainerEvent</FONT></SPAN></FONT>
+<P> 
+<P><FONT FACE="바탕">컨테이너에서 컴포넌트의 이동이나 크기 변경 또는 보이거나 보이지 않게 할 때 발생하는 저수준 이벤트이며, 단순하게 알려주는 목적으로 사용된다. AWT에서는 컴포넌트의 크기 변경 및 이동이 자동으로 처리되며, 이 이벤트 처리 여부에 상관없이 레이아웃을 수행하게 하는데 사용된다.</FONT>
+<P><FONT FACE="바탕">컴포넌트를 컨테이너에 추가하거나 삭제하면 컨테이너 이벤트가 발생되고 ContainerListener 또는 ContainerAdatper에 전달된다.</FONT>
+<P> 
+<P> <FONT FACE="돋움">∘ static int COMPONENT_ADDED : 컴포넌트 추가.</FONT>
+<P> <FONT FACE="돋움">∘ static int COMPONENT_REMOVED : 컴포넌트 제거.</FONT>
+<P> <FONT FACE="돋움">∘ static int CONTAINER_FIRST : 컨테이너 이벤트 id의 시작번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int CONTAINER_LAST : 컨테이너 이벤트 id의 마지막번호.</FONT>
+<P> <FONT FACE="돋움">∘ Component getChild() : 이벤트에 영향을 받는 컴포넌트를 구한다.</FONT>
+<P> <FONT FACE="돋움">∘ Container getContainer() : 이벤트가 발생한 컴포넌트를 구한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.4.1 ContainerListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">Container 이벤트를 처리할 수 있는 기능을 정의하는 인터페이스로 이벤트를 처리할 클래스는 ContainerListener 인터페이스가 정의한 모든 메소드를 구현하거나, ContainerAdapter 클래스의 관련 메소드를 재정의 하여 상속받아야 한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.4.2 ContainerAdapter 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">컨테이너 이벤트를 처리할 추상 클래스를 제공한다. ContainerListener 인터페이스가 정의한 메소드를 구현하고 있지만 메소드의 몸체 부분은 비어 있다. 따라서, ContainerAdapter의 메소드 중 처리하고자 하는 메소드만 재 정의해준다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.4.3 ContainerListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void componentAdded(ContainerEvent e) : 컴포넌트가 컨테이너에 추가될 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void componentRemoved(ContainerEvent e) : 컴포넌트가 컨테이너에서 제거될 때 호출된다.</FONT>
+<P> 
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<P>  <FONT FACE="바탕">다음 프로그램은 Container 이벤트의 사용 예를 보인 것이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=740>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ContainerExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ContainerExample </FONT><B><FONT FACE="Courier New">implements ContainerListener </FONT></B><FONT FACE="Courier New">{</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	<FONT FACE="Courier New">private Button btn1;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ContainerExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Container Event&quot;);</FONT>
+<P>		<FONT FACE="Courier New">btn1 = new Button(&quot;Button&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">f.addContainerListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.add(btn1, BorderLayout.SOUTH);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 100);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ContainerExample win = new ContainerExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void componentAdded(ContainerEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">컴포넌트</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">추가됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void componentRemoved(ContainerEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">컴포넌트</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">삭제됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.5 FocusEvent</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">컴포넌트가 키보드 포커스를 얻거나 잃을 때 발생하는 저수준 이벤트이다. 이러한 이벤트는 MenuItem컴포넌트를 제외한 거의 모든 컴포넌트에서 발생하며, FocusListener 또는 FocusAdapter에 전달되고, 컴포넌트 클래스의 addFocusListener() 메소드를 이용하여 등록할 수 있다.</FONT>
+<BR>
+<P><FONT FACE="바탕">이 때, 포커스의 변화는 다음과 같은 두 가지 수준이 있다.</FONT>
+<P><FONT FACE="바탕">일시적인 포커스 변화 : requestFocus() 메소드를 호출하거나 탭 키로 컴포넌트간에 포커스를 이동시킬 때 발생하는 이벤트이다.</FONT>
+<P><FONT FACE="바탕">영구적인 포커스 변화 : 윈도우의 비활성화 또는 스크롤바의 끌기와 같이 다른 동작의 간접적인 결과로 발생하여, 일시적으로 포커스를 얻거나 잃을 때 발생하는 이벤트이다. 이런 경우 윈도우가 다시 활성화되거나 해당 동작이 끝나면 포커스는 자동으로 전 상태로 복구된다.</FONT>
+<BR>
+<P><FONT FACE="바탕">위의 두 가지 포커스 이벤트 모두 FOCUS_GAINED와 FOCUS_LOST 이벤트 id를 발생시키며, 이 때 isTemporary() 메소드를 이용하여 이벤트 종류를 얻을 수 있다.</FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ static int FOCUS_FIRST : 포커스 이벤트 id의 시작번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int FOCUS_LAST : 포커스 이벤트 id의 마지막번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int FOCUS_GAINED : 포커스를 얻었음을 표시.</FONT>
+<P> <FONT FACE="돋움">∘ static int FOCUS_LOST : 포커스를 잃었음을 표시.</FONT>
+<P> <FONT FACE="돋움">∘ boolean isTemporary() : 포커스 변화 이벤트가 일시적인지 영구적인지를 구한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.5.1 FocusListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">포커스 이벤트를 처리할 기능을 정의하는 인터페이스이며, 처리할 클래스는 FocusListener가 정의한 모든 메소드를 구현하거나, 추상 클래스인 FocusAdapter 메소드를 재정의하여 상속받아야 한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.5.2 FocusAdapter 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">이 클래스는 FocusListener가 정의하고 있는 메소드를 구현하고 있지만, 몸체 부분은 비어 있어 FocusAdapter의 메소드 중 자신이 처리하고자 하는 메소드만 재정의 해주면 된다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.5.3 FocusListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void focusGained(FocusEvent e) : 컴포넌트가 키보드 포커스를 얻었을 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void focusLost(FocusEvent e) : 컴포넌트가 키보드 포커스를 잃었을 때 호출된다.</FONT>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 Focus 이벤트의 사용 예를 보인 것이다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=888>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">FocusExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT>
+<P><FONT FACE="Courier New">36:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class FocusExample </FONT><B><FONT FACE="Courier New">implements FocusListener</FONT></B><FONT FACE="Courier New"> {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	<FONT FACE="Courier New">private Button btn1;</FONT>
+<P>	<FONT FACE="Courier New">private TextField textField;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public FocusExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Focus Event&quot;);</FONT>
+<P>		<FONT FACE="Courier New">btn1 = new Button(&quot;Button1&quot;);</FONT>
+<P>		<FONT FACE="Courier New">textField = new TextField();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">btn1.addFocusListener(this);</FONT></B>
+<P>		<B><FONT FACE="Courier New">textField.addFocusListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.add(btn1, BorderLayout.SOUTH);</FONT>
+<P>		<FONT FACE="Courier New">f.add(textField, BorderLayout.NORTH);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 100);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">FocusExample win = new FocusExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void focusGained(FocusEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(e.getSource() + &quot;</FONT><FONT FACE="바탕">의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">포커스</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">얻음</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void focusLost(FocusEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(e.getSource() + &quot;</FONT><FONT FACE="바탕">의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">포커스</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">잃음</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.6 KeyEvent</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">Input의 하위클래스로 컴포넌트 내에서 발생한 키 입력에 대한 기능을 제공해 준다. 텍스트필드류의 컴포넌트에서 발생할 수 있는 저수준 이벤트로, 키를 누르거나 놓거나 칠(타이프 pressed and released) 때 이벤트가 발생된다. 컴포넌트 클래스의 addKeyListener() 메소드에 의해 KeyListener 또는 KeyAdapter 객체에 전달된다.</FONT>
+<BR>
+<P><FONT FACE="바탕">&quot;Key typed&quot;는 고수준 이벤트로 플랫폼이나 키보드 레이아웃에 독립적이며, 문자가 입력되면 발생하고 문자를 정확하게 알 수 있는 방법을 제공해준다.</FONT>
+<P><FONT FACE="바탕">가장 간단한 경우 &quot;Key typed&quot;는 키의 눌림(pressed)과 놓임(released) 이벤트의 조합으로 만들어지며, 키를 계속 누르고 있을 때도 연속적인 &quot;Key typed&quot; 이벤트가 발생한다. 그러나, F1과 같은 동작 키 또는 Shift 키에 대해서는 이벤트가 발생하지 않는다.</FONT>
+<BR>
+<P><FONT FACE="바탕">getKeyChar()는 키에 해당하는 유니코드나 CHAR_UNDEFINED를 반환해준다. 키를 누르거나 놓을 경우 getKeyCode()가 키의 코드값을 반환하고, 키를 칠 때는 VK_UNDEFINED를 반환한다. &quot;Key pressed&quot;와 &quot;Key released&quot;는 저수준 이벤트로 플랫폼과 키보드 레이아웃에 의존한다. 이 이벤트는 키를 누르거나(눌려있는 상태) 놓을 때마다 생성되고, 문자 입력이 없는 F1 키와 Shift 키 등은 modifier 키가 눌렸는지를 알 수 있다. 
+</FONT><BR>
+<P><FONT FACE="바탕">getKeyCode()를 이용하면 해당키에 대한 가상 키값을 알 수 있는데 예를 들어, Shift 키를 누르면 VK_SHIFT 코드를 갖는 KEY_PRESSED 이벤트가 발생하고, 'a'를 누르면 VK_A 코드를 갖는 KEY_PRESSED 이벤트가 발생한다. 또, 'a' 키를 놓으면 VK_A 코드를 갖는 KEY_RELEASED 이벤트가 발생한다. 물론, 이 때 KEY_TYPED 이벤트가 발생하고 그 때의 키문자는 'A'가 된다.</FONT>
+<P><FONT FACE="바탕">F1 키와 같이 문자로 나타나지 않는 키는 KEY_TYPED 이벤트를 발생시키지 못한다. 또 모든 키가 가상 키코드를 생성할 수 있는 것은 아니다. 
+</FONT><BR>
+<P><FONT FACE="바탕">KeyEvent 클래스가 제공하는 기능을 살펴보면 다음과 같다.</FONT>
+<P> 
+<P> <FONT FACE="돋움">∘ static char CHAR_UNDEFINED : 유효하지 않은 유니코드 문자.</FONT>
+<P> <FONT FACE="돋움">∘ static int KEY_FIRST : 키 이벤트 id의 시작번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int KEY_LAST : 키 이벤트 id의 마지막번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int KEY_PRESSED : &quot;Key pressed&quot; 이벤트가 발생했음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int KEY_RELEASED : &quot;Key released&quot; 이벤트가 발생했음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int KEY_TYPED : &quot;Key typed&quot; 이벤트가 발생했음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int VK_ : 가상 키코드 상수.</FONT>
+<P> <FONT FACE="돋움">∘ char getKeyChar() : 이벤트 내의 키와 관련된 문자를 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ int getKeyCode() : 이벤트 내의 키와 관련된 정수 키코드를 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ static String getKeyModifiersText(int modifiers) : &quot;Shift&quot; 또는 &quot;Ctrl+Shift&quot; 와 같은 문자열을 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ static String getKeyText(intkeyCode) : &quot;HOME&quot;, &quot;F1&quot; 또는 &quot;A&quot;와 같은 문자열을 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ boolean isActionKey() : 이벤트 내의 키가 동작키인지를 얻는다</FONT>
+<P> <FONT FACE="돋움">∘ String paramString() : 이벤트를 구분할 수 있는 매개변수 문자열을 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ void setKeyChar(char keyChar) : logical character를 나타내는 keyChar 값을 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ void setKeyCode(int keyCode) : physical key를 가리키는 keyCode 값을 설정한다.</FONT>
+<P> <FONT FACE="돋움">∘ void setModifiers(int modifiers) : shift, ctrl, alt, meta 등과 같은 추가적인 키를 나타내는 modifier를 설정한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.6.1 KeyListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">키 이벤트를 처리하는 기능을 가지고 있는 인터페이스이다. 처리하려는 클래스는 KeyListener가 정의한 모든 메소드를 구현하거나, KeyAdapter 클래스의 관련 메소드를 재정의하여 상속받아야 한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.6.2 KeyAdapter</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">키 이벤트를 처리하는 추상 클래스로 KeyListener의 메소드를 구현하지만 메소드의 몸체 부분은 비어 있다. 처리하려는 이벤트의 메소드를 재정의해주면 된다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.6.3 KeyListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void keyPressed(KeyEvent e) : 키를 누를 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void keyReleased(KeyEvent e) : 키를 놓았을 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void keyTyped(KeyEvent e) : 키를 칠(눌렀다 놓음) 때 호출된다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 키 이벤트의 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=253>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">KeyExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class KeyExample </FONT><B><FONT FACE="Courier New">implements KeyListener </FONT></B><FONT FACE="Courier New">{</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	<FONT FACE="Courier New">private TextField textField;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public KeyExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Key Event&quot;);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=585>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">KeyExample.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">textField = new TextField();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">textField.addKeyListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.add(textField, BorderLayout.SOUTH);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 100);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">KeyExample win = new KeyExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void keyPressed(KeyEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(e.getKeyChar() + &quot; Pressed&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void keyReleased(KeyEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(e.getKeyChar() + &quot; Released&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void keyTyped(KeyEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(e.getKeyChar() + &quot; Typed&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.7 MouseEvent</FONT></SPAN></FONT>
+<P> 
+<P><FONT FACE="바탕">마우스 이벤트는 두 가지가 있는데 먼저 click, enter, exit 등과 같은 이벤트와 moves, drag 등의 동작 이벤트이다.</FONT>
+<P><FONT FACE="바탕">마우스 이벤트 객체는 컴포넌트 클래스의 MouseListener나 MouseAdapter 객체에 전달된다. Mouse- Event 객체는 컴포넌트 클래스의 addMouseMotionListener() 메소드를 이용하여 MouseMotion- Listener나 MouseMotionAdapter 객체에 전달된다. 마우스를 누르면 이벤트가 발생하고 modifier 필드에 저장된 후  MouseListeners 객체에 보내진다.</FONT>
+<P> 
+<P> <FONT FACE="돋움">∘ static int MOUSE_FIRST : 마우스 이벤트 id의 시작번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int MOUSE_LAST : 마우스 이벤트 id의 마지막번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int MOUSE_PRESSED : 마우스 버튼의 누른 상태를 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int MOUSE_RELEASED : 마우스의 버튼이 놓였음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int MOUSE_CLICKED : 마우스의 버튼이 클릭 되었음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int MOUSE_ENTERED : 마우스가 컴포넌트의 영역 내로 들어왔음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int MOUSE_EXITED : 마우스가 컴포넌트의 영역 밖으로 나갔음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int MOUSE_MOVED : 마우스가 움직였음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int MOUSE_DRAGGED : 마우스가 드래그 되었음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ int getClickCount() : 마우스가 클릭 된 수를 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ Point getPoint() : 이벤트 소스 컴포넌트에 상대적인 마우스 커서의 좌표를 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ int getX() : 이벤트 소스 컴포넌트에 상대적인 마우스 커서의 x 좌표를 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ int getY() : 이벤트 소스 컴포넌트에 상대적인 마우스 커서의 y 좌표를 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ boolean isPopupTrigger() : 플랫폼을 위한 팝업 메뉴를 나타나게 할 이벤트인지를 얻는다.</FONT>
+<P> <FONT FACE="돋움">∘ void translatePoint(int x, int y) : 이벤트가 발생한 좌표를 현 좌표에서 수평으로 x값만큼, 수직으로 y값만큼 더한 새로운 위치로 옮긴다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.7.1 MouseListener</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">마우스 이벤트를 처리할 기능을 정의한 인터페이스이다. 마우스 이벤트를 처리하려면 MouseListener 인터페이스의 모든 메소드를 구현하거나, MouseAdapter 클래스의 관련 메소드를 재 정의하여 상속받아야 한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.7.2 MouseAdapter</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">마우스 이벤트를 처리하는 abstract adapter 클래스로 MouseListener 인터페이스의 메소드를 구현해야하지만 메소드의 몸체 부분은 비어있다. 구현은 처리하고자 하는 이벤트의 메소드만 재정의해주면 된다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.7.3 MouseListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void mouseClicked(MouseEvent e) : 컴포넌트에서 마우스를 클릭하면 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void mouseEntered(MouseEvent e) : 마우스가 컴포넌트 영역 안으로 들어왔을 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void mouseExited(MouseEvent e) : 마우스가 컴포넌트 영역 밖으로 나갈 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void mousePressed(MouseEvent e) : 컴포넌트에서 마우스 버튼를 누르면 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void mouseReleased(MouseEvent e) : 컴포넌트에서 마우스 버튼을 놓으면 호출된다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.7.4 MouseMotionListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">마우스 동작 이벤트를 처리할 수 있는 기능을 가지고 있는 인터페이스로 MouseMotionListener 인터페이스의 모든 메소드를 구현하거나, MouseMotionAdapter의 관련 메소드를 재정의하여 상속받아야 한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.7.5 MouseMotionAdapter 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">마우스 동작 이벤트를 처리하는 클래스로 MouseMotionListener 인터페이스의 메소드를 구현하고 있지만, 메소드의 몸체 부분은 비어있다. 구현은 처리하고자 하는 이벤트의 메소드를 재정의해주면 된다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.7.6 MouseMotionListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void mouseDragged(MouseEvent e) : 컴포넌트에서 마우스 버튼이 눌려진 상태로 드래그 될 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void mouseMoved(MouseEvent e) : 컴포넌트에서 마우스가 움직일 때 호출된다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 마우스 이벤트의 예를 보인 것이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=651>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MouseExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class MouseExample </FONT><B><FONT FACE="Courier New">implements MouseListener</FONT></B><FONT FACE="Courier New"> {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public MouseExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Mouse Event&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addMouseListener(this);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">MouseExample win = new MouseExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void mouseClicked(MouseEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">if(</FONT><B><FONT FACE="Courier New">e.getModifiers()</FONT></B><FONT FACE="Courier New"> == </FONT><B><FONT FACE="Courier New">MouseEvent.BUTTON1_MASK</FONT></B><FONT FACE="Courier New">) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;Left button clicked&quot;);</FONT>
+<P>		<FONT FACE="Courier New">}else if(e.getModifiers() == </FONT><B><FONT FACE="Courier New">MouseEvent.BUTTON2_MASK</FONT></B><FONT FACE="Courier New">) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;Center button clicked&quot;);</FONT>
+<P>		<FONT FACE="Courier New">}else if(e.getModifiers() == </FONT><B><FONT FACE="Courier New">MouseEvent.BUTTON3_MASK</FONT></B><FONT FACE="Courier New">) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;Right button clicked&quot;);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=320>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MouseExample.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">44:</FONT>
+<P><FONT FACE="Courier New">45:</FONT>
+<P><FONT FACE="Courier New">46:</FONT>
+<P><FONT FACE="Courier New">47:</FONT>
+<P><FONT FACE="Courier New">48:</FONT>
+<P><FONT FACE="Courier New">49:</FONT>
+<P><FONT FACE="Courier New">50:</FONT>
+<P><FONT FACE="Courier New">51:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<B><FONT FACE="Courier New">public void mousePressed(MouseEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;mousePressed&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void mouseReleased(MouseEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;mouseReleased&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void mouseEntered(MouseEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;mouseEntered&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void mouseExited(MouseEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;mouseExited&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=626>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MouseMotionExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class MouseMotionExample </FONT><B><FONT FACE="Courier New">implements MouseMotionListener </FONT></B><FONT FACE="Courier New">{</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public MouseMotionExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Mouse Event&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addMouseMotionListener(this);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">MouseMotionExample win = new MouseMotionExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void mouseDragged(MouseEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;mouseDragged&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void mouseMoved(MouseEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;mouseMoved&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.8 ItemEvent</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">아이템의 선택과 선택해제 여부를 나타내는 시멘틱 이벤트이다. 리스트 컴포넌트처럼 ItemSelectable 객체가 생성하는 고수준 이벤트로, ItemSelectable 객체가 포함한 아이템이 선택되거나 선택해제된 경우 발생한다. 이 이벤트는 컴포넌트 클래스의 addItemListener() 메소드를 이용하여 모든 ItemListener 객체에 전달된다. 이 때, 리스너(Listener)는 마우스의 움직임이나 클릭 같은 개개의 이벤트는 알 필요가 없고 아이템이 선택되거나 선택해제되는 등의 의미 있는 이벤트만 인지하면 된다.</FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ static int ITEM_FIRST : 아이템 이벤트 id의 시작번호를 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int ITEM_LAST : 아이템 이벤트 id의 마지막번호를 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int SELECTED : 선택 해제된 아이템이 다시 선택된 경우와 같이 상태변화를 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int DESELECTED : 선택된 아이템이 선택해제된 경우의 상태변화를 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ static int ITEM_STATE_CHANGED : 아이템의 상태가 변했음을 나타낸다.</FONT>
+<P> <FONT FACE="돋움">∘ Object getItem() : 이벤트가 발생한 아이템 객체를 얻는다</FONT>
+<P> <FONT FACE="돋움">∘ ItemSelectable getItemSelectable() : 이벤트가 발생한 소스 컴포넌트를 얻는다</FONT>
+<P> <FONT FACE="돋움">∘ int getStateChange() : 상태 변화의 종류를 얻는다</FONT>
+<BR>
+<P><FONT FACE="바탕">ItemSelectable 인터페이스는 선택 가능한 아이템을 갖는 컴포넌트의 기능을 정의하며 구체적인 기능을 살펴보면 다음과 같다.</FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void addItemListener(ItemListener l) : 아이템 Listener를 추가한다.</FONT>
+<P> <FONT FACE="돋움">∘ void removeItemListener(ItemListener l) : 주어진 아이템 Listener를 삭제한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.8.1 ItemListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">아이템 이벤트를 처리할 수 있는 기능을 가진 인터페이스로, 처리하려면 메소드를 구현해야 한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.8.2 ItemListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void itemStateChanged(ItemEvent e) : 아이템 상태가 변했을 때 호출된다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 아이템 이벤트의 기능을 이해할 수 있는 예이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=121>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ItemExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ItemExample </FONT><B><FONT FACE="Courier New">implements ItemListener </FONT></B><FONT FACE="Courier New">{</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=673>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ItemExample.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	<FONT FACE="Courier New">private List list;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public ItemExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Item Event&quot;);</FONT>
+<P>		<FONT FACE="Courier New">list = new List();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">list.add(&quot;Solaris&quot;);</FONT>
+<P>		<FONT FACE="Courier New">list.add(&quot;Windows&quot;);</FONT>
+<P>		<FONT FACE="Courier New">list.add(&quot;Mac&quot;);</FONT>
+<P>		<FONT FACE="Courier New">list.add(&quot;MS-DOS&quot;);</FONT>
+<P>		<B><FONT FACE="Courier New">list.addItemListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.add(list, BorderLayout.CENTER);</FONT>
+<P>		<FONT FACE="Courier New">f.pack();</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ItemExample win = new ItemExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void itemStateChanged(ItemEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(list.getSelectedItem() + &quot;Selected&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.9 TextEvent</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">텍스트의 변화 유무를 나타내는 이벤트로 TextComponent 같은 객체에 의해 생성되는 고수준 이벤트이다. 객체에 포함된 텍스트가 변경되었 때 발생하며, TextComponent 클래스의 addTextListener() 메소드를 이용하여 TextListener 객체에 전달된다. 
+</FONT><P> <FONT FACE="돋움">∘ static int TEXT_FIRST : 텍스트 이벤트 id의 시작번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int TEXT_LAST : 텍스트 이벤트 id의 마지막번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int TEXT_VALUE_CHANGED : 텍스트가 변했음을 나타낸다.</FONT>
+<BR>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.9.1 TextListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">아이템 이벤트를 처리할 수 있는 인터페이스로 메소드를 구현해주면 된다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.9.2 TextListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void textValueChanged(TextEvent e) : 텍스트의 내용이 변했을 때 호출된다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 텍스트 이벤트를 이해할 수 있는 예제이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=678>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TextExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class TextExample </FONT><B><FONT FACE="Courier New">implements TextListener </FONT></B><FONT FACE="Courier New">{</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	<FONT FACE="Courier New">private TextField textField;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public TextExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Text Event&quot;);</FONT>
+<P>		<FONT FACE="Courier New">textField = new TextField();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">textField.addTextListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.add(textField, BorderLayout.SOUTH);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 100);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">TextExample win = new TextExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void textValueChanged(TextEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;Text Changed&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.10 WindowEvent</FONT></SPAN></FONT>
+<P> 
+<P><FONT FACE="바탕">윈도우 상태의 변화를 나타내는 저수준 이벤트로, 윈도우가 열리거나, 닫히거나, 닫히는 중이거나, 활성화/비활성화 되었거나, 아이콘화/정상화되었을 경우 윈도우 객체에 의해 발생된다. 이 이벤트는 윈도우 클래스의 addWindowListener() 메소드를 이용하여 WindowListener 또는 WindowAdapter 객체에 전달된다. 
+</FONT><P> 
+<P> <FONT FACE="돋움">∘ static int WINDOW_ACTIVATED : 윈도우가 활성화되었음.</FONT>
+<P> <FONT FACE="돋움">∘ static int WINDOW_CLOSED : 윈도우가 닫혔음.</FONT>
+<P> <FONT FACE="돋움">∘ static int WINDOW_CLOSING : 윈도우가 닫히고 있음.</FONT>
+<P> <FONT FACE="돋움">∘ static int WINDOW_DEACTIVATED : 윈도우가 비활성화 되었음.</FONT>
+<P> <FONT FACE="돋움">∘ static int WINDOW_DEICONIFIED : 윈도우가 정상화 되었음.</FONT>
+<P> <FONT FACE="돋움">∘ static int WINDOW_FIRST : 윈도우 이벤트 id의 시작번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int WINDOW_ICONIFIED : 윈도우가 아이콘화 되었음.</FONT>
+<P> <FONT FACE="돋움">∘ static int WINDOW_LAST : 윈도우 이벤트 id의 마지막번호.</FONT>
+<P> <FONT FACE="돋움">∘ static int WINDOW_OPENED : 윈도우가 열렸음.</FONT>
+<P> <FONT FACE="돋움">∘ Window getWindow() : 이벤트가 발생한 이벤트 소스 컴포넌트를 얻는다.</FONT>
+<P> 
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.10.1 WindowListener 
+</FONT></SPAN></FONT><P> 
+<P><FONT FACE="바탕">윈도우 이벤트를 처리하는 인터페이스로 메소드를 구현하거나, WindowAdapter 클래스의 관련 메소드를 재정의하여 상속받아야 한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.10.2 WindowFocusListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">JDK 1.4에 추가된 인터페이스로 윈도우 포커스 변화 이벤트를 받는 인터페이스이다. 윈도우가 활성창이되어 포커스를 얻었을 때 호출되는 windowGainedFocus(WindowEvent) 메소드와  윈도우가 비 활성화 되어 포커스를 잃었을 때 호출되는 windowLostFocus(WindowEvent) 메소드를 가지고 있다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.10.3 WindowStateListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">JDK 1.4에 추가된 인터페이스로 윈도우 상태 이벤트를 받기 위한 인터페이스이다. 윈도우가 아이콘화 되거나, 최대크기, 원래크기로의 상태가 변했을 때 호출되는 windowStateChanged(WindowEvent) 메소드를 가지고 있다.</FONT>
+<BR>
+<BR>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.10.4 WindowAdapter 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">윈도우 이벤트를 처리하는 클래스로 WindowFocusListener, WindowListener, WindowState Listener 인터페이스를 정의하고 메소드를 구현한다. 
+</FONT><BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.10.5 WindowListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void windowActivated(WindowEvent e) : 윈도우가 활성화되었을 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void windowClosed(WindowEvent e) : 윈도우가 닫혔을 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void windowClosing(WindowEvent e) : 윈도우가 닫히고 있을 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void windowDeactivated(WindowEvent e) : 윈도우가 비활성화 되었을 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void windowDeiconified(WindowEvent e) : 윈도우가 정상 상태로 되었을 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void windowIconified(WindowEvent e) : 윈도우가 아이콘화 되었을 때 호출된다.</FONT>
+<P> <FONT FACE="돋움">∘ void windowOpened(WindowEvent e) : 윈도우가 열렸을 때 호출된다.</FONT>
+<P> 
+<P><FONT FACE="바탕">다음 프로그램은 윈도우 이벤트의 사용 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=756 HEIGHT=541>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">WindowExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class WindowExample </FONT><B><FONT FACE="Courier New">implements WindowListener </FONT></B><FONT FACE="Courier New">{</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public WindowExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Key Event&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">f.addWindowListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.setSize(300, 100);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">WindowExample win = new WindowExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void windowOpened(WindowEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;windowOpened&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=427>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">WindowExample.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT>
+<P><FONT FACE="Courier New">36:</FONT>
+<P><FONT FACE="Courier New">37:</FONT>
+<P><FONT FACE="Courier New">38:</FONT>
+<P><FONT FACE="Courier New">39:</FONT>
+<P><FONT FACE="Courier New">40:</FONT>
+<P><FONT FACE="Courier New">41:</FONT>
+<P><FONT FACE="Courier New">42:</FONT>
+<P><FONT FACE="Courier New">43:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;windowClosing&quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.exit(0);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void windowClosed(WindowEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;windowClosed&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void windowIconified(WindowEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;windowIconified&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void windowDeiconified(WindowEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;windowDeiconified&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void windowActivated(WindowEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;windowActivated&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void windowDeactivated(WindowEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;windowDeactivated&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=564>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">WindowFocusExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class WindowFocusExample </FONT><B><FONT FACE="Courier New">implements WindowFocusListener</FONT></B><FONT FACE="Courier New"> {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public WindowFocusExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Key Event&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowFocusListener(this);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 100);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">WindowFocusExample win = new WindowFocusExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void windowGainedFocus(WindowEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">포커스</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">얻음</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">public void windowLostFocus(WindowEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">포커스</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">잃음</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=568>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">WindowFocusExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class WindowStateExample </FONT><B><FONT FACE="Courier New">implements WindowStateListener</FONT></B><FONT FACE="Courier New"> {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public WindowStateExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Key Event&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">f.addWindowStateListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.setSize(300, 100);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">WindowStateExample win = new WindowStateExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void windowStateChanged(WindowEvent e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">윈도우</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">상태</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">변화</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">5.3.11 MouseWheelEvent</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">JDK 1.4에 추가되었으며 휠마우스를 사용하기 위한 이벤트이다. 
+</FONT><BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.11.1 MouseWheelListener 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">휠마우스 이벤트를 처리하려면 mouseWheelMoved() 메소드를 구현한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">5.3.11.2 MouseWheelListener </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P> <FONT FACE="돋움">∘ void mouseWheelMoved(MouseWheelEvent e) : 휠마우스의 휠을 움직였을 때 호출된다.</FONT>
+<BR>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 MouseWheel 이벤트의 사용 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=607>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MouseWheelExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class MouseWheelExample </FONT><B><FONT FACE="Courier New">implements MouseWheelListener</FONT></B><FONT FACE="Courier New"> {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public MouseWheelExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;MouseWheel Event&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">f.addMouseWheelListener(this);</FONT></B>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">MouseWheelExample win = new MouseWheelExample();</FONT>
+<P>		<FONT FACE="Courier New">win.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public void mouseWheelMoved(MouseWheelEvent e) </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;Mouse Wheel Changed&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">이 외에도 여러 가지 이벤트가 있지만 본 교재에서 모두 언급할 수는 없으므로 API Document를 참고하기 바란다.</FONT>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV240.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV241.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV242.GIF" BORDER=0 ALIGN=LEFT>
+<P ALIGN=RIGHT>
+<IMG SRC="file:///C|/지빠귀/FYXIV243.GIF" BORDER=0 ALIGN=LEFT><FONT SIZE=7 COLOR=WHITE><SPAN STYLE="font-size:35pt;"><FONT FACE="바탕">[애플릿 프로그래밍]</FONT></SPAN></FONT>
+<P>
+<BR>
+<P><FONT SIZE=4><SPAN STYLE="font-size:15pt;"><FONT FACE="바탕">이 장에서는 웹브라우저에서 실행되는 애플릿 프로그래밍에 대해 설명하기로 한다. 자바를 사용하는 이유중의 하나가 애플릿 때문이기도 하지만 많이 사용되지는 않는다. 애플릿클래스를 상속받아 클래스를 만들고 웹브라우저를 통해 실행되며, 라이프사이클을 가지고 있는 등의 몇 가지를 제외하고는 일반 어플리케이션 프로그램과 비슷하다.</FONT></SPAN></FONT>
+<BR>
+</body>
+
+</html>

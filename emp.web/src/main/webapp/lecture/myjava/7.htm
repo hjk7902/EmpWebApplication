@@ -1,0 +1,3417 @@
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>7.1 내부 클래스 </title>
+<meta name="generator" content="Namo WebEditor v5.0">
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<P>
+&nbsp;<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV271.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">7.1   </FONT><FONT FACE="바탕">내부</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">클래스</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">클래스 내의 클래스로 JDK 1.1에서 포함되었으며 내포(nested) 클래스라고도 한다. 내부 클래스는 존재 위치에 따른 멤버클래스, 메소드 안의 이름이 있는 내부클래스, 메소드 안의 이름이 없는 내부클래스 3가지로 나뉘어진다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.1.1 </FONT><FONT FACE="바탕">멤버</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">클래스</FONT><FONT FACE="HY부활M">(Inner Class)</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">클래스의 멤버로 필드나 메소드가 아닌 클래스가 올 수 있는데, 이를 내부(Inner) 클래스라고 한다. 필드나 메소드처럼 public, private, protected, static, final 등의 접근 제한자가 올 수 있으며, 클래스 선언부를 주 클래스 안으로 옮겨 놓으면 된다. 내부클래스는 컴파일시 주 클래스 이름과 내부클래스 이름을 &quot;$&quot;　문자로 연결한 파일을 생성한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=197>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">InnerExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class InnerExample {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<P>	
+<P>	<FONT FACE="Courier New">public InnerExample() {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=463>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">InnerExample.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><B><FONT FACE="Courier New">11:</FONT></B>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><B><FONT FACE="Courier New">19:</FONT></B>
+<P><B><FONT FACE="Courier New">20:</FONT></B>
+<P><B><FONT FACE="Courier New">21:</FONT></B>
+<P><B><FONT FACE="Courier New">22:</FONT></B>
+<P><B><FONT FACE="Courier New">23:</FONT></B>
+<P><FONT FACE="Courier New">24:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Inner </FONT><FONT FACE="바탕">클래스</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new MyWindowAdapter()</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">InnerExample ie = new InnerExample();</FONT>
+<P>		<FONT FACE="Courier New">ie.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">private class MyWindowAdapter extends WindowAdapter {</FONT></B>
+<P>		<B><FONT FACE="Courier New">public void windowClosing(WindowEvent e) {</FONT></B>
+<P>			<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>		<B><FONT FACE="Courier New">}</FONT></B>
+<P>	<B><FONT FACE="Courier New">}</FONT></B>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">앞의 프로그램을 컴파일하면 클래스인 InnerExample.class파일과 내부 클래스인 InnerExample $MyWindowAdapter.class파일이 생성된다.</FONT>
+<P><FONT FACE="바탕">Inner클래스는 static멤버를 가질 수 없으나, static으로 선언하면 Top-Level클래스가 되어 static멤버를 가질 수 있다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.1.2 </FONT><FONT FACE="바탕">지역</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">클래스</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">메소드나 해당 블록 내에서만 유효하다. 클래스의 영역 범위가 블록의 영역 범위와 같으므로 다른 접근제한자가 없다. 컴파일하면 주 클래스 이름과 블록번호, 그리고 내부 클래스 이름을　&quot;$&quot;　문자로 연결한 파일을 생성한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 메소드 내에서 이름을 부여하여 클래스를 정의한 것으로 컴파일 하면 Top-Level 클래스인 InnerLocalExample.class파일과 내부 클래스인 InnerLocalExample$1$MyWindowAdapter.class파일을 생성하는 예이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=607>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">InnerLocalExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><B><FONT FACE="Courier New">12:</FONT></B>
+<P><B><FONT FACE="Courier New">13:</FONT></B>
+<P><B><FONT FACE="Courier New">14:</FONT></B>
+<P><B><FONT FACE="Courier New">15:</FONT></B>
+<P><B><FONT FACE="Courier New">16:</FONT></B>
+<P><B><FONT FACE="Courier New">17:</FONT></B>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class InnerLocalExample {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public InnerLocalExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Local Class&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<B><FONT FACE="Courier New">class MyWindowAdapter extends WindowAdapter {</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowClosing(WindowEvent we){</FONT></B>
+<P>				<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>			<B><FONT FACE="Courier New">}</FONT></B>
+<P>		<B><FONT FACE="Courier New">}</FONT></B>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new MyWindowAdapter() </FONT></B><FONT FACE="Courier New">);</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">InnerLocalExample ile = new InnerLocalExample();</FONT>
+<P>		<FONT FACE="Courier New">ile.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.1.3 </FONT><FONT FACE="바탕">익명</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">클래스</FONT><FONT FACE="HY부활M">(Anonymous Class)</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">블록 내부에 존재하는 지역 클래스에서 이름을 생략한 것이다. 이름을 생략한 지역 클래스는 new 키워드로 클래스를 생성하는 부분에서 메소드를 구현한다. 주 클래스 이름에 지역 클래스의 번호를 &quot;$&quot; 문자로 연결한 파일을 생성한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 메소드 내에서 이름 없는 클래스를 정의한 것으로 컴파일하면 Anonymous Example.class파일과 AnonymousExample$1.class파일을 생성한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=602>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AnonymousExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><B><FONT FACE="Courier New">12:</FONT></B>
+<P><B><FONT FACE="Courier New">13:</FONT></B>
+<P><B><FONT FACE="Courier New">14:</FONT></B>
+<P><B><FONT FACE="Courier New">15:</FONT></B>
+<P><B><FONT FACE="Courier New">16:</FONT></B>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.awt.*;</FONT>
+<P><FONT FACE="Courier New">import java.awt.event.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class AnonymousExample {</FONT>
+<P>	<FONT FACE="Courier New">private Frame f;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public AnonymousExample() {</FONT>
+<P>		<FONT FACE="Courier New">f = new Frame(&quot;Anonymous Class&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void launchFrame() {</FONT>
+<P>		<FONT FACE="Courier New">f.addWindowListener( </FONT><B><FONT FACE="Courier New">new WindowAdapter() {</FONT></B>
+<P>			<B><FONT FACE="Courier New">public void windowClosing(WindowEvent we){</FONT></B>
+<P>				<B><FONT FACE="Courier New">System.exit(0);</FONT></B>
+<P>			<B><FONT FACE="Courier New">}</FONT></B>
+<P>		<B><FONT FACE="Courier New">}</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>		<FONT FACE="Courier New">f.setSize(300, 200);</FONT>
+<P>		<FONT FACE="Courier New">f.setVisible(true);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">AnonymousExample ae = new AnonymousExample();</FONT>
+<P>		<FONT FACE="Courier New">ae.launchFrame();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.1.4 Inner </FONT><FONT FACE="바탕">클래스의</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">사용</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">내부 클래스의 사용법을 익히기 위해 다음 프로그램을 살펴보기로 한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 testTheInner()메소드에서 Inner1 클래스를 참조하는 예이다. Inner1클래스와 testTheInner()메소드는 모두 Outer1이라는 동일한 클래스의 범위 안에 있다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=497>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">Outer1.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><B><FONT FACE="Courier New">public class Outer1 {</FONT></B>
+<P>	<FONT FACE="Courier New">private int data;</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public class MyInner1 {</FONT></B>
+<P>		<FONT FACE="Courier New">public void doIt() {</FONT>
+<P>			<FONT FACE="Courier New">data++;</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;Inner </FONT><FONT FACE="바탕">클래스의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">메소드</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">호출됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;data : &quot; + data);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void testTheInner() {</FONT>
+<P>		<B><FONT FACE="Courier New">MyInner1 in = new MyInner1();</FONT></B>
+<P>		<B><FONT FACE="Courier New">in.doIt();</FONT></B>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">Outer1 out = new Outer1();</FONT>
+<P>		<FONT FACE="Courier New">out.testTheInner();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV272.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV273.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">Inner </FONT><FONT FACE="바탕">클래스의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">메소드</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">호출됨</FONT></B>
+<P>		<B><FONT FACE="Courier New">data : 1</FONT></B>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 내부클래스를 별도의 클래스에서 참조하는 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=276>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">Outer2.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><B><FONT FACE="Courier New">public class Outer2 {</FONT></B>
+<P>	<FONT FACE="Courier New">private int data;</FONT>
+<BR>
+<P>	<B><FONT FACE="Courier New">public class MyInner2 {</FONT></B>
+<P>		<FONT FACE="Courier New">public void doIt() {</FONT>
+<P>			<FONT FACE="Courier New">data++;</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;Inner </FONT><FONT FACE="바탕">클래스의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">메소드</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">호출됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;data : &quot; + data);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=214>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestInner2.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestInner2 {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<BR>
+<P>		<B><FONT FACE="Courier New">Outer2 out = new Outer2();</FONT></B>
+<P>		<B><FONT FACE="Courier New">Outer2.MyInner2 in = out.new MyInner2();</FONT></B>
+<P>		<FONT FACE="Courier New">in.doIt();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV274.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV275.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">Inner </FONT><FONT FACE="바탕">클래스의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">메소드</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">호출됨</FONT></B>
+<P>		<B><FONT FACE="Courier New">data : 1</FONT></B>
+<BR>
+<P><FONT FACE="바탕">앞의 예에서처럼 다른 클래스에서 내부 클래스를 참조하려면 외부클래스를 이용한다. 4번째와 5번째 줄은 다음과 같이 표현해도 된다.</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">Outer2.MyInner2 in = new Outer2().new MyInner2();</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.1.5 Inner </FONT><FONT FACE="바탕">클래스의</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">변수참조</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 내부클래스에서 변수를 참조하는 예를 보인 것이다. 내부클래스를 포함한 클래스의 멤버변수와 내부클래스의 멤버변수 이름이 같으면 어느 변수를 참조하는지를 구분해야 한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=320>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">Outer3.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class Outer3 {</FONT>
+<P>	<FONT FACE="Courier New">private int data=10;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public class MyInner3 {</FONT>
+<P>		<FONT FACE="Courier New">private int data=20;</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">public void doIt(int data) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println( </FONT><B><FONT FACE="Courier New">data</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>			<FONT FACE="Courier New">System.out.println( </FONT><B><FONT FACE="Courier New">this.data</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>			<FONT FACE="Courier New">System.out.println( </FONT><B><FONT FACE="Courier New">Outer3.this.data</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=170>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestInner3.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestInner3 {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">Outer3.MyInner3 in = new Outer3().new MyInner3();</FONT>
+<P>		<FONT FACE="Courier New">in.doIt(30);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV276.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV277.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">30</FONT></B>
+<P>		<B><FONT FACE="Courier New">20</FONT></B>
+<P>		<B><FONT FACE="Courier New">10</FONT></B>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 내부클래스가 메소드 안에 선언된 경우 변수 참조 예를 보인 예이다. 메소드 내에 클래스가 선언되면 지역클래스(Local class)라고 하는데, 지역클래스에서는 자신을 포함하는 메소드의 변수들 중에서 지역클래스 내부에 선언된 변수가 아니면 final변수를 제외한 어떤 변수도 참조할 수 없다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=497>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">Outer4.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">9-1:</FONT>
+<P><FONT FACE="Courier New">9-2:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class Outer4 {</FONT>
+<P>	<B><FONT FACE="Courier New">private int data=10;</FONT></B>
+<BR>
+<P>	<FONT FACE="Courier New">public Object makeTheInner(</FONT><B><FONT FACE="Courier New">int localData</FONT></B><FONT FACE="Courier New">) {</FONT>
+<P>		<B><FONT FACE="Courier New">final int FINAL_LOCAL_DATA=20;</FONT></B>
+<BR>
+<P>		<B><FONT FACE="Courier New">class MyInner4 {</FONT></B>
+<P>			<FONT FACE="Courier New">public String toString() {</FONT>
+<P>				<FONT FACE="Courier New">return ( &quot;data=&quot; + data +</FONT>
+<P><FONT FACE="Courier New">//</FONT>					<FONT FACE="Courier New">&quot;\nlocalData=&quot; + localData + //Error</FONT>
+<P>					<FONT FACE="Courier New">&quot;\nFINAL_LOCAL_DATA=&quot; + FINAL_LOCAL_DATA );</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">return new MyInner4();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">Outer4 out = new Outer4();</FONT>
+<P>		<FONT FACE="Courier New">Object in = out.makeTheInner(30);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(in);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">내부클래스는 모든 접근제한 모드를 사용할 수 있으며, abstract로 선언하여 사용할 수도 있다. 또, static 멤버를 가질 수 없지만 static으로 선언하면 top-level 클래스가 되어 static 멤버를 가질 수 있다. 즉, static 멤버를 갖는 내부클래스를 선언하려면 그 내부클래스도 static으로 선언해야 한다.</FONT>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV278.GIF" BORDER=0 ALIGN=LEFT><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">7.2  </FONT><FONT FACE="바탕">예외</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">처리</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">예외처리(Exception Handling)는 오류발생에 대한 대처 방법 중의 하나로 시스템 스스로 오류를 복구하는게 아니고 오류발생 가능성이 있는 부분에 대한 처리를 미리 프로그램 해주는 것이다. 오류의 종류는 강한오류(serious error)와 약한오류(mild error)로 나눌 수 있다.</FONT>
+<P><FONT FACE="바탕">강한오류는 메모리가 부족할 때 발생하는 OutOfMemouyError 등으로 오류를 복구할 수 없으며 프로그램은 중지된다. 자바에서는 이런 경우만 오류라고 한다.</FONT>
+<P><FONT FACE="바탕">약한오류는 일종의 오류로 취급되지만 프로그램이 중지되지는 않는 오류를 말한다. 예를 들면 없는 파일을 읽을 때 발생하는 FileNotFoundException 오류 등이다. 파일이 없어도 프로그램은 멈추지 않고 파일이 없음을 알리는 오류 메시지를 출력하고 계속 진행되는 것이다. 
+</FONT><P><FONT FACE="바탕">이와 같은 오류 방생에 대한 조치 사항을 예외처리라고 한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 오류를 발생하도록 만든 예이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=253>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ExceptionProblem.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class ExceptionProblem {</FONT>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">int i = 0;</FONT>
+<P>		<FONT FACE="Courier New">String[] greetings = {&quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;};</FONT>
+<P>		<FONT FACE="Courier New">while (i &lt; 4) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println (greetings[i]);</FONT>
+<P>			<FONT FACE="Courier New">i++;</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">이 프로그램은 오류가 발생하는데 컴파일 오류가 아니고 실행오류이다. 5번째 줄에서 i값이 3이 될 때까지 while문을 수행하면 6번째 줄에서 greetings[3]까지 출력한다. 그러나 4번째 줄을 자세히 보면, 배열 greetings는 greetings[2]까지(greeting[0]=&quot;One&quot;, greeting[1]=&quot;Two&quot;, greeting[2]=&quot;Three&quot;)만  지정했기 때문에 배열의 범위를 넘었다. 이와같은 경우 C언어에서는 오류가 발생하지 않지만, 자바에서는 발생한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">프로그램의 실행결과는 다음과 같다. 
+</FONT><P>
+<IMG SRC="file:///C|/지빠귀/FYXIV279.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV280.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">One</FONT></B>
+<P>		<B><FONT FACE="Courier New">Two</FONT></B>
+<P>		<B><FONT FACE="Courier New">Three</FONT></B>
+<P>		<B><FONT FACE="Courier New">Exception in thread &quot;main&quot; java.lang.ArrayIndexOutOfBoundsException</FONT></B>
+<P>		        <B><FONT FACE="Courier New">at ExceptionProblem.main(ExceptionProblem.java:6)</FONT></B>
+<P><FONT FACE="바탕">실행 결과를 보면, greetings[2](Three)까지 출력하고 greetings[3]을 실행하다 ArrayIndexOutOf BoundsException이 발생했음을 알 수 있다. 예외처리는 자바 프로그램을 개발하는 도중에 종종 만나게된다.</FONT>
+<P> 
+<P><FONT FACE="바탕">앞의 프로그램을 수정하여 오류가 발생하지 않게하려면 5번째 줄을 다음과 같이 기술한다. 
+</FONT><P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">5:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">while (i &lt; 3) {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">예외처리가 발생하는 이유는 대부분 프로그램을 잘못 작성했기 때문인데 이를 자세하게 설명하면 다음과 같다. 
+</FONT><P><FONT FACE="바탕">예외처리는 예외사항을 찾아내 이를 처리한 다음 계속 프로그램이 진행되도록 하는 것이다. 예외 상황을 처리하기 위해 받아들이는 것을 예외를 잡는다(catch)라고 표현하고, 예외 처리를 자신을 부른 메소드로 넘기는 것을 예외를 던진다(throw)고 표현한다. 
+</FONT><P><FONT FACE="바탕">예외처리 방법은 크게 두 가지로 나눌 수 있는데, 첫 번째는 try ∼ catch 문을 사용하는 방법과, 두 번째는 throws 선언을 통하여 처리하는 방식이다. 예외 처리에서 기억해야할 점은 예외처리를 사용하면 오류가 발생했을 때 프로그램의 오류처리 루틴을 자동적으로 호출해 주지만 이러한 루틴은 프로그래머가 직접 작성해야 한다는 것이다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.2.1 try </FONT><FONT FACE="바탕">∼</FONT><FONT FACE="HY부활M"> catch</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">try∼catch 문을 이용하여 예외를 처리해 보자. 
+</FONT><BR>
+<P><FONT FACE="바탕">다음 프로그램은 try∼catch문을 이용하여 앞에서 설명한 예외처리 예를 보인 것이다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=410>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ExceptionTryCatch.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><B><FONT FACE="Courier New">6:</FONT></B>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><B><FONT FACE="Courier New">9:</FONT></B>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><B><FONT FACE="Courier New">14:</FONT></B>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class ExceptionTryCatch {</FONT>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">int i = 0;</FONT>
+<P>		<FONT FACE="Courier New">String[] greetings = {&quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;};</FONT>
+<P>		<FONT FACE="Courier New">while (i &lt; 4) {</FONT>
+<P>			<B><FONT FACE="Courier New">try </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(greetings[i]);</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>			<B><FONT FACE="Courier New">catch</FONT></B><FONT FACE="Courier New"> </FONT><B><FONT FACE="Courier New">(ArrayIndexOutOfBoundsException e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">예외</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">발생</FONT><FONT FACE="Courier New">!&quot;);</FONT>
+<P>				<FONT FACE="Courier New">i = -1;</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">예외</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">처리</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">완료됨</FONT><FONT FACE="Courier New">!&quot;);</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>			<B><FONT FACE="Courier New">finally</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">항상</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">실행됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>			<FONT FACE="Courier New">i++;</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">try∼catch문은 크게 3부분(try, catch, finally)으로 나눌 수 있다.</FONT>
+<P><FONT FACE="바탕">첫 번째 부분은 try 블록으로 예외상황이 발생할 만한 문장을 적으면 된다. 7번째 줄에서 greeting[3]을 출력하다 예외상황이 발생할 것이다. try 블록은 단독으로 사용할 수 없고, catch나 finally블록과 함께 사용한다.</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=70>
+<TD VALIGN=TOP WIDTH=7%>
+<P><B><FONT FACE="Courier New">6:</FONT></B>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>			<B><FONT FACE="Courier New">try </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(greetings[i]);</FONT>
+<P>			<FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">두 번째 부분은 catch 블록으로 발생한 예외상황을 감지하여 적절한 조치를 취하기 위해 사용한다. 실행 시점은 예외가 발생했을 때인데 예외가 발생하지 않으면 catch 블록은 실행되지 않는다. 만약 기술한 예외와 다른 상황이 발생하면 무시된다. 이 프로그램에서는 ArrayIndexOutOfBoundsException이 발생하면 catch 블록이 실행된다. 만약 NullPointerException과 같이 다른 예외상황이 발생하면 catch 블록은 실행되지 않는다. 예외 상황이 많을 경우에는 catch블록을 중복해서 사용할 수도 있다. 일반적인 예외가 먼저 처리될 수 없는데 예를 들면 Exception 계층 구조에서 상위 클래스가 하위 클래스보다 먼저 catch블록의 인자값으로 선언되어서는 안된다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=115>
+<TD VALIGN=TOP WIDTH=7%>
+<P><B><FONT FACE="Courier New">9:</FONT></B>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>			<B><FONT FACE="Courier New">catch</FONT></B><FONT FACE="Courier New"> </FONT><B><FONT FACE="Courier New">(ArrayIndexOutOfBoundsException e)</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">예외</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">발생</FONT><FONT FACE="Courier New">!&quot;);</FONT>
+<P>				<FONT FACE="Courier New">i = -1;</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">예외</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">처리</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">완료됨</FONT><FONT FACE="Courier New">!&quot;);</FONT>
+<P>			<FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">세 번째는 finally 블록이 있는데, 이 블록은 catch 블록과는 다르게 예외상황의 발생여부에 관계없이 무조건 실행된다. 
+</FONT><P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=75>
+<TD VALIGN=TOP WIDTH=7%>
+<P><B><FONT FACE="Courier New">14:</FONT></B>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>			<B><FONT FACE="Courier New">finally</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">항상</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">실행됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">finally는 try 블록 또는 catch 블록에서 return문을 만나더라도 무조건 실행된다. 다음의 경우에만 finally 블록이 실행되지 않는다.</FONT>
+<BR>
+<P>  <FONT FACE="돋움">∘ System.exit()를 호출했을 때.</FONT>
+<P>  <FONT FACE="돋움">∘ 전원이 꺼져 시스템이 멈추었을 때.</FONT>
+<P>  <FONT FACE="돋움">∘ finally 블록 내부에서 예외상황이 발생했을 때.</FONT>
+<P>  <FONT FACE="돋움">∘ 쓰레드가 죽었을 때.</FONT>
+<BR>
+<P><FONT FACE="바탕">앞의 예제는 ArrayIndexOutOfBoundsException라는 예외 상황이 방생한다. 모든 예외상황의 부모 클래스는 Exception이며 ArrayIndexOutOfBoundsException도 역시 Exception 클래스의 자손 클래스이다. 이렇게 try블록 안에서 예외상황이 발생하면 catch 블록이 수행되며, 발생한 예외는 ArrayIndexOut OfBoundsException 타입의 인스턴스(instance)라는 사실이다. 따라서 e 라는 변수를 이용해 생성된 인스턴스를 가리킨 것이다. 그 다음 화면에 &quot;예외 처리 완료됨&quot;을 출력한 후, i를 -1로 바꾼다. 물론 try 문이 실행되면 finally 블록은 무조건 수행됨으로 이미 화면에 &quot;항상 실행됨&quot;이 계속 출력된다. 이렇게 i가 -1로 바뀌면 while 조건이 true임으로 무한 loop를 수행하게 되므로 프로그램은 멈추지 않고 진행된다. 이렇게 오류가 발생해도 프로그램이 계속 실행되는 이유는 프로그래머가 예외상황을 직접 다룰 수 있기 때문이다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 그림은 예외상황의 종류를 도식한 것이다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV281.GIF" BORDER=0 WIDTH=603 HEIGHT=287 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">앞의 그림은 개략적인 형태로 전부 클래스 이름이다. 여기에 나타나 있지 않은 클래드도 많이 있으므로 API문서를 참조하면 된다. 이 중 Error클래스의 자손이 발생하면 치명적인 오류이므로 프로그램이 종료되는 것이 당연하다. 그 밑에 Exception이 있는데 바로 이것들이 예외 처리의 대상이다. 보통 예외가 발생하면 오류 메시지를 내보내고 종료하지만 예외 상황이 발생하는 대부분의 이유가 프로그램을 잘못 작성하였기 때문이므로 이러한 예외상황이 발생하지 않게 작성해야하고, 부득이하게 발생하는 경우라면 예외 처리 부분을 기술해 주어야 한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">RuntimeException은 설계상의 문제 또는 구현 코드 문제를 가리킨다. 즉, 프로그램이 정상적으로 실행되고 있으면 발생해서는 안 되는 실행 중 상태를 알려준다. 예를 들어, 한계 값을 벗어난 배열이나 null 변수의 레퍼런스 해제를 들 수 있다. 올바르게 설계되어 구현된 프로그램에서는 절대로 이런 종류의 예외가 발생하지 않으므로 처리하지 않고 그대로 두는 것이 보통이다. 이 예외가 발생하면 실행 중에 메시지가 나오므로 오류를 수정할 수 있다. 
+</FONT><BR>
+<P><FONT FACE="바탕">이 외의 Exception은 실행환경에 따라 발생할 수 있고 또 처리할 수 있다. 예를 들면 파일을 찾을 수 없거나 URL을 잘못 지정한 경우가 있다. 이런 것은 사용자가 잘못 입력할 때 발생하며 프로그래머가 처리해야 한다. 
+</FONT><P><FONT FACE="바탕">위의 예외 중에서 IOException과 하위 클래스들인 EOFException 그리고, FileNotFoundException은 오류메시지 없이 프로그램이 중단되므로 반드시 예외 처리를 해 주어야 한다. API에서 제공되는 메소드를 사용할 때는 그 메소드가 throws 되어 있는지 확인하고 throws할 경우에는 반드시 예외 처리를 해 주어야 한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음은 자바 언어에서 미리 정의된 몇 가지 예외 중에서 발생빈도가 높은 항목을 설명한 것이다. 
+</FONT><BR>
+<P>  <FONT FACE="돋움">∘ ArithmeticException</FONT>
+<P><FONT FACE="바탕">- 일반적으로 정수를 0(zero)로 나눗셈을 할 때 발생한다.</FONT>
+<P>  <FONT FACE="돋움">∘ NullPointerException</FONT>
+<P><FONT FACE="바탕">- 인스턴스를 만들기 전에 객체나 메소드를 액세스하면 발생한다.</FONT>
+<P><FONT FACE="바탕">- Image[] in = new Image[4];</FONT>
+<P>  <FONT FACE="바탕">System.out.println(im[0].toString());</FONT>
+<P>  <FONT FACE="돋움">∘ NegativeArraySizeException</FONT>
+<P><FONT FACE="바탕">- 음수로 배열크기를 지정할 때 발생한다.</FONT>
+<P>  <FONT FACE="돋움">∘ ArrayIndexOutOfBoundException</FONT>
+<P><FONT FACE="바탕">- 배열의 크기를 벗어난 배열의 구성요소를 액세스할 때 발생한다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.2.2 throws</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">예외 상황을 다루는 방법으로 try∼catch문 외에 throws이 있다. 예외상황이 여러 개 있을 때는 &quot;,&quot;(comma)로 구분하여 나열한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=612 HEIGHT=65>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">modifier return-type </FONT><I><FONT FACE="Courier New">methodName</FONT></I><FONT FACE="Courier New">() </FONT><B><FONT FACE="Courier New">throws</FONT></B><FONT FACE="Courier New"> </FONT><I><FONT FACE="Courier New">Exception1, Exception2</FONT></I><FONT FACE="Courier New"> ...{</FONT>
+<P>	<I><FONT FACE="Courier New">method-body;</FONT></I>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">먼저 다음의 예제를 보자.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=636 HEIGHT=70>
+<TD VALIGN=TOP WIDTH=100%>
+<P><FONT FACE="Courier New">public void exceptionOccur() throws ArrayIndexOutOfBoundsException {</FONT>
+<P>	<FONT FACE="Courier New">... // </FONT><FONT FACE="바탕">이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">안에서</FONT><FONT FACE="Courier New"> Exception</FONT><FONT FACE="바탕">이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">발생했다고</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">가정</FONT><FONT FACE="Courier New">.</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">exceptionOccur() 메소드 안에서 ArrayIndexOutOfBoundsException이 발생하면, try∼catch문을 처리할 수 있지만 try∼catch문을 사용하지 않고 메소드의 선언부에 throws를 사용해도 처리 가능하다. 이 경우는 exceptionOccur()를 호출한 메소드에게 발생한 예외를 던지는 것이다.</FONT>
+<BR>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 예외상황을 처리하는 방법을 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=519>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ExceptionThrows.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><B><FONT FACE="Courier New">5:</FONT></B>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><B><FONT FACE="Courier New">14:</FONT></B>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class ExceptionThrows {</FONT>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">ExceptionThrows et = new ExceptionThrows();</FONT>
+<P>		<FONT FACE="Courier New">try {</FONT>
+<P>			<B><FONT FACE="Courier New">et.go();</FONT></B>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">catch (ArrayIndexOutOfBoundsException e) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">예외가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">발생됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">finally {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">항상</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">실행됨</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<B><FONT FACE="Courier New">void go() throws  ArrayIndexOutOfBoundsException {</FONT></B>
+<P>		<FONT FACE="Courier New">int i = 0;</FONT>
+<P>		<FONT FACE="Courier New">String[] greetings = {&quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;};</FONT>
+<P>		<FONT FACE="Courier New">while (i &lt; 4) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println (greetings[i]);</FONT>
+<P>			<FONT FACE="Courier New">i++;</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">프로그램을 보면 main() 메소드에서 go() 메소드를 호출했는데 go() 메소드의 18번째 줄에서 예외가 발생한다. 그런데, go() 메소드의 선언부인 14번째 줄에서 throws를 사용하고 있으므로 ArrayIndexOutOf BoundsException이 발생할 경우, 자신을 호출한 메소드에게 이 예외를 던져버려라(throws)라는 의미이다. 따라서 이 경우, go()를 호출한 main() 메소드의 5번째 줄로 예외가 던져지게 된다. main() 메소드의 입장에서는 결국, 5번째 줄에서 예외가 발생한 것이고, 이를 try∼catch를 이용해서 해결할 수 있다. 
+</FONT><BR>
+<P><FONT FACE="바탕">throws로 선언된 메소드를 재정의 할 때 throws되는 예외가 다르면 예외 수가 더 적어지거나 하위클래스의 예외가 올 경우만 가능하다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.2.3 </FONT><FONT FACE="바탕">사용자</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">정의</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">예외</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">앞에서 살펴본 바와 같이 예외는 시스템에서 자동으로 발생시켜주기 때문에 발생된 예외를 try∼catch 혹은 throws를 이용해 처리하면 된다. 반대로 우리가 직접 예외를 만들 수 있고, 이를 원하는 시점에 발생시킬 수도 있다. 이를 보고 사용자 정의 예외(user defined exception)라고 한다.</FONT>
+<P><FONT FACE="바탕">먼저 예외를 만드는 것부터 살펴보자. 예외는 클래스이므로 예외를 만든다는 것은 클래스를 만드는 것과 동일하다. 하지만 유의할 점은 반드시 예외 클래스를 상속받아서 만들어야 한다는 점이다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 예외 클래스를 직접 만들어 사용하는 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=258>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ServerTimedOutException.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><B><FONT FACE="Courier New">1:</FONT></B>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class ServerTimedOutException </FONT><B><FONT FACE="Courier New">extends Exception</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>	<FONT FACE="Courier New">private int port;</FONT>
+<P>	<FONT FACE="Courier New">public ServerTimedOutException(String reason, int port) {</FONT>
+<P>		<FONT FACE="Courier New">super(reason);</FONT>
+<P>		<FONT FACE="Courier New">this.port = port;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public int getPort() {</FONT>
+<P>		<FONT FACE="Courier New">return port;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">1 : Exception 클래스를 상속받은 후 ServerTimedOutException 클래스를 정의하고, 나머지는 일반적인 클래스선언과 동일하다. 
+</FONT><P><FONT FACE="바탕">2 : 멤버 변수를 나타낸다. 
+</FONT><P><FONT FACE="바탕">3 : 생성자를 나타낸다.</FONT>
+<P><FONT FACE="바탕">7 : 멤버 메소드를 나타낸다.</FONT>
+<BR>
+<P><FONT FACE="바탕">이처럼 사용자가 직접 선언한 예외 클래스를 가지고 예외를 발생시키려면 다음과 같이 Exception 클래스의 인스턴스를 만든 후, &quot;throw&quot;(throws가 아니라 throw이다.) 키워드를 이용해 던지면 된다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=597 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><B><FONT FACE="Courier New">throw </FONT></B><FONT FACE="Courier New">new ServerTimedOutException(&quot;Could not connect&quot;, 80);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">사용자가 자신의 예외를 정의하고 발생시키는 것은 간단하다. 이제 이를 이용한 예제를 보도록 하자.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 사용자가 예외를 정의하고 발생시키는 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=126>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestUserException.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestUserException {</FONT>
+<P>	<FONT FACE="Courier New">String defaultServer = &quot;my_server&quot;;</FONT>
+<P>	<FONT FACE="Courier New">String alternativeServer = &quot;your_server&quot;;</FONT>
+<P>	<FONT FACE="Courier New">public void connectMe(String serverName) throws ServerTimedOutException {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=695>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestUserException.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><B><FONT FACE="Courier New">9:</FONT></B>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<BR>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">int success;</FONT>
+<P>		<FONT FACE="Courier New">int portToConnect = 80;</FONT>
+<P>		<FONT FACE="Courier New">success = open(serverName, portToConnect);</FONT>
+<P>		<FONT FACE="Courier New">if (success == -1) {</FONT>
+<P>			<B><FONT FACE="Courier New">throw</FONT></B><FONT FACE="Courier New"> new ServerTimedOutException(&quot;Could not connect&quot;, 80);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void findServer() {</FONT>
+<P>		<FONT FACE="Courier New">try {</FONT>
+<P>			<FONT FACE="Courier New">connectMe(defaultServer);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">catch (ServerTimedOutException e) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println( &quot;Server timed out, trying alternative...&quot;);</FONT>
+<P>			<FONT FACE="Courier New">try {</FONT>
+<P>				<FONT FACE="Courier New">connectMe(alternativeServer);</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>			<FONT FACE="Courier New">catch (ServerTimedOutException e1) {</FONT>
+<P>				<FONT FACE="Courier New">System.out.println( &quot;Error : &quot; + e1.getMessage() + </FONT>
+<P>					<FONT FACE="Courier New">&quot;connecting to port &quot; + e1.getPort());</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public int open (String serverName, int port) {</FONT>
+<P>		<FONT FACE="Courier New">return -1;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static void main (String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">TestUserException tue = new TestUserException();</FONT>
+<P>		<FONT FACE="Courier New">tue.findServer();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">앞 예제의 시작점은 29번째 줄의 main()이다. 이 예제는 서버에 접속을 시도하다 접속에 문제가 발생하면 이미 정의한 ServerTimedOutException을 발생시킨다. 
+</FONT><BR>
+<P><FONT FACE="바탕">유의할 부분은 4번째 줄인데 connectMe() 메소드는 7번째 줄의 open() 메소드를 통해 접속을 시도한다. 접속에 실패하여 -1을 반환하면 9번째 줄에서 예외를 만들고 이를 throw한다. 그러면 connectMe()를 호출한 메소드로 가서 16번째 줄의 catch문을 이용 예외상황을 처리하게 된다.</FONT>
+<BR>
+<BR>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.2.4 Assertion</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">프로그래머가 자신의 프로그램에 대한 가정을 확신시키는 문장으로 boolean 수식을 가지고 주어진 조건을 만족하지 않으면, 즉 수식의 결과가 false이면 예외를 발생시키는 키워드이다. 이는 프로그래머가 오류에 대해 좀더 자유롭게 프로그램을 작성하도록 해준다. assertion 문장은 assert 키워드를 이용하며 다음과 같은 두 가지 사용법이 있다. 이 기능은 JDK 1.4 버전에서 추가되었다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음과 같은 형태에서 </FONT><I><FONT FACE="Courier New">Expression</FONT><SUB><FONT FACE="Courier New">1</FONT></SUB></I><FONT FACE="바탕">의 결과는 boolean형이며, </FONT><I><FONT FACE="Courier New">Expression</FONT><SUB><FONT FACE="Courier New">1</FONT></SUB></I><FONT FACE="바탕">의 결과 값이 false이면 실행시 메시지가 없는 AssertionError를 발생시킨다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=370 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="Courier New">assert </FONT><I><FONT FACE="Courier New">Expression</FONT><SUB><FONT FACE="Courier New">1</FONT></SUB></I><SUB><FONT FACE="Courier New"> </FONT></SUB><FONT FACE="Courier New">;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음과 같은 형태 즉, 두 개의 Expression을 가질 때는 먼저 </FONT><I><FONT FACE="Courier New">Expression</FONT><SUB><FONT FACE="Courier New">1</FONT></SUB></I><FONT FACE="바탕">의 결과는 boolean형이어야 하며, </FONT><I><FONT FACE="Courier New">Expression</FONT><SUB><FONT FACE="Courier New">1</FONT></SUB></I><FONT FACE="바탕">의 결과 값이 false이면 실행시에 </FONT><I><FONT FACE="Courier New">Expression</FONT><SUB><FONT FACE="Courier New">2</FONT></SUB></I><FONT FACE="바탕">의 결과를 메시지로 갖는 AssertionError를 발생시킨다. 여기서 주의해야 할 점은 </FONT><I><FONT FACE="Courier New">Expression</FONT><SUB><FONT FACE="Courier New">2</FONT></SUB></I><FONT FACE="바탕">에는 void형 메소드 호출이 올 수 없다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=370 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="Courier New">assert </FONT><I><FONT FACE="Courier New">Expression</FONT><SUB><FONT FACE="Courier New">1</FONT></SUB></I><FONT FACE="Courier New"> : </FONT><I><FONT FACE="Courier New">Expression</FONT><SUB><FONT FACE="Courier New">2 </FONT></SUB></I><FONT FACE="Courier New">;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">7.2.4.1 assertion </FONT><FONT FACE="바탕">코드</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">컴파일</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">assert문이 있는 프로그램은 버전이 1.4임을 알려주기 위해 컴파일시 다음과 같이 옵션을 넣어서 컴파일 한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=45>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> &gt;<FONT FACE="Courier New"> </FONT><B><FONT FACE="Courier New">javac</FONT></B><FONT FACE="Courier New"> -source 1.4 </FONT><I><FONT FACE="Courier New">FileName.java</FONT></I></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">7.2.4.2 assertion </FONT><FONT FACE="바탕">코드</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">실행</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">실행시킬 때 -enableassertions 또는 -ea 옵션을 사용한다. 해제하려면 -disableassertion 또는 -da 옵션을 사용한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=45>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> &gt;<FONT FACE="Courier New"> </FONT><B><FONT FACE="Courier New">java</FONT></B><FONT FACE="Courier New"> -ea </FONT><I><FONT FACE="Courier New">FileName</FONT></I></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">7.2.4.3 assertion </FONT><FONT FACE="바탕">코드</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">예</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 assert키워드의 사용법을 익히기 위한 예제이다. 먼저 assert 키워드가 사용되지 않은 예이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=474>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AssertionExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class AssertionExample {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">int i = Integer.parseInt(args[0]);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">넘어온</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">값</FONT><FONT FACE="Courier New"> : &quot; + doIt(i));</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static int doIt(int a) {</FONT>
+<P>		<FONT FACE="Courier New">switch(a) {</FONT>
+<P>			<FONT FACE="Courier New">case 1:</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;1</FONT><FONT FACE="바탕">이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력되었습니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">case 2:</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;2</FONT><FONT FACE="바탕">가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력되었습니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">case 3:</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;3</FONT><FONT FACE="바탕">이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력되었습니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">return a;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">이 프로그램에서 switch문이 사용되었는데 조건을 만족하는 case문이 없으면 실행되는 문장이 없다. 따라서 프로그램을 작성하면서 처리할 문장이 없음을 간과할 수 있는데, 이럴 경우 해당 메소드가 예외를 발생시키고 프로그램 실행을 멈추게 하려면 다음과 같은 프로그램을 작성한다. 
+</FONT><BR>
+<P><FONT FACE="바탕">다음 프로그램은 앞의 예제에서 조건을 만족하지 않으면 실행되는 문장이 없는 예외상황을 처리하기 위한 기능을 부여한 예이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=253>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AssertionExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class AssertionExample {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">int i = Integer.parseInt(args[0]);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">넘어온</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">값</FONT><FONT FACE="Courier New"> : &quot; + doIt(i));</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static int doIt(int a) {</FONT>
+<P>		<FONT FACE="Courier New">switch(a) {</FONT>
+<P>			<FONT FACE="Courier New">case 1:</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;1</FONT><FONT FACE="바탕">이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력되었습니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=298>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AssertionExample.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><B><FONT FACE="Courier New">17:</FONT></B>
+<P><B><FONT FACE="Courier New">18:</FONT></B>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">23:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>			<FONT FACE="Courier New">case 2:</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;2</FONT><FONT FACE="바탕">가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력되었습니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">case 3:</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;3</FONT><FONT FACE="바탕">이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력되었습니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">default:</FONT>
+<P>				<B><FONT FACE="Courier New">assert false : a;</FONT></B>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">return a;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">이 프로그램에서는 assert문이 사용되었다. 실행할 때 입력 값이 case문의 값과 일치하는 값이 없을 경우에는 실행시의 옵션에 따라 예외를 발생시킬 수도 있고,  그렇지 않을 수도 있다. 이렇게 하면 사용자가 메소드 호출시 예외 상황에 대하여 좀더 자유롭게 프로그램을 작성할 수 있다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음은 앞의 예제를 컴파일하고 실행한 결과를 나타낸 것이다.</FONT>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV282.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV283.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">컴파일</FONT></B>	      <B><FONT FACE="Courier New">(javac -source 1.4 AssertExample.java)</FONT></B>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV284.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT><FONT FACE="Courier New"> 1   (java -ea AssertExample 5)</FONT></B>
+<P>		<B><FONT FACE="Courier New">Exception in thread &quot;main&quot; java.lang.AssertionError: 5</FONT></B>
+<P>		        <B><FONT FACE="Courier New">at AssertExample.doIt(AssertExample.java:18)</FONT></B>
+<P>		        <B><FONT FACE="Courier New">at AssertExample.main(AssertExample.java:4)</FONT></B>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV285.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT><FONT FACE="Courier New">2    (java AssertExample 5)</FONT></B>
+<P>		<B><FONT FACE="바탕">넘어온</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">값</FONT><FONT FACE="Courier New"> : 5</FONT></B>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 앞의 assertion문장을 throw문으로 수정한 예이다. 이렇게 throw문을 이용하면 값이 없을 경우 예외가 발생하여 더 이상 수행되지 않는다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=214>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AssertionExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class AssertionExample {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">int i = Integer.parseInt(args[0]);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">넘어온</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">값</FONT><FONT FACE="Courier New"> : &quot; + doIt(i));</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public static int doIt(int a) {</FONT>
+<P>		<FONT FACE="Courier New">switch(a) {</FONT>
+<P>			<FONT FACE="Courier New">case 1:</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=364>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">AssertionExample.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;1</FONT><FONT FACE="바탕">이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력되었습니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">case 2:</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;2</FONT><FONT FACE="바탕">가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력되었습니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">case 3:</FONT>
+<P>				<FONT FACE="Courier New">System.out.println(&quot;3</FONT><FONT FACE="바탕">이</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">입력되었습니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">default:</FONT>
+<P>		<FONT FACE="Courier New">//</FONT>		<FONT FACE="Courier New">assert false : a;</FONT>
+<P>				<B><FONT FACE="Courier New">throw new AssertionError(a);</FONT></B>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">return a;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV286.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV287.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">Exception in thread &quot;main&quot; java.lang.AssertionError: 5</FONT></B>
+<P>		        <B><FONT FACE="Courier New">at AssertionExample.doIt(AssertionExample.java:19)</FONT></B>
+<P>		        <B><FONT FACE="Courier New">at AssertionExample.main(AssertionExample.java:4)</FONT></B>
+<BR>
+<P><FONT FACE="바탕">Assertion에 대한 자세한 내용은 썬사의 자바 웹사이트 
+</FONT><P><FONT FACE="바탕">http://java.sun.com/j2se/1.4/docs/guide/lang/assert.html을 참고하기 바란다.</FONT>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV288.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">7.3  </FONT><FONT FACE="바탕">쓰레드</FONT><FONT FACE="Bookman Old Style">(Thread)</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">쓰레드는 가장작은 실행단위를 말한다. 하나의 프로세스는 여러 개의 쓰레드로 구성되며 운영체제가 멀티 쓰레드를 지원한다. 다수의 쓰레드가 실행될 경우 시분할 방식에 따라 실행되지만 쓰레드에 할당된 CPU 사용시간 간격이 매우 작기 때문에 사용자는 동시에 진행되는 것처럼 느껴진다. 
+</FONT><P><FONT FACE="바탕">이 장에서는 용어 정의를 &quot;쓰레드&quot;는 실행환경을 의미하고, &quot;실행환경(execution context)&quot;은 프로그램과 데이터에 가상(Virtual) CPU를 함께 내장하고 있음을 나타내기로 한다. &quot;Thread&quot;는 java.lang. Thread 클래스를 의미한다.</FONT>
+<P><FONT FACE="바탕">쓰레드는 플랫폼에 따라 약간씩의 차이가 있기 때문에 프로그래머가 이를 조정해 주어야 하며, 운영체제에 따라서도 처리방식의 차이가 있다. 프로세스는 각각 하나의 CPU 자원을 가지지만, 쓰레드는 하나의 자원을 공유한다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.3.1 </FONT><FONT FACE="바탕">쓰레드</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">생성</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">쓰레드를 실행환경이라고 하였는데, 하나의 작업이 수행되기 위해서는 다음 그림에 보는 것처럼 3가지 요소를 필요로 한다. 먼저 수행할 작업을 run() 메소드에 구현해야 하는데 다음 그림의 HelloRunner 클래스가 여기에 해당한다. 그 다음 &quot;Data&quot;부분이 있는데 HelloRunner 클래스의 인스턴스에 해당한다. 마지막으로 &quot;Cpu&quot;에 해당하는 부분으로 HelloRunner 클래스의 인스턴스를 인자로 쓰레드 객체를 만든다. 이처럼 하나의 쓰레드를 만들려면 Runner 클래스, Runner 객체, 그리고 Thread 객체가 필요하다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV289.GIF" BORDER=0 WIDTH=505 HEIGHT=306 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 쓰레드를 이용하여 화면에 숫자를 출력하는 간단한 예제이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=298>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">HelloRunner.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">class HelloRunner </FONT><B><FONT FACE="Courier New">implements Runnable </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>	<FONT FACE="Courier New">int i;</FONT>
+<P>	<B><FONT FACE="Courier New">public void run() </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>		<FONT FACE="Courier New">i = 0;</FONT>
+<P>		<FONT FACE="Courier New">while (true) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;Hello : &quot; + i++);</FONT>
+<P>			<FONT FACE="Courier New">if ( i == 10 ) {</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=766 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">class HelloRunner </FONT><B><FONT FACE="Courier New">implements Runnable </FONT></B><FONT FACE="Courier New">{</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">1 : Runnable인터페이스를 implements한다.</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">3:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>	<B><FONT FACE="Courier New">public void run() </FONT></B><FONT FACE="Courier New">{</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE> 
+<P><FONT FACE="바탕">실제 쓰레드가 수행할 부분으로 run() 메소드는 abstract 메소드로 Runnable인터페이스를 implements하는 클래스에서는 반드시 run() 메소드를 구현해야 한다. run() 메소드에 인자가 없는 것을 주의 깊게 보길 바란다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=192>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestThread.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestThread {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String args[]) {</FONT>
+<P>		<B><FONT FACE="Courier New">HelloRunner r = new HelloRunner();</FONT></B>
+<P>		<B><FONT FACE="Courier New">Thread t = new Thread(r);</FONT></B>
+<P>		<B><FONT FACE="Courier New">t.start();</FONT></B>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">3:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<B><FONT FACE="Courier New">HelloRunner r = new HelloRunner();</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">HelloRunner 클래스의 객체를 생성한다. 8번째 줄에서 Runnable인터페이스를 implements하고 있다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<B><FONT FACE="Courier New">Thread t = new Thread(r);</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">Thread 클래스의 객체를 생성하고 있는데, 생성자의 인자로 3번째 줄에서 생성된 Runnable인터페이스를 implements한 HelloRunner 클래스의 객체를 넘기고 있다. 이제 쓰레드가 생성된다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">5:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<B><FONT FACE="Courier New">t.start();</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">생성된 쓰레드를 실행시킨다. 이처럼 start() 메소드를 호출하면 자동적으로 HelloRunner 클래스의 run() 메소드가 호출된다. 
+</FONT><BR>
+<P><FONT FACE="바탕">간단하지만 쓰레드의 핵심을 보여주는 좋은 예제이다. 일반적으로 쓰레드를 만드는 방법은 Runnable인터페이스를 구현하여 사용하는 방법과 Thread 클래스를 상속받아 구현하는 방법이 있는데, 앞의 예제와 같이 Runnable인터페이스를 구현하는 방법이 많이 사용된다. 쓰레드 클래스는 java.lang 패키지에 있는 클래스이므로 import문이 필요 없다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 앞의 예제가 쓰레드의 특징을 알 수 없는 점을 보완하여 작성한 예이다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=298>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">HelloRunner2.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">class HelloRunner2 </FONT><B><FONT FACE="Courier New">implements Runnable </FONT></B><FONT FACE="Courier New">{</FONT>
+<P>	<FONT FACE="Courier New">int i;</FONT>
+<P>	<B><FONT FACE="Courier New">public void run()</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>		<FONT FACE="Courier New">i = 0;</FONT>
+<P>		<FONT FACE="Courier New">while (true) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">숫자</FONT><FONT FACE="Courier New"> : &quot; + i++);</FONT>
+<P>			<FONT FACE="Courier New">if ( i == 10 ) {</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=320>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestThreadSleep.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestThreadSleep {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String args[]) {</FONT>
+<P>		<B><FONT FACE="Courier New">HelloRunner2 r = new HelloRunner2();</FONT></B>
+<P>		<B><FONT FACE="Courier New">Thread t = new Thread(r);</FONT></B>
+<P>		<B><FONT FACE="Courier New">t.start();</FONT></B>
+<P>		<FONT FACE="Courier New">try {</FONT>
+<P>			<B><FONT FACE="Courier New">Thread.sleep(10);</FONT></B>
+<P>		<FONT FACE="Courier New">} catch(InterruptedException e) {</FONT>
+<P>			<FONT FACE="Courier New">e.printStackTrace();</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<B><FONT FACE="Courier New">System.out.println(&quot;main()</FONT><FONT FACE="바탕">의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">끝</FONT><FONT FACE="Courier New">&quot;);</FONT></B>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">이 예제가 이 전 프로그램과 다른 점은 TestThreadSleep.java 파일의 6라인에서 11라인까지이다. 먼저 7라인을 보면 Thread.sleep() 메소드를 호출하는데 sleep() 메소드는 InterruptedException을 throws하기 때문에 try~catch블록으로 예외처리를 해 주었다. 이 메소드는 1밀리초(1/1000초)동안 쓰레드를 지연시키는데 여기에서는 10/1000 초 동안 정지시켰다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=48>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<B><FONT FACE="Courier New">Thread t = new Thread(r);</FONT></B>
+<P>		<B><FONT FACE="Courier New">t.start();</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE> 
+<P><FONT FACE="바탕">4 : 새로운 쓰레드가 생성된다. 
+</FONT><P><FONT FACE="바탕">5 : t.start()이 생성한 쓰레드의 run() 메소드가 호출되면서 새로운 쓰레드가 실행된다. 이때, t.start()가 run() 메소드를 호출했기 때문에 run() 메소드가 끝날 때까지, t.start()는 대기상태에 있을 것 같지만 쓰레드를 사용하고 있기 때문에, 계속 수행된다. 따라서 t.start()가 run() 메소드를 호출한 다음, t.start() 이후로 계속 실행이 되는 것이다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=88>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>		<FONT FACE="Courier New">try {</FONT>
+<P>			<B><FONT FACE="Courier New">Thread.sleep(10);</FONT></B>
+<P>		<FONT FACE="Courier New">} catch(InterruptedException e) {</FONT>
+<P>		<FONT FACE="바탕">...</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE> 
+<P><FONT FACE="바탕">7라인의 Thread.sleep(10)은 기본 쓰레드의 수행을 잠깐 멈추게 한 다음, 11라인에서 화면에 &quot;main()의 끝&quot;라는 문자열을 출력한다. 이때 새로 생성된 쓰레드도 화면에 무언가를 출력하고, 기본 쓰레드에서도 화면에 무언가를 출력한다. 즉 동시에 두 쓰레드에서 화면에 출력을 하고 있다. 이때 어떤 쓰레드가 먼저 화면에 출력될지는 아무도 모른다. 다만 CPU의 결정에 따른 결과가 출력된다. 실행시키면 &quot;main()의 끝&quot;라는 문자열이 실행될 때마다 다른 위치에 출력된다. 
+</FONT><BR>
+<P><FONT FACE="바탕">다음 그림은 쓰레드의 기본적인 상태도를 나타낸 것이다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV290.GIF" BORDER=0 WIDTH=575 HEIGHT=152 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">위의 그림을 살펴보면 먼저 하나의 쓰레드가 생성된 후 start() 메소드를 호출하면 곧바로 실행되지 않고 실행 가능한 상태가 된다. 이 상태로 대기하다가 쓰레드 스케줄러에 의해 CPU 시간을 할당받으면 쓰레드가 실행된다. 쓰레드가 할당받은 CPU 시간 내에 일을 끝내면 쓰레드는 종료되고, 끝내지 못하면 대기상태로 돌아가 실행 가능한 상태로 기다리게 된다. 또 쓰레드가 실행도중에 sleep(), join(), yield() 등과 같은 특정한 메소드의 Blocking 이벤트가 발생하면 봉쇄(Blocked)상태가 될 수도 있다.</FONT>
+<BR>
+<P><FONT FACE="바탕">앞에서 언급했지만 쓰레드를 생성하는 방법은 두 가지가 있는데 첫 번째 방법은 앞에서 설명한 것과 같이 Runnable 인터페이스를 implements하는 방법이고, 이제 두 번째 방법에 대해 알아보기로 한다. 이 방법은 쓰레드 클래스를 직접 상속받아 구현하는 것이다. 
+</FONT><BR>
+<P><FONT FACE="바탕">다음 프로그램은 앞의 예제를 쓰레드 클래스를 상속받아 구현한 것이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=190>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MyThread.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class MyThread </FONT><B><FONT FACE="Courier New">extends Thread</FONT></B><FONT FACE="Courier New"> {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String args[]) throws Exception {</FONT>
+<P>		<B><FONT FACE="Courier New">Thread t = new MyThread();</FONT></B>
+<P>		<FONT FACE="Courier New">t.start();</FONT>
+<P>		<FONT FACE="Courier New">try {</FONT>
+<P>			<B><FONT FACE="Courier New">Thread.sleep(10);</FONT></B>
+<P>		<FONT FACE="Courier New">} catch(InterruptedException e) {</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=342>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">MyThread.java(</FONT><FONT FACE="바탕">계속</FONT><FONT FACE="HY타자B">)</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P>			<FONT FACE="Courier New">e.printStackTrace();</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;main()</FONT><FONT FACE="바탕">의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">끝</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">int i = 0;</FONT>
+<P>		<FONT FACE="Courier New">while (true) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">숫자</FONT><FONT FACE="Courier New"> : &quot; + i++);</FONT>
+<P>				<FONT FACE="Courier New">if ( i == 10 ) {</FONT>
+<P>					<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">이 예제는 앞의 프로그램보다 짧아 졌는데, 앞의 예제가 Runnable 인터페이스를 implements하는 클래스를 만들어 쓰레드화 시켰지만, 이 예제는 Thread 클래스를 상속받아서 쓰레드를 만들었다.</FONT>
+<P><FONT FACE="바탕">쓰래드를 생성할 때 어떤 방식을 사용해도 관계없지만 일반적으로 Runnable 인터페이스를 구현하는 첫 번째 방식이 애용된다. 그 이유는 더 객체지향적이고, 단일 상속의 문제를 해결할 수 있으며, 반드시 run() 메소드를 구현해야 하므로 일관성을 갖기 때문이다. 
+</FONT><P> 
+<P><FONT FACE="바탕">다음 프로그램은 쓰레드를 이용하여 시계를 만드는 예제이다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=298>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestThreadClock.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestThreadClock {</FONT>
+<P>   <FONT FACE="Courier New">public static void main(String args[]) {</FONT>
+<P>      <FONT FACE="Courier New">WorldClock seoul = new WorldClock(&quot;</FONT><FONT FACE="바탕">서울</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>      <FONT FACE="Courier New">WorldClock tokyo = new WorldClock(&quot;</FONT><FONT FACE="바탕">도쿄</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>      <FONT FACE="Courier New">WorldClock la = new WorldClock(&quot;LA&quot;);</FONT>
+<P>      <FONT FACE="Courier New">WorldClock newyork = new WorldClock(&quot;</FONT><FONT FACE="바탕">뉴욕</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>      <FONT FACE="Courier New">seoul.start();</FONT>
+<P>      <FONT FACE="Courier New">tokyo.start();</FONT>
+<P>      <FONT FACE="Courier New">newyork.start();</FONT>
+<P>      <FONT FACE="Courier New">la.start();</FONT>
+<P>   <FONT FACE="Courier New">} </FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=1027>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">WorldClock.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT>
+<P><FONT FACE="Courier New">36:</FONT>
+<P><FONT FACE="Courier New">37:</FONT>
+<P><FONT FACE="Courier New">38:</FONT>
+<P><FONT FACE="Courier New">39:</FONT>
+<P><FONT FACE="Courier New">40:</FONT>
+<P><FONT FACE="Courier New">41:</FONT>
+<P><FONT FACE="Courier New">42:</FONT>
+<P><FONT FACE="Courier New">43:</FONT>
+<P><FONT FACE="Courier New">44:</FONT>
+<P><FONT FACE="Courier New">45:</FONT>
+<P><FONT FACE="Courier New">46:</FONT>
+<P><FONT FACE="Courier New">47:</FONT>
+<P><FONT FACE="Courier New">48:</FONT>
+<P><FONT FACE="Courier New">49:</FONT>
+<P><FONT FACE="Courier New">50:</FONT>
+<BR>
+<P><FONT FACE="Courier New">51:</FONT>
+<P><FONT FACE="Courier New">52:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.util.*;</FONT>
+<P><FONT FACE="Courier New">import java.lang.Thread;</FONT>
+<BR>
+<P><FONT FACE="Courier New">class WorldClock extends Thread {</FONT>
+<P>	<FONT FACE="Courier New">Calendar calendar;</FONT>
+<P>	<FONT FACE="Courier New">String location;</FONT>
+<P>	<FONT FACE="Courier New">public WorldClock(String city) {</FONT>
+<P>		<FONT FACE="Courier New">this.location = city;</FONT>
+<P>   <FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">while (true) {</FONT>
+<P>			<FONT FACE="Courier New">this.displayDate( );</FONT>
+<P>			<FONT FACE="Courier New">try { </FONT>
+<P>				<FONT FACE="Courier New">sleep(1000);</FONT>
+<P>			<FONT FACE="Courier New">} catch (InterruptedException e) {</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void displayDate() {</FONT>
+<P>		<FONT FACE="Courier New">String[] ids;</FONT>
+<P>		<FONT FACE="Courier New">SimpleTimeZone pdt = null;</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">if (this.location == &quot;</FONT><FONT FACE="바탕">서울</FONT><FONT FACE="Courier New">&quot;) {</FONT>
+<P>			<FONT FACE="Courier New">ids = TimeZone.getAvailableIDs(9*60*60*1000);</FONT>
+<P>			<FONT FACE="Courier New">if (ids.length == 0) System.exit(0);</FONT>
+<P>			<FONT FACE="Courier New">pdt = new SimpleTimeZone(9*60*60*1000, ids[0]);</FONT>
+<P>		<FONT FACE="Courier New">} else if (this.location == &quot;</FONT><FONT FACE="바탕">도쿄</FONT><FONT FACE="Courier New">&quot;) {</FONT>
+<P>			<FONT FACE="Courier New">ids = TimeZone.getAvailableIDs(9*60*60*1000);</FONT>
+<P>			<FONT FACE="Courier New">if (ids.length == 0) System.exit(0);</FONT>
+<P>			<FONT FACE="Courier New">pdt = new SimpleTimeZone(9*60*60*1000, ids[0]);</FONT>
+<P>		<FONT FACE="Courier New">} else if (this.location == &quot;LA&quot;) {</FONT>
+<P>			<FONT FACE="Courier New">ids = TimeZone.getAvailableIDs(-8*60*60*1000);</FONT>
+<P>			<FONT FACE="Courier New">if (ids.length == 0) System.exit(0);</FONT>
+<P>			<FONT FACE="Courier New">pdt = new SimpleTimeZone(-8*60*60*1000, ids[0]);</FONT>
+<P>		<FONT FACE="Courier New">} else if (this.location == &quot;</FONT><FONT FACE="바탕">뉴욕</FONT><FONT FACE="Courier New">&quot;) {</FONT>
+<P>			<FONT FACE="Courier New">ids = TimeZone.getAvailableIDs(-5*60*60*1000);</FONT>
+<P>			<FONT FACE="Courier New">if (ids.length == 0) System.exit(0);</FONT>
+<P>			<FONT FACE="Courier New">pdt = new SimpleTimeZone(-5*60*60*1000, ids[0]);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">calendar = new GregorianCalendar(pdt);</FONT>
+<P>		<FONT FACE="Courier New">calendar.setTime(new Date());</FONT>
+<P>		<FONT FACE="Courier New">System.out.print(&quot;</FONT><FONT FACE="바탕">현재</FONT><FONT FACE="Courier New"> &quot; + location + &quot;</FONT><FONT FACE="바탕">시각</FONT><FONT FACE="Courier New"> :&quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.print(calendar.get(Calendar.YEAR)+&quot;</FONT><FONT FACE="바탕">년</FONT><FONT FACE="Courier New"> &quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.print((calendar.get(Calendar.MONTH)+1)+&quot;</FONT><FONT FACE="바탕">월</FONT><FONT FACE="Courier New"> &quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.print(calendar.get(Calendar.DATE)+&quot;</FONT><FONT FACE="바탕">일</FONT><FONT FACE="Courier New"> :&quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.print(calendar.get(Calendar.HOUR_OF_DAY)+&quot;</FONT><FONT FACE="바탕">시</FONT><FONT FACE="Courier New"> &quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.print(calendar.get(Calendar.MINUTE)+&quot;</FONT><FONT FACE="바탕">분</FONT><FONT FACE="Courier New"> &quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.print(calendar.get(Calendar.SECOND)+&quot;</FONT><FONT FACE="바탕">초</FONT><FONT FACE="Courier New"> &quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot; ZONE_OFFSET: &quot; + (calendar.get(Calendar.ZONE_OFFSET)/(60*60*1000)));</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.3.2 </FONT><FONT FACE="바탕">쓰레드</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">클래스의</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">메소드</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 구구단의 출력부분을 쓰레드로 만들어 동시에 여러개의 쓰레드가 실행된 후 출력하는 예제이다. 이를 통해 쓰레드 클래스가 제공하는 몇몇 메소드에 대해 언급하기로 한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=296>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">GuGuRunner.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class GuGuRunner implements Runnable {</FONT>
+<P>	<FONT FACE="Courier New">private int dan;</FONT>
+<P>	<FONT FACE="Courier New">public GuGuRunner(int init_dan) {</FONT>
+<P>		<FONT FACE="Courier New">dan = init_dan;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">for(int i=0; i&lt;10; i++) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(dan + &quot;</FONT><FONT FACE="바탕">단</FONT><FONT FACE="Courier New">: &quot; + dan + &quot;*&quot; + i + &quot;=&quot; + dan*i);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=495>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestGuGuThread.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestGuGuThread {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">Thread t2 = new Thread(new GuGuRunner(2));</FONT>
+<P>		<FONT FACE="Courier New">Thread t3 = new Thread(new GuGuRunner(3));</FONT>
+<P>		<FONT FACE="Courier New">Thread t4 = new Thread(new GuGuRunner(4));</FONT>
+<P>		<FONT FACE="Courier New">Thread t5 = new Thread(new GuGuRunner(5));</FONT>
+<P>		<FONT FACE="Courier New">Thread t6 = new Thread(new GuGuRunner(6));</FONT>
+<P>		<FONT FACE="Courier New">Thread t7 = new Thread(new GuGuRunner(7));</FONT>
+<P>		<FONT FACE="Courier New">Thread t8 = new Thread(new GuGuRunner(8));</FONT>
+<P>		<FONT FACE="Courier New">Thread t9 = new Thread(new GuGuRunner(9));</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">t2.start();</FONT>
+<P>		<FONT FACE="Courier New">t3.start();</FONT>
+<P>		<FONT FACE="Courier New">t4.start();</FONT>
+<P>		<FONT FACE="Courier New">t5.start();</FONT>
+<P>		<FONT FACE="Courier New">t6.start();</FONT>
+<P>		<FONT FACE="Courier New">t7.start();</FONT>
+<P>		<FONT FACE="Courier New">t8.start();</FONT>
+<P>		<FONT FACE="Courier New">t9.start();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">앞의 프로그램을 실행시키면 쓰레드 t2부터 t9까지 서로 경쟁하며 실행되는 것을 알 수 있다. 한순간에는 하나의 쓰레드만 수행되며 할당된 시간동안 쓰레드가 수행되다가, 다른 쓰레드에게 CPU 사용권한이 넘어간다. 자바에서는 우선순위 값을 각 쓰레드에 배정하고, 우선순위가 높은 쓰레드가 CPU 사용권한을 할당받는 선점형(Preemptive) 방식을 사용한다. 따라서 임의의 쓰레드가 우선순위를 배정 받은 후, 우선순위가 바뀌지 않으면 계속 수행된다. 우선순위 값의 할당은 쓰레드 Scheduler가 담당하게 된다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">7.3.2.1 getPriority() / setPriority()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 setPriority() 메소드를 이용하여 쓰레드의 우선 순위를 변경하고, getPriority() 메소드를 이용하여 쓰레드의 우선 순위를 알아내는 예제이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=296>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">GuGuRunner.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class GuGuRunner implements Runnable {</FONT>
+<P>	<FONT FACE="Courier New">private int dan;</FONT>
+<P>	<FONT FACE="Courier New">public GuGuRunner(int init_dan) {</FONT>
+<P>		<FONT FACE="Courier New">dan = init_dan;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">for(int i=0; i&lt;10; i++) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(dan + &quot;</FONT><FONT FACE="바탕">단</FONT><FONT FACE="Courier New">: &quot; + dan + &quot;*&quot; + i + &quot;=&quot; + dan*i);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=384>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestGuGuThread.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestGuGuThread {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">Thread t2 = new Thread(new GuGuRunner(2));</FONT>
+<P>		<FONT FACE="Courier New">Thread t3 = new Thread(new GuGuRunner(3));</FONT>
+<P>		<FONT FACE="Courier New">Thread t4 = new Thread(new GuGuRunner(4));</FONT>
+<P>		<FONT FACE="Courier New">Thread t5 = new Thread(new GuGuRunner(5));</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">t2.</FONT><B><FONT FACE="Courier New">setPriority(4)</FONT></B><FONT FACE="Courier New">;</FONT>
+<P>		<FONT FACE="Courier New">System.out.println( t3.</FONT><B><FONT FACE="Courier New">getPriority()</FONT></B><FONT FACE="Courier New"> );</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">t2.start();</FONT>
+<P>		<FONT FACE="Courier New">t3.start();</FONT>
+<P>		<FONT FACE="Courier New">t4.start();</FONT>
+<P>		<FONT FACE="Courier New">t5.start();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">7.3.2.2 sleep()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 sleep() 메소드를 이용하여 해당하는 쓰레드를 지정한 시간(mille second)동안 정지시키는 예제이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=407>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">GuGuRunner.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class GuGuRunner implements Runnable {</FONT>
+<P>	<FONT FACE="Courier New">private int dan;</FONT>
+<P>	<FONT FACE="Courier New">public GuGuRunner(int init_dan) {</FONT>
+<P>		<FONT FACE="Courier New">dan = init_dan;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">long sleepTime = (long)(Math.random() * 500);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(dan + &quot;</FONT><FONT FACE="바탕">단이</FONT><FONT FACE="Courier New">&quot; + sleepTime + &quot;</FONT><FONT FACE="바탕">만큼</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">쉼</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>		<FONT FACE="Courier New">try{</FONT>
+<P>			<B><FONT FACE="Courier New">Thread.sleep(sleepTime);</FONT></B>
+<P>		<FONT FACE="Courier New">}catch (InterruptedException e){</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">for(int i=0; i&lt;10; i++) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(dan + &quot;</FONT><FONT FACE="바탕">단</FONT><FONT FACE="Courier New">: &quot; + dan + &quot;*&quot; + i + &quot;=&quot; + dan*i);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=358>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestGuGuThread.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestGuGuThread {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">Thread t2 = new Thread(new GuGuRunner(2));</FONT>
+<P>		<FONT FACE="Courier New">Thread t3 = new Thread(new GuGuRunner(3));</FONT>
+<P>		<FONT FACE="Courier New">Thread t4 = new Thread(new GuGuRunner(4));</FONT>
+<P>		<FONT FACE="Courier New">Thread t5 = new Thread(new GuGuRunner(5));</FONT>
+<P>		<FONT FACE="Courier New">Thread t6 = new Thread(new GuGuRunner(6));</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">t2.start();</FONT>
+<P>		<FONT FACE="Courier New">t3.start();</FONT>
+<P>		<FONT FACE="Courier New">t4.start();</FONT>
+<P>		<FONT FACE="Courier New">t5.start();</FONT>
+<P>		<FONT FACE="Courier New">t6.start();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">7.3.2.3 join()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 join() 메소드에 관한 예제로 join()은 이후에 수행되는 쓰레드가 join이 걸린 쓰레드가 수행된 다음 수행되게 한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=274>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">GuGuRunner.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class GuGuRunner implements Runnable {</FONT>
+<P>	<FONT FACE="Courier New">private int dan;</FONT>
+<P>	<FONT FACE="Courier New">public GuGuRunner(int init_dan) {</FONT>
+<P>		<FONT FACE="Courier New">dan = init_dan;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">for(int i=0; i&lt;10; i++) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(dan + &quot;</FONT><FONT FACE="바탕">단</FONT><FONT FACE="Courier New">: &quot; + dan + &quot;*&quot; + i + &quot;=&quot; + dan*i);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=556>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestGuGuThread.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestGuGuThread {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">Thread t2 = new Thread(new GuGuRunner(2));</FONT>
+<P>		<FONT FACE="Courier New">Thread t3 = new Thread(new GuGuRunner(3));</FONT>
+<P>		<FONT FACE="Courier New">Thread t4 = new Thread(new GuGuRunner(4));</FONT>
+<P>		<FONT FACE="Courier New">Thread t5 = new Thread(new GuGuRunner(5));</FONT>
+<P>		<FONT FACE="Courier New">Thread t6 = new Thread(new GuGuRunner(6));</FONT>
+<P>		<FONT FACE="Courier New">t2.setPriority(4);</FONT>
+<P>		<FONT FACE="Courier New">t3.setPriority(4);</FONT>
+<P>		<FONT FACE="Courier New">t4.setPriority(4);</FONT>
+<P>		<FONT FACE="Courier New">t5.setPriority(4);</FONT>
+<P>		<FONT FACE="Courier New">t6.setPriority(4);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">t2.start();</FONT>
+<P>		<FONT FACE="Courier New">t3.start();</FONT>
+<P>		<FONT FACE="Courier New">t4.start();</FONT>
+<P>		<FONT FACE="Courier New">try{</FONT>
+<P>			<B><FONT FACE="Courier New">t4.join();</FONT></B>
+<P>		<FONT FACE="Courier New">}catch(InterruptedException e) { </FONT>		
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">t5.start();</FONT>
+<P>		<FONT FACE="Courier New">t6.start();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">7.3.2.4 yield()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 yield() 메소드에 관한 예제로 yield()는 동일순위의 쓰레드에게 양보하는 기능을 가지고 있다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=362>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">GuGuRunner.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class GuGuRunner implements Runnable {</FONT>
+<P>	<FONT FACE="Courier New">private int dan;</FONT>
+<P>	<FONT FACE="Courier New">public GuGuRunner(int init_dan) {</FONT>
+<P>		<FONT FACE="Courier New">dan = init_dan;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">if(dan == 8) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;8</FONT><FONT FACE="바탕">단이</FONT><FONT FACE="Courier New"> 9</FONT><FONT FACE="바탕">단에게</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">양보</FONT><FONT FACE="Courier New">&quot;);</FONT>
+<P>			<B><FONT FACE="Courier New">Thread.yield();</FONT></B>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">for(int i=0; i&lt;10; i++) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(dan + &quot;</FONT><FONT FACE="바탕">단</FONT><FONT FACE="Courier New">: &quot; + dan + &quot;*&quot; + i + &quot;=&quot; + dan*i);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=446>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestGuGuThread.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestGuGuThread {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Thread t6 = new Thread(new GuGuRunner(6));</FONT>
+<P>		<FONT FACE="Courier New">Thread t7 = new Thread(new GuGuRunner(7));</FONT>
+<P>		<FONT FACE="Courier New">Thread t8 = new Thread(new GuGuRunner(8));</FONT>
+<P>		<FONT FACE="Courier New">Thread t9 = new Thread(new GuGuRunner(9));</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">t6.setPriority(4);</FONT>
+<P>		<FONT FACE="Courier New">t7.setPriority(4);</FONT>
+<P>		<FONT FACE="Courier New">t8.setPriority(5);</FONT>
+<P>		<FONT FACE="Courier New">t9.setPriority(5);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">t6.start();</FONT>
+<P>		<FONT FACE="Courier New">t7.start();</FONT>
+<P>		<FONT FACE="Courier New">t8.start();</FONT>
+<P>		<FONT FACE="Courier New">t9.start();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.3.3 </FONT><FONT FACE="바탕">공유데이터</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">접근</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">현 시점에서 여러 쓰레드 중 어떤 쓰레드가 수행될지 알 수 없고, 선정된 쓰레드가 얼마동안 수행될지 또 이 쓰레드가 끝난 후 다음에 어떤 쓰레드가 수행될지 알 수 가 없다. 따라서 프로그래머가 쓰레드 관리를 할 필요가 있는데 특히 여러 쓰레드가 공유 데이터(Shared Data)에 접근할 때는 더욱 필요하다. 
+</FONT><BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">7.3.3.1 </FONT><FONT FACE="바탕">공유데이터의</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">문제점</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음 예제는 반드시 이해해야하므로 충분한 시간을 가지고 공부하기 바란다. 먼저 이해를 돕기 위해 다음의 그림을 보자.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV291.GIF" BORDER=0 WIDTH=466 HEIGHT=304 HSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">앞의 그림에서 오른쪽 공유데이터 클래스를 살펴보면 push()와 pop() 메소드가 있는데, 이 메소드는 스택에 데이터를 넣거(push)나 빼내(pop)는 일을 한다. push() 메소드와 pop() 메소드의 구현은 중요한 부분으로 먼저 push() 메소드부터 살펴보자. 첫 번째 쓰레드(t1)에서 스택에 데이터를 넣기 위해 push() 메소드를 호출한다. 데이터를 받은 push() 메소드는 스택에 데이터를 넣는다(①부분). 그리고 나서 스택 데이터를 가리키는 포인터를 하나 증가시켜야 하는데, 그 전에 시간이 걸리는 작업(longJob())을 수행한다고 가정하면 중요한 문제가 발생할 수 있다. 즉, 첫 번째 쓰레드(t1) 수행 중에 우선 순위가 낮아져 두 번째 쓰레드(t2)로 우선권이 넘어가게 되었다. 즉, 시간이 오래 걸리는 일을 수행하는 도중에(아직 포인터를 증가시키지 않았는데), 우선권이 다른 쓰레드에게 넘어가고 만 것이다. 우선권을 받은 두 번째 쓰레드(t2)는 첫 번째 쓰레드에서 포인터가 증가하지 않았는데도 push() 메소드를 호출하게 되는데, 이때 포인터가 가리키는 곳에 데이터를 넣게 되는 것이다. 따라서 첫 번째 쓰레드가 넣은 데이터에 덮어쓰게 되는 것이다. 이렇게 되면 스택은 손실을 입게된다. 
+</FONT><BR>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 지금까지 설명한 내용을 이해할 수 있도록 작성한 예이다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=452>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestMyStack.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class MyStack {</FONT>
+<P>	<FONT FACE="Courier New">int index=0;</FONT>
+<P>	<FONT FACE="Courier New">char[] stack = new char[6];</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void push(char c) {</FONT>
+<P>		<FONT FACE="Courier New">stack[index] = c;</FONT>
+<P>		<FONT FACE="Courier New">longJob();</FONT>
+<P>		<FONT FACE="Courier New">index++;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public char pop() {</FONT>
+<P>		<FONT FACE="Courier New">index--;</FONT>
+<P>		<FONT FACE="Courier New">longJob();</FONT>
+<P>		<FONT FACE="Courier New">return stack[index];</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void longJob() {</FONT>
+<P>		<FONT FACE="Courier New">for(long i=0; i&lt;5000000L; i++) {}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=386>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">StackRunner.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">class StackRunner implements Runnable {</FONT>
+<P>	<FONT FACE="Courier New">String name;</FONT>
+<P>	<FONT FACE="Courier New">MyStack ms;</FONT>
+<P>	<FONT FACE="Courier New">StackRunner(String name, MyStack ms) {</FONT>
+<P>		<FONT FACE="Courier New">this.name = name;</FONT>
+<P>		<FONT FACE="Courier New">this.ms = ms;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">ms.push('A');</FONT>
+<P>		<FONT FACE="Courier New">ms.push('B');</FONT>
+<P>		<FONT FACE="Courier New">ms.push('C');</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(name + ms.pop());</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(name + ms.pop());</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(name + ms.pop());</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=320>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestMyStack.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class TestMyStack {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<FONT FACE="Courier New">MyStack ms = new MyStack();</FONT>
+<P>		<FONT FACE="Courier New">StackRunner r1 = new StackRunner(&quot;1 : &quot;, ms);</FONT>
+<P>		<FONT FACE="Courier New">StackRunner r2 = new StackRunner(&quot;2 : &quot;, ms);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Thread t1 = new Thread(r1);</FONT>
+<P>		<FONT FACE="Courier New">Thread t2 = new Thread(r2);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">t1.start();</FONT>
+<P>		<FONT FACE="Courier New">t2.start();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">앞의 프로그램을 실행시켰을 때 참고할 사항은 프로그램을 반복 실행시켜도 스택이 손상되지 않는다는 점이다. 따라서, 강조하고 싶은 내용은 스택이 손상될 수 있는 가능성이 있다는 사실이다. 특히 불특정 다수가 사용하는 인터넷 환경에서 공유데이터의 손상은 매우 높은 확률을 갖게되는 것이다. 지금까지의 상황에 대한 결론은 공유 데이터를 가지고 작업하는 쓰레드는 예측할 수 없는 순간에 제어권이 다른 쓰레드로 양도되어 데이터파손이나 손상을 일으킬 수 있음을 명심해야한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">7.3.3.2 </FONT><FONT FACE="바탕">공유데이터</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">문제점의</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">해결</FONT><FONT FACE="HY울릉도M">(synchronized)</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">이와 같은 공유데이터 문제는 매우 심각하기 때문에 해결방안을 모색해야 하는데 문제의 심각성에 비해 그렇게 어렵지만은 않다. 먼저 첫 번째 쓰레드가 push() 메소드나 pop() 메소드를 호출하여 수행되는 동안 두 번째 쓰레드로 제어권이 넘어가지 않게해야 한다. 또 다른 방법은 제어권이 두 번째 쓰레드로 넘어갔더라도, 첫 번째 쓰레드가 메소드를 완전히 수행하지 않은 상태라면, 제어권을 첫 번째 쓰레드에게 다시 넘겨주면 된다. 자바에서는 두 번째 방법을 사용하는데 이때 사용하는 키워드가 synchronized이다. 
+</FONT><BR>
+<P><FONT FACE="바탕">다음 프로그램은 앞의 예제 프로그램에 synchronized를 추가하여 공유데이터의 손상을 막은 것이다. 프로그램에서 5번째 줄의 push() 메소드와 11번째 줄의 pop() 메소드에서 synchronized를 사용했다. 이 키워드는 두 메소드에서 서로 다르게 사용되었는데, push()에서처럼 사용하는 것을 synchronized method라하고, pop() 메소드에서처럼 사용하는 것을 synchronized block이라고 한다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=497>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestMyStack.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class MyStack {</FONT>
+<P>	<FONT FACE="Courier New">int index=0;</FONT>
+<P>	<FONT FACE="Courier New">char[] stack = new char[6];</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public </FONT><B><FONT FACE="Courier New">synchronized</FONT></B><FONT FACE="Courier New"> void push(char c) {</FONT>
+<P>		<FONT FACE="Courier New">stack[index] = c;</FONT>
+<P>		<FONT FACE="Courier New">longJob();</FONT>
+<P>		<FONT FACE="Courier New">index++;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public char pop() {</FONT>
+<P>		<B><FONT FACE="Courier New">synchronized(this) {</FONT></B>
+<P>			<FONT FACE="Courier New">index--;</FONT>
+<P>			<FONT FACE="Courier New">longJob();</FONT>
+<P>			<FONT FACE="Courier New">return stack[index];</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public void longJob() {</FONT>
+<P>		<FONT FACE="Courier New">for(long i=0; i&lt;5000000L; i++) {}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">synchronized를 설명하기 전에 Object Lock Flag부터 설명하기로 한다. 생성된 모든 객체는 lock flag를 가지고 있는데 synchronized 메소드나 블록을 수행하려면 자신의 lock flag를 가지고 있어야한다. 다음 그림을 살펴보자.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV292.GIF" BORDER=0 WIDTH=466 HEIGHT=304 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<P><FONT FACE="바탕">앞의 그림에서처럼 push() 메소드를 호출하면 자신의 객체에 lock flag가 있는지 확인하고, 있으면 lock flag를 가져간 후에 수행된다. 이렇게 lock flag를 소유한 push() 메소드가 수행되다가 다른 쓰레드에게 제어권이 넘어가면 첫 번째 쓰레드는 대기(block) 상태가 되고, 두 번째 쓰레드가 활동하기 시작한다. 두 번째 쓰레드에서도 push() 메소드를 호출하면 synchronized메소드이므로 lock flag를 가져와야 수행된다. 그런데, lock flag는 이미 첫 번째 쓰레드에서 소유하고 있기 때문에 push() 메소드가 수행될 수가 없고. 두 번째 쓰레드는 대기 상태가 된다. 따라서 제어권은 다시 첫 번째 쓰레드로 넘어오게 되고, 멈춰있던 push() 메소드는 계속 수행하게 된다. push() 메소드가 수행된 후에는 lock flag를 반납하고, 비로소  lock flag가 없어졌기 때문에 대기하고 있던 두 번째 쓰레드가 제어권을 넘겨받아 수행된다. 
+</FONT><P><FONT FACE="바탕">부언하면 synchronized 메소드나 블록은 공유데이터를 여러 쓰레드가 사용할 때 손상을 입지 않도록 해준다. 따라서 쓰레드를 이용해 공유데이터를 조작하려면 반드시 synchronized를 사용해야 한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 그림은 기본적인 쓰레드 상태도에 공유데이터 처리 부분을 추가한 것이다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV293.GIF" BORDER=0 WIDTH=647 HEIGHT=310 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">앞의 그림을 보면 쓰레드 synchronized 메소드를 수행하면 lock flag를 받을 때까지 Lock pool에서 대기하게 되는 것을 볼 수 있다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.3.4 wait()</FONT><FONT FACE="바탕">와</FONT><FONT FACE="HY부활M"> notify()</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">synchronized로 쓰레드의 기본적인 문제는 처리되었지만 해결해야할 문제가 더 남아있다. 앞에서 설명한 스택 예제 프로그램을 다시한번 살펴보기로 하자. 만약 스택이 비어있는 상태에서 pop() 메소드가 수행된다면 synchronized로도 해결할 수가 없다. 
+</FONT><P><FONT FACE="바탕">이 문제를 해결하기 위해 다음과 같은 예를 들어보자. 누군가가 서울역에서 잠실까지 가려고 택시를 탔는데 가는 동안 5분마다 운전기사에게 &quot;여기 잠실이에요?&quot;라고 묻지않고 택시를 타면서 &quot;잠실 갑니다.&quot;라고 말한 후 잠을 자거나 다른 일을 할 것이다. 잠실에 도착하면 기사가 이 사실을 알려준다. 
+</FONT><P><FONT FACE="바탕">이 예를 스택에 적용해보자. 어떤 쓰레드가 스택에서 pop을 했는데, 스택이 비어있으면 봉쇄(block)상태가 되고 스택에 데이터가 push될 때까지 기다린다. 이것은 잠실에 도착할 때까지 손님이 잠을 자는 것과 같은 이치이다. 시간이 지난 후 스택에 데이터가 들어오면, 봉쇄(blocked)되었던 쓰레드에게 데이터가 왔음을 알려준다. 이것은 운전기사가 잠자고 있는 손님에게 잠실에 다 왔다는 신호를 보내는 것과 같다. 그러면 대기중인 쓰레드는 스택에서 데이터를 pop할 수 있는 상태가 되는 것이다.</FONT>
+<P><FONT FACE="바탕">자바의 쓰레드에서도 지금 설명한 방식이 사용되는데 이 때 사용되는 메소드가 wait() 메소드와 notify() 메소드이다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 그림은 쓰레드의 상태도에 wait() 메소드와 notify() 메소드를 추가한 결과를 나타낸 것이다.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV294.GIF" BORDER=0 WIDTH=647 HEIGHT=309 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">API문서를 살펴보면 stop(), resume(), suspend() 등의 메소드가 deprecation되어있는 것을 볼 수 있는데, 잠금키를 가지고 있는 상태에서 봉쇄되면 쓰레드가 죽었을 때 데드락(Deaklock)이 발생할 수 있기 때문이다. 따라서 권장할 만한 방법이 아니기 때문에 대신 wait()와 notify()를 사용하는 것이다. 위의 그림에서 wait()와 notify()를 따로 분리한 이유는 봉쇄될 때 잠금키를 반납하고 봉쇄되기 때문이다.</FONT>
+<BR>
+<P><FONT FACE="바탕">이러한 문제를 생산자와 소비자간의 관계로 예를 들어 설명하기로 한다. 예제를 살펴보기 전에 예제에 대한 전반적인 사항을 설명하기 위해 다음 그림을 보면, 
+</FONT><BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV295.GIF" BORDER=0 WIDTH=510 HEIGHT=192 HSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">생성할 쓰레드의 수는 모두 6개(빵 생산자 3개, 소비자 3개)인데, 각각의 쓰레드가 공유데이터 영역(BakeStack)을 공유하고 있다. 3군데의 빵집에서 빵을 만들어 내놓으며, 3명의 손님이 빵을 가져간다. 만약 빵을 굽기전에 손님이 오면 손님을 기다리게 한다. 빵이 나오면 기다리던 손님에게 알려준다(notify).</FONT>
+<P><FONT FACE="바탕">이제 6개의 쓰레드가 서로 경쟁하면서 실행되다가 어느 순간에 임의의 쓰레드가 처리된다. 이러한 사실은 아무도 모르며 다만 공유데이터 영역인 스택을 깨뜨리지 않고, 또 빵이 없어도 나올 때까지 기다렸다가 모든 빵을 소비해야 한다. 
+</FONT><P> 
+<P><FONT FACE="바탕">먼저 시작 클래스부터 보자.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=541>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">WaitNotifyExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class WaitNotifyExample {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) {</FONT>
+<P>		<B><FONT FACE="Courier New">BakeStack bakeStack = new BakeStack();</FONT></B>
+<P>		<B><FONT FACE="Courier New">Baker m1 = new Baker(bakeStack);</FONT></B>
+<P>		<B><FONT FACE="Courier New">Thread maker1 = new Thread (m1);</FONT></B>
+<P>		<B><FONT FACE="Courier New">maker1.start();</FONT></B>
+<P>		<FONT FACE="Courier New">Baker m2 = new Baker(bakeStack);</FONT>
+<P>		<FONT FACE="Courier New">Thread maker2 = new Thread (m2);</FONT>
+<P>		<FONT FACE="Courier New">maker2.start();</FONT>
+<P>		<FONT FACE="Courier New">Baker m3 = new Baker(bakeStack);</FONT>
+<P>		<FONT FACE="Courier New">Thread maker3 = new Thread (m3);</FONT>
+<P>		<FONT FACE="Courier New">maker3.start();</FONT>
+<P> 		<B><FONT FACE="Courier New">Customer c1 = new Customer(bakeStack);</FONT></B>
+<P>		<B><FONT FACE="Courier New">Thread customer1 = new Thread (c1);</FONT></B>
+<P>		<B><FONT FACE="Courier New">customer1.start();</FONT></B>
+<P>		<FONT FACE="Courier New">Customer c2 = new Customer(bakeStack);</FONT>
+<P>		<FONT FACE="Courier New">Thread customer2 = new Thread (c2);</FONT>
+<P>		<FONT FACE="Courier New">customer2.start();</FONT>
+<P>		<FONT FACE="Courier New">Customer c3 = new Customer(bakeStack);</FONT>
+<P>		<FONT FACE="Courier New">Thread customer3 = new Thread (c3);</FONT>
+<P>		<FONT FACE="Courier New">customer3.start();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">3 : 공유데이터인 BakeStack 클래스의 객체(instance)를 만든다.</FONT>
+<P><FONT FACE="바탕">4 : ∼ 12 : 3개의 Baker 클래스 객체를 만들고 이를 쓰레드화하여 실행시킨다. 
+</FONT><P><FONT FACE="바탕">14 : ∼ 22 : 3개의 Customer 클래스 객체를 만들고 이를 쓰레드화하여 실행시킨다. 따라서 모두 6개의 쓰레드가 하나의 공유데이터(BakeStack)를 사용하고 있는 것이다.</FONT>
+<BR>
+<BR>
+<BR>
+<P><FONT FACE="바탕">이제 공유데이터인 BakeStack을 살펴보자.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=474>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">BakeStack.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.util.Vector;</FONT>
+<P><FONT FACE="Courier New">public class BakeStack {</FONT>
+<P>	<B><FONT FACE="Courier New">private Vector buff = new Vector(300, 300);</FONT></B>
+<P>	<FONT FACE="Courier New">public </FONT><B><FONT FACE="Courier New">synchronized</FONT></B><FONT FACE="Courier New"> String pop() {</FONT>
+<P>		<FONT FACE="Courier New">String bread;</FONT>
+<P>		<FONT FACE="Courier New">while (</FONT><B><FONT FACE="Courier New">buff.size()</FONT></B><FONT FACE="Courier New"> == 0) {</FONT>
+<P>			<FONT FACE="Courier New">try {</FONT>
+<P>				<B><FONT FACE="Courier New">this.wait();</FONT></B>
+<P>			<FONT FACE="Courier New">} catch (InterruptedException e) {</FONT>
+<P>				<FONT FACE="Courier New">e.printStackTrace();</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">bread = (String)</FONT><B><FONT FACE="Courier New">buff.remove(buff.size() - 1);</FONT></B>
+<P>		<FONT FACE="Courier New">return bread;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public </FONT><B><FONT FACE="Courier New">synchronized</FONT></B><FONT FACE="Courier New"> void push(String bread) {</FONT>
+<P>		<B><FONT FACE="Courier New">this.notify();</FONT></B>
+<P>		<FONT FACE="Courier New">buff.</FONT><B><FONT FACE="Courier New">addElement(bread);</FONT></B>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">3 : 스택을 좀더 쉽게 구현하기 위해 Vector클래스를 사용했다.</FONT>
+<P><FONT FACE="바탕">6 : buff.size()가 0 이면 while문을 수행하는데 이는 스택이 비어 있음을 의미이다. while문안에 wait() 메소드가 있는데 누군가 깨워줄 때까지 수행을 멈추겠다는 의미이다. 여기서 synchronized를 사용해서 lock flag를 가져왔으나, wait()이 호출되면 lock flag는 자동 반납된다. 그래야 다른 쓰레드가 pop()를 호출할 수 있기 때문이다. 
+</FONT><P><FONT FACE="바탕">13 : 스택이 비어있지 않으면remove() 메소드를 만나 나중에 들어온 빵을 스택에서 꺼내 넘겨준다.</FONT>
+<P><FONT FACE="바탕">16 : push() 메소드에서 바로 notify() 메소드를 호출한다. notify() 메소드는 대기중인 쓰레드 중에서 하나를 임의로 선택하여 빵이 도착했다는 신호를 준다. 그러면 신호를 받은 쓰레드는 빵을 가져가데 된다. 이때 유의할 점은 notify() 메소드가 대기중인 쓰레드에게 신호를 보내면 곧바로 대기중인 쓰레드가 동작하지는 않는다. 물론 동작할 수도 있지만, 결정은 쓰레드 Scheduler에게 달려있으므로 push()가 몇 번 더 수행된 후에 대기중인 쓰레드가 수행될 수 도 있다.</FONT>
+<P><FONT FACE="바탕">18 : 그 다음 addElement() 메소드가 호출되어 스택에 빵을 가져다 놓는 것이다. 여기서의 의문사항은 addElement()보다 notify()를 먼저 수행한 점이다. 즉, 빵을 가져다 놓기 전에 빵이 왔다는 신호를 한것인데 이는 synchronized와 연관시켜 생각하면 쉽게 알 수 있다.</FONT>
+<BR>
+<BR>
+<BR>
+<P><FONT FACE="바탕">이제 마지막으로 각각의 쓰레드에 대해서 알아보기로 한다. 먼저 push()를 수행할 Baker 클래스이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=850>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">Baker.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT>
+<P><FONT FACE="Courier New">36:</FONT>
+<P><FONT FACE="Courier New">37:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class Baker implements Runnable {</FONT>
+<P>	<FONT FACE="Courier New">private BakeStack bakeStack;</FONT>
+<P>	<FONT FACE="Courier New">private int num;</FONT>
+<P>	<FONT FACE="Courier New">private static int counter = 1;</FONT>
+<P>	<FONT FACE="Courier New">public Baker (BakeStack s) {</FONT>
+<P>		<FONT FACE="Courier New">bakeStack = s;</FONT>
+<P>		<FONT FACE="Courier New">num = counter++;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">String bread;</FONT>
+<P>		<FONT FACE="Courier New">for (int i = 0; i &lt; 10; i++) {</FONT>
+<P>			<FONT FACE="Courier New">bread = getBread();</FONT>
+<P>			<FONT FACE="Courier New">bakeStack.push(bread);</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">빵집</FONT><FONT FACE="Courier New">&quot; + num + &quot; : &quot; + bread);</FONT>
+<P>			<FONT FACE="Courier New">try {</FONT>
+<P>				<FONT FACE="Courier New">Thread.sleep((int)(Math.random()*300));</FONT>
+<P>			<FONT FACE="Courier New">} catch (InterruptedException e) {</FONT>
+<P>				<FONT FACE="Courier New">e.printStackTrace();</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public String getBread() {</FONT>
+<P>		<FONT FACE="Courier New">String bread = null;</FONT>
+<P>		<FONT FACE="Courier New">switch ((int)(Math.random() * 3)) {</FONT>
+<P>			<FONT FACE="Courier New">case 0 :</FONT>
+<P>				<FONT FACE="Courier New">bread = &quot;</FONT><FONT FACE="바탕">생크림</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">케</FONT><FONT FACE="Courier New">랺&quot;;</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">case 1:</FONT>
+<P>				<FONT FACE="Courier New">bread = &quot;</FONT><FONT FACE="바탕">식빵</FONT><FONT FACE="Courier New">&quot;;</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>			<FONT FACE="Courier New">case 2:</FONT>
+<P>				<FONT FACE="Courier New">bread = &quot;</FONT><FONT FACE="바탕">고로케</FONT><FONT FACE="Courier New">&quot;;</FONT>
+<P>				<FONT FACE="Courier New">break;</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">return bread;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">Runnable인터페이스를 implements한 전형적인 쓰레드 클래스이며, 
+</FONT><P><FONT FACE="바탕">9 : run() 메소드가 수행된다. 생성자를 통해서 공유데이터인 BakeStack를 참조한다. 
+</FONT><P><FONT FACE="바탕">12 : getBread() 메소드를 호출하여 3개의 빵 중 하나를 반환한다. 총 10 개의 빵을 만들어 낸다. 
+</FONT><P><FONT FACE="바탕">16 : sleep() 메소드를 이용하여 쓰레드를 잠깐 정지시켰는데 컴퓨터 속도가 너무 빨라 순간적으로 처리되기 때문에 일부러 다른 쓰레드에게 기회를 주기 위해서 잠깐 쉬는 것이다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음은 Customer클래스이다. 이 클래스도 위의 Baker클래스와 거의 유사하다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=463>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">Customer.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class Customer implements Runnable {</FONT>
+<P>	<FONT FACE="Courier New">private BakeStack bakeStack;</FONT>
+<P>	<FONT FACE="Courier New">private int num;</FONT>
+<P>	<FONT FACE="Courier New">private static int counter = 1;</FONT>
+<P>	<FONT FACE="Courier New">public Customer (BakeStack s) {</FONT>
+<P>		<FONT FACE="Courier New">bakeStack = s;</FONT>
+<P>		<FONT FACE="Courier New">num = counter++;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public void run() {</FONT>
+<P>		<FONT FACE="Courier New">String bread;</FONT>
+<P>		<FONT FACE="Courier New">for (int i = 0; i &lt; 10; i++) {</FONT>
+<P>			<B><FONT FACE="Courier New">bread = bakeStack.pop();</FONT></B>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;</FONT><FONT FACE="바탕">손님</FONT><FONT FACE="Courier New">&quot; + num + &quot; : &quot; + bread);</FONT>
+<P>			<FONT FACE="Courier New">try {</FONT>
+<P>			   <FONT FACE="Courier New">Thread.sleep((int)(Math.random()*300));</FONT>
+<P>			<FONT FACE="Courier New">} catch (InterruptedException e) {</FONT>
+<P>				<FONT FACE="Courier New">e.printStackTrace();</FONT>
+<P>			<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">이 클래스는 공유 스택에서 빵을 10번 가져와 화면에 보여준다. Baker클래스와 같은 내용이므로 설명은 생략한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">위의 예를 이해하기 위해 모두 4개의 클래스(WaitNotifyExample, BakeStack, Baker, Customer)를 작성하였으며, 실행은 WaitNotifyExample 클래스를 이용한다.</FONT>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV296.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">7.4   Collections</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.4.1 Collection</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">객체를 저장할 수 있는 클래스는 모두 Collection계열이다. 이 계열에는 Collection, Set, List 등의 인터페이스가 있으며 이를 구현한 클래스를 이용하면 객체를 저장할 수 있다. 저장된 객체를 Element라 부르며 Set과 List는 각각 Collection인터페이스를 상속받는다.</FONT>
+<P><FONT FACE="바탕">Collection 인터페이스는 순서가 없고 중복은 허락하며, Set 인터페이스는 순서도 없고, 중복도 허락하지 않는 구조를 갖는다. List는 Element 사이에 순서가 있으며, 중복도 허락한다.</FONT>
+<P><FONT FACE="바탕">이들은 모두 인터페이스이기 때문에 객체를 생성하지 못하며 클래스를 이용하여 객체를 생성한다. Set은 HashSet클래스가 있고, List는 ArrayList와 LinkedList가 있다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=529 HEIGHT=147>
+<TD VALIGN=MIDDLE WIDTH=27%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">인터페이스</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=20%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">순서</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=20%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">중복</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=32%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">구현된 클래스</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=27%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Collection</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=20%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">X</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=20%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">O</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=32%>
+<BR></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=27%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">Set</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=20%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">X</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=20%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">X</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=32%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">HashSet</FONT></SPAN></FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=MIDDLE WIDTH=27%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">List</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=20%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">O</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=20%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">O</FONT></SPAN></FONT></TD>
+<TD VALIGN=MIDDLE WIDTH=32%>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">ArrayList</FONT></SPAN></FONT>
+<P ALIGN=CENTER><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="바탕">LinkedList</FONT></SPAN></FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">Collection 인터페이스의 주요 메소드는 다음과 같다.</FONT>
+<BR>
+<P>  <FONT FACE="돋움">∘ public boolean add(Object element)</FONT>
+<P>  <FONT FACE="돋움">∘ public boolean remove(Object element)</FONT>
+<P>  <FONT FACE="돋움">∘ public int size()</FONT>
+<P>  <FONT FACE="돋움">∘ public boolean isEmpty()</FONT>
+<P>  <FONT FACE="돋움">∘ public boolean contains(Object element)</FONT>
+<P>  <FONT FACE="돋움">∘ public Iterator iterator()</FONT>
+<BR>
+<P><FONT FACE="바탕">List 인터페이스의 주요 메소드는 다음과 같다.</FONT>
+<BR>
+<P>  <FONT FACE="돋움">∘ public void add(int index, Object element)</FONT>
+<P>  <FONT FACE="돋움">∘ public Object remove(int index)</FONT>
+<P>  <FONT FACE="돋움">∘ public Object get(int index)</FONT>
+<P>  <FONT FACE="돋움">∘ public void set(int index, Object element)</FONT>
+<P>  <FONT FACE="돋움">∘ public int indexOf(Object element)</FONT>
+<P>  <FONT FACE="돋움">∘ public ListIterator iterator()</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 Set의 사용 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=769>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">SetExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT>
+<P><FONT FACE="Courier New">36:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.util.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class SetExample {</FONT>
+<P>	
+<P>	<FONT FACE="Courier New">public static void main(String args[]) {</FONT>
+<P>		<FONT FACE="Courier New">boolean b = true;</FONT>
+<P>		<FONT FACE="Courier New">Set set = new HashSet();</FONT>
+<P>		
+<P>		<FONT FACE="Courier New">set.add(&quot;three&quot;);</FONT>
+<P>		<FONT FACE="Courier New">b = set.add(&quot;one&quot;);</FONT>
+<P>		<FONT FACE="Courier New">set.add(&quot;two&quot;);</FONT>
+<P>		<FONT FACE="Courier New">set.add(&quot;four&quot;);</FONT>
+<P>		<FONT FACE="Courier New">set.add(&quot;five&quot;);</FONT>
+<P>		<FONT FACE="Courier New">set.add(new Integer(4));</FONT>
+<P>		<FONT FACE="Courier New">b = set.add(&quot;five&quot;);</FONT>
+<P>		
+<P>		<FONT FACE="Courier New">System.out.println(set);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(b);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">// Method Test : size()</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(set.size());</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">// Method Test : remove(obj)</FONT>
+<P>		<FONT FACE="Courier New">set.remove(&quot;two&quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(set);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">// Method Test : clear()</FONT>
+<P>		<FONT FACE="Courier New">set.clear();</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(set);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">// Method Test : isEmpty()</FONT>
+<P>		<FONT FACE="Courier New">if (set.isEmpty()) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;set is Empty&quot;);</FONT>		
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>	
+<P><FONT FACE="Courier New">} </FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV297.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV298.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">[three, two, four, one, 4, five]</FONT></B>
+<P>		<B><FONT FACE="Courier New">false</FONT></B>
+<P>		<B><FONT FACE="Courier New">6</FONT></B>
+<P>		<B><FONT FACE="Courier New">[three, four, one, 4, five]</FONT></B>
+<P>		<B><FONT FACE="Courier New">[]</FONT></B>
+<P>		<B><FONT FACE="Courier New">set is Empty</FONT></B>
+<P><FONT FACE="바탕">다음 프로그램은 List의 사용 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=747 HEIGHT=905>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">ListExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT>
+<P><FONT FACE="Courier New">36:</FONT>
+<P><FONT FACE="Courier New">37:</FONT>
+<P><FONT FACE="Courier New">38:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.util.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class ListExample {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) 	{</FONT>
+<P>		<FONT FACE="Courier New">List list=new ArrayList();</FONT>
+<P>		
+<P>		<FONT FACE="Courier New">list.add(&quot;one&quot;);</FONT>
+<P>		<FONT FACE="Courier New">boolean a=list.add(&quot;second&quot;);</FONT>
+<P>		<FONT FACE="Courier New">list.add(&quot;3rd&quot;);</FONT>
+<P>		<FONT FACE="Courier New">list.add(new Integer(4));</FONT>
+<P>		<FONT FACE="Courier New">list.add(new Float(5.0f));</FONT>
+<P>		<FONT FACE="Courier New">boolean b=list.add(&quot;second&quot;);</FONT>
+<P>		<FONT FACE="Courier New">list.add(new Integer(4));</FONT>
+<P>		<FONT FACE="Courier New">list.add(&quot;SECOND&quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(a);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(b);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(list);</FONT>
+<P>        
+<P>		<FONT FACE="Courier New">// Method Test : remove()</FONT>
+<P>		<FONT FACE="Courier New">list.remove(0);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(list);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">// Method Test : get()</FONT>
+<P>		<FONT FACE="Courier New">Object o=list.get(1);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(o);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">// Method Test : indexOf()</FONT>
+<P>		<FONT FACE="Courier New">int i=list.indexOf(&quot;second&quot;);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;second = &quot;+i);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">// Method Test : clear()</FONT>
+<P>		<FONT FACE="Courier New">list.clear();</FONT>
+<P>		<FONT FACE="Courier New">if (list.isEmpty())</FONT>		<FONT FACE="Courier New">{</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;list is Empty&quot;);</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV299.GIF" BORDER=0 ALIGN=LEFT><B><FONT FACE="바탕">실행</FONT></B>
+<IMG SRC="file:///C|/지빠귀/FYXIV300.GIF" BORDER=0 ALIGN=LEFT><B><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">true</FONT></B>
+<P>		<B><FONT FACE="Courier New">true</FONT></B>
+<P>		<B><FONT FACE="Courier New">[one, second, 3rd, 4, 5.0, second, 4, SECOND]</FONT></B>
+<P>		<B><FONT FACE="Courier New">[second, 3rd, 4, 5.0, second, 4, SECOND]</FONT></B>
+<P>		<B><FONT FACE="Courier New">3rd</FONT></B>
+<P>		<B><FONT FACE="Courier New">second = 0</FONT></B>
+<P>		<B><FONT FACE="Courier New">list is Empty</FONT></B>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.4.2 Iterator</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">Collection에 저장되어 있는 Element를 검색하는 절차를 Iteration이라 한다.</FONT>
+<P><FONT FACE="바탕">Set을 사용했을 때는 Collection인터페이스 내의 Iterator를 사용하며, List를 사용했을 때는 List- Iterator를 사용하여 Element를 앞 또는 뒤의 원하는 방향으로 검색할 수 있다. 
+</FONT><BR>
+<P><FONT FACE="바탕">다음 프로그램은 Iterator를 사용하여 Set으로부터 데이터를 검색하는 예를 보인 것이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=452>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">IteratorExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.util.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class IteratorExample {</FONT>
+<P>	
+<P>	<FONT FACE="Courier New">public static void main(String args[]) {</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Set set = new HashSet();</FONT>
+<P>		<FONT FACE="Courier New">set.add(&quot;three&quot;);</FONT>
+<P>		<FONT FACE="Courier New">set.add(&quot;two&quot;);</FONT>
+<P>		<FONT FACE="Courier New">set.add(&quot;four&quot;);</FONT>
+<P>		<FONT FACE="Courier New">set.add(&quot;five&quot;);</FONT>
+<P>		<FONT FACE="Courier New">set.add(new Integer(4));</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Iterator it = set.iterator();</FONT>
+<P>		<FONT FACE="Courier New">while( it.hasNext() ) {</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(it.next());</FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV301.GIF" BORDER=0 ALIGN=LEFT><B><FONT FACE="바탕">실행</FONT></B>
+<IMG SRC="file:///C|/지빠귀/FYXIV302.GIF" BORDER=0 ALIGN=LEFT><B><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">three</FONT></B>
+<P>		<B><FONT FACE="Courier New">two</FONT></B>
+<P>		<B><FONT FACE="Courier New">four</FONT></B>
+<P>		<B><FONT FACE="Courier New">4</FONT></B>
+<P>		<B><FONT FACE="Courier New">five</FONT></B>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">7.4.3 JDK 1.1</FONT><FONT FACE="바탕">의</FONT><FONT FACE="HY부활M"> Collections 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">다음과 같은 클래스가 있는데, 이들은 Thread-safe(single thread)하기 때문에 사용을 권장하지는 않는다.</FONT>
+<BR>
+<P><FONT FACE="바탕">Vector : List 인터페이스를 구현.</FONT>
+<P><FONT FACE="바탕">Stack : Vector클래스의 하위클래스, push(), pop(), peek() 메소드를 지원.</FONT>
+<P><FONT FACE="바탕">Hashtable : Map인터페이스를 구현한 클래스.</FONT>
+<P><FONT FACE="바탕">Enumeration : Vector, Stack, Hashtable에서 Element를 검색</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 Person객체를 Vector클래스에 저장한 예를 보인 것이다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=474>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">VectorExample.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.util.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class VectorExample {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args){</FONT>
+<P>		<FONT FACE="Courier New">Vector v = new Vector();</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">v.addElement(new Person(&quot;</FONT><FONT FACE="바탕">홍길동</FONT><FONT FACE="Courier New">&quot;, 29));</FONT>
+<P>		<FONT FACE="Courier New">v.addElement(new Person(&quot;</FONT><FONT FACE="바탕">이순신</FONT><FONT FACE="Courier New">&quot;, 30));</FONT>
+<P>		<FONT FACE="Courier New">v.addElement(new Person(&quot;</FONT><FONT FACE="바탕">박승규</FONT><FONT FACE="Courier New">&quot;, 65));</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">System.out.println(v);</FONT>
+<P>		<FONT FACE="Courier New">Person p = (Person)v.elementAt(2);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(p.getName());</FONT>
+<P>		<FONT FACE="Courier New">v.remove(1);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(v);</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(v.size());</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(v);</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>		
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=386>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">Person.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">public class Person {</FONT>
+<P>	<FONT FACE="Courier New">private String name;</FONT>
+<P>	<FONT FACE="Courier New">private int age;</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public Person(String name, int age){</FONT>
+<P>		<FONT FACE="Courier New">this.name = name;</FONT>
+<P>		<FONT FACE="Courier New">this.age = age;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public String getName(){</FONT>
+<P>		<FONT FACE="Courier New">return name;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P>	<FONT FACE="Courier New">public int getAge(){</FONT>
+<P>		<FONT FACE="Courier New">return age;</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV303.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV304.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">[Person@ad3ba4, Person@26b249, Person@82f0db]</FONT></B>
+<P>		<B><FONT FACE="바탕">박승규</FONT></B>
+<P>		<B><FONT FACE="Courier New">[Person@ad3ba4, Person@82f0db]</FONT></B>
+<P>		<B><FONT FACE="Courier New">2</FONT></B>
+<P>		<B><FONT FACE="Courier New">[Person@ad3ba4, Person@82f0db]</FONT></B>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV305.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV306.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV307.GIF" BORDER=0 ALIGN=LEFT>
+<P ALIGN=RIGHT>
+<IMG SRC="file:///C|/지빠귀/FYXIV308.GIF" BORDER=0 ALIGN=LEFT><FONT SIZE=7 COLOR=WHITE><SPAN STYLE="font-size:35pt;"><FONT FACE="바탕">[입출력(I/O) 프로그래밍]</FONT></SPAN></FONT>
+<BR>
+<P>
+<P><FONT SIZE=4><SPAN STYLE="font-size:15pt;"><FONT FACE="바탕">일반적으로 입출력은 파일을 읽어오거나 쓰는 작업을 말하는데, 자바에서 입출력은 이와 같은 파일 입출력은 물론이고 인터넷에 있는 URL도 파일처럼 입출력할 수 있는 강력한 API를 제공한다. 그러나 기능이 뛰어난 만큼 다루기 어려운 점도 있다. 따라서 많은 사람들이 입출력 관련 API를 사용할 때 어려움을 겪는 것이 사실이다. 입출력을 이용한 프로그램을 개발할 때, 무엇보다도 API문서를 잘 살펴보는 것이 매우 중요하다.</FONT></SPAN></FONT>
+<BR>
+<BR>
+<P>
+<BR>
+</body>
+
+</html>

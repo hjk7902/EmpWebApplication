@@ -1,0 +1,48 @@
+<style type="text/css">
+<!--
+body{
+
+}
+/* 테이블 */
+table{border:solid 1px; border-color:#CCCCCC; border-collapse:collapse; line-height:200%;
+border-left-width:thick;border-right-width:thick; line-height:100%; margin:center;}
+td { padding:10px; }
+table.title{border:solid 1px; border-color:#CCCCCC; border-collapse:collapse; }
+p { font-size:10pt; line-height:120%;}
+
+/* 타이틀 번호*/
+p.TitleNumber{ color:black; font-family:Courier New; font-size:15pt; font-weight:bold}
+/* 타이틀 */
+p.TitleTitle{ color:black; font-family:Courier New; font-size:15pt; font-weight:bold}
+
+
+/* 서브뷰매뉴*/
+p.TSubmenu{ font-weight:bold;}
+
+/* 테이블 예제 번호*/
+p.CNumber{ line-height:0%; font-family:Courier New;color:blue;}
+
+/* 테이블 예제 소스코드 단계*/
+p.CStep1 {line-height:0%; text-indent:0px; font-family:Courier New;color:red;}
+p.CStep2 {line-height:0%; text-indent:20px; font-family:Courier New;color:red;}
+p.CStep3 {line-height:0%; text-indent:40px; font-family:Courier New;color:red;}
+p.CStep4 {line-height:0%; text-indent:60px; font-family:Courier New;color:red;}
+p.CStep5 {line-height:0%; text-indent:80px; font-family:Courier New;color:red;}
+p.CStep6 {line-height:0%; text-indent:100px; font-family:Courier New;color:red;}
+p.CStep7 {line-height:0%; text-indent:120px; font-family:Courier New;color:red;}
+
+/* 테이블 텍스트 단계*/
+p.TStep {line-height:160%; text-indent:0px; font-family:Courier New;color:#9900FF;}
+p.TStep1 {line-height:0%; text-indent:0px; font-family:Courier New;color:#9900FF;}
+p.TStep2 {line-height:0%; text-indent:20px; font-family:Courier New;color:#9900FF;}
+p.TStep3 {line-height:0%; text-indent:40px; font-family:Courier New;color:#9900FF;}
+p.TStep4 {line-height:0%; text-indent:60px; font-family:Courier New;color:#9900FF;}
+p.TStep5 {line-height:0%; text-indent:80px; font-family:Courier New;color:#9900FF;}
+p.TStep6 {line-height:0%; text-indent:100px; font-family:Courier New;color:#9900FF;}
+p.TStep7 {line-height:0%; text-indent:120px; font-family:Courier New;color:#9900FF;}
+
+/* 테이블 실행결과*/
+p.RResult {line-height:0%; font-weight:bold; text-indent:0px; font-family:Courier New;}
+p.Result {line-height:0%; text-indent:0px; font-family:Courier New;color:#003399;}
+--></style>
+

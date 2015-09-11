@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">8.4</P></td>
+        <td width="518">
+        <p class="TitleTitle">RandomAccessFile</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P>&nbsp;지금까지 살펴본 입출력 클래스는 순차적으로 데이터를 읽어들인다. 즉, 데이터를 읽다가 다시 앞으로 돌아가서 같은 데이터를 읽는 등의 작업을 할 수 없다. 그런데 이러한 방법을 제공하는 입출력 클래스가 바로 RandomAccessFile이다. 사용법은 다음과 같다.<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<p class="TStep1">RandomAccessFile raf = new RandomAccessFile(&quot;c:\config.sys&quot;, &quot;rw&quot;);</TD>
+		</tr>
+		</TABLE>
+		<P>생성자의 첫 번째 인자는 열고자하는 파일명이다. 이때 파일이름은 문자열형태로 사용할 수도 있지만, 앞에서 설명한 파일객체 형태로 사용할 수도 있다. 두 번째 인자는 open한 파일을 어떻게 접근할 것인가 하는 접근모드를 나타낸다. &quot;r&quot;과 &quot;rw&quot;를 사용할 수 있으며 &quot;r&quot;은 읽기 전용, &quot;rw&quot;는 읽기와 쓰기가 가능한 형태를 나타낸다. 
+		<P>RandomAccessFile가 제공하는 유용한 메소드는 다음과 같다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<p class="TStep1">long getFilePointer()  // 현재의 file pointer의 위치를 알아냄.
+			<p class="TStep1">void seek(long pos)    // 원하는 위치로 file pointer를 움직임.
+			<p class="TStep1">long length()          // file의 size를 알아냄.</TD>
+		</tr>
+		</TABLE>
+		<P> 다음 프로그램은 순차파일이 아닌 임의의 파일관리를 위한 예를 보인 것이다. 
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>WriteLog.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.io.*;
+			<P class="CStep1">import java.util.*;
+			<P class="CStep1">public class WriteLog {
+			<P class="CStep2">public static void main(String [] args) throws Exception {
+			<P class="CStep3"><B>RandomAccessFile</B> raf = new <B>RandomAccessFile
+			<P class="CStep3">(&quot;myLog.log&quot;, &quot;rw&quot;)</B>;
+			<P class="CStep3">raf.<B>seek</B>(raf.<B>length()</B>);
+			<P class="CStep3">raf.<B>writeUTF</B>(new Date().toString());
+			<P class="CStep3">raf.close();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>5 : RandomAccessFile객체를 만든다. 접근 모드는 &quot;rw&quot;이다. 
+		<P>6 : 파일포인터를 파일의 맨 뒤로 보낸다. 파일이름에서 알 수 있듯이, 이 파일은 로그(log) 파일이다. 즉, 파일의 뒷부분에 데이터가 계속 기록되는 형태이다. 
+		<P>8 : 현재시간을 알아내서 그 시간을 파일에 저장한다. writeUTF() 메소드는 16 비트 유니코드 문자를 8 비트 문자로 변경하여 저장하는 메소드로, 메모장에서 열면 내용을 알 수 없으나 한글 등의 문서 편집기를 이용하여 한글 완성형으로 열면 그 내용을 확인할 수 있다.
+		</ul></td>
+    </tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">10.4</P></td>
+        <td width="518"><p class="TitleTitle">유용한 JDBC API</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P>&nbsp;다음은 몇 가지 유용하게 사용되는 API를 설명하기로 한다. API문서를 참고하면 데이터베이스 관련 작업을 쉽게 할 수 있다. 이후의 프로그램은 오라클과 MySQL 데이터베이스를 예로 들기로 한다. 만약 다른 데이터베이스를 사용하려면 해당하는 드라이버로 바꾸어 실행해야 한다.
+		</ul>
+		<P class="TSubmenu">10.4.1 PreparedStatement 
+		<ul>
+		<P>같은 SQL을 반복사용하는 경우 문자열로 만드는 것은 번거로운 작업이다. 따라서, 이런 경우 Prepared Statement 인터페이스를 사용한다.  
+		<P>PreparedStatement는 SQL 문자열을 사용하여 미리 준비해 놓는 경우를 말하는데 이때 변경되는 값은 &quot;?&quot;를 사용하여 표현하고 SQL을 실행하기 전에 &quot;?&quot; 값을 setXxx()함수를 이용하여 치환하는 방식이다. setXxx()함수는 setInt(), setLong(),setString().. 등 데이터 타입에 따라 다양한 형태를 취하며 인자(argument)는 &quot;?&quot;의 순번을 준다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%><P>TestPrepared.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.sql.*;
+			<P class="CStep1">public class  TestPrepared {
+			<P class="CStep2">public static void main(String[] args) throws Exception {
+			<P class="CStep2">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);
+			<P class="CStep2">//	Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;); //MySQL
+			<P class="CStep2">Connection conn = DriverManager.getConnection(
+			<P class="CStep2">&quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;,
+			<P class="CStep2">&quot;scott&quot;, &quot;tiger&quot; );
+			<P class="CStep2">//	Connection conn = DriverManager.getConnection(
+			<P class="CStep2">&quot;jdbc:mysql://127.0.0.1:3306/mydb&quot;, &quot;scott&quot;, &quot;tiger&quot; ); 
+			<P class="CStep2">Statement stmt = conn.createStatement();
+			<P class="CStep2">int[] id = { 100, 200, 300 };
+			<P class="CStep2">String[] name = { &quot;AAA&quot;, &quot;BBB&quot;, &quot;CCC&quot; };
+			<P class="CStep2">String[] addr = { &quot;Seoul&quot;, &quot;Pusan&quot;, &quot;Gwangju&quot; }; 
+			<P class="CStep2"><B>String sql = &quot;INSERT INTO address_table (id, name, addr)</B>
+			<P class="CStep2"><B>VALUES ( ?, ?, ? )&quot;;</B><BR>
+			<P class="CStep2"><B>PreparedStatement pstmt = conn.prepareStatement(sql);</B>
+			<P class="CStep2">for(int i=0; i &lt; id.length; i++) { 
+			<P class="CStep3"><B>pstmt.setInt(1, id[i]);</B>
+			<P class="CStep3"><B>pstmt.setString(2, name[i]);</B>
+			<P class="CStep3"><B>pstmt.setString(3, addr[i]);</B>
+			<P class="CStep3"><B>pstmt.executeUpdate(); </B>
+			<P class="CStep2">}
+			<P class="CStep2">ResultSet rset = stmt.executeQuery
+			<P class="CStep2">(&quot;SELECT id, name, addr FROM address_table&quot;); 
+			<P class="CStep2">while(rset.next()) { 
+			<P class="CStep3">System.out.println(&quot;DB로부터 데이터를 가져옵니다.&quot;);
+			<P class="CStep3">System.out.println(&quot;id: &quot; + rset.getInt(1)); 
+			<P class="CStep3">System.out.println(&quot;name: &quot; + rset.getString(2));
+			<P class="CStep3">System.out.println(&quot;addr: &quot; + rset.getString(3)); 
+			<P class="CStep2">} 
+			<P class="CStep2">conn.close();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">10.4.2 CallableStatment 
+		<ul>
+		<P>대부분의 상용 R-DBMS는 내장함수(Stored Procedure)를 제공한다. 내장함수는 빈번하게 사용되는 함수 등을 미리 프로그램하여 컴파일러에 내장시켜 사용자가 함수명만 호출하여 사용하게 만든 방식이다. CallableStatement를 이용하여 사용하게 되는데, CallableStatement는 PreparedStatement를 상속받은 인터페이스이며 인자값 설정은 PreparedStatement로부터 상속받은 setXxx() 메소드를 사용하고, 결과 값을 반환 받으려면 getXxx() 메소드를 이용한다. 내장함수의 호출방법은 다음과 같이 표현하며, 변수는 PreparedStatment와 같이 &quot;?&quot;로 표시한다. 아래의 예에서 보이는 CallableStatement는 MySQL에서는 사용할 수 없다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestCallable.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.sql.*;
+			<P class="CStep1">public class  TestCallable {
+			<P class="CStep2">public static void main(String[] args) throws Exception
+			<P class="CStep2">{
+			<P class="CStep3">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);
+			<P class="CStep3">Connection conn = DriverManager.getConnection(&quot;jdbc:
+			<P class="CStep3">oracle:thin:@127.0.0.1:1521:orcl&quot;, &quot;scott&quot;, &quot;tiger&quot; );
+			<P class="CStep3">Statement stmt = conn.createStatement();
+			<P class="CStep3"><B>String call = &quot;{ ? = call maxplus( ? , ? ) }&quot;;</B> 
+			<P class="CStep3">int result = 0; 
+			<P class="CStep3"><B>CallableStatement cstmt = conn.prepareCall(call); </B>
+			<P class="CStep3"><B>cstmt.setInt(2,500); </B>
+			<P class="CStep3"><B>cstmt.setInt(3,20);</B>	 //(최대값 + 1500) / 20 = 
+			<P class="CStep3"><B>cstmt.registerOutParameter(1, java.sql.Types.INTEGER);</B> 
+			<P class="CStep3">cstmt.execute();        
+			<P class="CStep3">System.out.println(&quot;result:&quot; + <B>cstmt.getInt(1)</B>); 
+			<P class="CStep3">conn.close();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>앞의 예제를 실행시키려면 먼저 오라클의 SQL*Plus에서 다음처럼 테이블을 만들고 데이터를 입력한다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Oracle의 Query문</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">2:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">3:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">4:</TD>
+			<TD WIDTH=92%>
+			<p class="TStep1">CREATE TABLE shares
+			<p class="TStep2">( ssn 		CHAR(15) 	NOT NULL,
+			<p class="TStep2">symbol 	CHAR(8) 	NOT NULL,
+			<p class="TStep2">quantity 	NUMBER(4) 	NOT NULL );
+			<p class="TStep1">INSERT 	INTO 
+			<p class="TStep2">shares(ssn, symbol, quantity)
+			<p class="TStep2">VALUES 	('111-120', 'SUNW', 100);
+			<p class="TStep1">INSERT 	INTO 
+			<p class="TStep2">shares(ssn, symbol, quantity)	
+			<p class="TStep2">VALUES 	('111-120', 'DUKE', 200);
+			<p class="TStep1">COMMIT;</TD>
+		</tr>
+		</TABLE>
+		<P>앞에서처럼 테이블이 만들어지면 다음 내용을 입력하여 maxplus함수를 선언한다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>maxplus 함수 작성</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:</TD>
+			<TD WIDTH=92%>
+			<p class="TStep1">create or replace function maxplus( v_value in number,
+			<p class="TStep1"> v_factor in number )</p>
+			<p class="TStep2">return number is max_quantity number(4); 
+			<p class="TStep2">begin 
+			<p class="TStep3">select max(quantity) into max_quantity from shares; 
+			<p class="TStep3">max_quantity := (max_quantity + v_value) / v_factor; 
+			<p class="TStep3">return(max_quantity);
+			<p class="TStep2">end maxplus; 
+			<p class="TStep1">/</TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242">
+			<P class="Result">result:3</td>
+		</tr>
+		</table>
+		<P>앞에서 quantity 필드의 최대값은 200이고 자바코드에서 데이터베이스의 maxplus함수 인자 값으로 각각 500과 20이 입력되었으므로 (200 + 500) / 20 = 35가 되는 것이다.
+		</ul>
+		<P class="TSubmenu">10.4.3 ResultSetMetaData 
+		<ul>
+		<P>ResultSetMetaData는 ResultSet에 대한 정보 즉, 칼럼명(필드명), 개수, 타입 등 메타정보를 알 수 있는 인터페이스로서 ResultSet의 getMetaData() 메소드를 통해 인스턴스를 얻을 수 있다. 이러한 정보를 이용하면 JDBC 프로그램을 더욱 융통성 있게 만들 수 있다. 다음은 테이블 내의 각 열의 이름을 Header로 출력하는 예제이다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%><P>TestResultSetMetaData.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">7:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">11:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.sql.*;
+			<P class="CStep1">public class  TestResultSetMetaData {
+			<P class="CStep2">public static void main(String[] args) throws Exception{
+			<P class="CStep3">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);
+			<P class="CStep3">//Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;); //MySQL
+			<P class="CStep3">Connection conn = DriverManager.getConnection(
+			<P class="CStep4">&quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;, &quot;scott&quot;, 
+			<P class="CStep4">&quot;tiger&quo3t; );
+			<P class="CStep3">//Connection conn = DriverManager.getConnection(
+			<P class="CStep4">&quot;jdbc:mysql://127.0.0.1:3306/mydb
+			<P class="CStep4">&quot;, &quot;scott&quot;, &quot;tiger&quot; ); 
+			<P class="CStep3">Statement stmt = conn.createStatement();
+			<P class="CStep3">String sql = &quot;SELECT * from address_table&quot;;
+			<P class="CStep3">ResultSet rset = stmt.executeQuery(sql); 
+			<P class="CStep3"><B>ResultSetMetaData rm = rset.getMetaData(); </B>
+			<P class="CStep3">int colCount = <B>rm.getColumnCount()</B>; 
+			<P class="CStep3">// Header print, index가 1부터 시작함
+			<P class="CStep3">for(int i=1; i &lt;= colCount; i++) { 
+			<P class="CStep4">System.out.print(<B>rm.getColumnName(i)</B> + &quot;\t\t&quot;); 
+			<P class="CStep3">}
+			<P class="CStep3">System.out.println(); 
+			<P class="CStep3">// Data print 
+			<P class="CStep3">while(rset.next()) { 
+			<P class="CStep4">System.out.print(rset.getInt(1) + &quot;\t\t&quot;); 
+			<P class="CStep4">System.out.print(rset.getString(2) + &quot;\t\t&quot;); 
+			<P class="CStep4">System.out.print(rset.getString(3));
+			<P class="CStep4">System.out.println();
+			<P class="CStep3">} 
+			<P class="CStep3">conn.close();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">10.4.4 DatabaseMetaData 
+		<ul>
+		<P>DatabaseMetaData는 사용중인 DBMS에 관련된 여러 가지 정보를 얻을 수 있는 인터페이스이다. 시스템 카탈로그, 키 관련사항, 테이블 관련사항, 트랜잭션 관련사항 등 다양한 정보를 제공한다. 하지만 모든 DBMS가 다 지원하는 것은 아니고 일부 함수는 DBMS에 따라 지원하기도 하고, 지원하지 않을 수도 있다. 
+		<P>DatabaseMetaData는 Connection 객체의 getMetaData() 함수를 이용하여 인스턴스를 얻을 수 있다. 
+		<P>다음 프로그램은 JDBC 드라이버의 이름과 버전을 출력하는 예제이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestDatabaseMetaData.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">7:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.sql.*;
+			<P class="CStep1">public class  TestDatabaseMetaData {
+			<P class="CStep2">public static void main(String[] args) throws Exception {
+			<P class="CStep3">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);
+			<P class="CStep3">//Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;); //MySQL
+			<P class="CStep3">Connection conn = DriverManager.getConnection(
+			<P class="CStep4">&quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;,
+			<P class="CStep4">&quot;scott&quot;, &quot;tiger&quot; );
+			<P class="CStep3">//Connection conn = DriverManager.getConnection(
+			<P class="CStep4">&quot;jdbc:mysql://127.0.0.1:3306/mydb&quot;, 
+			<P class="CStep4">&quot;scott&quot;, &quot;tiger&quot; ); 
+			<P class="CStep3"><B>DatabaseMetaData dbmd = conn.getMetaData();</B>
+			<P class="CStep3">System.out.println( <B>dbmd.getDriverName()</B> );
+			<P class="CStep3">System.out.println( <B>dbmd.getDriverVersion()</B> );
+			<P class="CStep3">conn.close();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>여기에 언급되지 않은 API도 많이 있는데 좀더 자세한 내용을 알려면 API문서를 참고하기 바란다.
+		</ul></td>
+    </tr>
+</table>
+</body>
+</html>

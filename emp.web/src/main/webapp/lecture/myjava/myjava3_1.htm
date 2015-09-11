@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">3.1</P></td>
+        <td width="518">
+        <p class="TitleTitle" align="left">은닉(Encapsulation)</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P>&nbsp;은닉은 사용자에게 상세한 내부 구현을 숨기고 필요한 부분만을 보이게 하는 것이다. 은닉을 통해 클래스를 구성하는 필드 중에서 외부로 노출되어서는 안될 필드에 대해  불법적인 접근을 막아 클래스 내부의 정보를 보호하고, 클래스 자체가 훼손되는 것을 막을 수 있다. 따라서, 이러한 내부 데이터에 접근하기 위해 클래스 사용자는 공개된 메소드를 통해서만 내부 데이터에 접근하게 할 수 있다.
+		<P>다음 예를 보기로 하자.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyDate.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class MyDate {
+			<P class="CStep2">public int day;
+			<P class="CStep2">public int month;
+			<P class="CStep2">public int year;
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestMyDate.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestMyDate {
+			<P class="CStep2">public static void main(String[] args) 	{
+			<P class="CStep3">MyDate myBirth = new MyDate();
+			<P class="CStep3"><B>myBirth.day = 32;</B>
+			<P class="CStep3">System.out.println(&quot;Input day is &quot; + myBirth.day);
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242">
+			<P class="Result">My Day is 32</td>
+		</tr>
+		</table>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">5:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">myBirth.day = 32;</TD>
+		</tr>
+		</TABLE>
+		<P>TestMyDate클래스에서 MyDate클래스의 멤버를 참조하는 부분이다. 실제로 날짜 값에는 32라는 값이 존재하지 않지만 여기에서는 아무 제한이 없이 입력이 된다. 이러한 단점을 없애기 위해 MyDate클래스를 다음과 같이 수정한다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyDate.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class MyDate {
+			<P class="CStep2"><B>private</B> int day;
+			<P class="CStep2">private int month;
+			<P class="CStep2">private int year;<P class="CStep1">	<B>public void setDay(int d)</B> {
+			<P class="CStep2">if( (d&lt;1) || (d&gt;31) ) {
+			<P class="CStep3">System.out.println(&quot;잘못된 날짜입력입니다&quot;);
+			<P class="CStep4">} else {
+			<P class="CStep3">day = d;
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2"><B>public int getDay()</B> {
+			<P class="CStep3">return day;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">2:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1"><B>private</B> int day;</TD>
+		</tr>
+		</TABLE>
+		<P>변수선언이 private로 되어있다. private 접근 제한자는 해당 멤버의 참조 범위를 자신의 클래스 내로 한정시키므로 다른 클래스에서 이 변수를 직접 참조할 수 없다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">5:
+			<P class="CNumber">...
+			<P class="CNumber">12:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1"><B>public void setDay(int d)</B> {
+			<P class="CStep1">...
+			<P class="CStep1"><B>public int getDay()</B> {</TD>
+		</tr>
+		</TABLE>
+		<P>이 부분은 변수 day에 값을 입력하기 위해 선언한 메소드이고, 12번째 줄은 day의 값을 알기 위한 메소드이다. 이처럼 특정 변수 값을 알기 위해 메소드를 이용하는데, 5번째 줄과 12번째 줄에서 선언된 메소드를 접근자(일반적으로 <I>getter</I>(accessor)와 <I>setter</I>(mutator)로 나뉘어진다)라고 부르기도 한다. 이처럼 접근이 제한된 변수에 접근하려면 공개된 메소드를 이용해야 한다.
+		<P>접근자를 이용하면 6번째 줄에서처럼 메소드 내에 접근권한 여부를 체크할 수 있는 루틴을 넣을 수 있기 때문에 중요한 데이터나 로직을 숨길 수도 있고, 이를 제어할 수 도 있다. 또 클래스의 유지보수를 쉽게 할 수 있다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestMyDate.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestMyDate {
+			<P class="CStep2">public static void main(String[] args) 	{
+			<P class="CStep3">MyDate myBirth = new MyDate();
+			<P class="CStep1">//myBirth.day = 32; //Error
+			<P class="CStep3"><B>myBirth.setDay(32);</B>
+			<P class="CStep3">System.out.println(&quot;Input day is &quot; + <B>myBirth.getDay()</B>);
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242">
+			<P class="Result">잘못된 날짜입력입니다
+			<P class="Result">Input day is 0 </td>
+		</tr>
+		</table>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">4:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">myBirth.day = 32; //Error</TD>
+		</tr>
+		</TABLE>
+		<P>private로 선언된 day의 값을 직접 변경하려고 했기 때문에 컴파일시 오류가 발생한다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">5:
+			<P class="CNumber">6:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">myBirth.<B>setDay(32)</B>;
+			<P class="CStep1">System.out.println(&quot;Input day is &quot; + myBirth.<B>getDay()</B>);</TD>
+		</tr>
+		</TABLE>
+		<P>day의 값을 변경하거나 얻어내기 위해서 접근자를 사용한다.
+		</td>
+    </tr>
+	</table>
+</body>
+</html>

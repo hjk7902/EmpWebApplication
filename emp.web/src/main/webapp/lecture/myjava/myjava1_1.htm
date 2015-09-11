@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+	<tr>
+		<td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">1.1</P></td>
+		<td width="518">
+		<p class="TitleTitle">자바의 개요</p></td>
+	</tr>
+	</table>
+	
+	<table  class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td>
+        <ul>
+		<p>자바는 C++를 모델로 하여 Sun Microsystems(이하 Sun)사에서 개발한 객체지향 프로그래밍 언어이며 개발환경을 가지고 있다.
+		<P>자바는 운영체제와 관계없이 이식될 수 있도록 고안된 플랫폼 독립적인 언어이다. &quot;플랫폼 독립적이다&quot;는 예를 들어 윈도우에서 실행되는 워드프로세서를 자바로 만들었다면, 같은 프로그램을 유닉스나 매킨토시에서도 그대로 사용할 수 있다는 말이다. 이렇게 플랫폼에 자유로울 수 있는 이유가 바로 각 플랫폼마다 각기 특성에 맞는 자바 가상 기계(JVM : Java Virtual Machine)를 배포하고 있기 때문이다.
+		<P>자바의 실행환경 즉 자바 플랫폼은 자바 API(Application Programming Interface)와 자바 가상 기계(Java Virtual Machine)로 이루어진다. 자바의 실행환경은 운영체제(Operating System)와 하드웨어를 감싸서 자바 프로그램이 동작할 수 있는 환경을 제공하는 역할을 하므로, 이러한 환경에서는 모든 자바 프로그램이 동일하게 동작을 한다.
+		</ul>
+		<P class="TSubmenu">1.1.1 자바의 역사
+		<ul>
+		<P>자바의 탄생 배경을 알면 자바 언어의 특성에 대한 이해가 쉬워진다.
+		<P>1990년대 초 자바는 미국의 Sun Microsystems사의 제임스 고슬링(James Gosling)이 가전제품에 이용할 목적으로 개발을 시작했다. 제임스 고슬링은 특정한 컴퓨터 칩에 대해 컴파일 해야 하는 C 언어의 문제점, 또 가전 제품의 긴 수명으로 인한 완벽한 호환을 가진 소프트웨어의 개발 요구, 가전 제품에 사용될 소프트웨어의 높은 신뢰성 필요 등의 문제들에 봉착하게 되었으며, 이러한 문제의 해결책으로 탄생한 것이 C와 C++의 불필요한 부분이나 문제가 될 부분들을 제거한 새로운 언어인 자바였다. 
+		<P>개발 초기에는 파스칼(UCSD Pascal)언어를 모델로 설계하였으나, 이후 C++로 모델을 변경하였다. 최초로 자바를 이용한 프로젝트는 가전 제품과 전기 기기들을 통합하여 가전제품이나 가정 환경에 새로운 인터페이스를 제공하는 그린 프로젝트(Green Project)(Bill Joy, Patric Naughton, Mike sheridan, James Gosling)였다. 팀의 구성원인 제임스 고슬링은 프로그램의 이름을 Oak라고 명명하였고, 후에 자바(java)라는 이름으로 명명하였다.
+		<P>1994년 인터넷과 그래픽 기반의 월드와이드웹이 확산되면서 기종과 운영체제에 무관한 프로그래밍 언어가 필요함을 느끼게 되었고 개발팀은 곧 이러한 웹 기반의 응용 프로그램에는 자바와 같은 하드웨어 구조에 영향을 받지 않는 중립적인 언어가 이상적이라는 것을 발견하였다. 이에 자바로 만들어진 웹 브라우저인 HotJava(후에 웹러너(webrunner)로 이름이 바뀜)가 탄생하게 되었다. 이것이 최초로 자바를 지원한 웹 브라우저가 되었다. 자바라는 이름은 지역의 어느 커피점 명칭에서 얻었다. 그래서 지금은 웹 페이지에서 항상 끓고 있는 커피를 볼 수 있다.
+		<P>1995년 5월 자바 기술이 처음으로 발표되었고, 정식 버전이 1996년 최초로 발표되었다.
+		<P>1995년 말 Netscape 2.0에서 자바 프로그램(Applet) 실행을 지원하면서부터 자바가 급속히 확산되었고, 1990년대 후반 IBM, Borland, Symantic 등 소프트웨어 업체들이 자바 라이센스를 획득하고, 마이크로소프트사의 Windows 98에 자바가 표준적으로 탑재되면서 자바의 전성기를 맞게 되었다.
+		<P>자바가 원래 가전기기 제어를 위해 고안되었다는 사실은 현재 이러한 기기용으로 자바의 부분집합이라 할 수 있는 PersonalJava(네트웍 연결 가능한 개인용 소비 기기의 자바 소프트웨어 플랫폼), Embedded Java(Embedded 장치-이동 전화, 사무실 주변 기기, 네트웍 라우터, 스위치 등의 장치- 전용 자바 소프트웨어 플랫폼)가 각광을 받고 있는 현실을 잘 설명해준다.
+		<P>또한 근래에는 이동통신기기(Mobile) 분야에 많은 접목이 이루어 지고 있으며, XML이 나온 이후 자바는 또 다른 전성기를 맞게 되었는데. 이는 자바는 Any Where, XML은 Any Thing이라는 점이 서로 잘 맞기 때문이다.
+		</ul>
+		<P class="TSubmenu">1.1.2 자바의 버전
+		<ul>
+		<P>자바의 버전은 JDK가 설치되어 있는 디렉토리(C:\j2sdk\bin)에서 다음 명령으로 확인할 수 있다.
+		<p>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="328">
+			<TD WIDTH="96%">
+			<p class="TStep1"><B>C:\j2sdk\bin&gt;java -version</B>
+		</TABLE>
+		<P><b>▶ Java 1.0.X</b>
+		<P>현재에도 웹 브라우저용 프로그램(애플릿)의 제작 방법으로 많이 사용되며, 자바 열풍의 시초가 되어 애플릿으로 자바를 세상에 알린 버전이다. 현재 대부분의 웹 브라우저가 지원하고 있다.
+		<P><b>▶ Java 1.1.X</b>
+		<P>Java 1.0.X의 업그레이드 된 버전으로서 이벤트 처리부분이 drill-up/drill-down 방식에서 위임형 이벤트 모델(delegation event model) 방식으로 완전히 변경되었다. 또한 1.0.X에 있었던 메소드 중에서 보다 개선된 새로운 메소드로 인해 이전의 메소드에서도 사용은 가능하나 권장하지 않는 메소드(deprecated method)가 나타나게 되었다. 향후의 브라우저는 1.1.X 스타일로 프로그래밍을 하고, 자바빈즈(Java Beans ; 자바 환경에서 컴포넌트를 정의한 것), RMI(원격 메소드 호출), JFC(Swing ; Java의 GUI Frame Work) 등의 확장이 일어나게된다.
+		<P><b>▶ 1.2 Java 2(JDK 1.2.X)</b>
+		<P>1998년 12월에 발표되었고, JFC(Swing)이 통합되었으며, 보다 향상된 보안 모델을 채택하였고, 코드 최적화와 Drag &amp; Drop 기능이 구현되었으며, 음향 지원 기능이 향상되었다. 현재 완벽하게 지원하는 브라우저가 없으며, appletviewer 또는 Java Plug-in을 사용한다. 후에 JDK 1.2.2로 업그레이드되었다.
+		<P><b>▶ 1.3 Java 2 SDK</b>
+		<P>CORBA 프로그래밍에 사용되는 idl2java.exe가 idlj.exe로 바뀌었고, 몇몇 API가 추가된 것을 제외하고는 JDK 1.2.2와 거의 유사하다. 1.3의 경우에는 1.4가 나온 이후에도 1.3.1_03버전이 나오기도 하였다.
+		<P><b>▶ 1.4 Java 2 SDK</b>
+		<P>2002년도 2월에 정식 버전이 나왔으며, 1.3에 비해 많은 기능이 추가되었다.
+		<P><b>▶ 1.5(Java 5)</b>
+		<P>JDK 1.5버전부터는 Java 5라는 이름을 사용한다.
+        </ul></td>
+	</tr>
+	</table>
+</body>
+</html>

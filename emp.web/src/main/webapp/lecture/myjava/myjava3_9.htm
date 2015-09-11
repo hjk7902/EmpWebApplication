@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">3.9</P></td>
+        <td width="518">
+        <p class="TitleTitle">인터페이스</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P> 다중상속을 지원하지는 않지만 필요한 기능이기 때문에 단일상속의 한계점을 극복하기 위해 만든 것이 인터페이스이다.<P>인터페이스는 클래스의 골격만 정의해 놓은 것으로 이를 이용하면 여러 개의 부모를 갖는 효과를 줄 수 있다. 즉 인터페이스는 서로 주고받는 표준을 말하며, 같은 인터페이스를 구현하고 있으면 상대방이 어떻게 구현하였는지는 상관없이 내가 알고있는 방법으로 사용할 수 있게된다.
+		</ul>
+		<P class="TSubmenu">3.9.1 인터페이스 선언
+		<ul>
+		<P>다음은 인터페이스를 선언하는 방법이다.
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<p class="TStep1">interface <I>InterfaceName</I>
+			<p class="TStep1">[extends &lt;<I>SuperInterface&gt; &lt;,SuperInterface&gt;*</I>]{
+			<p class="TStep1"><I>interfaceBody</I>
+			<p class="TStep1">//[public static final]<I> </I>data-type<I> variableName;</I>
+			<p class="TStep1">//[public abstract] return-type <I>methodName</I>;
+			<p class="TStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>인터페이스에 사용되는 필드는 상수(static final 변수)만 가질 수 있고, 메소드는 메소드의 원형만 선언 가능하다. 그리고 메소드의 몸체는 인터페이스를 사용하는 클래스 내에서 구현해야 한다.
+		<P>클래스가 상속 가능한 것처럼 인터페이스도 &quot;extends&quot; 예약어를 사용하면 상속을 받을 수 있으며, 다른 인터페이스를 다중상속 할 수 있다.
+		<P>예를 들면 인어는 사람의 속성과 물고기의 속성을 함께 물려받았다. 그러나 자바에서는 동시에 사람과 물고기의 속성을 함께 상속받지 못하므로 둘 중에서 하나는 인터페이스로 구현하는 것이다. 만약 사람이 클래스로 구현되었다면 물고기는 인터페이스로 구현해야한다. 다음은 물고기 인터페이스를 구현한 예이다.
+		<p>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">interface Aquatic {
+			<P class="CStep2">public void swimming();
+			<P class="CStep2">public void breathUnderWater();
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>위 예에서 2번째 줄과 3번째 줄에서 인터페이스를 선언할 때 메소드 기술시 몸체는 구현하지 않고 원형만 선언했다.(분명히 메소드 선언하는 곳에 &quot;{ }&quot;가 빠져있음.) 실제 메소드의 몸체는 인터페이스를 구현하는 클래스에서 메소드의 몸체를 구현해 주어야 한다.
+		</ul>
+		<P class="TSubmenu">3.9.2 인터페이스 사용
+		<ul>
+		<P>인터페이스를 사용하는 것을 &quot;인터페이스를 구현한다&quot; 라고 하며 &quot;implements&quot;라는 예약어를 이용하는데, 클래스 선언부에서 상속받을 클래스 이름 다음에 &quot;implements&quot;라 기술하고 인터페이스 이름을 쓴다. 만약 여러 개의 인터페이스를 구현할 때에는 &quot;,&quot;로 구분하여 나열한다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<P class="CStep1">class <I>className</I> <B>implements </B><I><B>InterfaceName1</B></I>, <I><B>InterfaceName2, ... </B></I>{
+			<P class="CStep2"><I>classBody;</I>
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음은 사람속성은 상속받고, 물고기속성은 인터페이스를 구현하여 인어를 만드는 예이다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class Mermaid extends Human <B>implements</B> Aquatic {
+			<P class="CStep2">public void swimming() {
+			<P class="CStep3">//실제 수영 부분을 구현
+			<P class="CStep2">}
+			<P class="CStep2">public void breathUnderWater(){ }
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>2번째 줄이 인터페이스를 사용한 부분이다.(이곳에는 &quot;{ }&quot;가 있음.) 인터페이스를 구현할 때 메소드 재정의 규칙을 따라야하며, 인터페이스에 선언된 메소드 중 실제사용하지 않는 메소드가 있어도 클래스 내에서는 모두 구현해 주어야한다.
+		<P>앞에서 설명한 인터페이스의 구현과 사용 예를 들면 다음과 같다.
+		<P>다음은 도형의 넓이를 구하는 프로그램을 작성하기 위한 인터페이스이다. 실제 도형의 넓이는 종류에 따라 서로 다른 식을 갖게되는데, 도형의 넓이를 구하는 클래스를 만들 때 정의한 Shape인터페이스를 implements할 경우 사용하는 식이 무었이든 구현부와는 관계없이 calcArea() 메소드를 사용하면 도형의 넓이를 구할 수 있다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Shape.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public <B>interface</B> Shape{
+			<P class="CStep2"><B>public double calcArea();</B>
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Rectangle.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Rectangle <B>implements Shape </B>{
+			<P class="CStep2">int width;
+			<P class="CStep2">int height;
+			<P class="CStep2">public Rectangle(int init_width, int init_height) {
+			<P class="CStep3">width = init_width;
+			<P class="CStep3">height = init_height;
+			<P class="CStep2">}
+			<P class="CStep2"><B>public double calcArea() {</B>
+			<P class="CStep3">return 	width * height;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Triangle.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Triangle <B>implements Shape</B> {
+			<P class="CStep2">int width;
+			<P class="CStep2">int height;
+			<P class="CStep2">public Triangle(int init_width, int init_height) {
+			<P class="CStep3">width = init_width;
+			<P class="CStep3">height = init_height;
+			<P class="CStep2">}
+			<P class="CStep2"><B>public double calcArea() {</B>
+			<P class="CStep3">return 	width * height / 2;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestArea.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestArea {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">Rectangle rect = new Rectangle(20,34);
+			<P class="CStep3">Triangle tri = new Triangle(20,34);
+			<P class="CStep3">System.out.println(&quot;rect's Area = &quot; + <B>rect.calcArea()</B>);
+			<P class="CStep3">System.out.println(&quot;tri's Area = &quot; + <B>tri.calcArea()</B>);
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242">
+			<P class="Result">rect's Area = 680.0
+			<P class="Result">tri's Area = 340.0</td>
+		</tr>
+		</table>
+		<P>앞의 예에서처럼 개발자가 인터페이스 내용에 대해 알고있으면 실제구현에 관계없이 해당 인터페이스를 보고 사용할 수 있다. 대표적인 예가 JDBC 인터페이스인데, JDBC인터페이스는 자바와 데이터베이스 연결을 위해 제공하고있는 일종의 설명서이다. 이 인터페이스의 구현은 각 데이터베이스 제조사가 구현하게 되는데, 개발자는 구현된 구체적인 내용을 몰라도 인터페이스를 보고 프로그램을 작성할 수 있는 것이다.
+		</ul>
+		<P class="TSubmenu">3.9.3 인터페이스의 멤버
+		<ul>
+		<P>인터페이스 내의 변수는 자동으로 public static final로 선언되며, 메소드는 body가 없어야 하며 자동으로 public abstract로 선언된다.
+		<P>다음은 인터페이스 내에 선언된 멤버가 실제로 선언되는 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyInterface.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">interface MyInterface{
+			<P class="CStep2">public static final int A = 11;      
+			<P class="CStep2">int My_INT = 22; //이렇게 해도 public static final 이다.
+			<P class="CStep2">public /* abstract */ void run();           
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestInterface.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestInterface implements MyInterface{
+			<P class="CStep2">public void run(){ 
+			<P class="CStep2">//My_INT  = 33; //Error - MyInterface의 final 변수임
+			<P class="CStep3">System.out.println(&quot;run() : &quot; + MyInterface.A); 
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String args[]){
+			<P class="CStep3">System.out.println(MyInterface.My_INT);
+			<P class="CStep3">System.out.println(TestInterface.My_INT);
+			<P class="CStep3">MyInterface t1 = new TestInterface();
+			<P class="CStep3">t1.run();
+			<P class="CStep3">TestInterface t2 = new TestInterface();
+			<P class="CStep3">t2.run();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242">
+			<P class="Result">22
+			<P class="Result">22
+			<P class="Result">run() : 11
+			<P class="Result">run() : 11</td>
+		</tr>
+		</table>
+		</ul>
+		<P class="TSubmenu">3.9.4 인터페이스 다중상속
+		<ul>
+		<P>인터페이스는 다른 인터페이스를 다중상속 받을 수 있다. 다음은 인터페이스 다중상속에 대한 예를 보인다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyInterface1.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">interface MyInterface1 {
+			<P class="CStep2">void m1();
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyInterface2.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">interface MyInterface2 {
+			<P class="CStep2">void m2();
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyInterface3.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">interface MyInterface3 <B>extends MyInterface1, MyInterface2</B> {
+			<P class="CStep2">void m3();
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음은 한 클래스가 여러 인터페이스를 구현하는 예를 보이고 있다. 하나의 클래스는 여러 개의 서로 다른 인터페이스를 구현할 수 있는데, 다음처럼 MyInterface3을 implements할 때는 MyInterface3이 갖고있는 메소드는 물론이고, 부모 인터페이스인 MyInterface1과 MyInterface2의 메소드도 구현해야 한다. MyClass의 main()안에서 보인 것처럼 인터페이스를 구현했을 때도 상속과 마찬가지로 다형성이 적용된다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyInterface4.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">interface MyInterface4 {
+			<P class="CStep2">void m4();
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyClass.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class MyClass <B>implements MyInterface3, MyInterface4</B> {
+			<P class="CStep2">public void m1() {
+			<P class="CStep3">System.out.println(&quot;m1() 구현&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void m2() {
+			<P class="CStep3">System.out.println(&quot;m2() 구현&quot;); 
+			<P class="CStep2">}
+			<P class="CStep2">public void m3() {
+			<P class="CStep3">System.out.println(&quot;m3() 구현&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void m4() {
+			<P class="CStep3">System.out.println(&quot;m4() 구현&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">MyClass mc = new MyClass();
+			<P class="CStep3">MyInterface3 i3 = mc; //다형성이 적용됨
+			<P class="CStep3">i3.m1();
+			<P class="CStep3">i3.m2();
+			<P class="CStep3">i3.m3();
+			<P class="CStep3">//i3.m4();  //Error - MyInterface3 에는 m4()가 없다.
+			<P class="CStep3">MyInterface4 i4 = mc;
+			<P class="CStep3">i4.m4();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242">
+			<P class="Result">m1() 구현
+			<P class="Result">m2() 구현
+			<P class="Result">m3() 구현
+			<P class="Result">m4() 구현</td>
+		</tr>
+		</table>
+		</ul></td>
+    </tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">8.3</P></td>
+        <td width="518">
+        <p class="TitleTitle">파일과 URL 객체</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+		<td width="1101">
+		<P class="TSubmenu">&nbsp;8.3.1 파일객체
+		<ul>
+		<P>이제 구체적으로 지역 pc의 파일을 다루는 법에 대해서 알아보자.
+		<P>앞의 예에서는 파일을 지정할 때, 파일이름을 문자열 형태로 주었다. 물론 그런 방법으로 파일을 지정할 수도 있지만, 자바에서 제공하는 File클래스를 이용할 수도 있다.
+		<P>파일클래스는 단순하게 파일을 지정하는 목적으로만 사용되는 것은 아니고 매우 다양한 API가 있는데, 이를 이용하면 파일과 관련된 대부분 작업을 수행할 수 있다. 
+		<P>다음 예제는 File객체를 생성하는 방법을 기술한 것이다.
+		<P><TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=2%></TD>
+			<TD WIDTH=97%>
+			<p class="TStep1"><B>File </B>someFile, someDir, otherFile;
+			<p class="TStep1">someFile = new <B>File</B>(&quot;c:\autoexec.bat&quot;);
+			<p class="TStep1">someDir = new <B>File</B>(&quot;c:\&quot;);
+			<p class="TStep1">otherFile = new <B>File</B>(someDir, &quot;config.sys&quot;);</TD>
+		</tr>
+		</TABLE>
+		<P>파일객체가 파일만 가리키는 것은 아니고 위와 같이 디렉토리도 지칭할 수 있음을 기억하기 바란다. 파일클래스에 있는 많은 유용한 API는 API 문서를 통해 직접 찾아보기 바란다.<P>다음 프로그램은 C드라이브의 루트 디렉토리 내에 있는 파일 및 디렉토리 목록을 보여주는 예제이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></TD>
+			<TD WIDTH=92%>
+			<P>FileList.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.io.*;
+			<P class="CStep1">public class FileList {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">File myFile = new File(&quot;c:/&quot;);
+			<P class="CStep3">String[] listing = myFile.list();
+			<P class="CStep3">for (int i=0; i&lt;listing.length ;i++ ) 		{
+			<P class="CStep4">System.out.println(listing[i]);
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음은 파일클래스의 유용한 메소드를 나타낸 것이다.
+		<P>▒ 파일이름과 관련된 메소드
+		<P> &middot; String getName() : 파일이름을 반환한다.
+		<P> &middot; String getPath() : 파일경로를 반환한다.
+		<P> &middot; String getAbsolutePath() : 파일의 절대경로를 반환한다.
+		<P> &middot; String getParent() : 파일이 속한 경로를 반환한다.
+		<P> &middot; boolean renameTo(File newName) : 파일명을 변경한다. 변경하고자 하는 파일이 이미 존재할 경우나, 접근권한 등의 이유로 파일명이 변경되지 않으면 false를 반환한다.
+		<P>▒ 파일정보를 알아내는 메소드
+		<P> &middot; long lastModified() : 마지막으로 수정된 날짜를 long형으로 반환한다.
+		<P> &middot; long length() : 파일길이를 반환한다.
+		<P> &middot; boolean delete() : 파일을 삭제한다. 삭제되지 않으면 false를 반환한다.
+		<P>▒ 파일을 테스트하는 메소드
+		<P> &middot; boolean exist() : 파일의 존재여부를 알아낸다. 파일이 있으면 true, 없으면 false를 반환한다.
+		<P> &middot; boolean canWrite() : 쓰기 권한을 가졌는지 알아본다. 쓰기 가능하면 true를 반환한다.
+		<P> &middot; boolean canRead() : 읽을 권한이 있는지를 알아본다.
+		<P> &middot; boolean isFile() : 파일인지 알아본다. 파일이면 true를 반환하고, 디렉토리 폴더이면 false를 반환한다.
+		<P> &middot; boolean isDirectory() : 디렉토리인지 알아본다. 디렉토리이면 true를 반환한다.
+		<P> &middot; boolean isAbsolute() : 절대경로를 가졌는지 알아본다.
+		<P>▒ 디렉토리 관련 메소드
+		<P> &middot; boolean mkdir() : 새로운 디렉토리를 만든다. 디렉토리 생성에 실패하면 false를 반환한다.
+		<P> &middot; String[] list() : 디렉토리 내의 파일 또는 디렉토리를 반환한다.
+		</ul>
+		<P class="TSubmenu">8.3.2 URL 객체
+		<ul>
+		<P>파일클래스가 로컬컴퓨터에 있는 파일을 참조한다면 인터넷상에 있는 주소(URL)를 참조할 수 있는 클래스도 있는데 바로 URL 클래스이다. 
+		<P>다음 프로그램은 URL 클래스를 이용하여 인터넷상의 원하는 페이지를 읽어오는 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></TD>
+			<TD WIDTH=92%>
+			<P>GetIndexHtml.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+		<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.io.*;
+			<P class="CStep1">import java.net.*;
+			<P class="CStep1">public class GetIndexHtml {
+			<P class="CStep2">public static void main(String [] args) throws Exception {
+			<P class="CStep3">if (args.length &lt; 2 ) {
+			<P class="CStep4">System.out.println(&quot;Usage : java GetIndexHtml
+			<P class="CStep4"><I>URL file</I>&quot;);
+			<P class="CStep4">return;
+			<P class="CStep3">}
+			<P class="CStep3">byte [] inputString = new byte[1024];
+			<P class="CStep3"><B>InputStream is = (new URL(args[0])).openStream();</B>
+			<P class="CStep3">FileOutputStream fos = new FileOutputStream(args[1]);
+			<P class="CStep3">while(is.read(inputString,0,inputString.length) != -1)
+			<P class="CStep3">{
+			<P class="CStep4">fos.write(inputString);
+			<P class="CStep3">}
+			<P class="CStep3">fos.close();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>10 : URL 클래스의 객체를 생성한다. 생성된 객체의 openStream() 메소드를 호출하면 InputStream객체가 반환된다. 따라서, 인터넷상의 URL을 마치 로컬 컴퓨터의 파일처럼 다룰 수 있다. 
+		<P>앞의 프로그램을 실행시키는 방법은 다음과 같다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=539>
+			<TD WIDTH=100%>
+			<p class="TStep1"> &gt; java GetIndexHtml  http://java.sun.com  index.html</TD>
+		</tr>
+		</TABLE>
+		</ul></td>
+    </tr>
+	</table>
+</body>
+</html>

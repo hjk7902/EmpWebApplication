@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">10.3</P></td>
+        <td width="518"><p class="TitleTitle">JDBC 프로그램 구조</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P>&nbsp;JDBC 프로그램을 이해하려면 데이터베이스를 사용하는데 필요한 몇 가지 절차를 확실하게 이해해야 한다.
+		<P>▒ JDBC 프로그램 작성과정은 다음과 같다.
+		<P>1. 드라이버를 로딩한다. 
+		<P>2. 데이터베이스와 연결하여 Connection 객체를 얻는다. 
+		<P>3. Connection으로부터 SQL을 실행하기 위한 Statement 객체를 얻는다.
+		<P>4. Statement 객체의 메소드를 이용하여 SQL을 실행한다. 
+		<P>5. SQL 실행결과인 ResultSet 객체를 얻는다.(SELECT문 경우) 
+		<P>6. ResultSet 객체의 결과를 반복문을 이용하여 처리한다. 
+		</ul>
+		<P class="TSubmenu">10.3.1 드라이버 로딩(Driver Loading)
+		<ul>
+		<P>JDBC드라이버를 로딩하는 방법은 크게 4가지가 있는데 본교재에서는 세 번째 방법을 사용하겠지만 다른 방법도 참고로 알고 있으면 좋을 것이다.
+		<P>[방법 1]
+		<P>JDBC 드라이버를 설치한 후 프로그램에서 해당 드라이버를 로딩하려면 다음과 같이 java.sql 패키지에 있는 DriverManger의 registerDriver() 메소드를 이용한다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Driver Manager에 등록 - Oracle</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">DriverManager.registerDriver
+			<p class="TStep2">(new oracle.jdbc.driver.OracleDriver());</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Driver Manager에 등록 - MySQL</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());</TD>
+		</tr>
+		</TABLE>
+		<P>new oracle.jdbc.driver.OracleDriver()는 해당 드라이버의 인스턴스를 생성한다. 명칭이 길어서 불편하지만 오라클측에서 만든 명칭이기 때문에 그대로 사용할 수 밖에 없다. 만약 다른 데이터베이스를 사용한다면 해당 데이터베이스의 JDBC 메뉴얼을 통하여 어떤 이름으로 드라이버의 인스턴스를 만들어야 하는지 익혀야 한다.  
+		<P>[방법 2]
+		<P>DriverManager클래스를 사용하지 않고 다음과 같이 해당 드라이버의 인스턴스만 생성해도 자동으로 로딩된다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%><p class="TStep1">해당 드라이버의 인스턴스만 생성 - Oracle</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">new oracle.jdbc.driver.OracleDriver()</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">해당 드라이버의 인스턴스만 생성 - MySQL</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">new org.gjt.mm.mysql.Driver();</TD>
+		</tr>
+		</TABLE>
+		<P>[방법 3]
+		<P>System 패키지의 Class 클래스의 API를 이용하면 문자열을 이용하여 드라이버를 로딩할 수 있다.  
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Class.forName() 사용 - Oracle</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Class.forName() 사용 - MySQL</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;);</TD>
+		</tr>
+		</TABLE>
+		<P>Class.forName() 메소드는 ClassNotFoundException을 발생하므로 해당하는 예외처리를 해 주어야 한다.
+		<P>DriverManager에 등록하거나 Class.forName()을 이용해도 모두 비슷하지만 new를 이용할 때에는 먼저 클래스 파일을 컴파일할 때 체크해야하고, Class.forName()을 이용할 때는 실행시 체크해야 한다. 또한 new를 이용하여 객체를 직접 생성할 경우에는 해당하는 드라이버의 static 블록에서도 객체를 만들기 때문에 사실상 객체가 두 개씩 만들어진다. 따라서, Class.forName()을 사용하는 것이 더 편리하다.
+		<P>[방법 4]
+		<P>다음과 같이 프롬프트 상에서 자바를 실행하면서 JVM의 jdbc.drivers 프로퍼티를 설정하는 방법도 있다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">System Property 사용 - Oracle</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">&gt; java -D jdbc.drivers=oracle.
+			<p class="TStep1">jdbc.driver.OracleDriver SimpleJDBC </TD>
+		</tr>
+		</TABLE>
+		<p class="TStep1">
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">System Property 사용 - MySQL</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">&gt; java -D jdbc.drivers=org.gjt.mm.mysql.Driver SimpleJDBC </TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">10.3.2 Connection 객체 생성
+		<ul>
+		<P>Connection 객체를 얻는 방법은 DriverManager 클래스의 getConnection() 메소드를 이용한다. 하지만 시스템에 로딩된 어떤 드라이버의 Connection을 가져올 것인지는 URL을 이용하여 결정해야 한다. (JVM은 여러 가지 드라이버가 로딩될 수 있기 때문. ) 이 외에 데이터베이스 사용자 아이디와 암호를 주어야 한다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Connection 객체 생성</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Connection con = DriverManager.getConnection
+			<p class="TStep1">( URL, ID, PASSWD );</TD>
+		</tr>
+		</TABLE>
+		<P>	URL - Oracle : jdbc:oracle:thin:@127.0.0.1:1521:database_SID
+		<P>	        MySQL : jdbc:mysql://127.0.0.1:3306/database_name
+		<P>	        ID : 아이디
+		<P>	        PASSWD : 비밀번호<BR>
+		<P>▒ 오라클의 경우 ID와 PASSWD는 scott과 tiger를 사용한다.
+		<P>URL(Unified Resource Locator)은 DBMS가 설치된 컴퓨터가 어디인가를 알려주는 역할을 하는데, JDBC 드라이버를 만든 회사측에서 제공하는 고유의 String을 알아야 하기 때문에 해당 드라이버의 JDBC 메뉴얼을 참고해야 한다. 
+		</ul>
+		<P class="TSubmenu">10.3.3 Statement 객체생성
+		<ul>
+		<P>마지막으로 SQL을 수행하려면 Statement 객체를 Connection 객체로부터 얻어야 한다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Statement 객체 생성</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">Statement stmt = conn.createStatement(); </TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">10.3.4 Statement 객체의 메소드를 이용한 SQL 실행 
+		<ul>
+		<P>데이터베이스를 이용하려면 SQL문을 문자열로 만들어 실행해야 한다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%><p class="TStep1">SELECT문</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">String sql = &quot;SELECT id, name, addr FROM address_table&quot;;
+			<p class="TStep1">ResultSet rset = stmt.executeQuery(sql); </TD>
+		</tr>
+		</TABLE>
+		<P>SELECT 문은 Statement객체의 executeQuery() 메소드를 사용한다. 반환값은 ResultSet 객체이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">DML(INSERT, UPDATE, DELETE) 및 DDL(CREATE TABLE, DROP TABLE,
+        <p class="TStep1"> ALTER TABLE) 등</p>
+</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">String sql = &quot;INSERT INTO address_table ( id, name, addr )
+			<p class="TStep1"> VALUES ( 5, 'JAMES', 'NEW YORK' ) 	&quot;;</p>
+			<p class="TStep1">int  count = stmt.executeUpdate(sql); </TD>
+		</tr>
+		</TABLE>
+		<P>Statement 객체의 executeUpdate() 메소드를 사용한다. 반환값은  처리된 행(row)의 개수이다. 
+		</ul>
+		<P class="TSubmenu">10.3.5 질의결과 얻기(SELECT문)
+		<ul>
+		<P>SELECT문 이외의 질의문을 사용하려면 executeUpdate()메소드를 이용하는데 이때의 결과는 질의문이 적용된 행의 수를 반환한다. 하지만 SELECT 문일 경우 Statment.executeQuery() 메소드의 반환값이 ResulSet이므로 다음과 같이 ResultSet 객체를 얻는다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">SELECT문</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<p class="TStep1">String sql = &quot;SELECT id, name, addr FROM address_table&quot;;
+			<p class="TStep1">ResultSet rset = stmt.executeQuery(sql); </TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">10.3.6 데이터 추출
+		<ul>
+		<P>executeQuery() 메소드로부터 ResultSet 객체를 얻은 다음 테이블에서 원하는 결과를 얻어낸다. ResultSet은 2차원 테이블에서 결과를 유도해 낼 수 있다. 첫 번째 레코드에 접근하려면 next() 메소드를 호출하는데 레코드가 있으면 진(true)를 반환하고, 없으면 위(false)를 반환한다. 그 다음 레코드도 마찬가지로 next()를 이용하여 다음 레코드로 이동하게 된다.  
+		<P>원하는 데이터를 얻기 위해서는 getString(), getInt(), getDate(), getObject() ... 등의 메소드를 데이터 타입에 맞도록 사용한다. SELECT된 한 행에서 데이터의 순서는 0부터 시작하는 것이 아니고 1부터 시작한다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<P>Looping 처리</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=3%></td>
+			<TD WIDTH=96%>
+			<P class="CStep1">while(rset.next()) { 
+			<P class="CStep2">System.out.println(rset.getInt(1)); 
+			<P class="CStep2">System.out.println(rset.getString(2)); 
+			<P class="CStep2">System.out.println(rset.getString(3)); 
+			<P class="CStep1">} </TD>
+		</tr>
+		</TABLE>
+		</ul></td>
+    </tr>
+</table>
+</body>
+</html>

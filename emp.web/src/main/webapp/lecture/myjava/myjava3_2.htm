@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">3.2</P></td>
+        <td width="518">
+        <p class="TitleTitle">상속(Inheritance)</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P>&nbsp;객체지향 프로그래밍에서 상속은 기존의 클래스를 확장하여 새로운 클래스를 이끌어내는 것을 의미한다. UML(Unified Modeling Language) 표기법으로는 &quot;is a&quot; 관계라고 한다. 상속은 불필요한 코드를 재 작성하는 것을 없애고, 기존의 코드를 재사용하고 쉽게 확장함으로써 시간과 노력을 줄일 수 있다.<P>상속은 단일 상속만 지원하고, 클래스의 멤버(변수와 메소드)에서만 이루어지며, 생성자는 상속되지 않는다.
+		<P>어떤 클래스가 다른 클래스로부터 상속을 받아 만들어지면 새롭게 만들어진 클래스는 자손(child 또는 sub)클래스가 되고, 변수와 메소드를 물려준 클래스는 부모(parent 또는 super)클래스가 된다.
+		</ul>
+		<P class="TSubmenu">3.2.1 상속 - Problem
+		<ul>
+		<P>다음은 학교 인적자원 관리 프로그램에서 사용되는 클래들이다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Person.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Person {
+			<P class="CStep2">public String name;
+			<P class="CStep2">public int age;
+			<P class="CStep2">ublic String getDetails() {
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이: &quot; + age;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Student.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">&nbsp;	
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Student {
+			<P class="CStep2">public String name;
+			<P class="CStep2">public int age;
+			<P class="CStep2">public String studentId;
+			<P class="CStep2">public String getDetails() {
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이 : &quot; + age + &quot;\t
+			<P class="CStep3">학번: &quot; + studentId;
+			<P class="CStep1">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Teacher.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Teacher {
+			<P class="CStep2">public String name;
+			<P class="CStep2">public int age;
+			<P class="CStep2">public String subject;
+			<P class="CStep2">public String getDetails() {
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이 : &quot; + age + &quot;\t
+			<P class="CStep3">과목: &quot; + subject;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Employee.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Employee {
+			<P class="CStep2">public String name;
+			<P class="CStep2">public int age;
+			<P class="CStep2">public String departmen;
+			<P class="CStep2">public String getDetails() {
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이 : &quot; + age + &quot;\t
+			<P class="CStep3">부서: &quot; + department;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>앞의 4개의 클래스는 모두 비슷한 면이 있다. 사실 Student도 Person이고, Teacher도 Person이며 Employee도 Person이다. 어떤 경우에는 클래스끼리 서로 중복되는 자료가 있을 수 있다. 여기서는 모두 Person클래스가 가지고 있는 변수인 name과 age, 그리고 getDetails() 메소드를 가지고 있다. 이처럼 서로 중복된 자료를 공유해서 사용하기 위한 방법이 상속의 개념이다.
+		</ul>
+		<P class="TSubmenu">3.2.2 상속 - Solution
+		<ul>
+		<P>다음은 앞의 클래스를 상속이라는 개념을 적용하여 재 작성한 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Person.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Person {
+			<P class="CStep2">public String name;
+			<P class="CStep2">public int age;
+			<P class="CStep2">public String getDetails() {
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이: &quot; + age;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Student.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Student <B>extends Person</B>{
+			<P class="CStep2">public String studentId;
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Teacher.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Teacher <B>extends Person</B>{
+			<P class="CStep2">public String subject;
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Employee.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Employee <B>extends Person</B>{
+			<P class="CStep2">	public String department;
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>상속받을 때 사용하는 키워드는 extends이다. Student클래스가 Person클래스를 상속받으면 Person클래스가 가지고 있는 것을 Student클래스가 갖게 된다. 이때 Person클래스를 부모클래스라 부르고, Student클래스를 자손클래스라 부른다. 이 같은 상속 관계를 &quot;is a relation&quot;이라고 하는데 &quot;Student is a Person&quot;이라는 뜻이다. 상속은 부모의 모든 것을 계승하기 때문에 자손은 부모와 같다고 해도 무리가 아니다.
+		<P>다음은 위의 상속이 제대로 이루어 졌는지를 테스트하는 프로그램이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestInheritance.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestInheritance {
+			<P class="CStep2">public static void main(String[] args) 	{
+			<P class="CStep3">Person p = new Person();
+			<P class="CStep3">p.name = &quot;홍길동&quot;;
+			<P class="CStep3">p.age = 25;
+			<P class="CStep3">System.out.println( p.getDetails() );
+			<P class="CStep3">Student s = new Student();
+			<P class="CStep3">s.name = &quot;이순신&quot;;
+			<P class="CStep3">s.age = 30;
+			<P class="CStep3">s.studentId = &quot;20001234&quot;;
+			<P class="CStep3">System.out.println( s.getDetails() );
+			<P class="CStep3">Teacher t = new Teacher();
+			<P class="CStep3">t.name = &quot;박승규&quot;;
+			<P class="CStep3">t.age = 40;
+			<P class="CStep3">t.subject = &quot;자바프로그래밍&quot;;
+			<P class="CStep3">System.out.println( t.getDetails() );
+			<P class="CStep3">Employee e = new Employee();
+			<P class="CStep3">e.name = &quot;이국&quot;;
+			<P class="CStep3">e.age = 30;
+			<P class="CStep3">e.department = &quot;교무처&quot;;
+			<P class="CStep3">System.out.println( e.getDetails() );
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242">
+			<P class="Result">이름: 홍길동    나이: 25
+			<P class="Result">이름: 이순신    나이: 45
+			<P class="Result">이름: 박승규    나이: 40
+			<P class="Result">이름: 이국      나이: 30</td>
+		</tr>
+		</table>
+		<P>상속에서 기억해야 할 점은 &quot;생성자(Constructor)는 상속되지 않는다&quot;는 점과 &quot;다중상속이 아닌 단일상속이다&quot;는 것이다. 즉, 여러 부모클래스로부터 상속받는 것을 지원하지 않는다. 다중상속은 장점도 있지만 코드를 굉장히 모호하게 만들 수 있는 단점이 있다. 따라서 다중상속의 단점을 없애기 위해 단일상속만 지원하고, 다중상속의 장점을 살리기 위해서 인터페이스라는 것을 만들었다. 나중에 배우겠지만 인터페이스를 사용하면 다중상속의 장점을 충분히 살릴 수 있다. 
+		<P>extends 구문이 없으면 컴파일러는 모든 클래스의 최상위 클래스인 Object클래스를 상속받도록 &quot;extends Object&quot;구문을 삽입한다. 앞의 Person클래스는 사실상 다음과 같이 선언된 것과 같다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Person.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Person <B>extends Object</B>{
+			<P class="CStep1">	...	
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">3.2.3 재정의(Overriding)
+		<ul>
+		<P>재정의란 부모클래스로부터 상속받은 메소드를 자식클래스에서 행위를 바꾸거나 보완하기 위해 다시 정의해서 사용하는 것을 말한다. 이는 부모클래스에서 특별한 용도로 사용하던 메소드를 자식클래스에서는 그 용도를 달리하고자할 때 사용한다.
+		<P>앞의 예에서 Student, Teacher, Employee클래스는 모두 Person클래스를 상속받았으므로 getDetails()메소드의 경우 Person클래스에서 정의된 것을 사용해야 하는데, Person클래스에 있는 getDetails()메소드를 Student, Teacher, Employee클래스에서 다른 용도로 사용하고 싶으면 다음과 같이 재정의 한다.
+		<P>다음은 Student, Teacher, Employee클래스에서 getDetails()메소드를 재 정의한 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Person.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Person {
+			<P class="CStep2">protected String name;
+			<P class="CStep2">protected int age;
+			<P class="CStep2"><B>public String getDetails() {</B>
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이: &quot; + age;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Student.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">5:
+			<P class="CNumber">6:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Student extends Person{
+			<P class="CStep2">protected String studentID;
+			<P class="CStep2"><B>public String getDetails() {</B>
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이: &quot; + age + &quot;\t
+			<P class="CStep3">학번: &quot; + studentID;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Teacher.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">5:
+			<P class="CNumber">6:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Teacher extends Person{
+			<P class="CStep2">protected String subject;
+			<P class="CStep2"><B>public String getDetails() {</B>
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이: &quot; + age + &quot;\t
+			<P class="CStep3">과목: &quot; + subject;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Employee.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Employee extends Person{
+			<P class="CStep2">protected String department;
+			<P class="CStep2"><B>public String getDetails() {</B>
+			<P class="CStep3">return &quot;이름 : &quot; + name + &quot;\t나이: &quot; + age + &quot;\t
+			<P class="CStep3">부서: &quot; + department;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음은 앞의 상속에서 사용되었던 예제를 복사해와 실행시켜보면 그 결과를 쉽게 확인할 수 있다. 앞의 상속 예에서는 getDetails()메소드를 호출했을 때 모두 name과 age필드만 출력되었으나 재 정의된 클래스를 가지고 수행시키면 각각의 클래스가 가지고있는 필드가 출력된 것을 확인할 수 있다.  
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestOverriding.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestOverriding {
+			<P class="CStep2">public static void main(String[] args) 	{
+			<P class="CStep3">Person p = new Person();
+			<P class="CStep3">p.name = &quot;홍길동&quot;;
+			<P class="CStep3">p.age = 25;
+			<P class="CStep3">System.out.println( p.<B>getDetails()</B> );
+			<P class="CStep3">Student s = new Student();
+			<P class="CStep3">s.name = &quot;이순신&quot;;
+			<P class="CStep3">s.age = 30;
+			<P class="CStep3">s.studentID = &quot;20001234&quot;;
+			<P class="CStep3">System.out.println( s.<B>getDetails()</B> );
+			<P class="CStep3">Teacher t = new Teacher();
+			<P class="CStep3">t.name = &quot;박승규&quot;;
+			<P class="CStep3">t.age = 40;
+			<P class="CStep3">t.subject = &quot;자바프로그래밍&quot;;
+			<P class="CStep3">System.out.println( t.<B>getDetails()</B> );
+			<P class="CStep3">Employee e = new Employee();
+			<P class="CStep3">e.name = &quot;이국&quot;;
+			<P class="CStep3">e.age = 30;
+			<P class="CStep3">e.department = &quot;교무처&quot;;
+			<P class="CStep3">System.out.println( e.<B>getDetails()</B> );
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+			</tr>
+		</TABLE>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400">
+			<P class="Result">이름: 홍길동    나이: 25
+			<P class="Result">이름: 이순신    나이: 45       학번: 10001234
+			<P class="Result">이름: 박승규    나이: 40       과목: 자바프로그래밍
+			<P class="Result">이름: 이국      나이: 30       부서: 교무처</td>
+		</tr>
+		</table>
+		<P>이렇게 부모클래스로부터 상속받은 것을 재 정의해서 사용할 수 있다. 이를 메소드 재정의(method overriding)라 부르고, 메소드를 재 정의할 때는 다음과 같은 규칙에 따른다.
+		<P>  &middot; 상속을 전제로 한다.
+		<P>  &middot;  반드시 반환타입이 같아야 한다.
+		<P>  &middot; 메소드 이름이 같아야 한다.
+		<P>  &middot; 인자값이 정확히 일치해야 한다.
+		<P>  &middot; 접근 제한자는 같거나 더 제한이 없어야 한다.
+		<P>  &middot; 메소드 중복(overloading)과 혼동하면 안 된다.
+		</ul>
+		<P class="TSubmenu">3.2.4 super
+		<ul>
+		<P>클래스 안에서 부모클래스의 멤버를 참조하기 위해 사용된다. 부모클래스의 멤버 변수가 private로 선언되었을 경우, 부모클래스의 멤버변수를 참조하려면 메소드를 이용해야 하는데 이때 자식클래스에서 메소드가 재 정의되었을 경우 super를 이용하여 참조할 수 있다.
+		<P>다음의 예를 보자.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Person.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Person {
+			<P class="CStep2"><B>protected</B> String name;
+			<P class="CStep2"><B>protected</B> int age;
+			<P class="CStep2">public String getDetails() {
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이: &quot; + age;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Student.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Student extends Person{
+			<P class="CStep2"><B>protected </B>String studentID;
+			<P class="CStep2">public String getDetails() {
+			<P class="CStep3">return <B>super.getDetails()</B> + &quot;\t학번: &quot; + studentID;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음은 앞에서 보인 부모클래스의 멤버를 참조하는 클래스를 테스트하는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestSuper1.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestSuper1 {
+			<P class="CStep2">public static void main(String[] args) 	{
+			<P class="CStep3">Student s = new Student();
+			<P class="CStep3">s.name = &quot;이순신&quot;;
+			<P class="CStep3">s.age = 30;
+			<P class="CStep3">s.studentID = &quot;20001234&quot;;
+			<P class="CStep3">System.out.println( s.getDetails() );
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400">
+			<P class="Result">이름: 이순신    나이: 30        학번: 10001234</td>
+		</tr>
+		</table>
+		<P>앞의 예에서처럼 super를 이용하면 부모클래스의 메소드를 호출하여 name과 age변수에 접근할 수 있다.
+		<P>다음 예는 멤버 변수가 모두 private으로 되어있는데, 이 때는 변수 값을 설정할 때 setXxx 메소드를 이용하거나 생성자를 이용해야 한다. 생성자는 상속이 되지 않으므로 객체를 생성하면서 멤버 변수를 초기화하려면 다음과 같은 방법을 이용한다. 
+		<P>이 프로그램은 자식클래스의 생성자로 부모클래스의 멤버를 초기화하는 방법을 보여주는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Person.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Person {
+			<P class="CStep2"><B>private</B> String name;
+			<P class="CStep2"><B>private</B> int age;
+			<P class="CStep2">public Person(String init_name, int init_age) {
+			<P class="CStep3">name = init_name;
+			<P class="CStep3">age = init_age;
+			<P class="CStep2">}
+			<P class="CStep2">public String getDetails() {
+			<P class="CStep3">return &quot;이름: &quot; + name + &quot;\t나이: &quot; + age;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Student.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Student extends Person{
+			<P class="CStep2"><B>private</B> String studentId;
+			<P class="CStep2">public Student(String init_name, int init_age,
+			<P class="CStep2">String init_studentID) {
+			<P class="CStep2"><B>super(init_name, init_age);</B>
+			<P class="CStep2">studentId = init_studentID;
+			<P class="CStep2">}
+			<P class="CStep2">public String getDetails() {
+			<P class="CStep3">return super.getDetails() + &quot;\t학번: &quot; + studentId;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음은 앞에서 보인 부모클래스의 생성자를 참조하는 클래스를 테스트하는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestSuper2.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestSuper2 {
+			<P class="CStep2">public static void main(String[] args) 	{
+			<P class="CStep3">Student s = new Student(&quot;이순신&quot;, 30, &quot;20001234&quot;);
+			<P class="CStep3">System.out.println( s.getDetails() );
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400">
+			<P class="Result">이름:이순신    나이: 30        학번: 10001234</td>
+		</tr>
+		</table>
+		</ul></td>
+    </tr>
+	</table>
+</body>
+</html>

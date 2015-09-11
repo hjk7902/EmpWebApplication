@@ -1,0 +1,1534 @@
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>10.1 데이터베이스 개요 </title>
+<meta name="generator" content="Namo WebEditor v5.0">
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<P>
+&nbsp;<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV339.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">10.1  </FONT><FONT FACE="바탕">데이터베이스</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">개요</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">이 장에서는 데이터베이스를 다루는데 필요한 기본적인 용어와 기능 등에 대해 설명하고, 일반적으로 쉽게 사용할 수 있는 실제 데이터베이스 엔진을 선정하여 설치에서 사용 방법에 이르기까지 일련의 조작 과정을 설명하기로 한다. 
+</FONT><BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.1.1 </FONT><FONT FACE="바탕">데이터베이스</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">용어</FONT></SPAN></FONT>
+<BR>
+<P>  <FONT FACE="돋움">∘ 테이블 : 테이블은 RDBMS의 기본적인 저장구조로, 한 개 이상의 행(Row)과 한개 이상의 열(Column)로 구성된다.</FONT>
+<P>  <FONT FACE="돋움">∘ Column : 한 Column은 테이블에서 단일 종류의 데이터로 구성되는데 예를 들면 성적 테이블에서 이름, 국어, 영어 등이 Column이다. 이것은 특정 데이터 타입 및 크기를 갖고 있다.</FONT>
+<P>  <FONT FACE="돋움">∘ Row : Row는 Column 값의 조합이다. 성적 테이블에서 한 학생에 대한 성적내용이 한 Row가 된다. 예를 들면, &quot;홍길동, 100, 95&quot; 가 하나의 Row이다.</FONT>
+<P>  <FONT FACE="돋움">∘ 필드 : Row와 Column의 교차점을 필드라고 한다. 데이터가 없는 필드는 널(Null)값을 갖는다. 예를 들면, 국어 Column과 홍길동 학생의 Row의 필드값은 &quot;100&quot;이다.</FONT>
+<P>  <FONT FACE="돋움">∘ 기본키(Primary Key) : 기본키는 한 테이블의 레코드를 유일하게 식별해주는 Column 또는 Column의 조합이다. 예를 들면, 앞의 성적테이블에서 각 학생의 이름을 기본키로 사용할 수 있으며, 더 정확하게 하려면 학번 Column을 추가 시켜 기본키로 사용할 수 있다. 기본키는 널값을 가질수 없다. 
+</FONT><P>  <FONT FACE="돋움">∘ 외래키 : 두개 이상의 테이블을 사용하는 데이터베이스에서 두 테이블에 있는 데이터를 조작하려고 할 때 두 테이블을 연관시켜주는 Column 또는 Column의 조합을 말한다.  
+</FONT><P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.1.2 MySQL</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">데이터베이스를 사용하기 위해서는 먼저 데이터베이스 엔진이 설치되어야 한다. 본 교재에서는 오라클이나 MySQL을 기준으로 설명하기로 한다. MySQL 설치에 관해서는 언급하겠지만, 오라클의 설치에 관해서는 다루지 않으며, 주의할 점은 8i이후 버전의 Personal 오라클은 리스너가 동작하지 않으므로 NT용 이상을 설치해야 리스너가 작동한다. 9i 버전에서는 Personal 오라클을 제공하지 않는다. 
+</FONT><BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.2.1 MySQL </FONT><FONT FACE="바탕">설치</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="돋움">Ⅰ. http://www.mysql.com 에서 최신 버전의 MySQL을 내려받아 압축을 푼 다음 설치한다. 윈도우용이라면 설치하는데는 어렵지 않을 것이다. 설치시 MySQL이 설치될 폴더는 C:\mysql로 한다.</FONT>
+<BR>
+<P><FONT FACE="돋움">Ⅱ. 설치가 모두 끝나면 명령 창을 띄워서 C:\mysql\bin 디렉토리로 이동하여 mysqld을 입력하여 실행시킨다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=63>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> <B><FONT FACE="Courier New">C:\&gt;cd C:\mysql\bin</FONT></B>
+<P> <B><FONT FACE="Courier New">C:\mysql\bin&gt;mysqld</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 그림처럼 에러 없이 프롬프트가 나타나면 정상적으로 설치가 완료된 것이다. 
+</FONT><P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV340.GIF" BORDER=0 WIDTH=491 HEIGHT=314 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">윈도우 2000에 설치했다면 제어판 -&gt; 관리도구 -&gt; 서비스에서 다음 그림과 같이 MySQL 구성요소가 추가된 것을 볼 수 있다. MySQL 구성 요소를 시작한다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV341.GIF" BORDER=0 WIDTH=433 HEIGHT=303 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="돋움">Ⅲ. 이제 MySQL 데이터베이스로 접속할 수 있는 상태가 된 것이다. MySQL 데몬이 정상적으로 가동되었으면 프롬프트상에서 mysql이라고 입력하여 MySQL 데이터베이스에 접속한다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=44>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> <B><FONT FACE="Courier New">C:\mysql\bin&gt;mysql</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 그림과 같이 프롬프트에 mysql&gt; 프롬프트가 나타나면 접속된 것이다.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV342.GIF" BORDER=0 WIDTH=402 HEIGHT=257 ALIGN=BOTTOM>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.2.2 </FONT><FONT FACE="바탕">데이터베이스</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">설정</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="돋움">Ⅰ. MySQL이 정상적으로 실행되었으면 테이블이 저장될 데이터베이스를 생성한다. 데이터베이스는 다음과 같은 SQL문장으로 생성할 수 있다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=501 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">create database </FONT><I><FONT FACE="Courier New">database_name</FONT></I><FONT FACE="Courier New">;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">여기서는 데이터베이스 이름을 mydb로 설정한다. 
+</FONT><P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=44>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> <B><FONT FACE="Courier New">mysql&gt; create database mydb;</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 그림과 같이 데이터베이스가 생성된 것을 볼 수 있다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV343.GIF" BORDER=0 WIDTH=439 HEIGHT=296 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="돋움">Ⅱ. 다음은 사용자를 추가시키기 위해 데이터베이스로 이동한다. mysql이라는 데이터베이스에 사용자와 권한을 설정한다. 다음처럼 use라는 명령을 이용하여 mysql 데이터베이스로 이동한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=44>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> <B><FONT FACE="Courier New">mysql&gt; use mysql</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음은 데이터베이스가 mysql로 바뀐 그림이다.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV344.GIF" BORDER=0 WIDTH=428 HEIGHT=286 ALIGN=BOTTOM>
+<P><FONT FACE="돋움">Ⅲ. 다음은 mysql이라는 데이터베이스 안에서 'user' 라는 테이블과 'db'라는 테이블을 이용해 사용자를 추가하고 권한을 설정한다. 여기서 사용자 아이디는 'scott' 비밀번호는 'tiger'로 한다. 이는 오라클의 기본 사용자 아이디와 비밀번호 이기도 하다. 'user' 테이블과 'db'테이블에는 다음과 같은 값이 들어간다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=646 HEIGHT=63>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="Courier New">mysql&gt;insert into user (host, user, password) values('</FONT><I><FONT FACE="바탕">주소</FONT></I><FONT FACE="Courier New">', '</FONT><I><FONT FACE="바탕">아이디</FONT></I><FONT FACE="Courier New">', password('</FONT><I><FONT FACE="바탕">비밀번호</FONT></I><FONT FACE="Courier New">'));</FONT></SPAN></FONT>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="Courier New">mysql&gt;insert into db values('</FONT><I><FONT FACE="바탕">주소</FONT></I><FONT FACE="Courier New">','</FONT><I><FONT FACE="Courier New">database</FONT><FONT FACE="바탕">이름</FONT></I><FONT FACE="Courier New">','</FONT><I><FONT FACE="바탕">아이디</FONT></I><FONT FACE="Courier New">','y','y','y','y','y','y','y','y','y','y');</FONT></SPAN></FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음과 같이 데이터베이스에 접속할 호스트 주소를 localhost로 하고, 아이디는 'scott', 비밀번호는 'tiger'로 한다. 그리고 데이터베이스 이름은 앞에서 만들었던 'mydb'로 한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=626 HEIGHT=58>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="Courier New">mysql&gt;insert into user (host, user, password) values('localhost', 'scott', password('tiger'));</FONT></SPAN></FONT>
+<P><FONT SIZE=2><SPAN STYLE="font-size:10pt;"><FONT FACE="Courier New">mysql&gt;insert into db values('localhost','mydb','scott','y','y','y','y','y','y','y','y','y','y');</FONT></SPAN></FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 그림은 아이디와 패스워드를 설정한 결과화면이다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV345.GIF" BORDER=0 WIDTH=475 HEIGHT=318 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="돋움">Ⅳ. 이상의 설정 내용을 MySQL이 새로 읽어들여 적용시키게 한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=44>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> <B><FONT FACE="Courier New">mysql&gt; flush privileges;</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<BR>
+<BR>
+<P><FONT FACE="바탕">다음 그림은 flush 명령을 내린 결과화면이다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV346.GIF" BORDER=0 WIDTH=461 HEIGHT=309 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="돋움">Ⅴ. 사용자가 추가되었는지 확인하기 위해 quit명령으로 MySQL을 나간 다음 새로 추가한 사용자 아이디와 패스워드로 다시 접속해 보자.</FONT>
+<BR>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=63>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> <B><FONT FACE="Courier New">mysql&gt; quit</FONT></B>
+<P> <B><FONT FACE="Courier New">C:\mysql\bin&gt; mysql -u scott -p</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">패스워드를 입력하고 엔터 키를 눌렀을 때 다음 그림과 같이 mysql 프롬프트가 나타나면 성공한 것이다.</FONT>
+<BR>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV347.GIF" BORDER=0 WIDTH=463 HEIGHT=310 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">Ⅵ. mydb 데이터베이스를 사용하기 위해 use명령을 이용하여 mydb라는 데이터베이스로 이동한다.</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=539 HEIGHT=53>
+<TD VALIGN=MIDDLE WIDTH=100%>
+<P> <B><FONT FACE="Courier New">mysql&gt; use mydb</FONT></B></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">다음 그림과 같이 데이터베이스가 변경되었다. 이제 MySQL 데이터베이스도 정상적으로 설치되었고, 사용자 아이디와 비밀번호도 만들어졌다.</FONT>
+<P ALIGN=CENTER>  
+<IMG SRC="file:///C|/지빠귀/FYXIV348.GIF" BORDER=0 WIDTH=497 HEIGHT=332 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+<BR>
+<P><FONT FACE="바탕">다음은 SQL 질의문에 대해 설명하기로 한다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.1.3 SQL </FONT><FONT FACE="바탕">문법의</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">개요</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">JDBC에 들어가기 전에 기본적으로 사용되는 SQL에 관한 기본적인 내용을 살펴보기로 한다. 사용하는 데이터베이스에 따라 약간의 차이가 있을 수 있으며 설명은 오라클과 MySQL을 기준으로 예를 들기로 한다. 
+</FONT><BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.3.1 CREATE</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">테이블을 생성하는데 사용되며 사용방법은 다음과 같다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=549 HEIGHT=70>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">CREATE TABLE </FONT><I><FONT FACE="Courier New">table_name</FONT></I><FONT FACE="Courier New"> </FONT>
+<P>	<FONT FACE="Courier New">( </FONT><I><FONT FACE="Courier New">column_name</FONT></I><FONT FACE="Courier New"> datatype(size) [DEFAULT </FONT><I><FONT FACE="Courier New">data</FONT></I><FONT FACE="Courier New">] ,</FONT>
+<P>	 <FONT FACE="Courier New">... );</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">CREATE문의 경우에는 오라클과 MySQL의 데이터 타입이 약간 다르므로 질의문이 다를 수도 있다.</FONT>
+<BR>
+<P><FONT FACE="바탕">질의문 사용 예 - 오라클</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=115>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">CREATE TABLE address_table ( </FONT>
+<P>	<FONT FACE="Courier New">id 		</FONT><B><FONT FACE="Courier New">NUMBER(4)</FONT></B><FONT FACE="Courier New">,</FONT>
+<P>	<FONT FACE="Courier New">name</FONT>		<FONT FACE="Courier New">CHAR(20),</FONT>
+<P>	<FONT FACE="Courier New">addr</FONT>		<FONT FACE="Courier New">CHAR(50)</FONT>
+<P><FONT FACE="Courier New">);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">질의문 사용 예 - MySQL</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=115>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">CREATE TABLE address_table ( </FONT>
+<P>	<FONT FACE="Courier New">id 		</FONT><B><FONT FACE="Courier New">INT(4)</FONT></B><FONT FACE="Courier New">,</FONT>
+<P>	<FONT FACE="Courier New">name</FONT>		<FONT FACE="Courier New">CHAR(20),</FONT>
+<P>	<FONT FACE="Courier New">addr</FONT>		<FONT FACE="Courier New">CHAR(50)</FONT>
+<P><FONT FACE="Courier New">);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P> 
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.3.2 INSERT</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">테이블에 레코드를 삽입한다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=501 HEIGHT=92>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">INSERT INTO </FONT><I><FONT FACE="Courier New">table_name</FONT></I><FONT FACE="Courier New"> </FONT>
+<P>	<FONT FACE="Courier New">( </FONT><I><FONT FACE="Courier New">column1, column2, column3...</FONT></I><FONT FACE="Courier New"> ) </FONT>
+<P>	<FONT FACE="Courier New">VALUES</FONT>
+<P>	<FONT FACE="Courier New">( </FONT><I><FONT FACE="바탕">값</FONT><FONT FACE="Courier New">1, </FONT><FONT FACE="바탕">값</FONT><FONT FACE="Courier New">2, </FONT><FONT FACE="바탕">값</FONT><FONT FACE="Courier New">3...</FONT></I><FONT FACE="Courier New"> );</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">질의문 사용 예</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=97>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">INSERT INTO address_table </FONT>
+<P>	<FONT FACE="Courier New">( id, name, addr )</FONT>
+<P>	<FONT FACE="Courier New">VALUES</FONT>
+<P>	<FONT FACE="Courier New">(  1, '</FONT><FONT FACE="바탕">홍길동</FONT><FONT FACE="Courier New">', '</FONT><FONT FACE="바탕">서울</FONT><FONT FACE="Courier New">' );</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">또는 
+</FONT><P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">INSERT INTO address_table VALUES( 1, '</FONT><FONT FACE="바탕">홍길동</FONT><FONT FACE="Courier New">', '</FONT><FONT FACE="바탕">서울</FONT><FONT FACE="Courier New">' );</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">데이터가 문자열형일 경우 name과 addr의 데이터처럼 ''로 문자열을 감싸주어야 한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.3.3 SELECT</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">테이블에서 조건을 만족하는 레코드를 찾을 때 사용한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=549 HEIGHT=92>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">SELECT [DISTINCT] </FONT><I><FONT FACE="Courier New">column_name [, column_name, ...]</FONT></I>
+<P>	<FONT FACE="Courier New">FROM </FONT><I><FONT FACE="Courier New">table_name</FONT></I><FONT FACE="Courier New"> </FONT>
+<P>	<FONT FACE="Courier New">[WHERE </FONT><I><FONT FACE="바탕">조건식</FONT></I><FONT FACE="Courier New">]</FONT>
+<P>	<FONT FACE="Courier New">[ORDER BY ASC|DESC];</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P> 
+<P><FONT FACE="바탕">Query문 사용 예</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">SELECT * FROM address_table WHERE id=2;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.3.4 UPDATE</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">레코드값을 갱신할 때 사용한다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=501 HEIGHT=70>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">UPDATE </FONT><I><FONT FACE="Courier New">table_name</FONT></I><FONT FACE="Courier New"> </FONT>
+<P>	<FONT FACE="Courier New">SET </FONT><I><FONT FACE="Courier New">column1 = </FONT><FONT FACE="바탕">값</FONT><FONT FACE="Courier New">1 [, column2 = </FONT><FONT FACE="바탕">값</FONT><FONT FACE="Courier New">2 ,...]</FONT></I>
+<P>	<FONT FACE="Courier New">[WHERE </FONT><I><FONT FACE="바탕">조건식</FONT></I><FONT FACE="Courier New">] ;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>   
+<P><FONT FACE="바탕">Query문 사용 예</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=655 HEIGHT=75>
+<TD VALIGN=TOP WIDTH=9%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=90%>
+<P><FONT FACE="Courier New">UPDATE  address_table</FONT>
+<P>	<FONT FACE="Courier New">SET addr='NewYork' </FONT>
+<P>	<FONT FACE="Courier New">WHERE id=1 AND name='</FONT><FONT FACE="바탕">홍길동</FONT><FONT FACE="Courier New">';</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P> 
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.3.5 DELETE</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">레코드를 삭제할 때 사용한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=501 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">DELETE FROM </FONT><I><FONT FACE="Courier New">table_name</FONT></I><FONT FACE="Courier New"> [WHERE </FONT><I><FONT FACE="바탕">조건식</FONT></I><FONT FACE="Courier New">];</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">Query문 사용 예</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">DELETE FROM address_table WHERE id=2;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>  
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.3.6 DROP</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">테이블을 삭제할 때 사용된다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=501 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">DROP TABLE </FONT><I><FONT FACE="Courier New">table_name</FONT></I><FONT FACE="Courier New">;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">Query문 사용 예</FONT>
+<P>
+<TABLE BORDER=1 CELLPADDING=2 WIDTH=771 HEIGHT=31>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">DROP TABLE customer;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.3.7 COMMIT / ROLLBACK</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">COMMIT과 ROLLBACK은 트랜잭션처리에 사용하는데 이전에 지시한 명령을 확인시키기는데 COMMIT을 이용하고, 이전에 지시했던 명령을 취소시키는데 ROLLBACK을 이용한다. 참고로 MySQL에서는 트랜잭션처리를 할 수 없으므로 필요가 없지만 오라클에서는 반드시 COMMIT을 해 줘야 데이터가 변경된다. 사용 방법은 다음과 같다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=501 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">COMMIT;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=501 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">ROLLBACK;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">지금까지 데이터베이스에서 사용될 몇가지 질의문에 대하여 알아보았는데 언급되지 않은 질의문에 대해서는 데이터베이스 관련 서적을 참고하길 바란다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.1.4 </FONT><FONT FACE="바탕">데이터</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">타입</FONT><FONT FACE="HY부활M">(</FONT><FONT FACE="바탕">오라클과</FONT><FONT FACE="HY부활M"> MySQL)</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">데이터베이스 버전에 따라 사용하는 데이터타입이 다르기 때문에 데이터 타입에 대한 정보는 별도로 제공받아야 한다. 다음은 오라클의 데이터 타입과 MySQL의 데이터 타입을 요약해 놓은 것이다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.4.1 </FONT><FONT FACE="바탕">오라클</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">기본데이터</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">타입</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">CHAR(size) : 길이가 size인 고정길이 문자값으로 최소길이는 1, 최대길이는 255이다.</FONT>
+<P><FONT FACE="바탕">VARCHAR2(size) : CHAR의 확장형으로 최대길이는 2000이다.</FONT>
+<P><FONT FACE="바탕">NUMBER : 38자리까지 유효한 부동소수점 숫자를 표현한다.</FONT>
+<P><FONT FACE="바탕">NUMBER(p,s) : p는 전체자리수이고, 소수점 이하자리수가 s인 NUMBER를 표현한다.</FONT>
+<P><FONT FACE="바탕">DATA : B.C.4712년 1월에서 A.D.4712년 12월 1일 사이의 일자와 시간을 표현한다.</FONT>
+<P><FONT FACE="바탕">LONG : 2G바이트까지의 가변길이 문자값으로, 테이블 당 한 개의 LONG열만 허용한다.</FONT>
+<P><FONT FACE="바탕">RAW, LONGRAW : 각각 VARCHAR2, LONG과 같지만 이진 데이터를 저장하는데 사용한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.1.4.2 MySQL </FONT><FONT FACE="바탕">기본</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">데이터</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">타입</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">CHAR(size) : 최대 1∼255사이의 길이를 갖는 문자값을 나타낸다.</FONT>
+<P><FONT FACE="바탕">TEXT : 최대 216의 길이를 갖는 문자열을 표현한다.</FONT>
+<P><FONT FACE="바탕">LONGTEXT : 최대 232의 길이를 갖는 문자열을 표현한다.</FONT>
+<P><FONT FACE="바탕">INT(size) : 길이가 size인 정수를 표현한다. 표현범위는 &plusmn;231까지 표현이 가능하다.</FONT>
+<P><FONT FACE="바탕">FLOAT : 24자리까지 유효한 부동소수점을 표현한다.</FONT>
+<P><FONT FACE="바탕">FLOAT(p,s) : 전체 자리수가 p이고, 소수점 이하 자리수가 s인 부동소수점을 나타낸다.</FONT>
+<P><FONT FACE="바탕">DOUBLE : 부동소수점을 나타낸다.</FONT>
+<P><FONT FACE="바탕">DATE : 1000-01-01부터 9999-12-31 까지 사이의 날짜를 표현한다.   
+</FONT><BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.1.5 JDBC </FONT><FONT FACE="바탕">환경설정</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">JDBC 환경에 앞서 JDK 환경설정이 이루어져야 한다. 우선 JDK를 설치했으면, 어떤 데이터베이스엔진(DBMS)을 사용할 것인지를 결정해야 한다. 현재 많이 사용되는 데이터베이스 엔진은 Oracle, Sybase, Informix 등이 있고 무료로 사용할 수 있는 제품은  mSQL, MySQL 등이 있다. 상용으로 쓰이는 엔진이라도 평가판은 무료로 이용할 수 있다. 각 회사의 홈페이지를 이용하면 쉽게 다운로드 받을 수 있다. 현재 JDBC는 java.sql 패키지의 이름으로 알 수 있듯이 관계형 엔진(R-DBMS)만 지원하고 OODB는 지원하지 않는다.</FONT>
+<BR>
+<P><FONT FACE="바탕">사용할 데이터베이스를 결정했으면 해당 소프트웨어를 내려받아 설치한다. 이때 해당 JDBC 드라이버 클래스도 함께 내려받아야 한다. 주로 .jar이나 .zip 형태로 클래스가 묶여 있다. 오라클은 8i와 9i버전의 경우 classes12.zip파일로 되어 있으며, MySQL은 버전에 따라 조금씩 다르지만 mm.mysql-X.X.X-bin.jar 파일로 되어있다. MySQL 드라이버는 파일명을  mysql.jar로 바꾸어 사용하는 것이 편리하다.</FONT>
+<BR>
+<P><FONT FACE="바탕">데이터베이스를 설치한 후에 해당 JDBC 드라이버 파일이 있는 디렉토리를 classpath에 설정하거나, JDK 1.2 이상의 환경에서는 JDK가 설치되어 있는 디렉토리 아래의 jre/lib/ext에 복사해도 된다. 하지만 컴파일시 클래스파일을 찾지 못하면 따로 classpath 옵션을 설정해주어야 한다. 이때 현재 폴더(.)와 JDK가 설치된 폴더도 같이 설정하는 것을 잊지말자.</FONT>
+<BR>
+<P><FONT FACE="바탕">오라클 데이터베이스 드라이버 사용</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=612 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">CLASSPATH=.;c:\j2sdk;C:\j2sdk\jre\lib\ext\classes12.zip</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<BR>
+<P><FONT FACE="바탕">MySQL 데이터베이스 드라이버 사용</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=612 HEIGHT=41>
+<TD VALIGN=MIDDLE WIDTH=2%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=97%>
+<P><FONT FACE="Courier New">CLASSPATH=.;c:\j2sdk;C:\j2sdk\jre\lib\ext\mysql.jar</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">데이터베이스와 JDBC 드라이버 설치를 마치면 교재에서 예제로 사용할 테이블을 만들어야 한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">오라클에서는 SQL*Plus를 이용하여 다음과 같은 SQL을 실행시켜 테이블을 만든다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=141>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">/* address table sql - Oracle */ </FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">CREATE TABLE address_table ( </FONT>
+<P>	<FONT FACE="Courier New">id 		NUMBER(4),</FONT>
+<P>	<FONT FACE="Courier New">name</FONT>		<FONT FACE="Courier New">CHAR(20),</FONT>
+<P>	<FONT FACE="Courier New">addr</FONT>		<FONT FACE="Courier New">CHAR(50)</FONT>
+<P><FONT FACE="Courier New">);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">MySQL은 MySQL을 실행시키고 use명령으로 앞에서 만들었던 mydb 데이터베이스로 이동한 후 다음과 같은 질의문을 실행시켜 테이블을 만든다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=141>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">/* address table sql - MySQL */ </FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">CREATE TABLE address_table ( </FONT>
+<P>	<FONT FACE="Courier New">id 		INT(4),</FONT>
+<P>	<FONT FACE="Courier New">name</FONT>		<FONT FACE="Courier New">CHAR(20),</FONT>
+<P>	<FONT FACE="Courier New">addr</FONT>		<FONT FACE="Courier New">CHAR(50)</FONT>
+<P><FONT FACE="Courier New">);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">테이블이 생성되었으면 다음의 질의문으로 테이블에 데이터를 입력한다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=213>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">/* data insert */ </FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<BR>
+<P><FONT FACE="Courier New">2:</FONT>
+<BR>
+<P><FONT FACE="Courier New">3:</FONT>
+<BR>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">INSERT INTO address_table (id, name, addr) </FONT>
+<P>	<FONT FACE="Courier New">VALUES(1, '</FONT><FONT FACE="바탕">홍길동</FONT><FONT FACE="Courier New">', '</FONT><FONT FACE="바탕">서울시</FONT><FONT FACE="Courier New">'); </FONT>
+<P><FONT FACE="Courier New">INSERT INTO address_table (id, name, addr) </FONT>
+<P>	<FONT FACE="Courier New">VALUES(2, '</FONT><FONT FACE="바탕">허달님</FONT><FONT FACE="Courier New">', '</FONT><FONT FACE="바탕">광주시</FONT><FONT FACE="Courier New">'); </FONT>
+<P><FONT FACE="Courier New">INSERT INTO address_table (id, name, addr) </FONT>
+<P>	<FONT FACE="Courier New">VALUES(3, '</FONT><FONT FACE="바탕">이순신</FONT><FONT FACE="Courier New">', '</FONT><FONT FACE="바탕">서울시</FONT><FONT FACE="Courier New">'); </FONT>
+<P><FONT FACE="Courier New">INSERT INTO address_table (id, name, addr) </FONT>
+<P>	<FONT FACE="Courier New">VALUES(4, '</FONT><FONT FACE="바탕">박승규</FONT><FONT FACE="Courier New">', '</FONT><FONT FACE="바탕">전주시</FONT><FONT FACE="Courier New">'); </FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">자료 입력이 끝났으면 오라클의 경우에는 commit;를 입력하여 작업을 확인시킨다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=58>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">/* </FONT><FONT FACE="바탕">작업</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">확인</FONT><FONT FACE="HY타자B"> */</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">COMMIT;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">MySQL에서는 위의 COMMIT 질의문이 필요 없다.</FONT>
+<BR>
+<P><FONT FACE="바탕">다음 프로그램은 앞에서 만든 데이터베이스에 연결하여 원하는 결과를 얻는 예를 보인 것이다. 수정할 부분이 있으면 자신의 환경에 맞게 수정한 후 컴파일 한다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=849>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">SimpleJDBC.java </FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<BR>
+<P><FONT FACE="Courier New">17:</FONT>
+<BR>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">// </FONT><FONT FACE="바탕">수정할</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">사항</FONT><FONT FACE="Courier New"> (URL) </FONT>
+<P><FONT FACE="Courier New">// - &quot;127.0.0.1&quot; </FONT><FONT FACE="바탕">은</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">데이터베이스가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">설치된</FONT><FONT FACE="Courier New"> Server</FONT><FONT FACE="바탕">의</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">주소</FONT>
+<P><FONT FACE="Courier New">// - &quot;orcl&quot;</FONT><FONT FACE="바탕">은</FONT><FONT FACE="Courier New"> Oracle DB</FONT><FONT FACE="바탕">의</FONT><FONT FACE="Courier New"> SID </FONT><FONT FACE="바탕">즉</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">시스템</FONT><FONT FACE="Courier New"> id</FONT>
+<P><FONT FACE="Courier New">// - &quot;mydb&quot;</FONT><FONT FACE="바탕">는</FONT><FONT FACE="Courier New"> MySQL</FONT><FONT FACE="바탕">에서</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">사용자가</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">만든</FONT><FONT FACE="Courier New"> database</FONT>
+<P><FONT FACE="Courier New">// - &quot;scott&quot;,&quot;tiger&quot;</FONT><FONT FACE="바탕">는</FONT><FONT FACE="Courier New"> DB </FONT><FONT FACE="바탕">사용자</FONT><FONT FACE="Courier New"> id</FONT><FONT FACE="바탕">와</FONT><FONT FACE="Courier New"> password</FONT>
+<BR>
+<P><FONT FACE="Courier New">import java.sql.*; 
+</FONT><BR>
+<P><FONT FACE="Courier New">public class SimpleJDBC { 
+</FONT><BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) throws Exception{ 
+</FONT><BR>
+<P>		<B><FONT FACE="Courier New">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);</FONT></B>
+<P>	<FONT FACE="Courier New">//</FONT>	<FONT FACE="Courier New">Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;); //MySQL</FONT>
+<BR>
+<P>		<B><FONT FACE="Courier New">Connection conn = DriverManager.getConnection( &quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;, &quot;scott&quot;, &quot;tiger&quot; ); </FONT></B>
+<P>	<FONT FACE="Courier New">//</FONT>	<FONT FACE="Courier New">Connection conn = DriverManager.getConnection( &quot;jdbc:mysql://127.0.0.1:3306/mydb&quot;, &quot;scott&quot;, &quot;tiger&quot; ); 
+</FONT><BR>
+<P>		<B><FONT FACE="Courier New">Statement stmt = conn.createStatement(); 
+</FONT></B><BR>
+<P>		<B><FONT FACE="Courier New">String sql = &quot;SELECT id, name, addr FROM address_table&quot;;</FONT></B>
+<P>	<FONT FACE="Courier New">//</FONT>	<FONT FACE="Courier New">String sql = &quot;SELECT * FROM address_table&quot;;</FONT>
+<BR>
+<P>		<B><FONT FACE="Courier New">ResultSet rset = stmt.executeQuery(sql);</FONT></B><FONT FACE="Courier New"> 
+</FONT><BR>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;id \t name \t addr&quot;);</FONT>
+<P>		<FONT FACE="Courier New">while(</FONT><B><FONT FACE="Courier New">rset.next()</FONT></B><FONT FACE="Courier New">) { </FONT>
+<P>			<FONT FACE="Courier New">System.out.print(</FONT><B><FONT FACE="Courier New">rset.getInt(1)</FONT></B><FONT FACE="Courier New">); </FONT>
+<P>			<FONT FACE="Courier New">System.out.print(&quot;\t&quot; + </FONT><B><FONT FACE="Courier New">rset.getString(2)</FONT></B><FONT FACE="Courier New">); </FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;\t&quot; + </FONT><B><FONT FACE="Courier New">rset.getString(3)</FONT></B><FONT FACE="Courier New">); </FONT>
+<P>		<FONT FACE="Courier New">} 
+</FONT><BR>
+<P>		<B><FONT FACE="Courier New">conn.close(); </FONT></B>
+<P>	<FONT FACE="Courier New">} </FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">앞의 프로그램을 실행시켰을 때에 Exception이 발생하지 않고 정상적으로 수행되면 JDBC 개발환경 및 실행환경을 잘 구축한 것이다. Exception이 발생하더라도 오류 메시지를 보고 해결하기 바란다. 프로그램에 대한 자세한 설명은 뒤에서 하기로 한다. 참고로 이 예에서는 13번째 줄과 16번째 줄에서 보면 드라이버로 오라클을 사용했는데, 오라클 데이터베이스의 시스템 아이디(SID)는 orcl로 하였다. 데이터베이스가 MySQL일 경우에는 13번째 줄과 16번째 줄을 각각 14번째 줄과 17번째 줄로 바꾸어 실행해야 한다.</FONT>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV349.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">10.2  JDBC API</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">JDBC 1.0 스펙에서는 java.sql 패키지를 제공하였고, 2.0에서는 몇몇 기능이 추가된 java.sql 패키지와 javax.sql 패키지를 제공한다. java.sql 패키지는 J2SE에 포함되어 있으며 CoreAPI라하고, javax.sql 패키지는 J2EE에 포함되어 있으며 Standard extension API라고 한다. JDK 1.4버전에서는 JDBC 스펙 3.0까지 지원하고 있는데 JDK 1.4 버전의 J2SE에는 java.sql 패키지와 javax.sql 패키지를 모두 포함하고 있다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.2.1 JDBC API</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">java.sql 패키지에는 14개의 인터페이스와 7개의 클래스로 구성되어 있다. 인터페이스는 서로 주고받는 표준인데, 같은 인터페이스를 사용하면 상대방이 누구이건 내가 알고 있는 방법으로 통신을 할 수 있다. JDBC는 이러한 인터페이스의 사상을 잘 구현하고 있는 예이다. 데이터베이스엔진 개발자는 java.sql 패키지에 있는 드라이버 인터페이스를 구현하여 자바와 자신의 DBMS를 연결할 수 있는 드라이버를 만들고, 자바 프로그램 개발자는 java.sql 패키지에 있는 인터페이스와 클래스를 가지고 데이터베이스를 사용하는 프로그램을 개발하게 된다.</FONT>
+<P><FONT FACE="바탕">JDBC 프로그램에 쉽게 적응하려면 java.sql 패키지에 있는 클래스, 인터페이스 및 관련 메소드를 잘 이해해야 한다. 다음 그림은 JDBC 클래스 및 인터페이스 상속관계를 나타낸 것이다.</FONT>
+<P ALIGN=CENTER>
+<IMG SRC="file:///C|/지빠귀/FYXIV350.GIF" BORDER=0 WIDTH=418 HEIGHT=240 ALIGN=BOTTOM>
+<P><FONT FACE="바탕">- DriverManager : JVM에서 JDBC 전체를 관리하는 클래스로 드라이버를 등록하고, Connec -tion객체를 얻는데 사용한다.</FONT>
+<P><FONT FACE="바탕">- Driver : 데이터베이스를 만든 회사(Oracle, Informix, Sybase, 등)에서 데이터베이스를 연결할 수 있는 JDBC 드라이버 클래스를 만드는 인터페이스이다. 
+</FONT><P><FONT FACE="바탕">- Connection : 데이터베이스와 연결성을 가지고 있는 인터페이스이다. 프로그래머는 Driver -Manger로부터 얻어내어 데이터베이스와 연결한다. 
+</FONT><P><FONT FACE="바탕">- Statement : 실제 SQL문을 실행하기 위해 Connection에서 받아 내는 인터페이스이다. 
+</FONT><P><FONT FACE="바탕">- ResultSet : Statement를 통해 SQL SELECT문을 실행한 결과 데이터값을 갖는 인터페이스이다. 한 개의 Statement는 한 개의 ResultSet 공간만 할당받는다. 
+</FONT><BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.2.2 JDBC </FONT><FONT FACE="바탕">드라이버</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">타입</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">JDBC 드라이버 타입은 다음과 같이 4가지가 있다. 
+</FONT><BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.2.2.1 </FONT><FONT FACE="바탕">타입</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">Ⅰ</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">드라이버</FONT><FONT FACE="HY울릉도M">(JDBC-ODBC Bridge Driver)</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">ODBC 드라이버를 연결한다. 이 타입의 드라이버는 마이크로소프트의 장점을 살리기 위해 제공되는 드라이버다. 마이크로소프트의 표준인 ODBC 드라이버를 연결하고 이를 통하여 데이터베이스를 접근하는 방식이기 때문에 JDBC-ODBC 가교 드라이버라고도 한다. 타입 Ⅰ드라이버를 사용하려면 클라이언트 컴퓨터에 ODBC 드라이버와 JDBC 드라이버가 설치되어 있어야 한다. 이 때문에 동적으로 드라이버가 다운로드 되는 환경에서는 사용하기 어렵고 고정된 드라이버를 사용하는 환경에 적합하다. JDBC 1.2부터 기본으로 장착되어 있으므로 따로 설치할 필요가 없다. JVM에 기본적으로 제공하는 JDBC-ODBC 드라이버는 sun.jdbc.odbc.JdbcOdbcDriver이다. 이 드라이버의 장점은 거의 모든 데이터베이스에 사용이 가능하다는 것이다. 단점으로는 ODBC를 사용하므로 100% 자바가 아닌데, 이는 프로그램이 데이터베이스에 의존적이고 또한 플랫폼 독립적이지 않다는 것을 의미한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.2.2.2 </FONT><FONT FACE="바탕">타입</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">Ⅱ</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">드라이버</FONT><FONT FACE="HY울릉도M">(Native API Partly Driver)</FONT></SPAN></FONT>
+<P>  
+<P><FONT FACE="바탕">타입 Ⅱ 드라이버는 일부가 자바로 되어있는 JDBC 드라이버로 데이터베이스 회사에서 제공해 준다. 따라서 플랫폼 의존적이다. 전체가 자바로 구현되지는 않았지만 수행능력이 뛰어나 속도가 빠르다는 장점을 가지고 있다. 타입 Ⅲ 드라이버와 마찬가지로 클라이언트 컴퓨터에 설치하는 드라이버가 필요하다. 이러한 형식은 오라클,  인포믹스(Informix), DB2 등 DBMS 회사가 제공하는 API를 다시 호출하게 되는데, 타입 Ⅰ 드라이버와 마찬가지로 클라이언트 컴퓨터에 정적으로 설치하여 데이터베이스와 연동하는 환경에 적합하다. 오라클의 oci타입이 이에 해당한다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.2.2.3 </FONT><FONT FACE="바탕">타입</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">Ⅲ</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">드라이버</FONT><FONT FACE="HY울릉도M">(JDBC-NET Pure Java Driver)</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">Type Ⅲ 드라이버는 프로토콜이나 플랫폼에 무관한 완전한 자바기술 및 코드로 이루어진 JDBC 드라이버를 의미한다. 이 타입은 JDBC API 표준에 따라 만들어졌기 때문에 DBMS의 종류에 상관없이 사용할 수 있다. 4가지 타입 중에서 가장 융통성이 뛰어나기 때문에 동적으로 내려받는 애플릿과 같은 환경에 적합하며, 클라이언트 컴퓨터가 정적으로 이루어졌다고 하더라도 시스템 유지보수가 쉬워진다. 단점이라면 유료이다. 특별한 요구사항이 필요한 경우 즉, 특정 DBMS에만 제공되는 기능을 사용할 때 또는 DBMS 자체가 타입 Ⅲ 드라이버를 지원하지 않는 경우를 제외하고는 타입 Ⅲ 드라이버를 사용하는 것이 가장 이상적이다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:13pt;"><FONT FACE="HY울릉도M">10.2.2.4 </FONT><FONT FACE="바탕">타입</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">Ⅳ</FONT><FONT FACE="HY울릉도M"> </FONT><FONT FACE="바탕">드라이버</FONT><FONT FACE="HY울릉도M">(Native Protocol Pure Java)</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">Type Ⅳ 드라이버는 데이터베이스 회사의 프로토콜을 사용하며, 전체가 자바기술 및 코드로 이루어진 JDBC 드라이버를 의미한다. Type Ⅲ 드라이버와는 다른데 JDBC API 표준에 따르지 않고 DBMS 회사가 표준에 기능을 추가하거나 삭제하여 독자적인 형태로 만든 타입이다. 따라서 특정 DBMS에 의존적인 반면에 해당 DBMS만이 제공하는 기능을 사용할 수 있는 장점이 있다. 클라이언트가 동적인 상황에서 특정 DBMS만 제공하는 기능을 사용할 때 적합하다. MS-SQL의 경우에만 유료이고 나머지는 해당하는 데이터베이스 사이트에서 무료로 내려받아 사용할 수 있다. 플랫폼 독립으로 프로그래밍이 가능하지만 속도가 느리다는 단점도 있는데,  본 교재에서는 바로 타입 Ⅳ 드라이버를 사용하기로 한다. 참고로 오라클은 thin타입에 해당한다.</FONT>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV351.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">10.3  JDBC </FONT><FONT FACE="바탕">프로그램</FONT><FONT FACE="Bookman Old Style"> </FONT><FONT FACE="바탕">구조</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">JDBC 프로그램을 이해하려면 데이터베이스를 사용하는데 필요한 몇 가지 절차를 확실하게 이해해야 한다.</FONT>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:15pt;"><FONT FACE="바탕">▒</FONT></SPAN></FONT><FONT SIZE=4><SPAN STYLE="font-size:15pt;"><FONT FACE="바탕"> JDBC 프로그램 작성과정은 다음과 같다.</FONT></SPAN></FONT>
+<BR>
+<P>    <FONT FACE="바탕">1. 드라이버를 로딩한다. 
+</FONT><P>    <FONT FACE="바탕">2. 데이터베이스와 연결하여 Connection 객체를 얻는다. 
+</FONT><P>    <FONT FACE="바탕">3. Connection으로부터 SQL을 실행하기 위한 Statement 객체를 얻는다.</FONT>
+<P>    <FONT FACE="바탕">4. Statement 객체의 메소드를 이용하여 SQL을 실행한다. 
+</FONT><P>    <FONT FACE="바탕">5. SQL 실행결과인 ResultSet 객체를 얻는다.(SELECT문 경우) 
+</FONT><P>    <FONT FACE="바탕">6. ResultSet 객체의 결과를 반복문을 이용하여 처리한다. 
+</FONT><BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.3.1 </FONT><FONT FACE="바탕">드라이버</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">로딩</FONT><FONT FACE="HY부활M">(Driver Loading)</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">JDBC드라이버를 로딩하는 방법은 크게 4가지가 있는데 본교재에서는 세 번째 방법을 사용하겠지만 다른 방법도 참고로 알고 있으면 좋을 것이다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:12pt;"><FONT FACE="바탕">[</FONT></SPAN></FONT><FONT FACE="바탕">방법 1</FONT><FONT COLOR=PURPLE><SPAN STYLE="font-size:12pt;"><FONT FACE="바탕">]</FONT></SPAN></FONT>
+<P><FONT FACE="바탕">JDBC 드라이버를 설치한 후 프로그램에서 해당 드라이버를 로딩하려면 다음과 같이 java.sql 패키지에 있는 DriverManger의 registerDriver() 메소드를 이용한다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">Driver Manager</FONT><FONT FACE="바탕">에</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">등록</FONT><FONT FACE="HY타자B"> - Oracle</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">Driver Manager</FONT><FONT FACE="바탕">에</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">등록</FONT><FONT FACE="HY타자B"> - MySQL</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">new oracle.jdbc.driver.OracleDriver()는 해당 드라이버의 인스턴스를 생성한다. 명칭이 길어서 불편하지만 오라클측에서 만든 명칭이기 때문에 그대로 사용할 수 밖에 없다. 만약 다른 데이터베이스를 사용한다면 해당 데이터베이스의 JDBC 메뉴얼을 통하여 어떤 이름으로 드라이버의 인스턴스를 만들어야 하는지 익혀야 한다.  
+</FONT><BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:12pt;"><FONT FACE="바탕">[</FONT></SPAN></FONT><FONT FACE="바탕">방법 2</FONT><FONT COLOR=PURPLE><SPAN STYLE="font-size:12pt;"><FONT FACE="바탕">]</FONT></SPAN></FONT>
+<P><FONT FACE="바탕">DriverManager클래스를 사용하지 않고 다음과 같이 해당 드라이버의 인스턴스만 생성해도 자동으로 로딩된다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="바탕">해당</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">드라이버의</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">인스턴스만</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">생성</FONT><FONT FACE="HY타자B"> - Oracle</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">new oracle.jdbc.driver.OracleDriver()</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="바탕">해당</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">드라이버의</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">인스턴스만</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">생성</FONT><FONT FACE="HY타자B"> - MySQL</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">new org.gjt.mm.mysql.Driver();</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:12pt;"><FONT FACE="바탕">[</FONT></SPAN></FONT><FONT FACE="바탕">방법 3</FONT><FONT COLOR=PURPLE><SPAN STYLE="font-size:12pt;"><FONT FACE="바탕">]</FONT></SPAN></FONT>
+<P><FONT FACE="바탕">System 패키지의 Class 클래스의 API를 이용하면 문자열을 이용하여 드라이버를 로딩할 수 있다.  
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">Class.forName() </FONT><FONT FACE="바탕">사용</FONT><FONT FACE="HY타자B"> - Oracle</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">Class.forName() </FONT><FONT FACE="바탕">사용</FONT><FONT FACE="HY타자B"> - MySQL</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;);</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P ALIGN=RIGHT><FONT FACE="바탕">Class.forName() 메소드는 ClassNotFoundException을 발생하므로 해당하는 예외처리를 해 주어야 한다.</FONT>
+<BR>
+<P><FONT FACE="바탕">DriverManager에 등록하거나 Class.forName()을 이용해도 모두 비슷하지만 new를 이용할 때에는 먼저 클래스 파일을 컴파일할 때 체크해야하고, Class.forName()을 이용할 때는 실행시 체크해야 한다. 또한 new를 이용하여 객체를 직접 생성할 경우에는 해당하는 드라이버의 static 블록에서도 객체를 만들기 때문에 사실상 객체가 두 개씩 만들어진다. 따라서, Class.forName()을 사용하는 것이 더 편리하다.</FONT>
+<BR>
+<P><FONT COLOR=PURPLE><SPAN STYLE="font-size:12pt;"><FONT FACE="바탕">[</FONT></SPAN></FONT><FONT FACE="바탕">방법 4</FONT><FONT COLOR=PURPLE><SPAN STYLE="font-size:12pt;"><FONT FACE="바탕">]</FONT></SPAN></FONT>
+<P><FONT FACE="바탕">다음과 같이 프롬프트 상에서 자바를 실행하면서 JVM의 jdbc.drivers 프로퍼티를 설정하는 방법도 있다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">System Property </FONT><FONT FACE="바탕">사용</FONT><FONT FACE="HY타자B"> - Oracle</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P>&gt;<FONT FACE="Courier New"> java -D jdbc.drivers=oracle.jdbc.driver.OracleDriver SimpleJDBC </FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">System Property </FONT><FONT FACE="바탕">사용</FONT><FONT FACE="HY타자B"> - MySQL</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P>&gt;<FONT FACE="Courier New"> java -D jdbc.drivers=org.gjt.mm.mysql.Driver SimpleJDBC </FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.3.2 Connection </FONT><FONT FACE="바탕">객체</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">생성</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">Connection 객체를 얻는 방법은 DriverManager 클래스의 getConnection() 메소드를 이용한다. 하지만 시스템에 로딩된 어떤 드라이버의 Connection을 가져올 것인지는 URL을 이용하여 결정해야 한다. (JVM은 여러 가지 드라이버가 로딩될 수 있기 때문. ) 이 외에 데이터베이스 사용자 아이디와 암호를 주어야 한다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">Connection </FONT><FONT FACE="바탕">객체</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">생성</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">Connection con = DriverManager.getConnection( URL, ID, PASSWD );</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P>	<FONT FACE="바탕">URL - Oracle : jdbc:oracle:thin:@127.0.0.1:1521:database_SID</FONT>
+<P>	        <FONT FACE="바탕">MySQL : jdbc:mysql://127.0.0.1:3306/database_name</FONT>
+<P>	        <FONT FACE="바탕">ID : 아이디</FONT>
+<P>	        <FONT FACE="바탕">PASSWD : 비밀번호</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:15pt;"><FONT FACE="바탕">▒</FONT></SPAN></FONT><FONT SIZE=4><SPAN STYLE="font-size:15pt;"><FONT FACE="바탕"> 오라클의 경우 ID와 PASSWD는 scott과 tiger를 사용한다.</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">URL(Unified Resource Locator)은 DBMS가 설치된 컴퓨터가 어디인가를 알려주는 역할을 하는데, JDBC 드라이버를 만든 회사측에서 제공하는 고유의 String을 알아야 하기 때문에 해당 드라이버의 JDBC 메뉴얼을 참고해야 한다. 
+</FONT><BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.3.3 Statement </FONT><FONT FACE="바탕">객체생성</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">마지막으로 SQL을 수행하려면 Statement 객체를 Connection 객체로부터 얻어야 한다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=61>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">Statement </FONT><FONT FACE="바탕">객체</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">생성</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">Statement stmt = conn.createStatement(); </FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.3.4 Statement </FONT><FONT FACE="바탕">객체의</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">메소드를</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">이용한</FONT><FONT FACE="HY부활M"> SQL </FONT><FONT FACE="바탕">실행</FONT><FONT FACE="HY부활M"> 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">데이터베이스를 이용하려면 SQL문을 문자열로 만들어 실행해야 한다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=74>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">SELECT</FONT><FONT FACE="바탕">문</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">String sql = &quot;SELECT id, name, addr FROM address_table&quot;;</FONT>
+<P><FONT FACE="Courier New">ResultSet rset = stmt.executeQuery(sql); </FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">SELECT 문은 Statement객체의 executeQuery() 메소드를 사용한다. 반환값은 ResultSet 객체이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=97>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">DML(INSERT, UPDATE, DELETE) </FONT><FONT FACE="바탕">및</FONT><FONT FACE="HY타자B"> DDL(CREATE TABLE, DROP TABLE, ALTER TABLE) </FONT><FONT FACE="바탕">등</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">String sql = &quot;INSERT INTO address_table ( id, name, addr ) VALUES ( 5, 'JAMES', 'NEW YORK' ) &quot;; </FONT>
+<P><FONT FACE="Courier New">int  count = stmt.executeUpdate(sql); </FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P><FONT FACE="바탕">Statement 객체의 executeUpdate() 메소드를 사용한다. 반환값은  처리된 행(row)의 개수이다. 
+</FONT><BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.3.5 </FONT><FONT FACE="바탕">질의결과</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">얻기</FONT><FONT FACE="HY부활M">(SELECT</FONT><FONT FACE="바탕">문</FONT><FONT FACE="HY부활M">)</FONT></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">SELECT문 이외의 질의문을 사용하려면 executeUpdate()메소드를 이용하는데 이때의 결과는 질의문이 적용된 행의 수를 반환한다. 하지만 SELECT 문일 경우 Statment.executeQuery() 메소드의 반환값이 ResulSet이므로 다음과 같이 ResultSet 객체를 얻는다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=74>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">SELECT</FONT><FONT FACE="바탕">문</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">String sql = &quot;SELECT id, name, addr FROM address_table&quot;;</FONT>
+<P><FONT FACE="Courier New">ResultSet rset = stmt.executeQuery(sql); </FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.3.6 </FONT><FONT FACE="바탕">데이터</FONT><FONT FACE="HY부활M"> </FONT><FONT FACE="바탕">추출</FONT></SPAN></FONT>
+<P><FONT FACE="바탕">executeQuery() 메소드로부터 ResultSet 객체를 얻은 다음 테이블에서 원하는 결과를 얻어낸다. ResultSet은 2차원 테이블에서 결과를 유도해 낼 수 있다. 첫 번째 레코드에 접근하려면 next() 메소드를 호출하는데 레코드가 있으면 진(true)를 반환하고, 없으면 위(false)를 반환한다. 그 다음 레코드도 마찬가지로 next()를 이용하여 다음 레코드로 이동하게 된다.  
+</FONT><P><FONT FACE="바탕">원하는 데이터를 얻기 위해서는 getString(), getInt(), getDate(), getObject() ... 등의 메소드를 데이터 타입에 맞도록 사용한다. SELECT된 한 행에서 데이터의 순서는 0부터 시작하는 것이 아니고 1부터 시작한다. 
+</FONT><BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=655 HEIGHT=140>
+<TD VALIGN=MIDDLE WIDTH=3%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=96%>
+<P><FONT FACE="HY타자B">Looping </FONT><FONT FACE="바탕">처리</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=3%>
+<BR></TD>
+<TD VALIGN=TOP WIDTH=96%>
+<P><FONT FACE="Courier New">while(rset.next()) { </FONT>
+<P>	<FONT FACE="Courier New">System.out.println(rset.getInt(1)); </FONT>
+<P>	<FONT FACE="Courier New">System.out.println(rset.getString(2)); </FONT>
+<P>	<FONT FACE="Courier New">System.out.println(rset.getString(3)); </FONT>
+<P><FONT FACE="Courier New">} </FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV352.GIF" BORDER=0 ALIGN=LEFT>
+<P><FONT SIZE=5 COLOR=PURPLE><SPAN STYLE="font-size:20pt;"><B><FONT FACE="Bookman Old Style">10.4  </FONT><FONT FACE="바탕">유용한</FONT><FONT FACE="Bookman Old Style"> JDBC API</FONT></B></SPAN></FONT>
+<BR>
+<P><FONT FACE="바탕">다음은 몇 가지 유용하게 사용되는 API를 설명하기로 한다. API문서를 참고하면 데이터베이스 관련 작업을 쉽게 할 수 있다. 이후의 프로그램은 오라클과 MySQL 데이터베이스를 예로 들기로 한다. 만약 다른 데이터베이스를 사용하려면 해당하는 드라이버로 바꾸어 실행해야 한다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.4.1 PreparedStatement 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">같은 SQL을 반복사용하는 경우 문자열로 만드는 것은 번거로운 작업이다. 따라서, 이런 경우 Prepared Statement 인터페이스를 사용한다.  
+</FONT><P><FONT FACE="바탕">PreparedStatement는 SQL 문자열을 사용하여 미리 준비해 놓는 경우를 말하는데 이때 변경되는 값은 &quot;?&quot;를 사용하여 표현하고 SQL을 실행하기 전에 &quot;?&quot; 값을 setXxx()함수를 이용하여 치환하는 방식이다. setXxx()함수는 setInt(), setLong(),setString().. 등 데이터 타입에 따라 다양한 형태를 취하며 인자(argument)는 &quot;?&quot;의 순번을 준다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=766 HEIGHT=910>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestPrepared.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<BR>
+<P><FONT FACE="Courier New">10:</FONT>
+<BR>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<BR>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT>
+<P><FONT FACE="Courier New">36:</FONT>
+<P><FONT FACE="Courier New">37:</FONT>
+<P><FONT FACE="Courier New">38:</FONT>
+<P><FONT FACE="Courier New">39:</FONT>
+<P><FONT FACE="Courier New">40:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.sql.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class  TestPrepared {</FONT>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) throws Exception {</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);</FONT>
+<P>	<FONT FACE="Courier New">//</FONT>	<FONT FACE="Courier New">Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;); //MySQL</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Connection conn = DriverManager.getConnection( &quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;, &quot;scott&quot;, &quot;tiger&quot; );</FONT>
+<P>	<FONT FACE="Courier New">//</FONT>	<FONT FACE="Courier New">Connection conn = DriverManager.getConnection( &quot;jdbc:mysql://127.0.0.1:3306/mydb&quot;, &quot;scott&quot;, &quot;tiger&quot; ); 
+</FONT><BR>
+<P>		<FONT FACE="Courier New">Statement stmt = conn.createStatement();</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">int[] id = { 100, 200, 300 };</FONT>
+<P>		<FONT FACE="Courier New">String[] name = { &quot;AAA&quot;, &quot;BBB&quot;, &quot;CCC&quot; };</FONT>
+<P>		<FONT FACE="Courier New">String[] addr = { &quot;Seoul&quot;, &quot;Pusan&quot;, &quot;Gwangju&quot; }; 
+</FONT><BR>
+<P>		<B><FONT FACE="Courier New">String sql = &quot;INSERT INTO address_table (id, name, addr) VALUES ( ?, ?, ? )&quot;; 
+</FONT></B><BR>
+<P>		<B><FONT FACE="Courier New">PreparedStatement pstmt = conn.prepareStatement(sql);</FONT></B>
+<BR>
+<P>		<FONT FACE="Courier New">for(int i=0; i &lt; id.length; i++) { </FONT>
+<P>			<B><FONT FACE="Courier New">pstmt.setInt(1, id[i]);</FONT></B>
+<P>			<B><FONT FACE="Courier New">pstmt.setString(2, name[i]);</FONT></B>
+<P>			<B><FONT FACE="Courier New">pstmt.setString(3, addr[i]);</FONT></B>
+<P>			<B><FONT FACE="Courier New">pstmt.executeUpdate(); </FONT></B>
+<P>		<FONT FACE="Courier New">}</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">ResultSet rset = stmt.executeQuery(&quot;SELECT id, name, addr FROM address_table&quot;); 
+</FONT><BR>
+<P>		<FONT FACE="Courier New">while(rset.next()) { </FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;DB</FONT><FONT FACE="바탕">로부터</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">데이터를</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">가져옵니다</FONT><FONT FACE="Courier New">.&quot;);</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;id: &quot; + rset.getInt(1)); </FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;name: &quot; + rset.getString(2));</FONT>
+<P>			<FONT FACE="Courier New">System.out.println(&quot;addr: &quot; + rset.getString(3)); </FONT>
+<P>		<FONT FACE="Courier New">} 
+</FONT><BR>
+<P>		<FONT FACE="Courier New">conn.close();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.4.2 CallableStatment 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">대부분의 상용 R-DBMS는 내장함수(Stored Procedure)를 제공한다. 내장함수는 빈번하게 사용되는 함수 등을 미리 프로그램하여 컴파일러에 내장시켜 사용자가 함수명만 호출하여 사용하게 만든 방식이다. CallableStatement를 이용하여 사용하게 되는데, CallableStatement는 PreparedStatement를 상속받은 인터페이스이며 인자값 설정은 PreparedStatement로부터 상속받은 setXxx() 메소드를 사용하고, 결과 값을 반환 받으려면 getXxx() 메소드를 이용한다. 내장함수의 호출방법은 다음과 같이 표현하며, 변수는 PreparedStatment와 같이 &quot;?&quot;로 표시한다. 아래의 예에서 보이는 CallableStatement는 MySQL에서는 사용할 수 없다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=605>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestCallable.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<BR>
+<P><FONT FACE="Courier New">10:</FONT>
+<P><FONT FACE="Courier New">11:</FONT>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.sql.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class  TestCallable {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) throws Exception {</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Connection conn = DriverManager.getConnection( &quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;, &quot;scott&quot;, &quot;tiger&quot; );</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Statement stmt = conn.createStatement();</FONT>
+<BR>
+<P>		<B><FONT FACE="Courier New">String call = &quot;{ ? = call maxplus( ? , ? ) }&quot;;</FONT></B><FONT FACE="Courier New"> </FONT>
+<P>		<FONT FACE="Courier New">int result = 0; 
+</FONT><BR>
+<P>		<B><FONT FACE="Courier New">CallableStatement cstmt = conn.prepareCall(call); </FONT></B>
+<P>		<B><FONT FACE="Courier New">cstmt.setInt(2,500); </FONT></B>
+<P>		<B><FONT FACE="Courier New">cstmt.setInt(3,20);</FONT></B>	 <FONT FACE="Courier New">//(</FONT><FONT FACE="바탕">최대값</FONT><FONT FACE="Courier New"> + 1500) / 20 = </FONT>
+<P>		<B><FONT FACE="Courier New">cstmt.registerOutParameter(1, java.sql.Types.INTEGER);</FONT></B><FONT FACE="Courier New"> </FONT>
+<P>		<FONT FACE="Courier New">cstmt.execute();        </FONT>
+<P>		<FONT FACE="Courier New">System.out.println(&quot;result:&quot; + </FONT><B><FONT FACE="Courier New">cstmt.getInt(1)</FONT></B><FONT FACE="Courier New">); 
+</FONT><BR>
+<P>		<FONT FACE="Courier New">conn.close();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">앞의 예제를 실행시키려면 먼저 오라클의 SQL*Plus에서 다음처럼 테이블을 만들고 데이터를 입력한다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=320>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">Oracle</FONT><FONT FACE="바탕">의</FONT><FONT FACE="HY타자B"> Query</FONT><FONT FACE="바탕">문</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<BR>
+<BR>
+<BR>
+<BR>
+<P><FONT FACE="Courier New">2:</FONT>
+<BR>
+<BR>
+<P><FONT FACE="Courier New">3:</FONT>
+<BR>
+<BR>
+<BR>
+<P><FONT FACE="Courier New">4:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">CREATE TABLE shares</FONT>
+<P><FONT FACE="Courier New">( ssn 		CHAR(15) 	NOT NULL,</FONT>
+<P>  <FONT FACE="Courier New">symbol 	CHAR(8) 	NOT NULL,</FONT>
+<P>  <FONT FACE="Courier New">quantity 	NUMBER(4) 	NOT NULL );</FONT>
+<BR>
+<P><FONT FACE="Courier New">INSERT 	INTO </FONT>
+<P>	<FONT FACE="Courier New">shares(ssn, symbol, quantity)</FONT>
+<P> 	<FONT FACE="Courier New">VALUES 	('111-120', 'SUNW', 100);</FONT>
+<P><FONT FACE="Courier New">INSERT 	INTO </FONT>
+<P>	<FONT FACE="Courier New">shares(ssn, symbol, quantity)</FONT>	
+<P> 	<FONT FACE="Courier New">VALUES 	('111-120', 'DUKE', 200);</FONT>
+<BR>
+<P><FONT FACE="Courier New">COMMIT;</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">앞에서처럼 테이블이 만들어지면 다음 내용을 입력하여 maxplus함수를 선언한다.</FONT>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=214>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">maxplus </FONT><FONT FACE="바탕">함수</FONT><FONT FACE="HY타자B"> </FONT><FONT FACE="바탕">작성</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">create or replace function maxplus( v_value in number, v_factor in number ) </FONT>
+<P>	<FONT FACE="Courier New">return number is max_quantity number(4); </FONT>
+<P>	<FONT FACE="Courier New">begin </FONT>
+<P>		<FONT FACE="Courier New">select max(quantity) into max_quantity from shares; </FONT>
+<P>		<FONT FACE="Courier New">max_quantity := (max_quantity + v_value) / v_factor; </FONT>
+<P>	<FONT FACE="Courier New">return(max_quantity);</FONT>
+<P><FONT FACE="Courier New">end maxplus; </FONT>
+<P><FONT FACE="Courier New">/</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV353.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV354.GIF" BORDER=0 ALIGN=LEFT>
+<P><B><FONT FACE="바탕">실행</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">결과</FONT></B>
+<P>		<B><FONT FACE="Courier New">result:3</FONT></B>
+<BR>
+<P><FONT FACE="바탕">앞에서 quantity 필드의 최대값은 200이고 자바코드에서 데이터베이스의 maxplus함수 인자 값으로 각각 500과 20이 입력되었으므로 (200 + 500) / 20 = 35가 되는 것이다.</FONT>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.4.3 ResultSetMetaData 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">ResultSetMetaData는 ResultSet에 대한 정보 즉, 칼럼명(필드명), 개수, 타입 등 메타정보를 알 수 있는 인터페이스로서 ResultSet의 getMetaData() 메소드를 통해 인스턴스를 얻을 수 있다. 이러한 정보를 이용하면 JDBC 프로그램을 더욱 융통성 있게 만들 수 있다. 다음은 테이블 내의 각 열의 이름을 Header로 출력하는 예제이다. 
+</FONT><P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=922>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestResultSetMetaData.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<BR>
+<P><FONT FACE="Courier New">11:</FONT>
+<BR>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT>
+<P><FONT FACE="Courier New">21:</FONT>
+<P><FONT FACE="Courier New">22:</FONT>
+<P><FONT FACE="Courier New">23:</FONT>
+<P><FONT FACE="Courier New">24:</FONT>
+<P><FONT FACE="Courier New">25:</FONT>
+<P><FONT FACE="Courier New">26:</FONT>
+<P><FONT FACE="Courier New">27:</FONT>
+<P><FONT FACE="Courier New">28:</FONT>
+<P><FONT FACE="Courier New">29:</FONT>
+<P><FONT FACE="Courier New">30:</FONT>
+<P><FONT FACE="Courier New">31:</FONT>
+<P><FONT FACE="Courier New">32:</FONT>
+<P><FONT FACE="Courier New">33:</FONT>
+<P><FONT FACE="Courier New">34:</FONT>
+<P><FONT FACE="Courier New">35:</FONT>
+<P><FONT FACE="Courier New">36:</FONT>
+<P><FONT FACE="Courier New">37:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.sql.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class  TestResultSetMetaData {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) throws Exception {</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);</FONT>
+<P>	<FONT FACE="Courier New">//</FONT>	<FONT FACE="Courier New">Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;); //MySQL</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Connection conn = DriverManager.getConnection( &quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;, &quot;scott&quot;, &quot;tiger&quot; );</FONT>
+<P>	<FONT FACE="Courier New">//</FONT>	<FONT FACE="Courier New">Connection conn = DriverManager.getConnection( &quot;jdbc:mysql://127.0.0.1:3306/mydb&quot;, &quot;scott&quot;, &quot;tiger&quot; ); 
+</FONT><BR>
+<P>		<FONT FACE="Courier New">Statement stmt = conn.createStatement();</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">String sql = &quot;SELECT * from address_table&quot;;</FONT>
+<P>		<FONT FACE="Courier New">ResultSet rset = stmt.executeQuery(sql); </FONT>
+<P>		
+<P>		<B><FONT FACE="Courier New">ResultSetMetaData rm = rset.getMetaData(); </FONT></B>
+<P>		
+<P>		<FONT FACE="Courier New">int colCount = </FONT><B><FONT FACE="Courier New">rm.getColumnCount()</FONT></B><FONT FACE="Courier New">; </FONT>
+<P>		
+<P>		<FONT FACE="Courier New">// Header print, index</FONT><FONT FACE="바탕">가</FONT><FONT FACE="Courier New"> 1</FONT><FONT FACE="바탕">부터</FONT><FONT FACE="Courier New"> </FONT><FONT FACE="바탕">시작함</FONT>
+<P>		<FONT FACE="Courier New">for(int i=1; i &lt;= colCount; i++) { </FONT>
+<P>			<FONT FACE="Courier New">System.out.print(</FONT><B><FONT FACE="Courier New">rm.getColumnName(i)</FONT></B><FONT FACE="Courier New"> + &quot;\t\t&quot;); </FONT>
+<P>		<FONT FACE="Courier New">}</FONT>
+<P>		<FONT FACE="Courier New">System.out.println(); </FONT>
+<P>		
+<P>		<FONT FACE="Courier New">// Data print </FONT>
+<P>		<FONT FACE="Courier New">while(rset.next()) { </FONT>
+<P>			<FONT FACE="Courier New">System.out.print(rset.getInt(1) + &quot;\t\t&quot;); </FONT>
+<P>			<FONT FACE="Courier New">System.out.print(rset.getString(2) + &quot;\t\t&quot;); </FONT>
+<P>			<FONT FACE="Courier New">System.out.print(rset.getString(3));</FONT>
+<P>			<FONT FACE="Courier New">System.out.println();</FONT>
+<P>		<FONT FACE="Courier New">} </FONT>
+<P>		<FONT FACE="Courier New">conn.close();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<BR>
+<BR>
+<P><FONT SIZE=4 COLOR=PURPLE><SPAN STYLE="font-size:16pt;"><FONT FACE="HY부활M">10.4.4 DatabaseMetaData 
+</FONT></SPAN></FONT><BR>
+<P><FONT FACE="바탕">DatabaseMetaData는 사용중인 DBMS에 관련된 여러 가지 정보를 얻을 수 있는 인터페이스이다. 시스템 카탈로그, 키 관련사항, 테이블 관련사항, 트랜잭션 관련사항 등 다양한 정보를 제공한다. 하지만 모든 DBMS가 다 지원하는 것은 아니고 일부 함수는 DBMS에 따라 지원하기도 하고, 지원하지 않을 수도 있다. 
+</FONT><P><FONT FACE="바탕">DatabaseMetaData는 Connection 객체의 getMetaData() 함수를 이용하여 인스턴스를 얻을 수 있다. 
+</FONT><BR>
+<P><FONT FACE="바탕">다음 프로그램은 JDBC 드라이버의 이름과 버전을 출력하는 예제이다.</FONT>
+<BR>
+<P>
+<TABLE BORDER=0 CELLPADDING=2 WIDTH=771 HEIGHT=519>
+<TD VALIGN=MIDDLE WIDTH=7%>
+<BR></TD>
+<TD VALIGN=MIDDLE WIDTH=92%>
+<P><FONT FACE="HY타자B">TestDatabaseMetaData.java</FONT></TD>
+</tr>
+<TR>
+<TD VALIGN=TOP WIDTH=7%>
+<P><FONT FACE="Courier New">1:</FONT>
+<P><FONT FACE="Courier New">2:</FONT>
+<P><FONT FACE="Courier New">3:</FONT>
+<P><FONT FACE="Courier New">4:</FONT>
+<P><FONT FACE="Courier New">5:</FONT>
+<P><FONT FACE="Courier New">6:</FONT>
+<P><FONT FACE="Courier New">7:</FONT>
+<P><FONT FACE="Courier New">8:</FONT>
+<P><FONT FACE="Courier New">9:</FONT>
+<P><FONT FACE="Courier New">10:</FONT>
+<BR>
+<P><FONT FACE="Courier New">11:</FONT>
+<BR>
+<P><FONT FACE="Courier New">12:</FONT>
+<P><FONT FACE="Courier New">13:</FONT>
+<P><FONT FACE="Courier New">14:</FONT>
+<P><FONT FACE="Courier New">15:</FONT>
+<P><FONT FACE="Courier New">16:</FONT>
+<P><FONT FACE="Courier New">17:</FONT>
+<P><FONT FACE="Courier New">18:</FONT>
+<P><FONT FACE="Courier New">19:</FONT>
+<P><FONT FACE="Courier New">20:</FONT></TD>
+<TD VALIGN=TOP WIDTH=92%>
+<P><FONT FACE="Courier New">import java.sql.*;</FONT>
+<BR>
+<P><FONT FACE="Courier New">public class  TestDatabaseMetaData {</FONT>
+<BR>
+<P>	<FONT FACE="Courier New">public static void main(String[] args) throws Exception {</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);</FONT>
+<P>	<FONT FACE="Courier New">//</FONT>	<FONT FACE="Courier New">Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;); //MySQL</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">Connection conn = DriverManager.getConnection( &quot;jdbc:oracle:thin:@127.0.0.1:1521:orcl&quot;, &quot;scott&quot;, &quot;tiger&quot; );</FONT>
+<P>	<FONT FACE="Courier New">//</FONT>	<FONT FACE="Courier New">Connection conn = DriverManager.getConnection( &quot;jdbc:mysql://127.0.0.1:3306/mydb&quot;, &quot;scott&quot;, &quot;tiger&quot; ); 
+</FONT><BR>
+<P>		<B><FONT FACE="Courier New">DatabaseMetaData dbmd = conn.getMetaData();</FONT></B>
+<P>		
+<P>		<FONT FACE="Courier New">System.out.println( </FONT><B><FONT FACE="Courier New">dbmd.getDriverName()</FONT></B><FONT FACE="Courier New"> );</FONT>
+<P>		<FONT FACE="Courier New">System.out.println( </FONT><B><FONT FACE="Courier New">dbmd.getDriverVersion()</FONT></B><FONT FACE="Courier New"> );</FONT>
+<BR>
+<P>		<FONT FACE="Courier New">conn.close();</FONT>
+<P>	<FONT FACE="Courier New">}</FONT>
+<P><FONT FACE="Courier New">}</FONT></TD>
+<CAPTION ALIGN=BOTTOM>
+</CAPTION>
+
+</tr>
+</TABLE>
+<BR>
+<P><FONT FACE="바탕">여기에 언급되지 않은 API도 많이 있는데 좀더 자세한 내용을 알려면 API문서를 참고하기 바란다.</FONT>
+<BR>
+<P>
+<IMG SRC="file:///C|/지빠귀/FYXIV355.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV356.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV357.GIF" BORDER=0 ALIGN=LEFT>
+<IMG SRC="file:///C|/지빠귀/FYXIV358.GIF" BORDER=0 ALIGN=LEFT>
+<P ALIGN=RIGHT><FONT SIZE=7 COLOR=WHITE><SPAN STYLE="font-size:35pt;"><FONT FACE="바탕">[스윙(Swing)]</FONT></SPAN></FONT>
+<BR>
+<P>
+<P><FONT SIZE=4><SPAN STYLE="font-size:15pt;"><FONT FACE="바탕">이 장에서 AWT를 사용할 때 보다 더 다양하고 화려한 어플리케이션을 만들 수 있는 스윙에 대해 상세하게 설명하고자 한다. 스윙이 AWT와 다른 점은 AWT가 플랫폼의형의 컴포넌트를 이용하는 반면, 스윙은 비교적 부하가 적은 경량 컴포넌트를 이용하므로 전체적인 프로그램의 실행이 빠르고 작성이 용이한 이점을 가지고 있다. 
+</FONT></SPAN></FONT><BR>
+<BR></body>
+
+</html>

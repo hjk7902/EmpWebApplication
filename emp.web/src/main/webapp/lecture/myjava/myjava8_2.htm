@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">8.2</P></td>
+        <td width="518">
+        <p class="TitleTitle">스트림 클래스의 개요</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<P class="TSubmenu">&nbsp;8.2.1 바이트스트림 클래스
+		<ul>
+		<P>다음 그림은 자주 사용되는 바이트스트림을 나타낸 것이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV313.GIF" BORDER=0 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV314.GIF" BORDER=0 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P>▒ FileInputStream과 FileOutputStream
+		<P>- 이들 클래스는 노드스트림으로 디스크 파일에 사용된다. 객체를 생성할 때 FileInputStream클래스는 파일이 읽기 가능한 상태여야하며, FileOutputStream클래스는 파일이 없으면 파일을 생성하고, 있으면 겹쳐 Tm게 된다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<p class="TStep1">FileInputStream infile = new FileInputStream(&quot;in.txt&quot;);
+			<p class="TStep1">FileOutputStream outfile = new FileOutputStream(&quot;out.txt&quot;);</TD>
+		</tr>
+		</TABLE>
+		<P>▒ BufferedInputStream과 BufferedOutputStream
+		<P>- 이 클래스는 필터스트림으로 입출력 효율을 증대시켜준다.
+		<P>▒ DataInputStream과 DataOutputStream
+		<P>- 이 클래스는 필터스트림으로 Primitive 형 데이터를 읽거나 쓸 때 사용한다. 또, 서로 다른 Primitive 형 데이터 처리를 위해 많은 메소드를 가지고 있다. 
+		<P>다음 프로그램은 앞의 파일복사 예제를 FileInpuStream과 FileOutPutStream 클래스를 사용하여 작성한 것이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>CopyFile.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.io.*;
+			<P class="CStep1">public class CopyFile {
+			<P class="CStep2">public static void main(String [] args) throws Exception
+			<P class="CStep2">{
+			<P class="CStep3">if (args.length &lt; 2) {
+			<P class="CStep4">System.out.println(&quot;Usage : java CopyFile
+			<P class="CStep4"><I>file1 file2</I>&quot;);
+			<P class="CStep4">return;
+			<P class="CStep3">}
+			<P class="CStep2">FileInputStream fis = new <B>FileInputStream</B>(args[0]);
+			<P class="CStep3">FileOutputStream fos = new <B>FileOutputStream</B>(args[1]);
+			<P class="CStep3">int readByte = 0;
+			<P class="CStep3">while ((readByte = <B>fis.read()</B>) != -1) {
+			<P class="CStep4"><B>fos.write(readByte)</B>;
+			<P class="CStep3">}
+			<P class="CStep3">fis.close();
+			<P class="CStep3">fos.close();
+			<P class="CStep3">System.out.println(args[0] + &quot; copied to &quot; + args[1]);
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>이 예제 프로그램은 노드스트림인 FileInputStream과 FileOuputStream만을 사용하고 있는데, read()와 write() 메소드는 1 바이트를 읽고 쓰는 메소드이다. (여기서 read()와 write() 메소드는 int형을 사용하지만 내부적으로는 바이트 단위로 읽고 쓴다.)<P>다음 프로그램은 DataInputStream클래스를 이용하여 파일에 &quot;이름&quot;, &quot;사번&quot;, &quot;나이&quot;를 읽고 쓰는 예이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>FileIOExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.io.*;
+			<P class="CStep1">public class FileIOExample {
+			<P class="CStep2">public static void main(String [] args) throws Exception
+			<P class="CStep2">{
+			<P class="CStep3">if (args.length &lt; 1 ) {
+			<P class="CStep4">System.out.println(&quot;Usage : java
+			<P class="CStep4">FielIOExample <I>file</I>&quot;);
+			<P class="CStep4">return;
+			<P class="CStep3">}
+			<P class="CStep3"><B>FileOutputStream fos = new FileOutputStream(args[0]);</B>
+			<P class="CStep3"><B>DataOutputStream dos = new DataOutputStream(fos);</B>
+			<P class="CStep3">dos.<B>writeUTF(&quot;홍길동&quot;)</B>;
+			<P class="CStep3">dos.writeUTF(&quot;41456&quot;);
+			<P class="CStep3">dos.<B>writeInt(30)</B>;
+			<P class="CStep3">dos.writeUTF(&quot;이기동&quot;);
+			<P class="CStep3">dos.writeUTF(&quot;41457&quot;);
+			<P class="CStep3">dos.writeInt(31);
+			<P class="CStep3">dos.close();
+			<P class="CStep3"><B>FileInputStream fis = new FileInputStream(args[0]);</B>
+			<P class="CStep3"><B>DataInputStream dis = new DataInputStream(fis);</B>
+			<P class="CStep3">System.out.println(&quot;이름 : &quot; + <B>dis.readUTF()</B>);
+			<P class="CStep3">System.out.println(&quot;사번 : &quot; + dis.readUTF());
+			<P class="CStep3">System.out.println(&quot;나이 : &quot; + <B>dis.readInt()</B>);
+			<P class="CStep3">System.out.println(&quot;이름 : &quot; + dis.readUTF());
+			<P class="CStep3">System.out.println(&quot;사번 : &quot; + dis.readUTF());
+			<P class="CStep3">System.out.println(&quot;나이 : &quot; + dis.readInt());
+			<P class="CStep3">dis.close();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>이 예제 프로그램은 DataInputStream클래스와 DataOutputStream클래스의 사용형태를 잘 보여주고 있다. 이처럼 기본자료의 입출력에는 주로 DataInputStream클래스와 DataOutputStream클래스이다.
+		<P>앞에서 설명한 InputStream, OutputStream은 바이트 단위로 입출력 동작을 수행하지만 한글의 경우 2바이트이기 때문에 글자가 깨질 위험이 있다. 따라서 이러한 문제점을 없애기 위해 자바에서는 문자나 문자열을 다룰 때, 유니코드(16bit-Unicode)방식을 제공한다. 유니코드를 사용하는 입출력 클래스를 Reader와 Writer라고 부르며, 이렇게 하면 자동으로 바이트가 유니코드화 되므로 한글같은 2 바이트 문자도 깨지지 않는다.
+		</ul>
+		<P class="TSubmenu">8.2.2 문자 스트림 클래스
+		<ul>
+		<P>다음 그림은 자주 사용되는 문자 스트림 클래스를 나타낸 것이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV315.GIF" BORDER=0 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV316.GIF" BORDER=0 HSPACE=3 VSPACE=3 ALIGN=BOTTOM><BR>
+		<P>▒ InputStreamReader와 OutputStreamWriter
+		<P>- 이 클래스는 바이트 스트림과 Character reader/writer 사이의 인터페이스 역할을 한다.
+		<P>▒ FileReader와 FileWriter
+		<P>- 이 클래스는 노드스트림으로 FileInputStream이나 FileOutputStream과 같은 역할을 하는데, 바이트단위가 아닌 유니코드 문자단위로 처리한다.
+		<P>▒ BufferedReader와 BufferedWriter
+		<P>- 이 클래스는 필터스트림으로 입출력 효율을 증대시켜준다.
+		<P>▒ StringReader와 StringWriter
+		<P>- 이 클래스는 노드스트림으로 문자열객체를 읽고 쓰는데 사용한다.
+		<P>▒ PipedReader와 PipedWriter
+		<P>- 이 클래스는 쓰래드 사이의 통신을 위한 연결 통로로 사용된다.
+		<P>다음 프로그램은 키보드에서 문자열을 입력받아 파일에 저장하는 예이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>StringInput.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.io.*;
+			<P class="CStep1">public class StringInput {
+			<P class="CStep2">public static void main(String [] args) throws Exception
+			<P class="CStep2">{
+			<P class="CStep3">if (args.length &lt; 1 ) {
+			<P class="CStep4">System.out.println(&quot;Usage : java
+			<P class="CStep4">StringInput <I>file</I>&quot;);
+			<P class="CStep4">return;
+			<P class="CStep3">}
+			<P class="CStep3">String inputString;
+			<P class="CStep3">InputStreamReader isr = new <B>InputStreamReader
+			<P class="CStep3">(System.in)</B>;
+			<P class="CStep3">BufferedReader br = new <B>BufferedReader(isr)</B>;
+			<P class="CStep4">FileOutputStream fos = new 
+			<P class="CStep4"><B>FileOutputStream(args[0])</B>;
+			<P class="CStep3">OutputStreamWriter osr = new <B>OutputStreamWriter(fos)</B>;
+			<P class="CStep3">BufferedWriter bw = 			new <B>BufferedWriter(osr)</B>;
+			<P class="CStep3">while((inputString = <B>br.readLine()</B>) != null) {
+			<P class="CStep4"><B>bw.write(inputString + &quot;\n&quot;)</B>;
+			<P class="CStep3">}
+			<P class="CStep3">bw.close();
+			<P class="CStep3">br.close();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>이 프로그램이 실행될 때 저장할 문장을 입력한 다음 유닉스에서는 Ctrl+D를 누르고 윈도우에서는 Ctrl+Z를 눌러 스트림의 끝을 알려준다.
+		<P>9 : InputStreamReader가 사용되었는데, 다음 그림을 통하여 이 클래스의 생성자를 살펴보자.
+		<p>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=100%>
+			<P>InputStreamReader클래스의 생성자 요약</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=100%>
+			<P><U>InputStreamReader</U> (<U>InputStream</U> in)
+			<P>Create an InputStreamReader that uses the default charset.</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=100%>
+			<P><U>InputStreamReader</U> (<U>InputStream</U> in, <U>Charset</U> cs)
+			<P>Create an InputStreamReader that uses the given charset.</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=100%>
+			<P><U>InputStreamReader</U> (<U>InputStream</U> in, <U>CharsetDecoder</U> dec)
+			<P>Create an InputStreamReader that uses the given charset decoder.</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=100%>
+			<P><U>InputStreamReader</U> (<U>InputStream</U> in, <U>String</U> caarsetName)
+			<P>Create an InputStreamReader that uses the named charset.</TD>
+			<P ALIGN=LEFT><FONT FACE="Courier New">
+		</tr>
+		</TABLE>
+		<P>이 클래스는 필터스트림이다. 따라서 InputStreamReader의 인자로 System.in을 넘겼다. API문서를 살펴보면 System.in이 InputStream임을 알 수 있다.(앞에서 설명했지만, InputStream은 노드스트림이다.)
+		<P>10 : BufferedReader클래스는 내부적으로 버퍼를 이용해서 입출력의 성능을 극대화시킨다. 
+		<P>14 : readLine() 메소드는 엔터키를 누르기 전까지 사용자가 입력한 내용을 한꺼번에 읽어오는 메소드인데, 사용자의 입력을 한번에 읽어오고 입출력 성능을 높이기 위해 BufferedReader클래스를 사용한다. 
+		<P>11 : ∼ 13 : 이 부분은 다음과 같이 표현할 수도 있다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<p class="TStep1">BufferedWriter bw = new <B>BufferedWriter</B>(new 
+			<p class="TStep1"><B>OutputStreamWriter</B>(new <B>FileOutputStream</B>(args[0])));</TD>
+		</tr>
+		</TABLE>
+		<P>입력한 문자열을 파일에 저장하기 위해 파일을 open한다. (C언어에서는 open()같은 메소드를 사용해서 입출력 동작을 실행시키지만 자바에서는 필요한 객체를 생성함으로써 입출력 동작이 이루어진다. 
+		<P>17 : ∼ 18 : close() 메소드는 open된 파일을 닫아준다. (11번째 줄과 12번째 줄에서 생성한 모든 스트림 객체를 close할 필요는 없고, 스트림 객체만 close하면 된다.)
+		<P> 이 외에도 많은 입/출력 API들이 있으나, 사용방법은 위에서 설명한 내용과 크게 다르지 않다. 
+		</ul></td>
+    </tr>
+	</table>
+</body>
+</html>

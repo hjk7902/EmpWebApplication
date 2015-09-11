@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=EUC-KR">
+<title>Introduction to JAVA programming 2000 Fall</title>
+<meta name="author" content="Heo Jin Kyoung">
+<meta name="generator" content="Namo WebEditor v4.0">
+
+<script language="JavaScript" src="/lecture/js/NoMouseButton.js"></script>
+
+</head>
+
+<body background="/images/backgr.gif" bgcolor="white" text="black" link="blue"
+ vlink="purple" alink="red" oncontextmenu="return false" ondragstart="return false"
+ onselectstart="return false">
+
+<div align="center"><table border="0" cellspacing="0" width="600" bgcolor="black">
+    <tr>
+        <td width="796"><div align="center"><table border="0" cellspacing="1"
+             width="600" bgcolor="#FFF6FC">
+                <tr>
+                    <td width="40" valign="top" background="/lecture/images/backgr_left.gif"><p align="left"><font
+                         face="굴림" size="2"><img src="/lecture/images/blank40x1.gif"
+                         width="40" height="1" border="0"></font></td>
+                    <td width="560" valign="top"><p align="left"><font face="굴림" size="2">&nbsp; 
+                        </font>
+                        <table border="0" cellpadding="3" cellspacing="0" width="550">
+                            <tr>
+                                <td><p align="center"><font face="굴림" size="4"><b>JAVA 
+                                    Programming</b></font></p></td>
+                            </tr>
+                            <tr>
+                                <td height="10"><p align="left"><hr noshade></font></td>
+                            </tr>
+                        </table>
+                        <table border="0" cellpadding="3" cellspacing="0" width="550">
+                            <tr>
+                                <td><p align="left"><font face="굴림" size="2"><b>담당 교수 
+                                    </b>: 
+                                    허진경(</font><a href="mailto:heojk@shinbiro.com"><font
+                                     face="굴림" size="2">heojk@shinbiro.com</a>)</font></td>
+                            </tr>
+                            <tr>
+                                <td><p align="left"><font face="굴림" size="2"><b>강의 교재</b></font><font
+                                     face="굴림" size="2"> : Thinking in Java</font></td>
+                            </tr>
+                        </table>
+                        <table border="0" cellpadding="3" cellspacing="0" width="550">
+                            <tr>
+                                <td colspan="3"><p align="left"><font face="굴림" size="2"><b>강의 
+                                    내용</b></font><font face="굴림" size="2"
+                                     color="green">(강의파일은 pdf파일이며, 
+                                    보시려면 </font><a href="ftp://ftp.adobe.com/pub/adobe/acrobatreader/win/4.x/ar405kor.exe"><font
+                                     face="굴림" size="2">Acrobat Reader</font></a><font
+                                     face="굴림" size="2" color="green">가 필요합니다.)</font></td>
+                            </tr>
+                            <tr>
+                                <td valign="top"><p align="left"><font face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;객체지향 프로그래밍<br> </font><font
+                                     face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;식별자, 키워드, 자료형<br> </font><font
+                                     face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;표현식과 흐름제어<br> </font><font
+                                     face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;Arrays<br> </font><font face="굴림"
+                                     size="3">&nbsp;</font><font face="굴림"
+                                     size="2"><img src="/lecture/images/red_dot.gif" align="middle"
+                                     width="5" height="5" border="0"> &nbsp;Inheritance</font></td>
+                                <td valign="top"><p align="left"><font face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;Advanced Class Features<br> </font><font
+                                     face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;Exceptions<br> </font><font face="굴림"
+                                     size="3">&nbsp;</font><font face="굴림"
+                                     size="2"><img src="/lecture/images/red_dot.gif" align="middle"
+                                     width="5" height="5" border="0"> &nbsp;Text-Based 
+                                    Applications<br> </font><font face="굴림"
+                                     size="3">&nbsp;</font><font face="굴림"
+                                     size="2"><img src="/lecture/images/red_dot.gif" align="middle"
+                                     width="5" height="5" border="0"> &nbsp;Building 
+                                    Java GUIs<br> </font><font face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;GUI Event Handling</font></td>
+                                <td valign="top"><p align="left"><font face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;Java Applet<br> </font><font face="굴림"
+                                     size="3">&nbsp;</font><font face="굴림"
+                                     size="2"><img src="/lecture/images/red_dot.gif" align="middle"
+                                     width="5" height="5" border="0"> &nbsp;GUI-Based 
+                                    Applications<br> </font><font face="굴림"
+                                     size="3">&nbsp;</font><font face="굴림"
+                                     size="2"><img src="/lecture/images/red_dot.gif" align="middle"
+                                     width="5" height="5" border="0"> &nbsp;Threads<br> 
+                                    </font><font face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;Advanced I/O Streams<br> </font><font
+                                     face="굴림" size="3">&nbsp;</font><font
+                                     face="굴림" size="2"><img src="/lecture/images/red_dot.gif"
+                                     align="middle" width="5" height="5" border="0"> 
+                                    &nbsp;Networking</font></td>
+                            </tr>
+                        </table>
+                        <table border="0" cellpadding="3" cellspacing="0" width="550">
+                            <tr>
+                                <td colspan="2"><p align="left"><font face="굴림" size="2"><b>수업 
+                                    게시판</b></font></td>
+                            </tr>
+                            <tr>
+                                <td width="35" valign="top"><p align="left"><font face="굴림"
+                                     size="2"><img src="/lecture/images/note02.gif" width="34"
+                                     height="34" border="0" alt="수업 게시판"> 
+                                    </font></td>
+                                <td width="515" valign="top"><ul type="disc">
+                                        <li><a href="/lecture/cheating.htm" target="_blank"><font face="굴림"
+                                         size="2">부정행위에 대하여...(필독)</font></a> 
+                                        
+                                    </ul></td>
+                            </tr>
+                        </table>
+                        <table border="0" cellpadding="3" cellspacing="0" width="550">
+                            <tr>
+                                <td width="544" valign="top" colspan="2"><p align="left"><font
+                                     face="굴림" size="2"><b>과제물 제출</b></font></td>
+                            </tr>
+                            <tr>
+                                <td width="65" valign="top"><p align="center"><font
+                                     face="굴림" size="2"><img src="/lecture/images/e-mail02.gif"
+                                     width="50" height="60" border="0"></font></td>
+                                <td width="485" valign="top"><ul type="disc">
+                                        <li><font face="굴림" size="2">과제물은 
+                                        E-Mail을 통해서만 받습니다.(단, 특별한 
+                                        경우는 제외)</font> 
+                                        <li><font face="굴림" size="2">과제물 
+                                        제출 주소 : </font><a href="mailto:heojk@shinbiro.com"><font
+                                         face="굴림" size="2">heojk@shinbiro.com</font></a> 
+                                        
+                                        <li><font face="굴림" size="2">과제물이 
+                                        E-Mail로 접수되면 즉시 접수 확인 메일이 
+                                        reply 됩니다. 반드시 이를 확인하고 받은 
+                                        확인 메일을 보관하기 바랍니다.</font> 
+                                        
+                                        <li><font face="굴림" size="2">과제물을 
+                                        제출할 때에는 제목(Subject)을 다음과 
+                                        같은 형식에 맞추어 보내기 바랍니다. 
+                                        (이를 지키지 않았을 경우 불이익이 있을 
+                                        수 있습니다.)</font> 
+                                        <li><font face="굴림" size="2" color="teal"><b>레포트 
+                                        제출 형식(이메일로 제출시의 제목)</b></font><font
+                                         face="굴림" size="2"><br> &nbsp;&nbsp;&nbsp;&nbsp;제목 
+                                        :&nbsp;</font><font face="굴림" size="2"
+                                         color="teal"> 반(분반 또는 전공-</font><font
+                                         face="굴림" size="2" color="fuchsia">반드시 
+                                        기입</font><font face="굴림" size="2"
+                                         color="teal">), 학번, 이름, 레포트제목<br> 
+                                        &nbsp;&nbsp;&nbsp;&nbsp;</font><font
+                                         face="굴림" size="2">예) 인터넷A, 20001234, 
+                                        홍길동, C언어란?</font> 
+                                    </ul></td>
+                            </tr>
+                        </table>
+                        <table border="0" cellpadding="3" cellspacing="0" width="550">
+                            <tr>
+                                <td width="544" colspan="2"><p align="left"><font face="굴림"
+                                     size="2"><b>성적 평가</b></font></td>
+                            </tr>
+                            <tr>
+                                <td width="65" valign="top"><p align="center"><font
+                                     face="굴림" size="2"><img src="/lecture/images/justice.gif"
+                                     width="58" height="67" border="0">&nbsp;</font></td>
+                                <td width="485"><ul type="disc">
+                                        <li><font face="굴림" size="2">중간고사(30%) 
+                                        - </font><font face="굴림" size="2" color="red">미 
+                                        응시</font><font face="굴림" size="2">자는 
+                                        무조건 </font><font face="굴림" size="2"
+                                         color="red">F</font> 
+                                        <li><font face="굴림" size="2">기말고사(30%) 
+                                        - </font><font face="굴림" size="2" color="red">미 
+                                        응시</font><font face="굴림" size="2">자는 
+                                        무조건 </font><font face="굴림" size="2"
+                                         color="red">F</font> 
+                                        <li><font face="굴림" size="2">과제물(20%) 
+                                        - 과제물의 </font><font face="굴림" size="2"
+                                         color="red">50%이상 미 제출</font><font
+                                         face="굴림" size="2">자 무조건 </font><font
+                                         face="굴림" size="2" color="red">F</font> 
+                                        
+                                        <li><font face="굴림" size="2">출석(20%) 
+                                        - 수업일수의 </font><font face="굴림"
+                                         size="2" color="red">1/3이상 결석</font><font
+                                         face="굴림" size="2">자 무조건</font><font
+                                         face="굴림" size="2" color="red"> F</font> 
+                                        
+                                        <li><font face="굴림" size="2">추후에 
+                                        변경될 수 있음. </font>
+                                    </ul></td>
+                            </tr>
+                        </table>
+                        <table border="0" cellpadding="3" cellspacing="0" width="550">
+                            <tr>
+                                <td colspan="2"><p align="left"><font face="굴림" size="2"><b>References</b></font></td>
+                            </tr>
+                            <tr>
+                                <td width="65" valign="top"><p align="left"><font face="굴림"
+                                     size="2"><img src="/lecture/images/ani005.gif" align="middle"
+                                     border="0"></font></td>
+                                <td width="485%"><ol>
+                                        <li><font face="굴림" size="2">Java2 
+                                        30일 완성 / 영진.COM</font> 
+                                        <li><font face="굴림" size="2">Java 
+                                        Programming Bible Ver.2 / 영진.COM</font> 
+                                        
+                                        <li><font face="굴림" size="2">Java 
+                                        2 Programming Bible / 정보문화사</font> 
+                                        
+                                    </ol></td>
+                            </tr>
+                        </table>
+                        <table border="0" cellpadding="3" cellspacing="0" width="550">
+                            <tr>
+                                <td width="544" colspan="2"><p align="left"><font face="굴림"
+                                     size="2"><b>유의 사항</b></font></td>
+                            </tr>
+                            <tr>
+                                <td width="30" valign="top"><p align="right"><font
+                                     face="굴림" size="2"><img src="/lecture/images/docu_12.gif"
+                                     border="0"></font></td>
+                                <td valign="top"><ul type="disc">
+                                        <li><font face="굴림" size="2">과제물은 
+                                        제출 기한 내에 제출해야 합니다.</font> 
+                                        
+                                        <li><font face="굴림" size="2" color="blue">늦게 
+                                        제출한 과제물</font><font face="굴림"
+                                         size="2">은 해당 </font><font face="굴림"
+                                         size="2" color="blue">과제물 만점의 
+                                        10%/일 씩 감점</font><font face="굴림"
+                                         size="2">됩니다.</font> 
+                                        <li><font face="굴림" size="2">다음과 
+                                        같은 경우 </font><font face="굴림" size="2"
+                                         color="red">점수에 관계없이 &quot;</font><font
+                                         face="굴림" size="2" color="red"><b>F</b>&quot;입</font><font
+                                         face="굴림" size="2">니다.</font> 
+                                        <ul type="circle">
+                                            <li><font face="굴림" size="2">시험을 
+                                            1회 이상 무단으로 결시한 경우</font> 
+                                            
+                                            <li><font face="굴림" size="2">과제물을 
+                                            1/2 이상 제출하지 않은 경우</font> 
+                                            
+                                        </ul>
+                                    </ul></td>
+                            </tr>
+                            <tr>
+                                <td width="30" valign="top"><p align="right"><font
+                                     face="굴림" size="2"><img src="/lecture/images/death.gif"
+                                     border="0"></font></td>
+                                <td valign="top"><ul type="disc">
+                                        <li><font face="굴림" size="2" color="red">시험 
+                                        중 부정 행위를 했을 경우 해당 시험 점수는 
+                                        0점 처리</font><font face="굴림" size="2">됩니다.</font> 
+                                        
+                                        <li><font face="굴림" size="2" color="blue">다른 
+                                        사람의 </font><font face="굴림" size="2"
+                                         color="red">과제물을 copy했을 경우</font><font
+                                         face="굴림" size="2" color="blue"> 
+                                        관련된 모든 사람에 대해 기말 </font><font
+                                         face="굴림" size="2" color="red">총점에서</font><font
+                                         face="굴림" size="2" color="blue"> 
+                                        해당 과제물의 만점만큼 </font><font face="굴림"
+                                         size="2" color="red">감점</font><font
+                                         face="굴림" size="2">합니다.</font> 
+                                        
+                                    </ul></td>
+                            </tr>
+                        </table>
+                        <table border="0" cellpadding="3" cellspacing="0" width="550">
+                            <tr>
+                                <td width="600"><p align="right"><hr noshade></font></td>
+                            </tr>
+                            <tr>
+                                <td width="600" valign="top"><p align="right"><font
+                                     face="굴림" size="2">최종 수정 : 2001. 
+                                    1. &nbsp;</font><font face="굴림" size="1">&nbsp;</font></td>
+                            </tr>
+                        </table></td>
+                </tr>
+            </table></div></td>
+    </tr>
+</table></div>
+</body>
+
+</html>

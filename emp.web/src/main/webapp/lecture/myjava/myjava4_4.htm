@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">4.4</P></td>
+        <td width="518">
+        <p class="TitleTitle">색상과 글꼴(Font)</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P> 이 부분에서는 AWT가 제공하는 색상과 글꼴의 사용법 및 기능에 대해 설명하기로 한다.
+		</ul>
+		<P class="TSubmenu">4.4.1 색상
+		<ul>
+		<P>색을 변경하려면 setForeground(Color c)메소드와 setBackground(Color c) 메소드를 이용한다. 이 메소드는 모두 java.awt.Color 클래스의 인스턴스를 인수로 갖는다. Color 클래스의 인스턴스는 자주 사용되는 색에 대해서는 상수로 지정된 Color.red, Color.blue 등의 static 멤버변수를 사용할 수도 있고, Color 클래스의 생성자를 통해 R(빨강), G(초록), B(파랑)에 0∼255사이의 값을 주어 고유한 색을 만들 수도 있다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=549>
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<p class="TStep1">public Color(int red, int green, int blue)</TD>
+		</tr>
+		</TABLE>
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV227.GIF" BORDER=0 WIDTH=306 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 앞 그림의 버튼 배경색과 전경색을 바꾸는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ColorExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class ColorExample {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">private Button btn;
+			<P class="CStep2">public ColorExample() {
+			<P class="CStep3">f = new Frame(&quot;자바 윈도우&quot;);
+			<P class="CStep3">btn = new Button(&quot;버  튼&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.add(btn, BorderLayout.SOUTH);
+			<P class="CStep3">btn.setBackground(<B>Color.blue</B>);
+			<P class="CStep3"><B>Color yellow = new Color(255, 255, 0);</B>
+			<P class="CStep3">btn.setForeground(<B>yellow</B>);
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">ColorExample win = new ColorExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">4.4.2 글꼴
+		<ul>
+		<P>AWT에서 문자를 표시하는데 사용하는 글꼴은 setFont(Font f) 메소드를 이용하여 지정할 수 있으며, 이 메소드는 java.awt.Font 클래스의 인스턴스를 인자로 갖는다. Color 클래스와는 달리 글꼴을 직접 지정하는 상수는 없지만, 글꼴이름, 스타일, 포인트 크기 등을 지정할 수 있다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=549>
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<p class="TStep1">public Font(String name, int style, int size)</TD>
+		</tr>
+		</TABLE>
+		<P>- name에는 Dialog, Helvetica, TimesRoman, Curier 등의 글꼴 명을 사용한다. 
+		<P>- 스타일 상수는 int값으로 다음중 하나를 갖는다.
+		<P>	Font.BOLD
+		<P>	Font.ITALIC
+		<P>	Font.PLAIN
+		<P>	Font.BOLD + Font.ITALIC
+		<P>- 폰트의 기본값은 10이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV228.GIF" BORDER=0 WIDTH=306 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 앞의 그림과 같은 글꼴을 출력시키는 예제이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>FontExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class FontExample {
+			<P class="CStep2">private Frame f;
+			<P class="CStep2">private Button btn;
+			<P class="CStep2">private TextArea output;
+			<P class="CStep2">public FontExample() {
+			<P class="CStep3">f = new Frame(&quot;자바 윈도우&quot;);
+			<P class="CStep3">btn = new Button(&quot;버  튼&quot;);
+			<P class="CStep3">output = new TextArea();
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">f.add(btn, BorderLayout.SOUTH);
+			<P class="CStep3">f.add(output, BorderLayout.CENTER);
+			<P class="CStep3"><B>Font myFont = new Font(&quot;Curier&quot;, Font.ITALIC, 20);</B>
+			<P class="CStep3"><B>btn.setFont(myFont);</B>
+			<P class="CStep3"><B>output.setFont(myFont);</B>
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">FontExample win = new FontExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+	    </ul></td>
+    </tr>
+</table>
+</body>
+</html>

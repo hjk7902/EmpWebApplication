@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+	    <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">7.4</P></td>
+        <td width="518">
+        <p class="TitleTitle">Collections</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		</ul>
+		<P class="TSubmenu">&nbsp;7.4.1 Collection
+		<ul>
+		<P>객체를 저장할 수 있는 클래스는 모두 Collection계열이다. 이 계열에는 Collection, Set, List 등의 인터페이스가 있으며 이를 구현한 클래스를 이용하면 객체를 저장할 수 있다. 저장된 객체를 Element라 부르며 Set과 List는 각각 Collection인터페이스를 상속받는다.
+		<P>Collection 인터페이스는 순서가 없고 중복은 허락하며, Set 인터페이스는 순서도 없고, 중복도 허락하지 않는 구조를 갖는다. List는 Element 사이에 순서가 있으며, 중복도 허락한다.
+		<P>이들은 모두 인터페이스이기 때문에 객체를 생성하지 못하며 클래스를 이용하여 객체를 생성한다. Set은 HashSet클래스가 있고, List는 ArrayList와 LinkedList가 있다.
+		<P>
+			<table BORDER=1 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=27%>
+			<P class="Result" ALIGN=CENTER>인터페이스</TD>
+			<TD WIDTH=20%>
+			<P class="Result" ALIGN=CENTER>순서</TD>
+			<TD WIDTH=20%>
+			<P class="Result" ALIGN=CENTER>중복</TD>
+			<TD WIDTH=32%>
+			<P class="Result" ALIGN=CENTER>구현된 클래스</TD>
+		</tr>
+			<TR>
+			<TD WIDTH=27%>
+			<P class="Result" ALIGN=CENTER>Collection</TD>
+			<TD WIDTH=20%>
+			<P class="Result" ALIGN=CENTER>X</TD>
+			<TD WIDTH=20%>
+			<P class="Result" ALIGN=CENTER>O</TD>
+			<TD WIDTH=32%></td>
+		</tr>
+		<TR>
+			<TD WIDTH=27%>
+			<P class="Result" ALIGN=CENTER>Set</TD>
+			<TD WIDTH=20%>
+			<P class="Result" ALIGN=CENTER>X</TD>
+			<TD WIDTH=20%>
+			<P class="Result" ALIGN=CENTER>X</TD>
+			<TD WIDTH=32%>
+			<P class="Result" ALIGN=CENTER>HashSet</TD>
+		</tr>
+		<TR>
+			<TD WIDTH=27%>
+			<P class="Result" ALIGN=CENTER>List</TD>
+			<TD WIDTH=20%>
+			<P class="Result" ALIGN=CENTER>O</TD>
+			<TD WIDTH=20%>
+			<P class="Result" ALIGN=CENTER>O</TD>
+			<TD WIDTH=32%>
+			<P class="Result" ALIGN=CENTER>ArrayList
+			<P class="Result" ALIGN=CENTER>LinkedList</TD>
+		</tr>
+		</TABLE>
+		<P>Collection 인터페이스의 주요 메소드는 다음과 같다.
+		<P>  &middot; public boolean add(Object element)
+		<P>  &middot; public boolean remove(Object element)
+		<P>  &middot; public int size()
+		<P>  &middot; public boolean isEmpty()
+		<P>  &middot; public boolean contains(Object element)
+		<P>  &middot; public Iterator iterator()
+		<P>List 인터페이스의 주요 메소드는 다음과 같다.
+		<P>  &middot; public void add(int index, Object element)
+		<P>  &middot; public Object remove(int index)
+		<P>  &middot; public Object get(int index)
+		<P>  &middot; public void set(int index, Object element)
+		<P>  &middot; public int indexOf(Object element)
+		<P>  &middot; public ListIterator iterator()
+		<P>다음 프로그램은 Set의 사용 예를 보인 것이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>SetExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.util.*;
+			<P class="CStep1">public class SetExample {
+			<P class="CStep2">public static void main(String args[]) {
+			<P class="CStep3">boolean b = true;
+			<P class="CStep3">Set set = new HashSet();
+			<P class="CStep3">set.add(&quot;three&quot;);
+			<P class="CStep3">b = set.add(&quot;one&quot;);
+			<P class="CStep3">set.add(&quot;two&quot;);
+			<P class="CStep3">set.add(&quot;four&quot;);
+			<P class="CStep3">set.add(&quot;five&quot;);
+			<P class="CStep3">set.add(new Integer(4));
+			<P class="CStep3">b = set.add(&quot;five&quot;);
+			<P class="CStep3">System.out.println(set);
+			<P class="CStep3">System.out.println(b);
+			<P class="CStep3">// Method Test : size()
+			<P class="CStep3">System.out.println(set.size());
+			<P class="CStep3">// Method Test : remove(obj)
+			<P class="CStep3">set.remove(&quot;two&quot;);
+			<P class="CStep3">System.out.println(set);
+			<P class="CStep3">// Method Test : clear()
+			<P class="CStep3">set.clear();
+			<P class="CStep3">System.out.println(set);
+			<P class="CStep3">// Method Test : isEmpty()
+			<P class="CStep3">if (set.isEmpty()) {
+			<P class="CStep4">System.out.println(&quot;set is Empty&quot;);		
+			<P class="CStep3">}
+			<P class="CStep2">}	
+			<P class="CStep1">} </TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="300">
+			<P class="Result">[three, two, four, one, 4, five]
+			<P class="Result">false
+			<P class="Result">6
+			<P class="Result">[three, four, one, 4, five]
+			<P class="Result">[]
+			<P class="Result">set is Empty</td>
+		</tr>
+		</table>
+		<P> 다음 프로그램은 List의 사용 예를 보인 것이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ListExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:
+			<p class="CNumber">29:
+			<p class="CNumber">30:
+			<p class="CNumber">31:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.util.*;
+			<P class="CStep1">public class ListExample {
+			<P class="CStep2">public static void main(String[] args) 	{
+			<P class="CStep3">List list=new ArrayList();
+			<P class="CStep3">list.add(&quot;one&quot;);
+			<P class="CStep3">boolean a=list.add(&quot;second&quot;);
+			<P class="CStep3">list.add(&quot;3rd&quot;);
+			<P class="CStep3">list.add(new Integer(4));
+			<P class="CStep3">list.add(new Float(5.0f));
+			<P class="CStep3">boolean b=list.add(&quot;second&quot;);
+			<P class="CStep3">list.add(new Integer(4));
+			<P class="CStep3">list.add(&quot;SECOND&quot;);
+			<P class="CStep3">System.out.println(a);
+			<P class="CStep3">System.out.println(b);
+			<P class="CStep3">System.out.println(list);
+			<P class="CStep3">// Method Test : remove()
+			<P class="CStep3">list.remove(0);
+			<P class="CStep3">System.out.println(list);
+			<P class="CStep3">// Method Test : get()
+			<P class="CStep3">Object o=list.get(1);
+			<P class="CStep3">System.out.println(o);
+			<P class="CStep3">// Method Test : indexOf()
+			<P class="CStep3">int i=list.indexOf(&quot;second&quot;);
+			<P class="CStep3">System.out.println(&quot;second = &quot;+i);
+			<P class="CStep3">// Method Test : clear()
+			<P class="CStep3">list.clear();
+			<P class="CStep3">if (list.isEmpty())		{
+			<P class="CStep4">System.out.println(&quot;list is Empty&quot;);
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400">
+			<P class="Result">true
+			<P class="Result">true
+			<P class="Result">[one, second, 3rd, 4, 5.0, second, 4, SECOND]
+			<P class="Result">[second, 3rd, 4, 5.0, second, 4, SECOND]
+			<P class="Result">3rd
+			<P class="Result">second = 0
+			<P class="Result">list is Empty</td>
+		</tr>
+		</table>
+		</ul>
+		<P class="TSubmenu">7.4.2 Iterator
+		<ul>
+		<P>Collection에 저장되어 있는 Element를 검색하는 절차를 Iteration이라 한다.
+		<P>Set을 사용했을 때는 Collection인터페이스 내의 Iterator를 사용하며, List를 사용했을 때는 List- Iterator를 사용하여 Element를 앞 또는 뒤의 원하는 방향으로 검색할 수 있다. 
+		<P>다음 프로그램은 Iterator를 사용하여 Set으로부터 데이터를 검색하는 예를 보인 것이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>IteratorExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.util.*;
+			<P class="CStep1">public class IteratorExample {
+			<P class="CStep2">public static void main(String args[]) {
+			<P class="CStep3">Set set = new HashSet();
+			<P class="CStep3">set.add(&quot;three&quot;);
+			<P class="CStep3">set.add(&quot;two&quot;);
+			<P class="CStep3">set.add(&quot;four&quot;);
+			<P class="CStep3">set.add(&quot;five&quot;);
+			<P class="CStep3">set.add(new Integer(4));
+			<P class="CStep3">Iterator it = set.iterator();
+			<P class="CStep3">while( it.hasNext() ) {
+			<P class="CStep4">System.out.println(it.next());
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242">
+			<P class="Result">three
+			<P class="Result">two
+			<P class="Result">four
+			<P class="Result">4
+			<P class="Result">five</td>
+		</tr>
+		</table>
+		</ul>
+		<P class="TSubmenu">7.4.3 JDK 1.1의 Collections 
+		<ul>
+		<P>다음과 같은 클래스가 있는데, 이들은 Thread-safe(single thread)하기 때문에 사용을 권장하지는 않는다.
+		<P>Vector : List 인터페이스를 구현.
+		<P>Stack : Vector클래스의 하위클래스, push(), pop(), peek() 메소드를 지원.
+		<P>Hashtable : Map인터페이스를 구현한 클래스.
+		<P>Enumeration : Vector, Stack, Hashtable에서 Element를 검색
+		<P>다음 프로그램은 Person객체를 Vector클래스에 저장한 예를 보인 것이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>VectorExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.util.*;
+			<P class="CStep1">public class VectorExample {
+			<P class="CStep2">public static void main(String[] args){
+			<P class="CStep3">Vector v = new Vector();
+			<P class="CStep3">v.addElement(new Person(&quot;홍길동&quot;, 29));
+			<P class="CStep3">v.addElement(new Person(&quot;이순신&quot;, 30));
+			<P class="CStep3">v.addElement(new Person(&quot;박승규&quot;, 65));
+			<P class="CStep3">System.out.println(v);
+			<P class="CStep3">Person p = (Person)v.elementAt(2);
+			<P class="CStep3">System.out.println(p.getName());
+			<P class="CStep3">v.remove(1);
+			<P class="CStep3">System.out.println(v);
+			<P class="CStep3">System.out.println(v.size());
+			<P class="CStep3">System.out.println(v);
+			<P class="CStep2">}		
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Person.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<P class="CNumber">14:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Person {
+			<P class="CStep2">private String name;
+			<P class="CStep2">private int age;
+			<P class="CStep2">public Person(String name, int age){
+			<P class="CStep3">this.name = name;
+			<P class="CStep3">this.age = age;
+			<P class="CStep2">}
+			<P class="CStep2">public String getName(){
+			<P class="CStep3">return name;
+			<P class="CStep2">}
+			<P class="CStep2">public int getAge(){
+			<P class="CStep3">return age;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="400" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="400">
+			<P class="Result">[Person@ad3ba4, Person@26b249, Person@82f0db]
+			<P class="Result">박승규
+			<P class="Result">[Person@ad3ba4, Person@82f0db]
+			<P class="Result">2
+			<P class="Result">[Person@ad3ba4, Person@82f0db]</td>
+		</tr>
+		</table>
+		</ul></td>
+    </tr>
+	</table>
+</body>
+</html>

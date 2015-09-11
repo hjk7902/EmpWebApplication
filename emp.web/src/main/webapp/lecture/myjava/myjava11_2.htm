@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">11.2</P></td>
+        <td width="518">
+        <p class="TitleTitle">스윙 컴포넌트</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P>&nbsp;스윙은 17개의 패키지로 구성되어 있으며, 이중에서 javax.swing은 스윙의 기본 패키지로서 컴포넌트, 어덥터, 그리고, 기본컴포넌트 모델에 대한 클래스를 가지고 있다.<P>스윙컴포넌트는 AWT컴포넌트보다 수가 많고 기능이 세분화되어 있으며, JComponent를 부모클래스로 갖는다. 이제 스윙의 컴포넌트에 대해 하나씩 설명하기로 한다.
+		</ul>
+		<P class="TSubmenu">11.2.1 JFrame
+		<ul>
+		<P>AWT의 Frame, Window, Dialog 클래스처럼 스윙에도 JFrame, JWindow, JDialog 클래스가 있다. 하지만 이들 클래스는 스윙의 다른 컴포넌트와는 달리 윈도우클래스를 부모클래스로 가지고 있다. 이는 JWindow, JFrame, JDialog가 경량 컴포넌트가 아니라는 것을 의미한다. 
+		<P>다음은 JWindow와 JFrame의 상속 구조를 나타낸 그림이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV363.GIF" BORDER=0 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P>JFrame는 AWT의 Frame 클래스와 비슷한 기능을 가지고 있는데, 차이점은 JWindow나 JDialog 클래스처럼 공유된다는 점이 다르다. Frame에서와 같이 컴포넌트를 Frame에 add() 시키거나 setLayout() 메소드에 의해 레이아웃 관리자를 변경시키는 일은 없지만, 컨텐트영역(content pane)이라는 객체를 얻어 이곳에 컴포넌트를 연결하거나 레이아웃 속성을 변경 할 수 있다.
+		<P>다음은 JFrame을 이용하여 윈도우를 생성한 결과화면이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV364.GIF" BORDER=0 WIDTH=306 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 앞의 결과화면을 출력시키는 사용 예를 보인 것이다.
+            
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JFrameExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class JFrameExample {
+			<P class="CStep2">private <B>JFrame f</B>;
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JFrameExample() {
+			<P class="CStep3"><B>f = new JFrame(&quot;JFrame Example&quot;);</B>
+			<P class="CStep2"><B>}</B>
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3"><B>con = f.getContentPane();</B>
+			<P class="CStep3">con.setLayout(new FlowLayout());
+			<P class="CStep3">con.add(new JButton(&quot;JButton 1&quot;));
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String args[]) {
+			<P class="CStep3">JFrameExample win = new JFrameExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">13:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1"><B>c = f.getContentPane();</B></TD>
+		</tr>
+		</TABLE>
+		<P>컨텐트영역(content pane)을 사용하는 이유는 윈도우 안쪽이 JRootPane로 구성되어 있어 AWT처럼 윈도우의 내부 작업을 보호할 수 없기 때문이다.
+		<P>다음은 AWT의 Frame에서 컴포넌트를 연결하는 방법과, 스윙에서 컨탠트영역을 이용하여 컴포넌트를 연결하는 방법을 설명한 것이다.
+		<P>AWT의 Frame에서 컴포넌트를 연결하는 방법은 다음과 같다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<p class="TStep1">frame.setLayout(new FlowLayout());
+			<p class="TStep1">frame.add(component);</TD>
+		</tr>
+		</TABLE>
+		<P>JFrame에서 컨텐트영역을 사용하는 경우이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=2%></td>
+			<TD WIDTH=97%>
+			<p class="TStep1">Container con = jFrame.getContentPane();
+			<p class="TStep1">con.setLayout(new FlowLayout());
+			<p class="TStep1">con.add(component);</TD>
+		</tr>
+		</TABLE>
+		<P>JFrame과 Frame의 다른점은 다음과 같다. 먼저 JFrame은 윈도우 종료이벤트 처리를 하지 않아도 프레임 종료버튼을 누르면 창이 사라지게 된다. 윈도우에 setDefaultCloseOperation() 메소드를 이용하면 JFrame이 종료될 때 세 가지 동작을 지정할 수 있다.
+		<P>- DO_NOTHING_ON_CLOSE : AWT의 Frame과 같은 동작을 한다.
+		<P>- HIDE_ON_CLOSE : 기본값으로 사용자가 종료하려고 하면 윈도우가 화면에서 사라진다. setVisible(true)를 사용하면 다시 보이게 할 수 있다.
+		<P>- DISPOSE_ON_CLOSE : 사용자가 종료하려고 하면 완전히 메모리를 반환하고 종료한다.
+		<P>종료버튼을 눌렀을 때 종료되게 하려면 앞의 예에서 15와 16번째 줄 사이에 다음 내용을 추가시킨다.
+		<P>
+		<TABLE BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<p class="TStep1">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=100%>
+			<p class="TStep1">JRootPane은 글래스영역(Glass Pane)과 레이어드영역(Layered Pane)을 
+            <p class="TStep1">가지는 컨테이너이다. 글래스영역은 기본값이 보이지 않는 형태인 반면, 레</p>
+            <p class="TStep1">이어드영역은 보여지는 형태이다.</p>
+			<p class="TStep1"> - 레이어드영역은 다시 선택적 메뉴바와 컨텐트영역이라는 두 개의 객체로 
+            <p class="TStep1">구성되는데, 컨텐트영역은 AWT의 Window, Dialog 또는 Frame의 안쪽에서 </p>
+            <p class="TStep1">일어나는 형태로 작업할 수 있다.</p>
+			<p class="TStep1"> - 글래스영역에 컴포넌트를 배치하면 항상 컨텐트영역 위에 나타나게 되는데,
+            <p class="TStep1"> 이러한 기능은 팝업메뉴나 툴팁 등 문자열이 항상 위에 나타나게할 때 사용</p>
+            <p class="TStep1">된다.</p> </TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.2 JPanel
+		<ul>
+		<P>JPanel은 AWT의 Panel과 기능이 유사한데, 그래픽 출력시 화면이 떨리는 현상을 예방하는 더블버퍼링 기능을 제공한다. 
+		<P>JPanel 클래스는 다음 JButton의 예제에서 설명하기로 한다. 
+		</ul>
+		<P class="TSubmenu">11.2.3 JButton
+		<ul>
+		<P>JButton은 java.awt.Button과 유사하고 ActionListener를 사용하여 이벤트를 처리한다. 또 버튼에 아이콘을 나타내는 등 다양하게 버튼을 표현할 수 있으며, 생성자나 setIcon() 메소드를 이용해 아이콘을 사용한다. 
+		<P>ImageIcon는 이미지를 아이콘으로 만들어 주는 클래스이다. 스윙에서 ImageIcon 클래스를 사용하면 Image 클래스를 사용할 때 이미지가 로딩되는 과정을 모니터 하거나 Image의 객체가 디스크에 저장(serialization)될 수 없는 문제를 해결할 수 있다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV365.GIF" BORDER=0 WIDTH=225 HEIGHT=116 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JButton을 이용하여 아이콘을 갖는 버튼을 나타내는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JButtonExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">36:
+			<P class="CNumber">37:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JButtonExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2">private JButton myButton;
+			<P class="CStep2">private Container con;
+			<P class="CStep2">private <B>Icon dukeIcon = new ImageIcon(&quot;dukeicon.gif&quot;);</B>
+			<P class="CStep2">public JButtonExample() {
+			<P class="CStep3">myButton.<B>setIcon(dukeIcon)</B>;
+			<P class="CStep3">f = new JFrame(&quot;JButton Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3">myButton = new JButton(&quot;Duke Button&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.add(myButton);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout (new FlowLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.pack();
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String args[]) {
+			<P class="CStep3">JButtonExample win = new JButtonExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.4 아이콘
+		<ul>
+		<P>아이콘은 고정된 크기의 그림이나 이미지를 표시할 때 사용된다. 보통 JButton이나 JComponent의 아이콘으로 사용된다. 아이콘처럼 동작하는 객체를 만들려면 Icon 인터페이스를 implements하여 paintIcon(), getIconWidth(), getIconHeignt() 메소드를 구현한다. paintIcon() 메소드는 그림을 렌더링 하는데 사용된다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV366.GIF" BORDER=0 WIDTH=185 HEIGHT=105 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 Icon인터페이스를 구현하여 임의의 아이콘 클래스를 만든 예를 보인 것이다. 결과는 빨간색 원모양을 갖는 아이콘이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>RedOvalIcon.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class RedOvalIcon implements Icon {
+			<P class="CStep2"><B>public void paintIcon (Component c, Graphics g,</B>
+			<P class="CStep2"><B>int x, int y)</B> {
+			<P class="CStep3">g.setColor(Color.red);
+			<P class="CStep3">g.drawOval (x, y, getIconWidth(), getIconHeight());
+			<P class="CStep2">}
+			<P class="CStep2"><B>public int getIconWidth()</B> {
+			<P class="CStep3">return 10;
+			<P class="CStep2">}
+			<P class="CStep2"><B>public int getIconHeight()</B> { 
+			<P class="CStep3">return 10;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음 프로그램은 앞에서 만든 아이콘을 버튼에 나타내는 예제이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>IconExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class IconExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2">private JButton myButton;
+			<P class="CStep2">private Container con;
+			<P class="CStep2"><B>private Icon myIcon = new RedOvalIcon();</B>
+			<P class="CStep2">public IconExample() {
+			<P class="CStep3">f = new JFrame(&quot;Icon Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3">myButton = new JButton(&quot;My Button&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3"><B>myButton.setIcon(myIcon);</B>
+			<P class="CStep3">panel.add(myButton);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout (new FlowLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.pack();
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String args[]) {
+			<P class="CStep3">IconExample win = new IconExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}	</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.5 JLabel
+		<ul>
+		<P>JLabel은 java.awt.Label과 유사하지만 확장된 기능은 아이콘을 사용하거나 아이콘의 상대적인 위치에 나타내는 기능을 가지고 있다. 
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV367.GIF" BORDER=0 WIDTH=265 HEIGHT=102 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JLabel의 사용 예를 보인 것이다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JLabelExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JLabelExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2">private <B>JLabel plainLabel, dukeLabel</B>;
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JLabelExample() {
+			<P class="CStep3">f = new JFrame(&quot;JLable Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3">plainLabel = new JLabel(&quot;Plain Small Label&quot;);
+			<P class="CStep3">dukeLabel = new JLabel(&quot;Duke Big Label&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">Font dukeFont = new Font(&quot;Serif&quot;, Font.BOLD +
+			<P class="CStep3">Font.ITALIC, 32);
+			<P class="CStep3"><B>dukeLabel.setFont(dukeFont);</B>
+			<P class="CStep3">Icon dukeIcon = new ImageIcon(&quot;dukeicon.gif&quot;);
+			<P class="CStep3"><B>dukeLabel.setIcon(dukeIcon);</B>
+			<P class="CStep3">panel.setLayout(new BorderLayout());
+			<P class="CStep3"><B>plainLabel.setHorizontalAlignment(JLabel.CENTER); </B>
+			<P class="CStep3">panel.add(plainLabel, BorderLayout.NORTH);
+			<P class="CStep3">panel.add(dukeLabel, BorderLayout.CENTER);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout (new FlowLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.pack();
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JLabelExample win = new JLabelExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.6 JCheckBox
+		<ul>
+		<P>JCheckBox는 AWT의 Checkbox와 유사하지만 라디오버튼을 나타내기 위해 CheckboxGroup을 사용할 필요가 없으며, 체크박스가 선택되었는지의 여부를 아이콘으로 표시할 수 있다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV368.GIF" BORDER=0 WIDTH=204 HEIGHT=102 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JCheckBox가 선택여부를 아이콘으로 표시하기 위해 임의로 아이콘 클래스를 만든 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ToggleIcon.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class ToggleIcon implements Icon {
+			<P class="CStep2">private boolean state;
+			<P class="CStep2">public ToggleIcon(boolean state) {
+			<P class="CStep3">this.state = state;
+			<P class="CStep2">}
+			<P class="CStep2">public void paintIcon (Component c, Graphics g,
+			<P class="CStep2">int x, int y) {
+			<P class="CStep3">g.setColor(Color.red);
+			<P class="CStep3">if(state) {
+			<P class="CStep4">g.fillRect(x, y, getIconWidth(), getIconHeight());
+			<P class="CStep3">}else {
+			<P class="CStep4">g.drawRect(x, y, getIconWidth(), getIconHeight());
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep2">public int getIconWidth() {
+			<P class="CStep3">return 10;
+			<P class="CStep2">}
+			<P class="CStep2">public int getIconHeight() { 
+			<P class="CStep3">return 10;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>다음 프로그램은 아이콘을 갖는 JCheckBox 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JCheckBoxExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JCheckBoxExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JCheckBox jcb1, jcb2;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">private Icon unchecked = new ToggleIcon(false);
+			<P class="CStep2">private Icon checked = new ToggleIcon(true);
+			<P class="CStep2">public JCheckBoxExample() {
+			<P class="CStep3">f = new JFrame(&quot;JCheckBox Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>jcb1 = new JCheckBox(&quot;Check!&quot;, false);</B>
+			<P class="CStep3"><B>jcb2 = new JCheckBox(&quot;No Check!&quot;, true);</B>
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new GridLayout(2,1));
+			<P class="CStep3"><B>jcb1.setIcon(unchecked);</B>
+			<P class="CStep3"><B>jcb1.setSelectedIcon(checked);</B>
+			<P class="CStep3">jcb2.setIcon(unchecked);
+			<P class="CStep3">jcb2.setSelectedIcon(checked);
+			<P class="CStep3">panel.add(jcb1);
+			<P class="CStep3">panel.add(jcb2);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout (new BorderLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(200, 100);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JCheckBoxExample win = new JCheckBoxExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.7 JRadioButton
+		<ul>
+		<P>AWT에서 라디오 버튼을 나타낼 때에는 Checkbox와 CheckboxGroup 클래스를 연결하여 작성했지만 스윙은 별도의 JRadioButon 클래스를 제공하고 있다. JRadioButton을 ButtonGroup에 연결하여 라디오버튼 동작을 하게된다.  CheckboxGroup처럼 ButtonGroup도 라디오 버튼의 기능을 할뿐 눈에 보이지는 않는다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV369.GIF" BORDER=0 WIDTH=204 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JRadioButton을 이용하여 라디오 버튼을 나타내는 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JRadioButtonExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">36:
+			<P class="CNumber">37:
+			<P class="CNumber">38:
+			<P class="CNumber">39:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JRadioButtonExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JRadioButton jrb1, jrb2, jrb3;</B>
+			<P class="CStep2"><B>private ButtonGroup group = new ButtonGroup();</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JRadioButtonExample() {
+			<P class="CStep3">f = new JFrame(&quot;JRadioButton Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>jrb1 = new JRadioButton(&quot;First&quot;);</B>
+			<P class="CStep3">jrb2 = new JRadioButton(&quot;Second&quot;);
+			<P class="CStep3">jrb3 = new JRadioButton(&quot;Third&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new GridLayout(4,1));
+			<P class="CStep3"><B>group.add(jrb1);</B>
+			<P class="CStep3">jrb1.<B>setMnemonic(KeyEvent.VK_1)</B>; //Alt+1
+			<P class="CStep3">group.add(jrb2);
+			<P class="CStep3">jrb2.setSelected(true);
+			<P class="CStep3">jrb2.setMnemonic(KeyEvent.VK_2); //Alt+2
+			<P class="CStep3">group.add(jrb3);
+			<P class="CStep3">jrb3.setMnemonic(KeyEvent.VK_3); //Alt+3
+			<P class="CStep3">panel.add(new JLabel(&quot;Choose One&quot;));
+			<P class="CStep3">panel.add(jrb1); 	panel.add(jrb2); 		panel.add(jrb3);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout (new BorderLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(200, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JRadioButtonExample win = new JRadioButtonExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.8 JToggleButton
+		<ul>
+		<P>JToggleButton은 JCheckBox와 JRadioButton의 상위 클래스로 Button과 유사한 모양을 하고 있지만 버튼을 누르면 눌려진 상태를 유지한다는 점이 다르다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV370.GIF" BORDER=0 WIDTH=224 HEIGHT=224 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JToggleButton 클래스를 이용하여 토글 버튼을 나타내는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JToggleButtonExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+		<P class="CNumber">1:
+		<P class="CNumber">2:
+		<P class="CNumber">3:
+		<P class="CNumber">4:
+		<P class="CNumber">5:
+		<P class="CNumber">6:
+		<P class="CNumber">7:
+		<P class="CNumber">8:
+		<P class="CNumber">9:
+		<P class="CNumber">10:
+		<P class="CNumber">11:
+		<P class="CNumber">12:
+		<P class="CNumber">13:
+		<P class="CNumber">14:
+		<P class="CNumber">15:
+		<P class="CNumber">16:
+		<P class="CNumber">17:
+		<P class="CNumber">18:
+		<P class="CNumber">19:
+		<P class="CNumber">20:
+		<P class="CNumber">21:
+		<P class="CNumber">22:
+		<P class="CNumber">23:
+		<P class="CNumber">24:
+		<P class="CNumber">25:
+		<P class="CNumber">26:
+		<P class="CNumber">27:
+		<P class="CNumber">28:
+		<P class="CNumber">29:
+		<P class="CNumber">30:
+		<P class="CNumber">31:
+		<P class="CNumber">32:
+		<P class="CNumber">33:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JToggleButtonExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JToggleButton jtb1, jtb2, jtb3, jtb4;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JToggleButtonExample() {
+			<P class="CStep3">f = new JFrame(&quot;JRadioButton Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>jtb1 = new JToggleButton(&quot;One&quot;);</B>
+			<P class="CStep3">jtb2 = new JToggleButton(&quot;Two&quot;);
+			<P class="CStep3">jtb3 = new JToggleButton(&quot;Three&quot;);
+			<P class="CStep3">jtb4 = new JToggleButton(&quot;Four&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new GridLayout(4, 1, 10, 10));
+			<P class="CStep3">panel.add(jtb1);
+			<P class="CStep3">panel.add(jtb2);
+			<P class="CStep3">panel.add(jtb3);
+			<P class="CStep3">panel.add(jtb4);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new BorderLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(200, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JToggleButtonExample win = new JToggleButtonExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">;</TD>
+		</tr>
+		</TABLE>
+		<ul>
+		<P class="TSubmenu">11.2.9 JScrollPane
+		</ul>
+		<P>JScrollPane은 AWT 1.1의 ScrollPane처럼  자동스크롤 기능을 가지고 있다. 이 클래스는 ScrollPaneLayout 방식을 사용하여 출력한다. 중요한 사항은 JScrollPane이 스크롤될 때 객체를 추가하는데 JViewport를 사용한다는 점이다. 사용법은 getViewport() 메소드를 사용한 후 객체를 뷰포트에 추가시킨다. JViewport는 보이는 화면보다 더 큰 영역을 사용할 수 있는 기능을 제공하여 JScrollPane와 사용될 수 있다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV371.GIF" BORDER=0 WIDTH=285 HEIGHT=285 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JScrollPane을 나타내는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JScrollPaneExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JScrollPaneExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2">private Icon dukeIcon;
+			<P class="CStep2"><B>private JLabel dukeLabel;</B>
+			<P class="CStep2"><B>private JScrollPane scrollPane;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JScrollPaneExample() {
+			<P class="CStep3">f = new JFrame(&quot;JScrollPane Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3">dukeIcon = new ImageIcon(&quot;bigDuke.gif&quot;);
+			<P class="CStep3"><B>dukeLabel = new JLabel(dukeIcon);</B>
+			<P class="CStep3"><B>scrollPane = new JScrollPane(dukeLabel);</B>
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new BorderLayout());
+			<P class="CStep3">panel.add(scrollPane, BorderLayout.CENTER);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new BorderLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(300, 300);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JScrollPaneExample win = new JScrollPaneExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>11.2.10 JTextComponents
+		<P>JTextComponent는 javax.swing.text 패키지에 있으며, 단순한 편집기 기능을 가지고있는 컴포넌트이다.
+		<P>JTextComponent의 주요 메소드를 살펴보면 다음과 같다.
+		<P>  &middot; copy() : 현재 선택된 블록의 문자열을 클립보드에 복사한다. 
+		<P>  &middot; cut() : 현재 선택된 블록의 문자열을 클립보드에 옮겨놓는다. 
+		<P>  &middot; paste() : 클리보드에 있는 내용을 텍스트 컴포넌트에 붙인다.
+		<P>  &middot; getSelectedText() : 텍스트 컴포넌트에서 선택되어 있는 문자열을 반환한다.
+		<P>  &middot; setSelectionStart() : 블록의 시작점은 설정한다.
+		<P>  &middot; setSelectionEnd() : 블록의 끝점을 설정한다.
+		<P>  &middot; selectAll() : 텍스트 컴포넌트의 모든 내용을 선택한다.
+		<P>  &middot; replaceSelection() : 현재 선택되어 있는 문자열을 주어진 문자열로 바꾼다.
+		<P>  &middot; getText() : 텍스트 컴포넌트로부터 문자열을 얻는다.
+		<P>  &middot; setText() : 텍스트 컴포넌트에 문자열을 지정한다.
+		<P>  &middot; setEditable() : 편집 가능 여부를 설정한다.
+		<P>  &middot; setCaretPosition() : 캐럿 위치를 설정한다.
+		<P>JTextComponent는 직접 객체를 작성할 수는 없고 상속되는 다른 문자열처리 클래스에서 사용하게 된다. JTextComponent객체는 AWT의 텍스트 컴포넌트와 마찬가지로 패널에 연결될 수 있다.
+		<P>JTextComponent의 하위 클래스로는 JTextField, JTextArea, JEditorPane, JPasswordField, JTextPane 등이 있다.
+		<P>11.2.10.1 JTextField와 JTextArea
+		<P>JTextArea에 JScrollPane을 연결하여 사용하는 점을 제외하면 JTextField와 JTextArea는 AWT의 java.awt.TextField, java.awt.TextArea와 유사하다.
+		<P>JTextField는 setHorizontalAlignment() 메소드를 이용 문자열의 위치를 조정할 수 있다. 지정할 수 있는 위치는 LEFT, CENTER, RIGHT가 있으며 기본값은 LEFT이다.
+		<P>11.2.10.2 JTextPane
+		<BR>
+		<P>JTextPane은 정형화된 텍스트 이미지의 표시 기능을 제공하는 문자 편집기이다.
+		<P>다음 프로그램은 JTextField, JTextArea, JTextPane의 사용 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JTextPaneExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">36:
+			<P class="CNumber">37:
+			<P class="CNumber">38:
+			<P class="CNumber">39:
+			<P class="CNumber">40:
+			<P class="CNumber">41:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">import javax.swing.text.*;
+			<P class="CStep2">public class JTextPaneExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JTextField jtField;</B>
+			<P class="CStep2"><B>private JTextArea jtArea;</B>
+			<P class="CStep2"><B>private JTextPane jtPane;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JTextPaneExample() {
+			<P class="CStep3">f = new JFrame(&quot;JTextPane Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>jtField = new JTextField();</B>
+			<P class="CStep3"><B>jtArea = new JTextArea();</B>
+			<P class="CStep3"><B>jtPane = new JTextPane();</B>
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">jtField.<B>setText(&quot;JTextField : Single Line&quot;)</B>;
+			<P class="CStep3">jtArea.<B>setText(&quot;JTextArea :\nMulti Line&quot;)</B>;
+			<P class="CStep3"><B>MutableAttributeSet attr = new SimpleAttributeSet();</B>
+			<P class="CStep3">StyleConstants.<B>setFontFamily(attr, &quot;Serif&quot;)</B>;
+			<P class="CStep3">StyleConstants.<B>setFontSize(attr, 18)</B>;
+			<P class="CStep3">StyleConstants.<B>setBold(attr, true)</B>;		
+			<P class="CStep3">jtPane.<B>setCharacterAttributes(attr, false)</B>;
+			<P class="CStep3">jtPane.<B>setText(&quot;JTextPane :\nMulitLine&quot;)</B>;
+			<P class="CStep3">panel.setLayout(new BorderLayout());
+			<P class="CStep3">panel.add(jtField, BorderLayout.NORTH);
+			<P class="CStep3">panel.add(jtArea, BorderLayout.CENTER);
+			<P class="CStep3">panel.add(jtPane, BorderLayout.SOUTH);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(200, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JTextPaneExample win = new JTextPaneExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>11.2.10.3 JPasswordField
+		<P>JPasswordField는 JTextField와 같지만 사용자가 입력한 문자를 보여주지 않고 대신에 &quot;*&quot; 문자를 표시하는 텍스트 필드이다. 다른 문자를 표시하고 싶으면 setEchoChar() 메소드를 사용하면 변경이 가능하다. 
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV372.GIF" BORDER=0 WIDTH=375 HEIGHT=125 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JPasswordField를 이용하여 패스워드 필드를 나타내는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JPasswordFieldExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">import javax.swing.text.*;
+			<P class="CStep1">public class JPasswordFieldExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JPasswordField jpass1, jpass2;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JPasswordFieldExample() {
+			<P class="CStep3">f = new JFrame(&quot;JTextPane Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>jpass1 = new JPasswordField(20);</B>
+			<P class="CStep3">jpass2 = new JPasswordField(20);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.add(jpass1);
+			<P class="CStep3">jpass2.<B>setEchoChar('?')</B>;
+			<P class="CStep3">panel.add(jpass2);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(300, 100);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JPasswordFieldExample win = new
+			<P class="CStep3">JPasswordFieldExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>11.2.10.4 JEditorPane
+		<P>JEditorPane은 HTML문서나 RTF와 같은 특별한 형식의 문서를 표시하고 편집하는 클래스이다. 이 클래스를 이용하면 도움말을 HTML로 제공하거나 URL을 이용 다른 홈페이지의 문서를 보여주는 경우에 사용한다. JEditorPane에서 이벤트 처리를 하면 하이퍼링크를 사용할 수 있으며, setEditable(false)로 설정하면 읽기만 가능하다. 
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV373.GIF" BORDER=0 WIDTH=442 HEIGHT=265 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JEditorPane에 썬사의 자바 홈페이지를 나타낸 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JEditorPaneExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550 >
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">36:
+			<P class="CNumber">37:
+			<P class="CNumber">38:
+			<P class="CNumber">39:
+			<P class="CNumber">40:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">import javax.swing.text.*;
+			<P class="CStep1">import java.io.*;
+			<P class="CStep1">import java.net.*;
+			<P class="CStep1">public class JEditorPaneExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JEditorPane jeditPane;</B>
+			<P class="CStep2">private JScrollPane jsPane;
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JEditorPaneExample() {
+			<P class="CStep3">f = new JFrame(&quot;JEditorPane Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>jeditPane = new JEditorPane();</B>
+			<P class="CStep3">jsPane = new JScrollPane();
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">try{
+			<P class="CStep4">URL url = new URL(&quot;http://java.sun.com&quot;);
+			<P class="CStep4">jeditPane.<B>setPage(url)</B>;
+			<P class="CStep3">}catch(IOException e) {
+			<P class="CStep4">e.printStackTrace();
+			<P class="CStep3">}
+			<P class="CStep3">jeditPane.<B>setEditable(false)</B>;<P class="CStep1">		jsPane.getViewport().add(jeditPane);
+			<P class="CStep3">panel.setLayout(new BorderLayout());
+			<P class="CStep3">panel.add(jsPane, BorderLayout.CENTER);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new BorderLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(400, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JEditorPaneExample win = new JEditorPaneExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.11 JScrollBar
+		<ul>
+		<P>JScrollBar는 java.awt.Scrollbar의 스윙버전이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV374.GIF" BORDER=0 WIDTH=288 HEIGHT=192 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JScrollBar의 사용 예를 나타낸 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JScrollBarExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JScrollBarExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JScrollBar vBar, hBar;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JScrollBarExample() {
+			<P class="CStep3">f = new JFrame(&quot;JScrollBar Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>vBar = new JScrollBar(JScrollBar.VERTICAL,</B>
+			<P class="CStep3"><B>40, 5, 0, 100);</B>
+			<P class="CStep3">//orientation, value, extent, min, max
+			<P class="CStep3">hBar = new JScrollBar(JScrollBar.HORIZONTAL,
+			<P class="CStep3">50, 5, 0, 100);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new BorderLayout());
+			<P class="CStep3">panel.add(vBar, BorderLayout.EAST);
+			<P class="CStep3">panel.add(hBar, BorderLayout.SOUTH);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JScrollBarExample win = new JScrollBarExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.12 JSlider
+		<ul>
+		<P>JSlider는 JScrollBar와 비슷하지만 스크롤바가 있는곳에 눈금을 표시할 수 있다. 
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV375.GIF" BORDER=0 WIDTH=274 HEIGHT=182 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JSlider를 나타내는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JSliderExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">15:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">36:
+			<P class="CNumber">37:
+			<P class="CNumber">38:
+			<P class="CNumber">39:
+			<P class="CNumber">40:
+			<P class="CNumber">41:
+			<P class="CNumber">42:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JSliderExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JSlider eastSlider, westSlider;</B>
+			<P class="CStep2">private JSlider southSlider, northSlider;
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JSliderExample() {
+			<P class="CStep3">f = new JFrame(&quot;JScrollBar Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>eastSlider = new JSlider(JSlider.VERTICAL,0,100,50);</B>
+			<P class="CStep3">westSlider = new JSlider(JSlider.VERTICAL,0,100,50);
+			<P class="CStep3">southSlider = new JSlider(JSlider.
+			<P class="CStep3">HORIZONTAL,0,100,50);
+			<P class="CStep3">northSlider = new JSlider(JSlider.
+			<P class="CStep3">HORIZONTAL,0,100,50);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new BorderLayout());
+			<P class="CStep3">eastSlider.<B>setPaintTicks(true)</B>;
+			<P class="CStep3">eastSlider.<B>setMajorTickSpacing(10)</B>;
+			<P class="CStep3">eastSlider.<B>setMinorTickSpacing(2)</B>;
+			<P class="CStep3">panel.add(eastSlider, BorderLayout.EAST);
+			<P class="CStep3">westSlider.setPaintTicks(true);
+			<P class="CStep3">westSlider.setMinorTickSpacing(5);
+			<P class="CStep3">panel.add(westSlider, BorderLayout.WEST);
+			<P class="CStep3">southSlider.setPaintTicks(true);
+			<P class="CStep3">southSlider.setMajorTickSpacing(10);
+			<P class="CStep3">panel.add(southSlider, BorderLayout.SOUTH);
+			<P class="CStep3">northSlider.setPaintTicks(true);
+			<P class="CStep3">northSlider.setBorder( BorderFactory.
+			<P class="CStep3">createLineBorder(Color.red) );
+			<P class="CStep3">panel.add(northSlider, BorderLayout.NORTH);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JSliderExample win = new JSliderExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>앞의 예에서처럼 JSlider는 단순한 눈금표시 외에도 라벨이나 숫자 그리고 컴포넌트를 표시할 수 있다. setPaintLabels(true)를 사용하면 숫자라벨을 나타낼 수 있다. 눈금간격을 10으로 설정하고 슬라이더의 영역이 0에서 100까지이면 슬라이더는 0, 10, 20, ... 100으로 표시된다. 해쉬테이블(Hashtable)을 이용하면 사용자가 원하는 라벨을 사용할 수 있다. 해쉬테이블은 위치값을 표시하는 라벨표시용 컴포넌트라고 볼 수 있다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV376.GIF" BORDER=0 WIDTH=306 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JSlider에 라벨을 부여한 예를 보인 것이다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JSliderExample2.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">36:
+			<P class="CNumber">37:
+			<P class="CNumber">38:
+			<P class="CNumber">39:
+			<P class="CNumber">40:
+			<P class="CNumber">41:
+			<P class="CNumber">42:
+			<P class="CNumber">43:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">import java.util.*;
+			<P class="CStep1">public class JSliderExample2 {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2">private JSlider eastSlider, westSlider;
+			<P class="CStep2">private JSlider southSlider, northSlider;
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JSliderExample2() {
+			<P class="CStep3">f = new JFrame(&quot;JScrollBar Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3">eastSlider = new JSlider(JSlider.VERTICAL,0,6,3);
+			<P class="CStep3">southSlider = new JSlider(JSlider.
+			<P class="CStep3">HORIZONTAL,0,100,25);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new BorderLayout());
+			<P class="CStep3"><B>Hashtable ht = new Hashtable();</B>
+			<P class="CStep3">ht.put(new Integer(0), new JLabel(&quot;Sunday&quot;));
+			<P class="CStep3">ht.put(new Integer(1), new JLabel(&quot;Monday&quot;));
+			<P class="CStep3">ht.put(new Integer(2), new JLabel(&quot;Tuesday&quot;));
+			<P class="CStep3">ht.put(new Integer(3), new JLabel(&quot;Wednesday&quot;));
+			<P class="CStep3">ht.put(new Integer(4), new JLabel(&quot;Thursday&quot;));
+			<P class="CStep3">ht.put(new Integer(5), new JLabel(&quot;Friday&quot;));
+			<P class="CStep3">ht.put(new Integer(6), new JLabel(&quot;Saturday&quot;));
+			<P class="CStep3"><B>eastSlider.setLabelTable(ht);</B>
+			<P class="CStep3"><B>eastSlider.setPaintLabels(true)</B>;
+			<P class="CStep3">panel.add(eastSlider, BorderLayout.EAST);
+			<P class="CStep3">southSlider.setPaintTicks(true);
+			<P class="CStep3">southSlider.setMajorTickSpacing(10);
+			<P class="CStep3">southSlider.setPaintLabels(true);
+			<P class="CStep3">panel.add(southSlider, BorderLayout.SOUTH);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JSliderExample2 win = new JSliderExample2();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.13 JComboBox
+		<ul>
+		<P>JComboBox는 AWT의 Choice와 유사하지만 리스트 이외의 항목을 새로 추가할 수 있는 편집기능을 제공한다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV377.GIF" BORDER=0 WIDTH=321 HEIGHT=214 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JComboBox의 사용법을 예로든 것이다. 
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JComboBoxExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">36:
+			<P class="CNumber">37:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JComboBoxExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2">private String day[] = {
+			<P class="CStep3">&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;,
+			<P class="CStep3">&quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot; 		};
+			<P class="CStep2"><B>private JComboBox dayList1, dayList2;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JComboBoxExample() {
+			<P class="CStep3">f = new JFrame(&quot;JFrame Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>dayList1 = new JComboBox();</B>
+			<P class="CStep3">dayList2 = new JComboBox();
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new FlowLayout());
+			<P class="CStep3">for(int i=0; i &lt; day.length; i++) {
+			<P class="CStep4">dayList1.<B>addItem(day[i])</B>;
+			<P class="CStep4">dayList2.addItem(day[i]);
+			<P class="CStep3">}
+			<P class="CStep3">dayList2.<B>setEditable(true)</B>;
+			<P class="CStep3">dayList2.<B>setMaximumRowCount(4)</B>;
+			<P class="CStep3">panel.add(dayList1);
+			<P class="CStep3">panel.add(dayList2);
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String args[]) {
+			<P class="CStep3">JComboBoxExample win = new JComboBoxExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.14 JList
+		<ul>
+		<P>JList는 AWT의 List와 유사하지만 사용이 편리하다. 리스트에 항목을 지정할 때는 String[]나 Vector의 객체를 setListData() 메소드에 지정하면 된다. AWT의 List는 기본으로 스크롤바를 제공하지만, JList는 JScrollPane에 JList를 연결해야 스크롤바가 나타난다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV378.GIF" BORDER=0 WIDTH=306 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 스크롤바를 갖는 JList 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JListExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JListExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JList dayList;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">private JScrollPane jScroll;
+			<P class="CStep2">private String year[] = {
+			<P class="CStep3">&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;,
+			<P class="CStep3">&quot;June&quot;, &quot;July&quot;, &quot;August&quot;, &quot;September&quot;, &quot;October&quot;,
+			<P class="CStep3">&quot;November&quot;, &quot;DEcember&quot; 		};
+			<P class="CStep2">public JListExample() {
+			<P class="CStep3">f = new JFrame(&quot;JList Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>dayList = new JList(year);</B>
+			<P class="CStep3">jScroll = new JScrollPane(<B>dayList</B>);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new BorderLayout());
+			<P class="CStep3">panel.add(jScroll, BorderLayout.CENTER);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new BorderLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String args[]) {
+			<P class="CStep3">JListExample win = new JListExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.15 Borders
+		<ul>
+		<P>javax.swing.border 패키지에는 컴포넌트의 테두리를 표시하는 여러 클래스가 있다. border 클래스를 만들려면 인터페이스를 구현한 다음 작성하는데, 인터페이스에는 다음과 같은 세 가지 메소드를 통해 테두리를 정의한다.
+		<P>&middot; Insets getBorderInsets(Component c) : 테두리를 그리는데 필요한 영역을 지정한다.
+		<P>&middot; boolean isBorderOpaque() : 테두리 영역이 투명한지를 판단한다.
+		<P> &middot; void paintBorder (Component c, Graphics g, int x, int y, int width, int height) : 지정된 영역에 테두리를 그리는 방법을 지정한다.
+		<P>다음 프로그램은 Border인터페이스를 구현한 다음 임의의 border 클래스를 정의하는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyBorder.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">import javax.swing.border.*;
+			<P class="CStep1">class MyBorder <B>implements Border</B> {
+			<P class="CStep3">Color color;
+			<P class="CStep3">public MyBorder (Color c) {
+			<P class="CStep3">color = c;
+			<P class="CStep2">}
+			<P class="CStep2"><B>public void paintBorder (Component c, Graphics g,</B>
+			<P class="CStep2"><B>int x, int y, </B>
+			<P class="CStep3"><B>int width, int height)</B> {
+			<P class="CStep3">Insets insets = getBorderInsets(c);
+			<P class="CStep3">g.setColor (color);
+			<P class="CStep3">g.fillRect (x, y, 2, height);
+			<P class="CStep3">g.fillRect (x, y, width, 2);
+			<P class="CStep3">g.setColor (color.darker());
+			<P class="CStep3">g.fillRect (x+width-insets.right, y, 2, height);
+			<P class="CStep3">g.fillRect (x, y+height-insets.bottom, width, 2);
+			<P class="CStep2">}
+			<P class="CStep2"><B>public boolean isBorderOpaque() </B>{
+			<P class="CStep3">return false;
+			<P class="CStep2">}
+			<P class="CStep2"><B>public Insets getBorderInsets(Component c)</B> {
+			<P class="CStep3">return new Insets (2, 2, 2, 2);
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>테두리에 대한 동작은 JComponent에 정의되어 있으며 상속받아 이용한다. 스윙은 9가지 종류의 테두리를 가지고 있으며, 사용자가 직접 만들어 사용할 수도 있다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV379.GIF" BORDER=0 WIDTH=372 HEIGHT=304 HSPACE=3 ALIGN=BOTTOM>
+		<P>  &middot; AbstractBorder : Border 인터페이스를 구현한 추상클래스이다.
+		<P>  &middot; BevelBorder : 3D 모양의 테두리를 갖는다.
+		<P>  &middot; CompoundBorder : 중첩된 테두리를 갖는다.
+		<P>  &middot; EmptyBorder : 선이 그려지지 않는 테두리를 갖는다.
+		<P>  &middot; EtchedBorder : 홈이 파인 것처럼 보이는 테두리를 갖는다.
+		<P>  &middot; LineBorder : 단색의 테두리를 갖는다.
+		<P>  &middot; MatteBorder : 아이콘이나 색을 가지는 테두리를 갖는다.
+		<P>  &middot; SoftBevelBorder : 부드러운 색의 3D 테두리를 갖는다.
+		<P>  &middot; TitledBorder : 임의의 위치에 제목을 표시한 테두리를 갖는다.
+		<P>다음 프로그램은 여러 가지 경계선을 갖는 버튼의 예를 보인 것이다.
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>BorderExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">36:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">37:
+			<P class="CNumber">38:
+			<P class="CNumber">39:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">40:
+			<P class="CNumber">41:
+			<P class="CNumber">42:
+			<P class="CNumber">43:
+			<P class="CNumber">44:
+			<P class="CNumber">45:
+			<P class="CNumber">46:
+			<P class="CNumber">47:
+			<P class="CNumber">48:
+			<P class="CNumber">49:
+			<P class="CNumber">50:
+			<P class="CNumber">51:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">52:
+			<P class="CNumber">53:
+			<P class="CNumber">54:
+			<P class="CNumber">55:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">56:
+			<P class="CNumber">57:
+			<P class="CNumber">58:
+			<P class="CNumber">59:
+			<P class="CNumber">60:
+			<P class="CNumber">61:
+			<P class="CNumber">62:
+			<P class="CNumber">63:
+			<P class="CNumber">64:
+			<P class="CNumber">65:
+			<P class="CNumber">66:
+			<P class="CNumber">67:
+			<P class="CNumber">68:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">import javax.swing.border.*;
+			<P class="CStep1">public class BorderExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public BorderExample() {
+			<P class="CStep3">f = new JFrame(&quot;Borders Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new GridLayout(4, 3));
+			<P class="CStep3">JButton emptyButton = new JButton(&quot;Empty&quot;);
+			<P class="CStep3">emptyButton.setBorder (<B>new EmptyBorder (1,1,1,1)</B>);
+			<P class="CStep3">panel.add(emptyButton);
+			<P class="CStep3">JButton etchedButton = new JButton(&quot;Etched&quot;);
+			<P class="CStep3">etchedButton.setBorder (<B>new EtchedBorder ()</B>);
+			<P class="CStep3">panel.add(etchedButton);
+			<P class="CStep3">JButton cEtchedButton = new JButton
+			<P class="CStep3">(&quot;Colorized Etched&quot;);
+			<P class="CStep3">cEtchedButton.setBorder (<B>new EtchedBorder (Color.red,</B>
+			<P class="CStep3"><B>Color.green)</B>);
+			<P class="CStep3">panel.add(cEtchedButton);
+			<P class="CStep3">JButton titledButton = new JButton(&quot;Titled/Line&quot;);
+			<P class="CStep3">titledButton.setBorder( <B>new TitledBorder (new</B>
+			<P class="CStep3"><B>TitledBorder(LineBorder.createGrayLineBorder(),</B>
+			<P class="CStep3"><B>&quot;Hello&quot;),</B>
+			<P class="CStep3"><B>&quot;World&quot;, TitledBorder.RIGHT, TitledBorder.BOTTOM) </B>);
+			<P class="CStep3">panel.add(titledButton);
+			<P class="CStep2">JButton bevelUpButton = new JButton(&quot;Bevel Up&quot;);
+			<P class="CStep3">bevelUpButton.setBorder(<B>new BevelBorder</B>
+			<P class="CStep3"><B>(BevelBorder.RAISED)</B>);
+			<P class="CStep3">panel.add(bevelUpButton);
+			<P class="CStep3">JButton bevelDownButton = new JButton(&quot;Bevel Down&quot;);
+			<P class="CStep3">bevelDownButton.setBorder(<B>new</B>
+			<P class="CStep3"><B>BevelBorder(BevelBorder.LOWERED)</B>);
+			<P class="CStep3">panel.add(bevelDownButton);
+			<P class="CStep3">JButton b = new JButton(&quot;Soft Bevel Up&quot;);
+			<P class="CStep3">b.setBorder(<B>new SoftBevelBorder</B>
+			<P class="CStep3"><B>(SoftBevelBorder.RAISED)</B>);
+			<P class="CStep3">panel.add(b);
+			<P class="CStep3">b = new JButton(&quot;Soft Bevel Down&quot;);
+			<P class="CStep3">b.setBorder(<B>new SoftBevelBorder</B>
+			<P class="CStep3"><B>(SoftBevelBorder.LOWERED)</B>);
+			<P class="CStep3">panel.add(b);
+			<P class="CStep3">b = new JButton(&quot;Matte&quot;);
+			<P class="CStep3">b.setBorder(<B>new MatteBorder(5,10,5,10, Color.red)</B>);
+			<P class="CStep3">panel.add(b);
+			<P class="CStep3">b = new JButton(&quot;Matte Icon&quot;);
+			<P class="CStep3">Icon icon = new ImageIcon(&quot;dukeicon.gif&quot;);
+			<P class="CStep3">b.setBorder(<B>new MatteBorder(10, 20, 30, 40, icon)</B>);
+			<P class="CStep3">panel.add(b);
+			<P class="CStep3">b = new JButton (&quot;Colorized Bevel&quot;);
+			<P class="CStep3">b.setBorder(<B>new BevelBorder</B>
+			<P class="CStep3"><B>(BevelBorder.RAISED, Color.red,</B>
+			<P class="CStep3"><B>Color.pink)</B>);
+			<P class="CStep3">panel.add(b);
+			<P class="CStep3">b = new JButton(&quot;My Border&quot;);
+			<P class="CStep3">b.setBorder(<B>new CompoundBorder(</B>
+			<P class="CStep4"><B>new MyBorder(Color.red), </B>
+			<P class="CStep4"><B>new CompoundBorder(new MyBorder(Color.green),</B>
+			<P class="CStep3"><B>new MyBorder(Color.blue)))</B>);
+			<P class="CStep3">panel.add(b);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new BorderLayout());
+			<P class="CStep3">con.add(panel, BorderLayout.CENTER);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.pack();
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String args[]) {
+			<P class="CStep3">BorderExample win = new BorderExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.16 메뉴(Menus)
+		<ul>
+		<P>스윙에서 사용하는 메뉴는 AWT보다 다양한 기능을 가지고 있다. 메뉴 클래스(JMenuItem, JCheckBoxMenuItem, JMenu, JMenuBar)는 모두 JComponent에서 상속되며, JMenuBar는 모든 컨테이너에 사용할 수 있다. 예를 들어 JApplet 클래스에 setJMenuBar() 메소드를 사용하면 JMenuBar를 연결할 수 있다. 뿐만 아니라 JMenuItem에 아이콘을 사용할 수 있는 JRadioButtonMenuItem이 추가되었다. 메뉴를 구분하는 선을 넣으려면 AWT에서처럼 addSeparator() 메소드를 이용한다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV380.GIF" BORDER=0 WIDTH=374 HEIGHT=280 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 앞의 그림처럼 스윙에서 메뉴를 나타내는 예를 보인 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JMenuExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">26:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">36:
+			<P class="CNumber">37:
+			<P class="CNumber">38:
+			<P class="CNumber">39:
+			<P class="CNumber">40:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">41:
+			<P class="CNumber">42:
+			<P class="CNumber">43:
+			<P class="CNumber">44:
+			<P class="CNumber">45:
+			<P class="CNumber">46:
+			<P class="CNumber">47:
+			<P class="CNumber">48:
+			<P class="CNumber">49:
+			<P class="CNumber">50:
+			<P class="CNumber">51:
+			<P class="CNumber">52:
+			<P class="CNumber">53:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">54:
+			<P class="CNumber">55:
+			<P class="CNumber">56:
+			<P class="CNumber">57:
+			<P class="CNumber">58:
+			<P class="CNumber">59:
+			<P class="CNumber">60:
+			<P class="CNumber">61:
+			<P class="CNumber">62:
+			<P class="CNumber">63:
+			<P class="CNumber">64:
+			<P class="CNumber">65:
+			<P class="CNumber">66:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">67:
+			<P class="CNumber">68:
+			<P class="CNumber">69:
+			<P class="CNumber">70:
+			<P class="CNumber">71:
+			<P class="CNumber">72:
+			<P class="CNumber">73:
+			<P class="CNumber">74:
+			<P class="CNumber">75:
+			<P class="CNumber">76:
+			<P class="CNumber">77:
+			<P class="CNumber">78:
+			<P class="CNumber">79:
+			<P class="CNumber">80:
+			<P class="CNumber">81:
+			<P class="CNumber">82:
+			<P class="CNumber">83:
+			<P class="CNumber">84:
+			<P class="CNumber">85:
+			<P class="CNumber">86:
+			<P class="CNumber">87:
+			<P class="CNumber">88:
+			<P class="CNumber">89:
+			<P class="CNumber">90:
+			<P class="CNumber">91:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep2">import java.awt.event.*;
+			<P class="CStep2">import javax.swing.*;
+			<P class="CStep2">public class JMenuExample implements
+			<P class="CStep2">ActionListener, ItemListener {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private Container con;
+			<P class="CStep2"><B>private JMenuBar menuBar;</B>
+			<P class="CStep2"><B>private JMenu menu, submenu;</B>
+			<P class="CStep2"><B>private JMenuItem menuItem;</B>
+			<P class="CStep2"><B>private JCheckBoxMenuItem cbMenuItem;</B>
+			<P class="CStep2"><B>private JRadioButtonMenuItem rbMenuItem;</B>
+			<P class="CStep2">public JMenuExample() {
+			<P class="CStep3">f = new JFrame(&quot;JMenu Example&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">//메뉴바 생성
+			<P class="CStep3"><B>menuBar = new JMenuBar();</B>
+			<P class="CStep3"><B>f.setJMenuBar(menuBar);</B>
+			<P class="CStep3">//메뉴 생성
+			<P class="CStep3"><B>menu = new JMenu(&quot;A Menu&quot;);</B>
+			<P class="CStep3">menu.<B>setMnemonic(KeyEvent.VK_A)</B>;
+			<P class="CStep3">menu.addActionListener(this);
+			<P class="CStep3"><B>menuBar.add(menu)</B>;
+			<P class="CStep3">//JMenuItem 그룹
+			<P class="CStep3"><B>menuItem = new JMenuItem( &quot;A text-only menu item&quot;,</B>
+			<P class="CStep3"><B>KeyEvent.VK_T);</B>
+			<P class="CStep3">menuItem.<B>setAccelerator( KeyStroke.getKeyStroke(</B>
+			<P class="CStep3"><B>KeyEvent.VK_1,ActionEvent.ALT_MASK))</B>;
+			<P class="CStep3">menuItem.addActionListener(this);
+			<P class="CStep3">menu.add(menuItem);
+			<P class="CStep3"><B>menuItem = new JMenuItem(&quot;Both text and icon&quot;, new</B>
+			<P class="CStep3"><B>ImageIcon(&quot;dukeicon.gif&quot;));</B>
+			<P class="CStep3">menuItem.setMnemonic(KeyEvent.VK_B);
+			<P class="CStep3">menuItem.addActionListener(this);
+			<P class="CStep3">menu.add(menuItem);
+			<P class="CStep3">menuItem = new JMenuItem(new ImageIcon
+			<P class="CStep3">(&quot;dukeicon.gif&quot;));
+			<P class="CStep3">menuItem.setMnemonic(KeyEvent.VK_D);
+			<P class="CStep3">menuItem.addActionListener(this);
+			<P class="CStep3">menu.add(menuItem);
+			<P class="CStep3">//라디오 버튼 모양 메뉴 아이템
+			<P class="CStep3">menu.addSeparator();
+			<P class="CStep3"><B>ButtonGroup group = new ButtonGroup();</B>
+			<P class="CStep3"><B>rbMenuItem = new JRadioButtonMenuItem(&quot;A radio button </B>
+			<P class="CStep3"><B>menu item&quot;);</B>
+			<P class="CStep3">rbMenuItem.setSelected(true);
+			<P class="CStep3">rbMenuItem.setMnemonic(KeyEvent.VK_R);
+			<P class="CStep3">rbMenuItem.addItemListener(this);
+			<P class="CStep3">group.add(rbMenuItem);
+			<P class="CStep3">menu.add(rbMenuItem);
+			<P class="CStep3"><B>rbMenuItem = new JRadioButtonMenuItem(&quot;Another one&quot;);</B>
+			<P class="CStep3">rbMenuItem.setMnemonic(KeyEvent.VK_O);
+			<P class="CStep3">rbMenuItem.addItemListener(this);
+			<P class="CStep3">group.add(rbMenuItem);
+			<P class="CStep3">menu.add(rbMenuItem);
+			<P class="CStep3">//채크박스 모양 메뉴 아이템
+			<P class="CStep3">menu.<B>addSeparator()</B>;
+			<P class="CStep3">cbMenuItem = new JCheckBoxMenuItem(&quot;A check
+			<P class="CStep3">box menu item&quot;);
+			<P class="CStep3">cbMenuItem.setMnemonic(KeyEvent.VK_C);
+			<P class="CStep3">cbMenuItem.addItemListener(this);
+			<P class="CStep3">menu.add(cbMenuItem);
+			<P class="CStep3">cbMenuItem = new JCheckBoxMenuItem(&quot;Another one&quot;);
+			<P class="CStep3">cbMenuItem.setMnemonic(KeyEvent.VK_H);
+			<P class="CStep3">cbMenuItem.addItemListener(this);
+			<P class="CStep3">menu.add(cbMenuItem);
+			<P class="CStep3">//부메뉴를 갖는 메뉴아이템
+			<P class="CStep3">menu.addSeparator();
+			<P class="CStep3">submenu = new JMenu(&quot;A submenu&quot;);
+			<P class="CStep3">submenu.setMnemonic(KeyEvent.VK_S);
+			<P class="CStep3">menuItem = new JMenuItem(&quot;An item in the submenu&quot;);
+			<P class="CStep3">menuItem.setAccelerator( KeyStroke.getKeyStroke( 
+			<P class="CStep3">KeyEvent.VK_2,ActionEvent.ALT_MASK));
+			<P class="CStep3">submenu.add(menuItem);
+			<P class="CStep3">menuItem = new JMenuItem(&quot;Another item&quot;);
+			<P class="CStep3">submenu.add(menuItem);
+			<P class="CStep3">menu.add(submenu);
+			<P class="CStep3">//두번째 메뉴 작성
+			<P class="CStep3">menu = new JMenu(&quot;Another Menu&quot;);
+			<P class="CStep3">menu.setMnemonic(KeyEvent.VK_N);
+			<P class="CStep3">menuBar.add(menu);
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new FlowLayout());
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(400, 300);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String args[]) {
+			<P class="CStep3">JMenuExample win = new JMenuExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep2">public void actionPerformed(ActionEvent e) {
+			<P class="CStep3">System.out.println(e.getSource());
+			<P class="CStep2">}
+			<P class="CStep2">public void itemStateChanged(ItemEvent e) {
+			<P class="CStep3">System.out.println(e.getSource());
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+			</tr>
+			</TABLE>
+			</ul>
+			<P class="TSubmenu">11.2.17 JPopupMenu
+			<ul>
+			1JPopupMenu는 모든 컴포넌트에서 사용할 수 있으며 AWT의 PopupMenu와 유사하다. JPopupMenu에서도 구분선을 넣으려면 addSeparator() 메소드를 이용한다.
+			<P ALIGN=CENTER>
+			<IMG SRC="images/FYXIV381.GIF" BORDER=0 WIDTH=306 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+			<P>다음 프로그램은 마우스 오른쪽 버튼을 누르면 팝업메뉴가 나타나는 예이다.
+			<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JPopupMenuExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:
+			<P class="CNumber">35:
+			<P class="CNumber">36:
+			<P class="CNumber">37:
+			<P class="CNumber">38:
+			<P class="CNumber">39:
+			<P class="CNumber">40:
+			<P class="CNumber">41:
+			<P class="CNumber">42:
+			<P class="CNumber">43:
+			<P class="CNumber">44:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import java.awt.event.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JPopupMenuExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2">private JMenuItem item;
+			<P class="CStep2"><B>private JPopupMenu popup;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JPopupMenuExample() {
+			<P class="CStep3">f = new JFrame(&quot;JPopupMenu Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>popup = new JPopupMenu();</B>
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">popup.<B>add(item = new JMenuItem(&quot;Cut&quot;))</B>;
+			<P class="CStep3">popup.add(item = new JMenuItem(&quot;Copy&quot;));
+			<P class="CStep3">popup.<B>addSeparator()</B>;
+			<P class="CStep3">popup.add(item = new JMenuItem(&quot;Paste&quot;));
+			<P class="CStep3">popup.setInvoker(panel);
+			<P class="CStep2">panel.addMouseListener (new MouseAdapter() {
+			<P class="CStep4">public void mousePressed (MouseEvent e) {
+			<P class="CStep5">if (e.isPopupTrigger()) {
+			<P class="CStep6"><B>popup.show (e.getComponent(), e.getX(),</B>
+			<P class="CStep6"><B>e.getY());</B>
+			<P class="CStep5">}
+			<P class="CStep4">}
+			<P class="CStep4">public void mouseReleased (MouseEvent e) {
+			<P class="CStep5">if (e.isPopupTrigger()) {
+			<P class="CStep6">popup.show (e.getComponent(), e.getX(),
+			<P class="CStep6">e.getY());
+			<P class="CStep5">}
+			<P class="CStep4">}
+			<P class="CStep3">});
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new BorderLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String args[]) {
+			<P class="CStep3">JPopupMenuExample win = new JPopupMenuExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.18 JApplet
+		<ul>
+		<P>스윙 컴포넌트를 처리하는 애플릿을 작성하려면 AWT의 애플릿 클래스 대신 JApplet클래스를 상속받아 사용한다. JApplet을 이용하면 JMenuBar를 사용할 수 있을 뿐만 아니라 스윙 컴포넌트의 그림 그리기 기능을 수행하는 애플릿의 하위 클래스이다. JFrame처럼 JApplet은 JContentPane을 사용하여 컴포넌트를 연결시키게 되며, 기본 레이아웃 관리자는 BorderLayout이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV382.GIF" BORDER=0 WIDTH=339 HEIGHT=279 HSPACE=3 ALIGN=BOTTOM>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JAppletExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">14:
+			<P class="CNumber">15:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JAppletExample <B>extends JApplet</B> {
+			<P class="CStep2">public void init () {
+			<P class="CStep3">Container con = getContentPane();
+			<P class="CStep3">JButton jb = new JButton (&quot;Default&quot;);
+			<P class="CStep3">con.add (jb, BorderLayout.WEST);
+			<P class="CStep3">jb = new JButton (&quot;LayoutManager&quot;);
+			<P class="CStep3">con.add (jb, BorderLayout.CENTER);
+			<P class="CStep3">jb = new JButton (&quot;is&quot;);
+			<P class="CStep3">con.add (jb, BorderLayout.EAST);
+			<P class="CStep3">jb = new JButton (&quot;BorderLayout: &quot; + (con.getLayout()
+			<P class="CStep3">instanceof BorderLayout));
+			<P class="CStep3">con.add (jb, BorderLayout.SOUTH);
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></TD>
+			<TD WIDTH=92%>
+			<P>JAppletExample.html</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">&lt;applet code=JAppletExample.class width=300 height=300&gt;
+			<P class="CStep1">&lt;/applet&gt;</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.19 툴팁(tool tip)
+		<ul>
+		<P>툴팁이란 마우스가 화면상의 특정한 객체 위를 지날 때 표시되는 문자열을 의미한다. 스윙은 JToolTip 클래스에서 이러한 기능을 제공한다. 툴팁을 사용하려면 JComponent 클래스의 setToolTipText() 메소드를 이용한다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV383.GIF" BORDER=0 WIDTH=219 HEIGHT=109 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 버튼에 툴팁이 나오게 하는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JToolTipExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class JToolTipExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JButton myButton;
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JToolTipExample() {
+			<P class="CStep3">f = new JFrame(&quot;JFrame Example&quot;);
+			<P class="CStep3">myButton = new JButton(&quot;Hello&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new FlowLayout());
+			<P class="CStep3">con.add(myButton);
+			<P class="CStep3">myButton.<B>setToolTipText(&quot;World!&quot;)</B>;
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(200, 100);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String args[]) {
+			<P class="CStep3">JToolTipExample win = new JToolTipExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.20 JToolBar
+		<ul>
+		<P>JToolBar는 툴바의 모양을 제공하는 클래스로 좌.우.상.하에 위치시킬 수 있으며 기본값(default)으로 별도의 창에 분리시킬 수도 있다. 별도의 창에 분리되는 기능을 없애려면 setFloatable(false)를 이용한다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV384.GIF" BORDER=0 WIDTH=204 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>  
+		<IMG SRC="images/FYXIV385.GIF" BORDER=0 WIDTH=204 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 앞의 그림처럼 툴바를 나타내는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JToolBarExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">public class JToolBarExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2"><B>private JToolBar toolbar;</B>
+			<P class="CStep2">private JButton myButton;
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JToolBarExample() {
+			<P class="CStep3">f = new JFrame(&quot;JFrame Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3"><B>toolbar = new JToolBar();</B>
+			<P class="CStep3">myButton = new JButton(&quot;Hello&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">panel.setLayout(new BorderLayout());
+			<P class="CStep3"><B>toolbar.add(myButton);</B>
+			<P class="CStep3"><B>panel.add(toolbar, BorderLayout.EAST);</B>
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.setLayout(new BorderLayout());
+			<P class="CStep3">con.add(panel);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(200, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main (String args[]) {
+			<P class="CStep3">JToolBarExample win = new JToolBarExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.21 JTabbedPane
+		<ul>
+		<P>JTabbedPane은 탭 제어기능을 제공하며, 여러 개의 패널을 사용할 수 있는 인터페이스를 제공한다. AWT의 CardLayout 기본 동작과 유사하지만 사용이 편리한 이점을 가지고 있다. 인자로 JTabbedPane.TOP, JTabbedPane.BOTTOM, JTabbedPane.LEFT, JTabbedPane.RIGHT를 사용하여 탭의 위치를 지정할 수 있다. JTabbedPane의 기본 레이아웃은 JTabbedPane.WRAP_TAB_LAYOUT이지만, 생성자의 두 번째 인자로 JTabbedPane.SCROLL_TAB_LAYOUT를 사용하면 프레임 크기가 작을 때 스크롤바를 나타낼 수 있다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV386.GIF" BORDER=0 WIDTH=204 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>새로운 패널을 추가하려면 다음의 세 가지 addTab()메소드를 이용한다. 
+		<P>  &middot; addTab(String title, Component component) : 문자열이 표시된 탭을 작성하고 탭이 선택되면 컴포넌트가 표시된다.
+		<P>  &middot; addTab(String title, Icon icon, Component component) : 탭의 제목과 함께 아이콘을 표시한다.
+		<P>  &middot; addTab(String title, Icon icon, Component component, String tip) : 탭의 제목과 함께 아이콘과 툴팁을 표시한다.
+		<P>다음 프로그램은 JTabbedPane을 나타내는 예이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>		</td>
+			<TD WIDTH=92%>
+			<P>JTabbedPaneExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">10:
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">14:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JTabbedPaneExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2"><B>private JTabbedPane tabbedPane;</B>
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JTabbedPaneExample() {
+			<P class="CStep3">f = new JFrame(&quot;JTabbedPane Example&quot;);
+			<P class="CStep4"><B>tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM,</B>
+			<P class="CStep4"><B>JTabbedPane.SCROLL_TAB_LAYOUT);</B>
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">tabbedPane.<B>addTab(&quot;One&quot;, new JButton(&quot;하나&quot;))</B>;
+			<P class="CStep3">tabbedPane.<B>addTab(&quot;Duke&quot;, new ImageIcon</B>
+			<P class="CStep4"><B>(&quot;dukeicon.gif&quot; ), new JButton(&quot;Duke&quot;))</B>;
+			<P class="CStep3">tabbedPane.<B>addTab(&quot;Three&quot;, new ImageIcon</B>
+			<P class="CStep4"><B>(&quot;dukeicon.gif&quot;), new JButton(&quot;Three&quot;), &quot;Hello&quot;)</B>;
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.add(tabbedPane);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(200, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JTabbedPaneExample win = new JTabbedPaneExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">11.2.22 JSplitPane
+		<ul>
+		<P>JSplitPane은 하나의 컨테이너에 두 개의 컴포넌트를 함께 표시하는 인터페이스를 작성할 수 있게 한다. JSplitPane 안에는 또 다른 JSplitPane이 올 수 있어서 사실상 여러 개의 영역을 작성할 수 있다. 또 영역을 분할할 때는 수평방향 분할과 수직방향분할을 지정할 수 있다. setContinuousLayout 속성은 영역 분리자가 움직일 때 영역을 새로 표시할 것인가를 결정하는데 사용된다. 또 dividerLocation을 설정하여 영역 구분선이 표시되는 위치를 지정할 수 있다. 
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV387.GIF" BORDER=0 WIDTH=306 HEIGHT=204 HSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 JSplitPane을 나타내는 예이다. 프로그램을 실행시켰을 때에 나타나는 스크롤바는 JSplitPane에 의해 나타난 것이 아니고, JScrollPane에 의해 나타난 것이다.
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>JSplitPaneExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">11:
+			<P class="CNumber">12:
+			<P class="CNumber">13:
+			<P class="CNumber">14:
+			<P class="CNumber">15:
+			<P class="CNumber">16:
+			<P class="CNumber">17:
+			<P class="CNumber">18:
+			<P class="CNumber">19:
+			<P class="CNumber">&nbsp;
+			<P class="CNumber">20:
+			<P class="CNumber">21:
+			<P class="CNumber">22:
+			<P class="CNumber">23:
+			<P class="CNumber">24:
+			<P class="CNumber">25:
+			<P class="CNumber">26:
+			<P class="CNumber">27:
+			<P class="CNumber">28:
+			<P class="CNumber">29:
+			<P class="CNumber">30:
+			<P class="CNumber">31:
+			<P class="CNumber">32:
+			<P class="CNumber">33:
+			<P class="CNumber">34:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.awt.*;
+			<P class="CStep1">import javax.swing.*;
+			<P class="CStep1">public class JSplitPaneExample {
+			<P class="CStep2">private JFrame f;
+			<P class="CStep2">private JPanel panel;
+			<P class="CStep2">private JTree tree;
+			<P class="CStep2">private JList list;
+			<P class="CStep2">private JScrollPane left, right;
+			<P class="CStep2"><B>private JSplitPane jsPane;</B>
+			<P class="CStep2">private String[] listItem = {&quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;, 
+			<P class="CStep2"> &quot;Four&quot;,&quot;Five&quot;, &quot;Six&quot;, &quot;Seven&quot;,&quot;Eight&quot;, &quot;Nine&quot;, &quot;Ten&quot;};
+			<P class="CStep2">private Container con;
+			<P class="CStep2">public JSplitPaneExample() {
+			<P class="CStep3">f = new JFrame(&quot;JSplitPane Example&quot;);
+			<P class="CStep3">panel = new JPanel();
+			<P class="CStep3">tree = new JTree();
+			<P class="CStep3">list = new JList(listItem);
+			<P class="CStep3">left = new JScrollPane(tree);
+			<P class="CStep3">right = new JScrollPane(list);
+			<P class="CStep3"><B>jsPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,</B>
+			<P class="CStep3"><B>left, right);</B>
+			<P class="CStep2">}
+			<P class="CStep2">public void launchFrame() {
+			<P class="CStep3">jsPane.<B>setDividerLocation(0.5)</B>;
+			<P class="CStep3">jsPane.<B>setOneTouchExpandable(true)</B>;
+			<P class="CStep3">con = f.getContentPane();
+			<P class="CStep3">con.add(jsPane);
+			<P class="CStep3">f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+			<P class="CStep3">f.setSize(300, 200);
+			<P class="CStep3">f.setVisible(true);
+			<P class="CStep2">}
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">JSplitPaneExample win = new JSplitPaneExample();
+			<P class="CStep3">win.launchFrame();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+</ul>
+		</td>
+	</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">9.3</P></td>
+        <td width="518">
+        <p class="TitleTitle">TCP 채팅 프로그램 Ⅰ</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P> TCP를 이용하여 채팅 프로그램을 만들어 보자. 먼저 채팅 프로그램의 원리를 이해하기 위해 다음의 그림을 설명하기로 한다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV331.GIF" BORDER=0 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P>약간 복잡한 그림으로 이 내용을 프로그램으로 옮겨도 상당히 복잡하기 때문에 그림을 충분히 이해를 한 후 프로그램을 이해하기 바란다. 
+		<P>&middot;부분인 ChatServer는 대화방(chatting room)을 관리할 수 있는 구조다. (물론 이 예제에서는 단순하게 대기실 한군데서 chatting을 하게 했다. 이 코드를 더 발전시키면 방을 만들 수 있다.) RoomManager라는 클래스가 방을 관리하는데 이를 위해 Vector 클래스를 사용하였다. 그 다음 Room이라는 클래스는 대화방에 속해 있는 대화자를 관리하는데, 역시 Vector 클래스를 통해 관리한다.
+		<P>&middot; 부분의 Chatter 클래스는 대화자가 접속하면 인스턴스가 서버에 자동으로 생성되며 접속된 대화자의 모든 정보를 관리한다. Chatter 클래스에는 소켓을 가지고 있는데, 실제 ChatterClient(b 부분)의 소켓과 연결되어 있다. ChatterClient가 메시지를 보내면, Chatter 클래스의 소켓에 전달되고, 이를 기다리던 쓰레드(① 부분)는 데이터를 읽어서 대화방에 있는 다른 대화자에게 메시지를 전달하게 되는 것이다.
+		<P>&middot; 부분의 ChatClient는 2개의 쓰레드가 있는데, 먼저 ②부분의 쓰레드는 대화자로부터 메시지를 입력받는다. 그런데 키보드에서 입력받고 있는 동안 다른 대화자가 메시지를 보내면 쓰레드를 이용해서 해결해야 한다. 따라서 입력하는 동안 출력을 담당하는 쓰레드(③ 부분)가 소켓을 감시하면 해결할 수 있다. 소켓에 메시지가 도착하면 이를 화면에 출력하는데 이처럼 쓰레드를 이용하지 않으면 글을 쓰면서 글을 읽는 동시작업을 할 수 없다. 
+		</ul>
+		<P class="TSubmenu">9.3.1 ChatServer.java
+		<ul>
+		<P>어려운 코드는 아니지만, 그렇게 쉬운 부분도 아니다. 먼저 ChatServer부터 프로그램을 설명하기로 한다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ChatServer.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import  java.io.*;
+			<P class="CStep1">import  java.net.*;
+			<P class="CStep1">import  java.util.*;
+			<P class="CStep1">public class ChatServer {
+			<P class="CStep2">public static void main(String [] args) {
+			<P class="CStep3">if (args.length &lt; 1 ) {
+			<P class="CStep4">System.out.println(&quot;Usage : java ChatServer <I>port#</I>&quot;);
+			<P class="CStep4">return;
+			<P class="CStep3">}
+			<P class="CStep3">System.out.println(&quot;Chatting Server Starting.&quot;);
+			<P class="CStep3">int portNo = Integer.parseInt(args[0]);
+			<P class="CStep3">ChatManager cm= new ChatManager(portNo);
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>앞의 ChatServer프로그램이 전부는 아니고, 이 부분은 서버를 실행시키기 위해 포트번호를 입력받고, 서버의 모든 대화를 담당할 ChatManager 객체를 만든다. 그리고 CharManager의 인자로 서버의 포트번호를 명령행 인자로 받아 넘겨준다.
+		<P>이 프로그램은 다음에 있는 부분을 모두 작성해야 실행이 가능하다.
+		<P>다음 프로그램은 채팅서버에 접속하는 사용자용 클래스이다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:1:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:
+			<p class="CNumber">29:
+			<p class="CNumber">30:
+			<p class="CNumber">31:
+			<p class="CNumber">32:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">33:
+			<p class="CNumber">34:
+			<p class="CNumber">35:
+			<p class="CNumber">36:
+			<p class="CNumber">37:
+			<p class="CNumber">38:
+			<p class="CNumber">39:
+			<p class="CNumber">40:
+			<p class="CNumber">41:
+			<p class="CNumber">42:
+			<p class="CNumber">43:
+			<p class="CNumber">44:
+			<p class="CNumber">45:
+			<p class="CNumber">46:
+			<p class="CNumber">47:
+			<p class="CNumber">48:
+			<p class="CNumber">49:
+			<p class="CNumber">50:
+			<p class="CNumber">51:
+			<p class="CNumber">52:
+			<p class="CNumber">53:
+			<p class="CNumber">54:
+			<p class="CNumber">55:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class Chatter {
+			<P class="CStep2">private Socket clientSocket;
+			<P class="CStep2">private BufferedReader br;
+			<P class="CStep2">private PrintWriter pw;
+			<P class="CStep2">private ChatRoom chatRoom;
+			<P class="CStep2">private String chatterID;
+			<P class="CStep2">Chatter(ChatRoom chatRoom, 
+			<P class="CStep3">Socket clientSocket, String chatterID ) {
+			<P class="CStep3">System.out.println(&quot;Chatter 생성 : &quot; +	 chatterID);
+			<P class="CStep3">try {
+			<P class="CStep4">this.chatRoom = chatRoom;
+			<P class="CStep4">this.clientSocket = clientSocket;
+			<P class="CStep4">this.chatterID = chatterID;
+			<P class="CStep4">br = new BufferedReader(new
+			<P class="CStep2">InputStreamReader(clientSocket.getInputStream()));
+			<P class="CStep4">pw = new PrintWriter(new BufferedWriter(new
+			<P class="CStep2">OutputStreamWriter(clientSocket.getOutputStream())));
+			<P class="CStep4">(new readSocketThread()).start();
+			<P class="CStep3">} catch (Exception e) {
+			<P class="CStep4">System.out.println(e.toString()); 
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep2">public void sendMessage(String message) {
+			<P class="CStep3">pw.println(message);
+			<P class="CStep3">pw.flush();
+			<P class="CStep2">}
+			<P class="CStep2">class readSocketThread extends Thread {
+			<P class="CStep3">String inputString = null;
+			<P class="CStep3">public void run() {
+			<P class="CStep4">try {
+			<P class="CStep5">while (true) {
+			<P class="CStep6">inputString = br.readLine();
+			<P class="CStep6">chatRoom.chatEveryChatter(inputString);
+			<P class="CStep5">}
+			<P class="CStep4">} catch ( Exception e ) {
+			<P class="CStep5">System.out.println(e.toString()); 
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>21 : Chatter 클래스는 실제 접속한 대화자의 정보를 가지고 있다. 
+		<P>47 : 쓰레드를 통해 대화자가 서버로 전달하는 메시지를 감시한다. 앞에서 설명한 그림의 ① 부분에 해당된다.
+		<P>다음 프로그램은 대화방에 해당하는 클래스이다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">56:
+			<P class="CNumber">57:
+			<P class="CNumber">58:
+			<P class="CNumber">59:
+			<p class="CNumber">60:
+			<p class="CNumber">61:
+			<p class="CNumber">62:
+			<p class="CNumber">63:
+			<p class="CNumber">64:
+			<p class="CNumber">65:
+			<p class="CNumber">66:
+			<p class="CNumber">67:
+			<p class="CNumber">68:
+			<p class="CNumber">69:
+			<p class="CNumber">70:
+			<p class="CNumber">71:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">72:
+			<p class="CNumber">73:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">74:
+			<p class="CNumber">75:
+			<p class="CNumber">76:
+			<p class="CNumber">77:
+			<p class="CNumber">78:
+			<p class="CNumber">79:
+</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class ChatRoom {
+			<P class="CStep2">private String roomName;
+			<P class="CStep2">private Vector joinChatters = new Vector();
+			<P class="CStep2">private Chatter roomMaker;
+			<P class="CStep2">ChatRoom(String roomName) {
+			<P class="CStep3">System.out.println(&quot;채팅방 개설 : &quot; + roomName);
+			<P class="CStep3">this.roomName = roomName;
+			<P class="CStep3">this.roomMaker = null;
+			<P class="CStep2">}
+			<P class="CStep2">public synchronized void joinChatter(Chatter chatter){
+			<P class="CStep3">joinChatters.add(chatter);
+			<P class="CStep2">}
+			<P class="CStep2">public synchronized String getName() {
+			<P class="CStep3">return roomName;
+			<P class="CStep2">}
+			<P class="CStep2">public synchronized void chatEveryChatter
+			<P class="CStep2">(String message) {
+			<P class="CStep3">for ( int i=0 ; i &lt; joinChatters.size() ; i++) {
+			<P class="CStep4">((Chatter)joinChatters.get(i)).
+			<P class="CStep4">sendMessage(message);
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep2">public int size() {
+			<P class="CStep3">return joinChatters.size();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>61 : ChattRoom 클래스는 실제로 하나의 대화방이다. 
+		<P>80 : chatEveryChatter() 메소드는 방안에 있는 모든 대화자에게 메시지를 보낼 때 사용된다.
+		<P>다음 프로그램은 대화방을 관리하는 클래스이다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<p class="CNumber">80:
+			<p class="CNumber">81:
+			<p class="CNumber">82:
+			<p class="CNumber">83:
+			<p class="CNumber">84:
+			<p class="CNumber">85:
+			<p class="CNumber">86:
+			<p class="CNumber">87:
+			<p class="CNumber">88:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">89:
+			<p class="CNumber">90:
+			<p class="CNumber">91:
+			<p class="CNumber">92:
+			<p class="CNumber">93:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">94:
+			<p class="CNumber">95:
+			<p class="CNumber">96:
+			<p class="CNumber">97:
+			<p class="CNumber">98:
+			<p class="CNumber">99:
+			<p class="CNumber">100:
+			<p class="CNumber">101:
+			<p class="CNumber">102:
+			<p class="CNumber">103:
+			<p class="CNumber">104:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class ChatRoomManager {
+			<P class="CStep2">private Vector chatRooms = new Vector();
+			<P class="CStep2">ChatRoomManager() {
+			<P class="CStep3">System.out.println(&quot;ChatRoomManager Starting.&quot;);
+			<P class="CStep3">chatRooms.add(new ChatRoom(&quot;대기실&quot;));
+			<P class="CStep2">}
+			<P class="CStep2">public void makeRoom(String roomName) { }
+			<P class="CStep2">public void deleteRoom(String roomName) { }
+			<P class="CStep2">public void enterRoom(String roomName,
+			<P class="CStep2">Socket clientSocket){
+			<P class="CStep3">Chatter chatter = null;
+			<P class="CStep3">ChatRoom tempRoom = null;
+			<P class="CStep3">boolean exitFor = false;
+			<P class="CStep3">int i;
+			<P class="CStep3">for(i=0; (exitFor == false)&amp;&amp;
+			<P class="CStep3">(i &lt; chatRooms.size()); i++ ) {
+			<P class="CStep4">tempRoom = (ChatRoom)chatRooms.get(i);
+			<P class="CStep4">if (tempRoom.getName().equals(roomName)) {
+			<P class="CStep5">chatter = new Chatter(tempRoom, clientSocket, 
+			<P class="CStep1">String.valueOf(tempRoom.size() + 1));</p>
+			<P class="CStep4">tempRoom.joinChatter(chatter);
+			<P class="CStep4">exitFor = true;
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}
+			<P class="CStep1">public void exitRoom(Chatter chatter) { }
+			<P class="CStep1">}
+			</TD>
+		</tr>
+		</TABLE>
+		<P>91 : ChatRoomManager 클래스는 생성과 동시에 &quot;대기실&quot;을 만든다. 
+		<P>103 : enterRoom() 메소드를 통해, 현재 존재하는 모든 대화방을 찾아서 해당 대화방을 찾고 그곳에 Chatter를 생성한다. 즉, 이 클래스는 대화방을 관리한다.
+		<P>다음 프로그램은 채팅 서버를 전체적으로 관리하는 클래스이다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<p class="CNumber">105:
+			<p class="CNumber">106:
+			<p class="CNumber">107:
+			<p class="CNumber">108:
+			<p class="CNumber">109:
+			<p class="CNumber">110:
+			<p class="CNumber">111:
+			<p class="CNumber">112:
+			<p class="CNumber">113:
+			<p class="CNumber">114:
+			<p class="CNumber">115:
+			<p class="CNumber">116:
+			<p class="CNumber">117:
+			<p class="CNumber">118:
+			<p class="CNumber">119:
+			<p class="CNumber">120:
+			<p class="CNumber">121:
+			<p class="CNumber">122:
+			<p class="CNumber">123:
+			<p class="CNumber">124:
+			<p class="CNumber">125:
+			<p class="CNumber">126:
+			<p class="CNumber">127:
+			<p class="CNumber">128:
+			<p class="CNumber">129:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">130:
+			<p class="CNumber">131:
+			<p class="CNumber">132:
+			<p class="CNumber">133:
+			<p class="CNumber">134:
+			<p class="CNumber">135:
+			<p class="CNumber">136:
+			<p class="CNumber">137:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class ChatManager {
+			<P class="CStep2">private int serverPort;
+			<P class="CStep2">private ServerSocket serverSocket;
+			<P class="CStep2">private ChatRoomManager chatRoomManager;
+			<P class="CStep2">ChatManager(int serverPort ) {
+			<P class="CStep3">System.out.println(&quot;Chatting Manager Starting&quot;);
+			<P class="CStep3">try {
+			<P class="CStep4">this.serverPort = serverPort;
+			<P class="CStep4">chatRoomManager = new ChatRoomManager();
+			<P class="CStep4">serverSocket = new ServerSocket(serverPort);			
+			<P class="CStep4">new listenerThread().start();
+			<P class="CStep2">} catch (Exception e) {
+			<P class="CStep4">System.out.println(e.toString());
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep2">class listenerThread extends Thread {
+			<P class="CStep3">private boolean stopListener = false;
+			<P class="CStep3">Socket clientSocket = null;
+			<P class="CStep3">public void run() {
+			<P class="CStep4">try {
+			<P class="CStep5">while ( !stopListener ) {
+			<P class="CStep6">System.out.println(&quot;Watting Client...&quot;);
+			<P class="CStep6">clientSocket = serverSocket.accept();
+			<P class="CStep4">chatRoomManager.enterRoom(&quot;대기실&quot;,clientSocket);
+			<P class="CStep6">System.out.println(&quot;Connection
+			<P class="CStep6">Established form:&quot; +
+			<P class="CStep5">clientSocket.getInetAddress().getHostAddress());
+			<P class="CStep5">}
+			<P class="CStep4">} catch (Exception e ) {
+			<P class="CStep5">System.out.println(e.toString()); 
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1	">}</TD>
+		</tr>
+		</TABLE>
+		<P>121 : ChatManager 클래스는 131번째 줄에서 ServerSocket 객체를 만든다. 그리고 133번째 줄은 139번째 줄에서 선언된 ListenerThread라는 내부 클래스의 객체를 생성한다. 이 내부 클래스가 쓰레드이다. 따라서 start() 메소드를 통해 이 클래스의 142번째 줄에 있는 run() 메소드를 호출한다. run() 메소드는 루프를 돌면서 클라이언트의 접속을 기다리다 접속이 이루어지면 일반 소켓을 만든 후, &quot;대기실&quot;에 Chatter 클래스의 객체를 생성시키기 위해 ChatRoomManager의 enterRoom() 메소드를 호출한다. 그리고 계속 루프를 돌면서 다른 클라이언트의 접속을 기다리게 된다. 
+		<P>복잡한 내용을 간단하게 설명했는데 이를 근거로 프로그램을 자세히 살펴보면서 직접 이해하기 바란다. 물론 이 프로그램에는 불필요한 부분도 있는데 GUI 버전으로 작성하기 위해 추가된 부분이 있기 때문이다. 따라서 이 코드를 응용해서 GUI 버젼을 만들 수도 있을 것이다.
+		<P>이 채팅 서버프로그램을 실행하는 방법은 다음과 같다. (여기서 5432는 포트 번호이다.)
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=539>
+			<TD WIDTH=100%>
+			<p class="TStep1"> &gt;<B> java </B>ChatServer 5432</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">9.3.2 ChatClient.java
+		<ul>
+		<P>다음 프로그램은 채팅에 필요한 ChatClient의 예를 보인 것이다. 
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>ChatClient.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.io.*;
+			<P class="CStep1">import java.net.*;
+			<P class="CStep1">public class ChatClient {
+			<P class="CStep2">public static void main (String [] args) {
+			<P class="CStep3">if (args.length &lt; 2 ) {
+			<P class="CStep4">System.out.println(&quot;Usage :
+			<P class="CStep4">java ChatClient IP port#&quot;);
+			<P class="CStep4">return;
+			<P class="CStep3">}
+			<P class="CStep3">String addr = args[0];
+			<P class="CStep3">int portNo = Integer.parseInt(args[1]);
+			<P class="CStep3">ChatterManager cm = new ChatterManager(addr, portNo);
+			<P class="CStep2">}
+			<P class="CStep1">}</td>
+		</tr>
+		</TABLE>
+		<P>클라이언트 프로그램은 비교적 짧은데 6번째 줄의 main() 메소드에서 ChatterManager의 객체를 생성한다.
+		<P>이 프로그램 역시 아래 이어지는 프로그램을 모두 작성해야 실행이 가능하다.
+		<P>다음 프로그램은 ChatterManager클래스로 이 클래스가 대부분의 클라이언트 채팅을 담당한다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">29:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">30:
+			<p class="CNumber">31:
+			<p class="CNumber">32:
+			<p class="CNumber">33:
+			<p class="CNumber">34:
+			<p class="CNumber">35:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class ChatterManager {
+			<P class="CStep2">private String serverIP;
+			<P class="CStep2">private int serverPort;
+			<P class="CStep2">private Socket clientSocket;
+			<P class="CStep2">private BufferedReader br;
+			<P class="CStep2">private PrintWriter pw;
+			<P class="CStep2">private BufferedReader keyboard;
+			<P class="CStep2">ChatterManager(String serverIP, int serverPort) {
+			<P class="CStep3">try {
+			<P class="CStep4">this.serverIP = serverIP;
+			<P class="CStep4">this.serverPort = serverPort;
+			<P class="CStep4">clientSocket = new Socket(serverIP, serverPort);
+			<P class="CStep4">br = new BufferedReader( new InputStreamReader( 
+			<P class="CStep3">clientSocket.getInputStream()));
+			<P class="CStep4">pw = new PrintWriter(new BufferedWriter( new
+			<P class="CStep3">OutputStreamWriter(clientSocket.getOutputStream())));
+			<P class="CStep4">keyboard = new BufferedReader(new InputStreamReader
+			<P class="CStep4">(System.in,&quot;KSC5601&quot;));
+			<P class="CStep4">(new readSocketThread()).start();
+			<P class="CStep4">(new writeSocketThread()).start();
+			<P class="CStep3">} catch (Exception e) {
+			<P class="CStep4">System.out.println(e.toString()); 
+			<P class="CStep3">}
+			<P class="CStep2">}</td>
+		</tr>
+		</TABLE>
+		<P>30 : 생성자를 보면, 첫 번째 인자에 서버의 IP 주소가 넘어오고, 두 번째 인자에 서버의 포트번호가 넘어온다. 
+		<P>34 : 30번째 줄의 내용을 근거로 서버에 접속을 시도한다.
+		<P>서버와의 접속이 이루어지면 42번째 줄과 44번째 줄에서는 51과 63번째 줄에 있는 내부 클래스의 객체를 쓰레드로 생성한다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+		<TD WIDTH=7%>
+			<p class="CNumber">36:
+			<p class="CNumber">37:
+			<p class="CNumber">38:
+			<p class="CNumber">39:
+			<p class="CNumber">40:
+			<p class="CNumber">41:
+			<p class="CNumber">42:
+			<p class="CNumber">43:
+			<p class="CNumber">44:
+			<p class="CNumber">45:
+			<p class="CNumber">46:
+			<p class="CNumber">47:
+			<p class="CNumber">48:
+			<p class="CNumber">49:
+			<p class="CNumber">50:
+			<p class="CNumber">51:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">52:
+			<p class="CNumber">53:
+			<p class="CNumber">54:
+			<p class="CNumber">55:
+			<p class="CNumber">56:
+			<p class="CNumber">57:
+			<p class="CNumber">58:
+			<p class="CNumber">59:
+			<p class="CNumber">60:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep2">class readSocketThread extends Thread {
+			<P class="CStep3">public void run() {
+			<P class="CStep4">try {
+			<P class="CStep5">while(true) {
+			<P class="CStep6">System.out.println(br.readLine());
+			<P class="CStep5">}
+			<P class="CStep4">} catch (Exception e) {
+			<P class="CStep5">System.out.println(e.toString()); 
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep2">class writeSocketThread extends Thread {
+			<P class="CStep3">String inputString = null;
+			<P class="CStep3">public void run() {
+			<P class="CStep4">try{
+			<P class="CStep5">while ((inputString = 
+			<P class="CStep5">keyboard.readLine()) != null){
+			<P class="CStep6">pw.println(inputString);
+			<P class="CStep6">pw.flush();
+			<P class="CStep5">}
+			<P class="CStep4">} catch (Exception e ) {
+			<P class="CStep5">System.out.println(e.toString()); 
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>51 : 쓰레드는 대화자가 키보드에 입력하는 문자열을 받아들인다. 
+		<P>63 : 쓰레드는 대화자가 키보드를 통해 입력하는 동안이라도 소켓에 메시지가 도착하면 이를 화면에 출력하는 역할을 한다.
+		<P>이상의 클라이언트 프로그램을 실행시키는 방법은 다음과 같다. (여기서 서버의 IP를 127.0.0.1로 준 이유는 서버를 자신의 컴퓨터에서 수행한 경우이다.)
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=539>
+			<TD WIDTH=100%>
+			<p class="TStep1"> &gt; <B>java</B> ChatClient 127.0.0.1 5432</TD>
+		</tr>
+		</TABLE>
+	    </ul></td>
+    </tr>
+	</table>
+</body>
+</html>

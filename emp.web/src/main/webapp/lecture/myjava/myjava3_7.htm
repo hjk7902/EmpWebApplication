@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">3.7</P></td>
+        <td width="518">
+        <p class="TitleTitle">abstract Modifier</td>
+   </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P>&nbsp;abstract클래스는 추상 클래스로서 abstract메소드를 가질 수 있다. 또, 객체 생성이 불가능하고 반드시 상속을 통해서만 사용이 가능하며, 메소드가 구현되어 있지 않으므로 클래스를 상속받은 하위 클래스에서 반드시 메소드를 구현해 주어야 한다.
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></TD>
+			<TD WIDTH=92%>
+			<P>Sharp.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public <B>abstract</B> class Shape {
+			<P class="CStep2">private int x;
+			<P class="CStep2">private int y;
+			<P class="CStep2">public Shape() {}
+			<P class="CStep2">public Shape(int x, int y) {
+			<P class="CStep3">this.x = x;
+			<P class="CStep3">this.y = y;
+			<P class="CStep2">}
+			<P class="CStep2"><B>public abstract double area();  //구현이 되어있지 않음</B>
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+			<TD WIDTH=7%></TD>
+			<TD WIDTH=92%>
+			<P>Circle.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">9:
+			<P class="CNumber">10:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Circle extends Shape {
+			<P class="CStep2">private int radius;
+			<P class="CStep2">public Circle(int r) {
+			<P class="CStep3">//super();
+			<P class="CStep3">radius = r;
+			<P class="CStep2">}
+			<P class="CStep2">public double area() {
+			<P class="CStep3">return (Math.PI * radius * radius);
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TD WIDTH=7%></TD>
+		<TD WIDTH=92%>
+		<P>TestAbstract.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH="550">
+		<TR>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:
+			<P class="CNumber">2:
+			<P class="CNumber">3:
+			<P class="CNumber">4:
+			<P class="CNumber">5:
+			<P class="CNumber">6:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestAbstract {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">Shape circle = new Circle(10);
+			<P class="CStep3">System.out.println(&quot;원의 넓이는 : &quot;+circle.area());
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242"><P class="RResult">실행 결과</td>
+		</tr>
+		</table>
+		<table width="300" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="242">
+			<P class="Result"> 원의 넓이는 : 314.1592653589793</td>
+		</tr>
+		</table>
+		<P>▒ abstract 키워드의 기능을 정리하면 다음과 같다.
+		<P>- 클래스와 메소드에 적용된다.
+		<P>- abstract로 선언된 메소드는 몸체(body : &quot;{ }&quot;)가 없이 선언만 되어있다.
+		<P>- abstract 메소드가 있는 클래스는 abstract클래스여야하며, 역은 성립되지 않는다. 
+		<P>- 객체생성이 되지 않기 때문에 사용하려면 반드시 상속을 받아 하위 클래스에서 상속받은 abstract클래스의 abstract 메소드를 구현해야 한다.
+		<P>- 상속되는 각 클래스에 대한 관계를 설정할 때 사용한다.(abstract로 선언된 클래스를 상속받는 클래스에서 특정한 메소드를 반드시 만들어야 할 때 사용)
+		<P>- final과 동시에 사용될 수 없다.
+		</ul></td>
+    </tr>
+</table>
+</body>
+</html>

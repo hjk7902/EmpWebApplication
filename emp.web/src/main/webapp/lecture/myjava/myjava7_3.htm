@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="java.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+	<table cellpadding="0" cellspacing="0" width="650">
+    <tr>
+        <td width="76" bgcolor="#CCCCCC">
+		<P class="TitleNumber" align="center">7.3</P></td>
+        <td width="518">
+        <p class="TitleTitle">쓰레드(Thread)</td>
+    </tr>
+	</table>
+	<table class="frame" border="0" cellpadding="0" cellspacing="2" width="650">
+    <tr>
+        <td width="1101">
+		<ul>
+		<P>&nbsp;쓰레드는 가장작은 실행단위를 말한다. 하나의 프로세스는 여러 개의 쓰레드로 구성되며 운영체제가 멀티 쓰레드를 지원한다. 다수의 쓰레드가 실행될 경우 시분할 방식에 따라 실행되지만 쓰레드에 할당된 CPU 사용시간 간격이 매우 작기 때문에 사용자는 동시에 진행되는 것처럼 느껴진다.<P>이 장에서는 용어 정의를 &quot;쓰레드&quot;는 실행환경을 의미하고, &quot;실행환경(execution context)&quot;은 프로그램과 데이터에 가상(Virtual) CPU를 함께 내장하고 있음을 나타내기로 한다. &quot;Thread&quot;는 java.lang. Thread 클래스를 의미한다.
+		<P>쓰레드는 플랫폼에 따라 약간씩의 차이가 있기 때문에 프로그래머가 이를 조정해 주어야 하며, 운영체제에 따라서도 처리방식의 차이가 있다. 프로세스는 각각 하나의 CPU 자원을 가지지만, 쓰레드는 하나의 자원을 공유한다.
+		</ul>
+		<P class="TSubmenu">7.3.1 쓰레드 생성
+		<ul>
+		<P>쓰레드를 실행환경이라고 하였는데, 하나의 작업이 수행되기 위해서는 다음 그림에 보는 것처럼 3가지 요소를 필요로 한다. 먼저 수행할 작업을 run() 메소드에 구현해야 하는데 다음 그림의 HelloRunner 클래스가 여기에 해당한다. 그 다음 &quot;Data&quot;부분이 있는데 HelloRunner 클래스의 인스턴스에 해당한다. 마지막으로 &quot;Cpu&quot;에 해당하는 부분으로 HelloRunner 클래스의 인스턴스를 인자로 쓰레드 객체를 만든다. 이처럼 하나의 쓰레드를 만들려면 Runner 클래스, Runner 객체, 그리고 Thread 객체가 필요하다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV289.GIF" BORDER=0 WIDTH=504 HEIGHT=309 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P>다음 프로그램은 쓰레드를 이용하여 화면에 숫자를 출력하는 간단한 예제이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>HelloRunner.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class HelloRunner <B>implements Runnable </B>{
+			<P class="CStep2">int i;
+			<P class="CStep2"><B>public void run() </B>{
+			<P class="CStep3">i = 0;
+			<P class="CStep3">while (true) {
+			<P class="CStep4">System.out.println(&quot;Hello : &quot; + i++);
+			<P class="CStep4">if ( i == 10 ) {
+			<P class="CStep5">break;
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">1:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class HelloRunner <B>implements Runnable </B>{</TD>
+		</tr>
+		</TABLE>
+		<P>1 : Runnable인터페이스를 implements한다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1"><B>public void run() </B>{</TD>
+		</tr>
+		</TABLE> 
+		<P>실제 쓰레드가 수행할 부분으로 run() 메소드는 abstract 메소드로 Runnable인터페이스를 implements하는 클래스에서는 반드시 run() 메소드를 구현해야 한다. run() 메소드에 인자가 없는 것을 주의 깊게 보길 바란다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestThread.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestThread {
+			<P class="CStep2">public static void main(String args[]) {
+			<P class="CStep3"><B>HelloRunner r = new HelloRunner();</B>
+			<P class="CStep3"><B>Thread t = new Thread(r);</B>
+			<P class="CStep3"><B>t.start();</B>
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+			<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">3:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1"><B>HelloRunner r = new HelloRunner();</B></TD>
+		</tr>
+		</TABLE>
+		<P>HelloRunner 클래스의 객체를 생성한다. 8번째 줄에서 Runnable인터페이스를 implements하고 있다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">4:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1"><B>Thread t = new Thread(r);</B></TD>
+		</tr>
+		</TABLE>
+		<P>Thread 클래스의 객체를 생성하고 있는데, 생성자의 인자로 3번째 줄에서 생성된 Runnable인터페이스를 implements한 HelloRunner 클래스의 객체를 넘기고 있다. 이제 쓰레드가 생성된다.
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">5:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1"><B>t.start();</B></TD>
+		</tr>
+		</TABLE>
+		<P>생성된 쓰레드를 실행시킨다. 이처럼 start() 메소드를 호출하면 자동적으로 HelloRunner 클래스의 run() 메소드가 호출된다. 
+		<P>간단하지만 쓰레드의 핵심을 보여주는 좋은 예제이다. 일반적으로 쓰레드를 만드는 방법은 Runnable인터페이스를 구현하여 사용하는 방법과 Thread 클래스를 상속받아 구현하는 방법이 있는데, 앞의 예제와 같이 Runnable인터페이스를 구현하는 방법이 많이 사용된다. 쓰레드 클래스는 java.lang 패키지에 있는 클래스이므로 import문이 필요 없다.
+		<P>다음 프로그램은 앞의 예제가 쓰레드의 특징을 알 수 없는 점을 보완하여 작성한 예이다. 
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>HelloRunner2.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class HelloRunner2 <B>implements Runnable </B>{
+			<P class="CStep2">int i;
+			<P class="CStep2"><B>public void run()</B> {
+			<P class="CStep3">i = 0;
+			<P class="CStep3">while (true) {
+			<P class="CStep4">System.out.println(&quot;숫자 : &quot; + i++);
+			<P class="CStep4">if ( i == 10 ) {
+			<P class="CStep5">break;
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestThreadSleep.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestThreadSleep {
+			<P class="CStep2">public static void main(String args[]) {
+			<P class="CStep3"><B>HelloRunner2 r = new HelloRunner2();</B>
+			<P class="CStep3"><B>Thread t = new Thread(r);</B>
+			<P class="CStep3"><B>t.start();</B>
+			<P class="CStep3">try {
+			<P class="CStep4"><B>Thread.sleep(10);</B>
+			<P class="CStep3">} catch(InterruptedException e) {
+			<P class="CStep4">e.printStackTrace();
+			<P class="CStep3">}
+			<P class="CStep3"><B>System.out.println(&quot;main()의 끝&quot;);</B>
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>이 예제가 이 전 프로그램과 다른 점은 TestThreadSleep.java 파일의 6라인에서 11라인까지이다. 먼저 7라인을 보면 Thread.sleep() 메소드를 호출하는데 sleep() 메소드는 InterruptedException을 throws하기 때문에 try~catch블록으로 예외처리를 해 주었다. 이 메소드는 1밀리초(1/1000초)동안 쓰레드를 지연시키는데 여기에서는 10/1000 초 동안 정지시켰다. 
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">4:
+			<P class="CNumber">5:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1"><B>Thread t = new Thread(r);</B>
+			<P class="CStep1"><B>t.start();</B></TD>
+		</tr>
+		</TABLE> 
+		<P>4 : 새로운 쓰레드가 생성된다. 
+		<P>5 : t.start()이 생성한 쓰레드의 run() 메소드가 호출되면서 새로운 쓰레드가 실행된다. 이때, t.start()가 run() 메소드를 호출했기 때문에 run() 메소드가 끝날 때까지, t.start()는 대기상태에 있을 것 같지만 쓰레드를 사용하고 있기 때문에, 계속 수행된다. 따라서 t.start()가 run() 메소드를 호출한 다음, t.start() 이후로 계속 실행이 되는 것이다. 
+		<P>
+		<table BORDER=1 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%>
+			<P class="CNumber">6:
+			<P class="CNumber">7:
+			<P class="CNumber">8:
+			<P class="CNumber">&nbsp;</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">try {
+			<P class="CStep2"><B>Thread.sleep(10);</B>
+			<P class="CStep1">} catch(InterruptedException e) {
+			<P class="CStep1">...</TD>
+		</tr>
+		</TABLE> 
+		<P>7라인의 Thread.sleep(10)은 기본 쓰레드의 수행을 잠깐 멈추게 한 다음, 11라인에서 화면에 &quot;main()의 끝&quot;라는 문자열을 출력한다. 이때 새로 생성된 쓰레드도 화면에 무언가를 출력하고, 기본 쓰레드에서도 화면에 무언가를 출력한다. 즉 동시에 두 쓰레드에서 화면에 출력을 하고 있다. 이때 어떤 쓰레드가 먼저 화면에 출력될지는 아무도 모른다. 다만 CPU의 결정에 따른 결과가 출력된다. 실행시키면 &quot;main()의 끝&quot;라는 문자열이 실행될 때마다 다른 위치에 출력된다. 
+		<P>다음 그림은 쓰레드의 기본적인 상태도를 나타낸 것이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV290.GIF" BORDER=0 WIDTH="528" HEIGHT="145" VSPACE=3 ALIGN=BOTTOM>
+		<P>위의 그림을 살펴보면 먼저 하나의 쓰레드가 생성된 후 start() 메소드를 호출하면 곧바로 실행되지 않고 실행 가능한 상태가 된다. 이 상태로 대기하다가 쓰레드 스케줄러에 의해 CPU 시간을 할당받으면 쓰레드가 실행된다. 쓰레드가 할당받은 CPU 시간 내에 일을 끝내면 쓰레드는 종료되고, 끝내지 못하면 대기상태로 돌아가 실행 가능한 상태로 기다리게 된다. 또 쓰레드가 실행도중에 sleep(), join(), yield() 등과 같은 특정한 메소드의 Blocking 이벤트가 발생하면 봉쇄(Blocked)상태가 될 수도 있다.
+		<P>앞에서 언급했지만 쓰레드를 생성하는 방법은 두 가지가 있는데 첫 번째 방법은 앞에서 설명한 것과 같이 Runnable 인터페이스를 implements하는 방법이고, 이제 두 번째 방법에 대해 알아보기로 한다. 이 방법은 쓰레드 클래스를 직접 상속받아 구현하는 것이다. 
+		<P>다음 프로그램은 앞의 예제를 쓰레드 클래스를 상속받아 구현한 것이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>MyThread.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class MyThread <B>extends Thread</B> {
+			<P class="CStep2">public static void main(String args[]) throws Exception {
+			<P class="CStep3"><B>Thread t = new MyThread();</B>
+			<P class="CStep3">t.start();
+			<P class="CStep3">try {
+			<P class="CStep4"><B>Thread.sleep(10);</B>
+			<P class="CStep3">} catch(InterruptedException e) {
+			<P class="CStep4">			e.printStackTrace();
+			<P class="CStep3">}
+			<P class="CStep3">System.out.println(&quot;main()의 끝&quot;);
+			<P class="CStep2">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">int i = 0;
+			<P class="CStep3">while (true) {
+			<P class="CStep4">System.out.println(&quot;숫자 : &quot; + i++);
+			<P class="CStep5">if ( i == 10 ) {
+			<P class="CStep6">break;
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>이 예제는 앞의 프로그램보다 짧아 졌는데, 앞의 예제가 Runnable 인터페이스를 implements하는 클래스를 만들어 쓰레드화 시켰지만, 이 예제는 Thread 클래스를 상속받아서 쓰레드를 만들었다.
+		<P>쓰래드를 생성할 때 어떤 방식을 사용해도 관계없지만 일반적으로 Runnable 인터페이스를 구현하는 첫 번째 방식이 애용된다. 그 이유는 더 객체지향적이고, 단일 상속의 문제를 해결할 수 있으며, 반드시 run() 메소드를 구현해야 하므로 일관성을 갖기 때문이다. 
+		<P>다음 프로그램은 쓰레드를 이용하여 시계를 만드는 예제이다. 
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestThreadClock.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestThreadClock {
+			<P class="CStep2">public static void main(String args[]) {
+			<P class="CStep3">WorldClock seoul = new WorldClock(&quot;서울&quot;);
+			<P class="CStep3">WorldClock tokyo = new WorldClock(&quot;도쿄&quot;);
+			<P class="CStep3">WorldClock la = new WorldClock(&quot;LA&quot;);
+			<P class="CStep3">WorldClock newyork = new WorldClock(&quot;뉴욕&quot;);
+			<P class="CStep3">seoul.start();
+			<P class="CStep3">tokyo.start();
+			<P class="CStep3">newyork.start();
+			<P class="CStep3">la.start();
+			<P class="CStep2">} 
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>WorldClock.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:
+			<p class="CNumber">29:
+			<p class="CNumber">30:
+			<p class="CNumber">31:
+			<p class="CNumber">32:
+			<p class="CNumber">33:
+			<p class="CNumber">34:
+			<p class="CNumber">35:
+			<p class="CNumber">36:
+			<p class="CNumber">37:
+			<p class="CNumber">38:
+			<p class="CNumber">39:
+			<p class="CNumber">40:
+			<p class="CNumber">41:
+			<p class="CNumber">42:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">43:
+			<p class="CNumber">44:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">45:
+			<p class="CNumber">46:
+			<p class="CNumber">47:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">48:
+			<p class="CNumber">49:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.util.*;
+			<P class="CStep1">import java.lang.Thread;
+			<P class="CStep1">class WorldClock extends Thread {
+			<P class="CStep2">Calendar calendar;
+			<P class="CStep2">String location;
+			<P class="CStep2">public WorldClock(String city) {
+			<P class="CStep3">this.location = city;
+			<P class="CStep3">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">while (true) {
+			<P class="CStep4">this.displayDate( );
+			<P class="CStep5">try { 
+			<P class="CStep6">sleep(1000);
+			<P class="CStep5">} catch (InterruptedException e) {
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep2">public void displayDate() {
+			<P class="CStep3">String[] ids;
+			<P class="CStep3">SimpleTimeZone pdt = null;
+			<P class="CStep3">if (this.location == &quot;서울&quot;) {
+			<P class="CStep4">ids = TimeZone.getAvailableIDs(9*60*60*1000);
+			<P class="CStep4">if (ids.length == 0) System.exit(0);
+			<P class="CStep4">pdt = new SimpleTimeZone(9*60*60*1000, ids[0]);
+			<P class="CStep3">} else if (this.location == &quot;도쿄&quot;) {
+			<P class="CStep4">ids = TimeZone.getAvailableIDs(9*60*60*1000);
+			<P class="CStep4">if (ids.length == 0) System.exit(0);
+			<P class="CStep4">pdt = new SimpleTimeZone(9*60*60*1000, ids[0]);
+			<P class="CStep3">} else if (this.location == &quot;LA&quot;) {
+			<P class="CStep4">ids = TimeZone.getAvailableIDs(-8*60*60*1000);
+			<P class="CStep4">if (ids.length == 0) System.exit(0);
+			<P class="CStep4">pdt = new SimpleTimeZone(-8*60*60*1000, ids[0]);
+			<P class="CStep3">} else if (this.location == &quot;뉴욕&quot;) {
+			<P class="CStep4">ids = TimeZone.getAvailableIDs(-5*60*60*1000);
+			<P class="CStep4">if (ids.length == 0) System.exit(0);
+			<P class="CStep4">pdt = new SimpleTimeZone(-5*60*60*1000, ids[0]);
+			<P class="CStep3">}
+			<P class="CStep3">calendar = new GregorianCalendar(pdt);
+			<P class="CStep3">calendar.setTime(new Date());
+			<P class="CStep3">System.out.print(&quot;현재 &quot; + location + &quot;시각 :&quot;);
+			<P class="CStep3">System.out.print(calendar.get(Calendar.YEAR)+&quot;년 &quot;);
+			<P class="CStep3">System.out.print((calendar.get(Calendar.MONTH)+1)+
+			<P class="CStep3">&quot;월 &quot;);
+			<P class="CStep3">System.out.print(calendar.get(Calendar.DATE)+&quot;일 :&quot;);
+			<P class="CStep3">System.out.print(calendar.get(Calendar.HOUR_OF_DAY)+
+			<P class="CStep3">&quot;시 &quot;);
+			<P class="CStep3">System.out.print(calendar.get(Calendar.MINUTE)+&quot;분 &quot;);
+			<P class="CStep3">System.out.print(calendar.get(Calendar.SECOND)+&quot;초 &quot;);
+			<P class="CStep3">System.out.println(&quot; ZONE_OFFSET: &quot; +
+			<P class="CStep3"> (calendar.get(Calendar.ZONE_OFFSET)/(60*60*1000)));</p>
+			<P class="CStep2">	}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">7.3.2 쓰레드 클래스의 메소드
+		<ul>
+		<P>다음 프로그램은 구구단의 출력부분을 쓰레드로 만들어 동시에 여러개의 쓰레드가 실행된 후 출력하는 예제이다. 이를 통해 쓰레드 클래스가 제공하는 몇몇 메소드에 대해 언급하기로 한다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>GuGuRunner.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class GuGuRunner implements Runnable {
+			<P class="CStep2">private int dan;
+			<P class="CStep2">public GuGuRunner(int init_dan) {
+			<P class="CStep3">dan = init_dan;
+			<P class="CStep2">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">for(int i=0; i&lt;10; i++) {
+			<P class="CStep4">System.out.println(dan + &quot;단: &quot; + dan +
+			<P class="CStep4">&quot;*&quot; + i + &quot;=&quot; + dan*i);
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestGuGuThread.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestGuGuThread {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">Thread t2 = new Thread(new GuGuRunner(2));
+			<P class="CStep3">Thread t3 = new Thread(new GuGuRunner(3));
+			<P class="CStep3">Thread t4 = new Thread(new GuGuRunner(4));
+			<P class="CStep3">Thread t5 = new Thread(new GuGuRunner(5));
+			<P class="CStep3">Thread t6 = new Thread(new GuGuRunner(6));
+			<P class="CStep3">Thread t7 = new Thread(new GuGuRunner(7));
+			<P class="CStep3">Thread t8 = new Thread(new GuGuRunner(8));
+			<P class="CStep3">Thread t9 = new Thread(new GuGuRunner(9));
+			<P class="CStep3">t2.start();
+			<P class="CStep3">t3.start();
+			<P class="CStep3">t4.start();
+			<P class="CStep3">t5.start();
+			<P class="CStep3">t6.start();
+			<P class="CStep3">t7.start();
+			<P class="CStep3">t8.start();
+			<P class="CStep3">t9.start();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>앞의 프로그램을 실행시키면 쓰레드 t2부터 t9까지 서로 경쟁하며 실행되는 것을 알 수 있다. 한순간에는 하나의 쓰레드만 수행되며 할당된 시간동안 쓰레드가 수행되다가, 다른 쓰레드에게 CPU 사용권한이 넘어간다. 자바에서는 우선순위 값을 각 쓰레드에 배정하고, 우선순위가 높은 쓰레드가 CPU 사용권한을 할당받는 선점형(Preemptive) 방식을 사용한다. 따라서 임의의 쓰레드가 우선순위를 배정 받은 후, 우선순위가 바뀌지 않으면 계속 수행된다. 우선순위 값의 할당은 쓰레드 Scheduler가 담당하게 된다.
+		<P>7.3.2.1 getPriority() / setPriority()
+		<P>다음 프로그램은 setPriority() 메소드를 이용하여 쓰레드의 우선 순위를 변경하고, getPriority() 메소드를 이용하여 쓰레드의 우선 순위를 알아내는 예제이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>GuGuRunner.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class GuGuRunner implements Runnable {
+			<P class="CStep2">private int dan;
+			<P class="CStep2">public GuGuRunner(int init_dan) {
+			<P class="CStep3">dan = init_dan;
+			<P class="CStep2">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">for(int i=0; i&lt;10; i++) {
+			<P class="CStep4">System.out.println(dan + &quot;단: &quot; + dan + &quot;*&quot; +
+			<P class="CStep4">i + &quot;=&quot; + dan*i);
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestGuGuThread.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestGuGuThread {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">Thread t2 = new Thread(new GuGuRunner(2));
+			<P class="CStep3">Thread t3 = new Thread(new GuGuRunner(3));
+			<P class="CStep3">Thread t4 = new Thread(new GuGuRunner(4));
+			<P class="CStep3">Thread t5 = new Thread(new GuGuRunner(5));
+			<P class="CStep3">t2.<B>setPriority(4)</B>;
+			<P class="CStep3">System.out.println( t3.<B>getPriority()</B> );
+			<P class="CStep3">t2.start();
+			<P class="CStep3">t3.start();
+			<P class="CStep3">t4.start();
+			<P class="CStep3">t5.start();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>7.3.2.2 sleep()
+		<P>다음 프로그램은 sleep() 메소드를 이용하여 해당하는 쓰레드를 지정한 시간(mille second)동안 정지시키는 예제이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>GuGuRunner.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class GuGuRunner implements Runnable {
+			<P class="CStep2">private int dan;
+			<P class="CStep2">public GuGuRunner(int init_dan) {
+			<P class="CStep3">dan = init_dan;
+			<P class="CStep2">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">long sleepTime = (long)(Math.random() * 500);
+			<P class="CStep3">System.out.println(dan + &quot;단이&quot; +
+			<P class="CStep3">sleepTime + &quot;만큼 쉼&quot;);
+			<P class="CStep3">try{
+			<P class="CStep4"><B>Thread.sleep(sleepTime);</B>
+			<P class="CStep3">}catch (InterruptedException e){
+			<P class="CStep3">}
+			<P class="CStep3">for(int i=0; i&lt;10; i++) {
+			<P class="CStep4">System.out.println(dan + &quot;단: &quot; + dan + &quot;*&quot; +
+			<P class="CStep4">i + &quot;=&quot; + dan*i);
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestGuGuThread.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestGuGuThread {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">Thread t2 = new Thread(new GuGuRunner(2));
+			<P class="CStep3">Thread t3 = new Thread(new GuGuRunner(3));
+			<P class="CStep3">Thread t4 = new Thread(new GuGuRunner(4));
+			<P class="CStep3">Thread t5 = new Thread(new GuGuRunner(5));
+			<P class="CStep3">Thread t6 = new Thread(new GuGuRunner(6));
+			<P class="CStep3">t2.start();
+			<P class="CStep3">t3.start();
+			<P class="CStep3">t4.start();
+			<P class="CStep3">t5.start();
+			<P class="CStep3">t6.start();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>7.3.2.3 join()
+		<P>다음 프로그램은 join() 메소드에 관한 예제로 join()은 이후에 수행되는 쓰레드가 join이 걸린 쓰레드가 수행된 다음 수행되게 한다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>GuGuRunner.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class GuGuRunner implements Runnable {
+			<P class="CStep2">private int dan;
+			<P class="CStep2">public GuGuRunner(int init_dan) {
+			<P class="CStep3">dan = init_dan;
+			<P class="CStep2">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">for(int i=0; i&lt;10; i++) {
+			<P class="CStep4">System.out.println(dan + &quot;단: &quot; + dan + &quot;*&quot; +
+			<P class="CStep4">i + &quot;=&quot; + dan*i);
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestGuGuThread.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestGuGuThread {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">Thread t2 = new Thread(new GuGuRunner(2));
+			<P class="CStep3">Thread t3 = new Thread(new GuGuRunner(3));
+			<P class="CStep3">Thread t4 = new Thread(new GuGuRunner(4));
+			<P class="CStep3">Thread t5 = new Thread(new GuGuRunner(5));
+			<P class="CStep3">Thread t6 = new Thread(new GuGuRunner(6));
+			<P class="CStep3">t2.setPriority(4);
+			<P class="CStep3">t3.setPriority(4);
+			<P class="CStep3">t4.setPriority(4);
+			<P class="CStep3">t5.setPriority(4);
+			<P class="CStep3">t6.setPriority(4);
+			<P class="CStep3">t2.start();
+			<P class="CStep3">t3.start();
+			<P class="CStep3">t4.start();
+			<P class="CStep3">try{
+			<P class="CStep4"><B>t4.join();</B>
+			<P class="CStep3">}catch(InterruptedException e) { 		
+			<P class="CStep3">}
+			<P class="CStep3">t5.start();
+			<P class="CStep3">t6.start();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>7.3.2.4 yield()
+		<P>다음 프로그램은 yield() 메소드에 관한 예제로 yield()는 동일순위의 쓰레드에게 양보하는 기능을 가지고 있다. 
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>GuGuRunner.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">&nbsp;
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class GuGuRunner implements Runnable {
+			<P class="CStep2">private int dan;
+			<P class="CStep2">public GuGuRunner(int init_dan) {
+			<P class="CStep3">dan = init_dan;
+			<P class="CStep2">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">if(dan == 8) {
+			<P class="CStep4">System.out.println(&quot;8단이 9단에게 양보&quot;);
+			<P class="CStep4"><B>Thread.yield();</B>
+			<P class="CStep3">}
+			<P class="CStep3">for(int i=0; i&lt;10; i++) {
+			<P class="CStep4">System.out.println(dan + &quot;단: &quot; + dan + &quot;*&quot; +
+			<P class="CStep4">i + &quot;=&quot; + dan*i);
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestGuGuThread.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestGuGuThread {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">Thread t6 = new Thread(new GuGuRunner(6));
+			<P class="CStep3">Thread t7 = new Thread(new GuGuRunner(7));
+			<P class="CStep3">Thread t8 = new Thread(new GuGuRunner(8));
+			<P class="CStep3">Thread t9 = new Thread(new GuGuRunner(9));
+			<P class="CStep3">t6.setPriority(4);
+			<P class="CStep3">t7.setPriority(4);
+			<P class="CStep3">t8.setPriority(5);
+			<P class="CStep3">t9.setPriority(5);
+			<P class="CStep3">t6.start();
+			<P class="CStep3">t7.start();
+			<P class="CStep3">t8.start();
+			<P class="CStep3">t9.start();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		</ul>
+		<P class="TSubmenu">7.3.3 공유데이터 접근
+		<ul>
+		<P>현 시점에서 여러 쓰레드 중 어떤 쓰레드가 수행될지 알 수 없고, 선정된 쓰레드가 얼마동안 수행될지 또 이 쓰레드가 끝난 후 다음에 어떤 쓰레드가 수행될지 알 수 가 없다. 따라서 프로그래머가 쓰레드 관리를 할 필요가 있는데 특히 여러 쓰레드가 공유 데이터(Shared Data)에 접근할 때는 더욱 필요하다. 
+		<P>7.3.3.1 공유데이터의 문제점
+		<P>다음 예제는 반드시 이해해야하므로 충분한 시간을 가지고 공부하기 바란다. 먼저 이해를 돕기 위해 다음의 그림을 보자.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV291.GIF" BORDER=0 HSPACE=3 ALIGN=BOTTOM>
+		<P>앞의 그림에서 오른쪽 공유데이터 클래스를 살펴보면 push()와 pop() 메소드가 있는데, 이 메소드는 스택에 데이터를 넣거(push)나 빼내(pop)는 일을 한다. push() 메소드와 pop() 메소드의 구현은 중요한 부분으로 먼저 push() 메소드부터 살펴보자. 첫 번째 쓰레드(t1)에서 스택에 데이터를 넣기 위해 push() 메소드를 호출한다. 데이터를 받은 push() 메소드는 스택에 데이터를 넣는다(①부분). 그리고 나서 스택 데이터를 가리키는 포인터를 하나 증가시켜야 하는데, 그 전에 시간이 걸리는 작업(longJob())을 수행한다고 가정하면 중요한 문제가 발생할 수 있다. 즉, 첫 번째 쓰레드(t1) 수행 중에 우선 순위가 낮아져 두 번째 쓰레드(t2)로 우선권이 넘어가게 되었다. 즉, 시간이 오래 걸리는 일을 수행하는 도중에(아직 포인터를 증가시키지 않았는데), 우선권이 다른 쓰레드에게 넘어가고 만 것이다. 우선권을 받은 두 번째 쓰레드(t2)는 첫 번째 쓰레드에서 포인터가 증가하지 않았는데도 push() 메소드를 호출하게 되는데, 이때 포인터가 가리키는 곳에 데이터를 넣게 되는 것이다. 따라서 첫 번째 쓰레드가 넣은 데이터에 덮어쓰게 되는 것이다. 이렇게 되면 스택은 손실을 입게된다. 
+		<P>다음 프로그램은 지금까지 설명한 내용을 이해할 수 있도록 작성한 예이다. 
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestMyStack.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class MyStack {
+			<P class="CStep2">int index=0;
+			<P class="CStep2">char[] stack = new char[6];
+			<P class="CStep2">public void push(char c) {
+			<P class="CStep3">stack[index] = c;
+			<P class="CStep3">longJob();
+			<P class="CStep3">index++;
+			<P class="CStep2">}
+			<P class="CStep2">public char pop() {
+			<P class="CStep3">index--;
+			<P class="CStep3">longJob();
+			<P class="CStep3">return stack[index];
+			<P class="CStep2">}
+			<P class="CStep2">public void longJob() {
+			<P class="CStep3">for(long i=0; i&lt;5000000L; i++) {}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<p>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>StackRunner.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">class StackRunner implements Runnable {
+			<P class="CStep2">String name;
+			<P class="CStep2">MyStack ms;
+			<P class="CStep2">StackRunner(String name, MyStack ms) {
+			<P class="CStep3">this.name = name;
+			<P class="CStep3">this.ms = ms;
+			<P class="CStep2">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">ms.push('A');
+			<P class="CStep3">ms.push('B');
+			<P class="CStep3">ms.push('C');
+			<P class="CStep3">System.out.println(name + ms.pop());
+			<P class="CStep3">System.out.println(name + ms.pop());
+			<P class="CStep3">System.out.println(name + ms.pop());
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestMyStack.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class TestMyStack {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3">MyStack ms = new MyStack();
+			<P class="CStep3">StackRunner r1 = new StackRunner(&quot;1 : &quot;, ms);
+			<P class="CStep3">StackRunner r2 = new StackRunner(&quot;2 : &quot;, ms);
+			<P class="CStep3">Thread t1 = new Thread(r1);
+			<P class="CStep3">Thread t2 = new Thread(r2);
+			<P class="CStep3">t1.start();
+			<P class="CStep3">t2.start();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>앞의 프로그램을 실행시켰을 때 참고할 사항은 프로그램을 반복 실행시켜도 스택이 손상되지 않는다는 점이다. 따라서, 강조하고 싶은 내용은 스택이 손상될 수 있는 가능성이 있다는 사실이다. 특히 불특정 다수가 사용하는 인터넷 환경에서 공유데이터의 손상은 매우 높은 확률을 갖게되는 것이다. 지금까지의 상황에 대한 결론은 공유 데이터를 가지고 작업하는 쓰레드는 예측할 수 없는 순간에 제어권이 다른 쓰레드로 양도되어 데이터파손이나 손상을 일으킬 수 있음을 명심해야한다.
+		<P>7.3.3.2 공유데이터 문제점의 해결(synchronized)
+		<P>이와 같은 공유데이터 문제는 매우 심각하기 때문에 해결방안을 모색해야 하는데 문제의 심각성에 비해 그렇게 어렵지만은 않다. 먼저 첫 번째 쓰레드가 push() 메소드나 pop() 메소드를 호출하여 수행되는 동안 두 번째 쓰레드로 제어권이 넘어가지 않게해야 한다. 또 다른 방법은 제어권이 두 번째 쓰레드로 넘어갔더라도, 첫 번째 쓰레드가 메소드를 완전히 수행하지 않은 상태라면, 제어권을 첫 번째 쓰레드에게 다시 넘겨주면 된다. 자바에서는 두 번째 방법을 사용하는데 이때 사용하는 키워드가 synchronized이다. 
+		<P>다음 프로그램은 앞의 예제 프로그램에 synchronized를 추가하여 공유데이터의 손상을 막은 것이다. 프로그램에서 5번째 줄의 push() 메소드와 11번째 줄의 pop() 메소드에서 synchronized를 사용했다. 이 키워드는 두 메소드에서 서로 다르게 사용되었는데, push()에서처럼 사용하는 것을 synchronized method라하고, pop() 메소드에서처럼 사용하는 것을 synchronized block이라고 한다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>TestMyStack.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class MyStack {
+			<P class="CStep2">int index=0;
+			<P class="CStep2">char[] stack = new char[6];
+			<P class="CStep2">public <B>synchronized</B> void push(char c) {
+			<P class="CStep3">stack[index] = c;
+			<P class="CStep3">longJob();
+			<P class="CStep3">index++;
+			<P class="CStep2">}
+			<P class="CStep2">public char pop() {
+			<P class="CStep3"><B>synchronized(this) {</B>
+			<P class="CStep4">index--;
+			<P class="CStep4">longJob();
+			<P class="CStep4">return stack[index];
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep2">public void longJob() {
+			<P class="CStep3">for(long i=0; i&lt;5000000L; i++) {}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>synchronized를 설명하기 전에 Object Lock Flag부터 설명하기로 한다. 생성된 모든 객체는 lock flag를 가지고 있는데 synchronized 메소드나 블록을 수행하려면 자신의 lock flag를 가지고 있어야한다. 다음 그림을 살펴보자.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV292.GIF" BORDER=0 HSPACE=3 VSPACE=3 ALIGN=BOTTOM>
+		<P>앞의 그림에서처럼 push() 메소드를 호출하면 자신의 객체에 lock flag가 있는지 확인하고, 있으면 lock flag를 가져간 후에 수행된다. 이렇게 lock flag를 소유한 push() 메소드가 수행되다가 다른 쓰레드에게 제어권이 넘어가면 첫 번째 쓰레드는 대기(block) 상태가 되고, 두 번째 쓰레드가 활동하기 시작한다. 두 번째 쓰레드에서도 push() 메소드를 호출하면 synchronized메소드이므로 lock flag를 가져와야 수행된다. 그런데, lock flag는 이미 첫 번째 쓰레드에서 소유하고 있기 때문에 push() 메소드가 수행될 수가 없고. 두 번째 쓰레드는 대기 상태가 된다. 따라서 제어권은 다시 첫 번째 쓰레드로 넘어오게 되고, 멈춰있던 push() 메소드는 계속 수행하게 된다. push() 메소드가 수행된 후에는 lock flag를 반납하고, 비로소  lock flag가 없어졌기 때문에 대기하고 있던 두 번째 쓰레드가 제어권을 넘겨받아 수행된다. 
+		<P>부언하면 synchronized 메소드나 블록은 공유데이터를 여러 쓰레드가 사용할 때 손상을 입지 않도록 해준다. 따라서 쓰레드를 이용해 공유데이터를 조작하려면 반드시 synchronized를 사용해야 한다.
+		<P>다음 그림은 기본적인 쓰레드 상태도에 공유데이터 처리 부분을 추가한 것이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV293.GIF" BORDER=0 WIDTH="527" HEIGHT="250" ALIGN=BOTTOM>
+		<P>앞의 그림을 보면 쓰레드 synchronized 메소드를 수행하면 lock flag를 받을 때까지 Lock pool에서 대기하게 되는 것을 볼 수 있다.
+		</ul>
+		<P class="TSubmenu">7.3.4 wait()와 notify()
+		<ul>
+		<P>synchronized로 쓰레드의 기본적인 문제는 처리되었지만 해결해야할 문제가 더 남아있다. 앞에서 설명한 스택 예제 프로그램을 다시한번 살펴보기로 하자. 만약 스택이 비어있는 상태에서 pop() 메소드가 수행된다면 synchronized로도 해결할 수가 없다. 
+		<P>이 문제를 해결하기 위해 다음과 같은 예를 들어보자. 누군가가 서울역에서 잠실까지 가려고 택시를 탔는데 가는 동안 5분마다 운전기사에게 &quot;여기 잠실이에요?&quot;라고 묻지않고 택시를 타면서 &quot;잠실 갑니다.&quot;라고 말한 후 잠을 자거나 다른 일을 할 것이다. 잠실에 도착하면 기사가 이 사실을 알려준다. 
+		<P>이 예를 스택에 적용해보자. 어떤 쓰레드가 스택에서 pop을 했는데, 스택이 비어있으면 봉쇄(block)상태가 되고 스택에 데이터가 push될 때까지 기다린다. 이것은 잠실에 도착할 때까지 손님이 잠을 자는 것과 같은 이치이다. 시간이 지난 후 스택에 데이터가 들어오면, 봉쇄(blocked)되었던 쓰레드에게 데이터가 왔음을 알려준다. 이것은 운전기사가 잠자고 있는 손님에게 잠실에 다 왔다는 신호를 보내는 것과 같다. 그러면 대기중인 쓰레드는 스택에서 데이터를 pop할 수 있는 상태가 되는 것이다.
+		<P>자바의 쓰레드에서도 지금 설명한 방식이 사용되는데 이 때 사용되는 메소드가 wait() 메소드와 notify() 메소드이다.
+		<P>다음 그림은 쓰레드의 상태도에 wait() 메소드와 notify() 메소드를 추가한 결과를 나타낸 것이다.
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV294.GIF" BORDER=0 VSPACE=3 ALIGN=BOTTOM>
+		<P>API문서를 살펴보면 stop(), resume(), suspend() 등의 메소드가 deprecation되어있는 것을 볼 수 있는데, 잠금키를 가지고 있는 상태에서 봉쇄되면 쓰레드가 죽었을 때 데드락(Deaklock)이 발생할 수 있기 때문이다. 따라서 권장할 만한 방법이 아니기 때문에 대신 wait()와 notify()를 사용하는 것이다. 위의 그림에서 wait()와 notify()를 따로 분리한 이유는 봉쇄될 때 잠금키를 반납하고 봉쇄되기 때문이다.
+		<P>이러한 문제를 생산자와 소비자간의 관계로 예를 들어 설명하기로 한다. 예제를 살펴보기 전에 예제에 대한 전반적인 사항을 설명하기 위해 다음 그림을 보면, 
+		<P ALIGN=CENTER>
+		<IMG SRC="images/FYXIV295.GIF" BORDER=0 HSPACE=3 ALIGN=BOTTOM>
+		<P>생성할 쓰레드의 수는 모두 6개(빵 생산자 3개, 소비자 3개)인데, 각각의 쓰레드가 공유데이터 영역(BakeStack)을 공유하고 있다. 3군데의 빵집에서 빵을 만들어 내놓으며, 3명의 손님이 빵을 가져간다. 만약 빵을 굽기전에 손님이 오면 손님을 기다리게 한다. 빵이 나오면 기다리던 손님에게 알려준다(notify).
+		<P>이제 6개의 쓰레드가 서로 경쟁하면서 실행되다가 어느 순간에 임의의 쓰레드가 처리된다. 이러한 사실은 아무도 모르며 다만 공유데이터 영역인 스택을 깨뜨리지 않고, 또 빵이 없어도 나올 때까지 기다렸다가 모든 빵을 소비해야 한다. 
+		<P> 먼저 시작 클래스부터 보자.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>WaitNotifyExample.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class WaitNotifyExample {
+			<P class="CStep2">public static void main(String[] args) {
+			<P class="CStep3"><B>BakeStack bakeStack = new BakeStack();</B>
+			<P class="CStep3"><B>Baker m1 = new Baker(bakeStack);</B>
+			<P class="CStep3"><B>Thread maker1 = new Thread (m1);</B>
+			<P class="CStep3"><B>maker1.start();</B>
+			<P class="CStep3">Baker m2 = new Baker(bakeStack);
+			<P class="CStep3">Thread maker2 = new Thread (m2);
+			<P class="CStep3">maker2.start();
+			<P class="CStep3">Baker m3 = new Baker(bakeStack);
+			<P class="CStep3">Thread maker3 = new Thread (m3);
+			<P class="CStep3">maker3.start();
+			<P class="CStep4"><B>Customer c1 = new Customer(bakeStack);</B>
+			<P class="CStep3"><B>Thread customer1 = new Thread (c1);</B>
+			<P class="CStep3"><B>customer1.start();</B>
+			<P class="CStep3">Customer c2 = new Customer(bakeStack);
+			<P class="CStep3">Thread customer2 = new Thread (c2);
+			<P class="CStep3">customer2.start();
+			<P class="CStep3">Customer c3 = new Customer(bakeStack);
+			<P class="CStep3">Thread customer3 = new Thread (c3);
+			<P class="CStep3">customer3.start();
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>3 : 공유데이터인 BakeStack 클래스의 객체(instance)를 만든다.
+		<P>4 : ∼ 12 : 3개의 Baker 클래스 객체를 만들고 이를 쓰레드화하여 실행시킨다. 
+		<P>14 : ∼ 22 : 3개의 Customer 클래스 객체를 만들고 이를 쓰레드화하여 실행시킨다. 따라서 모두 6개의 쓰레드가 하나의 공유데이터(BakeStack)를 사용하고 있는 것이다.
+		<P>이제 공유데이터인 BakeStack을 살펴보자.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>BakeStack.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">import java.util.Vector;
+			<P class="CStep2">public class BakeStack {
+			<P class="CStep2"><B>private Vector buff = new Vector(300, 300);</B>
+			<P class="CStep2">public <B>synchronized</B> String pop() {
+			<P class="CStep3">String bread;
+			<P class="CStep3">while (<B>buff.size()</B> == 0) {
+			<P class="CStep4">try {
+			<P class="CStep5"><B>this.wait();</B>
+			<P class="CStep4">} catch (InterruptedException e) {
+			<P class="CStep5">e.printStackTrace();
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep3">bread = (String)<B>buff.remove(buff.size() - 1);</B>
+			<P class="CStep3">return bread;
+			<P class="CStep2">}
+			<P class="CStep2">public <B>synchronized</B> void push(String bread) {
+			<P class="CStep3"><B>this.notify();</B>
+			<P class="CStep3">buff.<B>addElement(bread);</B>
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>3 : 스택을 좀더 쉽게 구현하기 위해 Vector클래스를 사용했다.
+		<P>6 : buff.size()가 0 이면 while문을 수행하는데 이는 스택이 비어 있음을 의미이다. while문안에 wait() 메소드가 있는데 누군가 깨워줄 때까지 수행을 멈추겠다는 의미이다. 여기서 synchronized를 사용해서 lock flag를 가져왔으나, wait()이 호출되면 lock flag는 자동 반납된다. 그래야 다른 쓰레드가 pop()를 호출할 수 있기 때문이다. 
+		<P>13 : 스택이 비어있지 않으면remove() 메소드를 만나 나중에 들어온 빵을 스택에서 꺼내 넘겨준다.
+		<P>16 : push() 메소드에서 바로 notify() 메소드를 호출한다. notify() 메소드는 대기중인 쓰레드 중에서 하나를 임의로 선택하여 빵이 도착했다는 신호를 준다. 그러면 신호를 받은 쓰레드는 빵을 가져가데 된다. 이때 유의할 점은 notify() 메소드가 대기중인 쓰레드에게 신호를 보내면 곧바로 대기중인 쓰레드가 동작하지는 않는다. 물론 동작할 수도 있지만, 결정은 쓰레드 Scheduler에게 달려있으므로 push()가 몇 번 더 수행된 후에 대기중인 쓰레드가 수행될 수 도 있다.
+		<P>18 : 그 다음 addElement() 메소드가 호출되어 스택에 빵을 가져다 놓는 것이다. 여기서의 의문사항은 addElement()보다 notify()를 먼저 수행한 점이다. 즉, 빵을 가져다 놓기 전에 빵이 왔다는 신호를 한것인데 이는 synchronized와 연관시켜 생각하면 쉽게 알 수 있다.
+		<P>이제 마지막으로 각각의 쓰레드에 대해서 알아보기로 한다. 먼저 push()를 수행할 Baker 클래스이다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Baker.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:
+			<p class="CNumber">22:
+			<p class="CNumber">23:
+			<p class="CNumber">24:
+			<p class="CNumber">25:
+			<p class="CNumber">26:
+			<p class="CNumber">27:
+			<p class="CNumber">28:
+			<p class="CNumber">29:
+			<p class="CNumber">30:
+			<p class="CNumber">31:
+			<p class="CNumber">32:
+			<p class="CNumber">33:
+			<p class="CNumber">34:
+			<p class="CNumber">35:
+			<p class="CNumber">36:
+			<p class="CNumber">37:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Baker implements Runnable {
+			<P class="CStep2">private BakeStack bakeStack;
+			<P class="CStep2">private int num;
+			<P class="CStep2">private static int counter = 1;
+			<P class="CStep2">public Baker (BakeStack s) {
+			<P class="CStep3">bakeStack = s;
+			<P class="CStep3">num = counter++;
+			<P class="CStep2">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">String bread;
+			<P class="CStep3">for (int i = 0; i &lt; 10; i++) {
+			<P class="CStep4">bread = getBread();
+			<P class="CStep4">bakeStack.push(bread);
+			<P class="CStep4">System.out.println(&quot;빵집&quot; + num + &quot; : &quot; + bread);
+			<P class="CStep4">try {
+			<P class="CStep5">Thread.sleep((int)(Math.random()*300));
+			<P class="CStep4">} catch (InterruptedException e) {
+			<P class="CStep5">e.printStackTrace();
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep2">public String getBread() {
+			<P class="CStep3">String bread = null;
+			<P class="CStep3">switch ((int)(Math.random() * 3)) {
+			<P class="CStep4">case 0 :
+			<P class="CStep5">bread = &quot;생크림 케�S&quot;;
+			<P class="CStep5">break;
+			<P class="CStep4">case 1:
+			<P class="CStep5">bread = &quot;식빵&quot;;
+			<P class="CStep5">break;
+			<P class="CStep4">case 2:
+			<P class="CStep5">bread = &quot;고로케&quot;;
+			<P class="CStep5">break;
+			<P class="CStep3">}
+			<P class="CStep3">return bread;
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>Runnable인터페이스를 implements한 전형적인 쓰레드 클래스이며, 
+		<P>9 : run() 메소드가 수행된다. 생성자를 통해서 공유데이터인 BakeStack를 참조한다. 
+		<P>12 : getBread() 메소드를 호출하여 3개의 빵 중 하나를 반환한다. 총 10 개의 빵을 만들어 낸다. 
+		<P>16 : sleep() 메소드를 이용하여 쓰레드를 잠깐 정지시켰는데 컴퓨터 속도가 너무 빨라 순간적으로 처리되기 때문에 일부러 다른 쓰레드에게 기회를 주기 위해서 잠깐 쉬는 것이다.
+		<P>다음은 Customer클래스이다. 이 클래스도 위의 Baker클래스와 거의 유사하다.
+		<P>
+		<table BORDER=0 CELLPADDING=2 WIDTH=550>
+			<TD WIDTH=7%></td>
+			<TD WIDTH=92%>
+			<P>Customer.java</TD>
+		</tr>
+		</TABLE>
+		<TABLE BORDER=0 CELLPADDING=2 WIDTH=550>
+		<TR>
+			<TD WIDTH=7%>
+			<p class="CNumber">1:
+			<p class="CNumber">2:
+			<p class="CNumber">3:
+			<p class="CNumber">4:
+			<p class="CNumber">5:
+			<p class="CNumber">6:
+			<p class="CNumber">7:
+			<p class="CNumber">8:
+			<p class="CNumber">9:
+			<p class="CNumber">10:
+			<p class="CNumber">11:
+			<p class="CNumber">12:
+			<p class="CNumber">13:
+			<p class="CNumber">14:
+			<p class="CNumber">15:
+			<p class="CNumber">16:
+			<p class="CNumber">17:
+			<p class="CNumber">18:
+			<p class="CNumber">19:
+			<p class="CNumber">20:
+			<p class="CNumber">21:</TD>
+			<TD WIDTH=92%>
+			<P class="CStep1">public class Customer implements Runnable {
+			<P class="CStep2">private BakeStack bakeStack;
+			<P class="CStep2">private int num;
+			<P class="CStep2">private static int counter = 1;
+			<P class="CStep2">public Customer (BakeStack s) {
+			<P class="CStep3">bakeStack = s;
+			<P class="CStep3">num = counter++;
+			<P class="CStep2">}
+			<P class="CStep2">public void run() {
+			<P class="CStep3">String bread;
+			<P class="CStep3">for (int i = 0; i &lt; 10; i++) {
+			<P class="CStep4"><B>bread = bakeStack.pop();</B>
+			<P class="CStep4">System.out.println(&quot;손님&quot; + num + &quot; : &quot; + bread);
+			<P class="CStep4">try {
+			<P class="CStep5">Thread.sleep((int)(Math.random()*300));
+			<P class="CStep4">} catch (InterruptedException e) {
+			<P class="CStep5">e.printStackTrace();
+			<P class="CStep4">}
+			<P class="CStep3">}
+			<P class="CStep2">}
+			<P class="CStep1">}</TD>
+		</tr>
+		</TABLE>
+		<P>이 클래스는 공유 스택에서 빵을 10번 가져와 화면에 보여준다. Baker클래스와 같은 내용이므로 설명은 생략한다.
+		<P>위의 예를 이해하기 위해 모두 4개의 클래스(WaitNotifyExample, BakeStack, Baker, Customer)를 작성하였으며, 실행은 WaitNotifyExample 클래스를 이용한다.
+	    </ul></td>
+    </tr>
+	</table>
+</body>
+</html>
