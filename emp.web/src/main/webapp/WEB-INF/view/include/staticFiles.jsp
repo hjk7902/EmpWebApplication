@@ -9,7 +9,7 @@
     
     <title><fmt:message key="TITLE"/></title>
     <!-- Favicon -->
-    <link href="<c:url value='/images/favicon.png'/>" rel="icon" type="image/png">
+    <link href="<c:url value='/favicon.png'/>" rel="icon" type="image/png">
 
 	<link rel="stylesheet" href="<c:url value="/css/default.css"/>">
     <!-- Essential styles -->
