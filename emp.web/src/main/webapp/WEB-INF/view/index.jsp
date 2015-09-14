@@ -24,7 +24,26 @@
     </div>
 
 	<div class="content">
-	Dashboard
+	<h3>이 사이트는 Servlet/JSP, HTML5, CSS3, JavaScript 등을 학습하기 위해 만들어졌습니다.
+	이 사이트에 사용된 기술은 다음과 같습니다.</h3>
+	<ol>
+		<li>Maven Web Project
+		<li>Servlet : ...web 페키지 내의 Servlet 파일, 파라미터 이름으로 액션이 처리되도록 했음
+		<li>JSP : 거의 없음
+		<li>EL : 데이터를 출력할 곳에 사용했음
+		<li>JSTL : JSP문서 내에서 사용했음. core, fmt(국제화)
+		<li>fmt 국제화 : resources/i18n/xxx_en.properties 
+		<li>Tag Library : 게시판 페이징처리에 사용했음
+		<li>HTML5
+		<li>CSS3
+		<li>CSS3를 이용한 반응형 웹 페이지 : Meta태그 이용
+		<li>HTML5 API
+		<li>Dandelion Datatables framework : EMP 테이블 데이터 목록 출력하는 곳에서 사용 view/emp/list.jsp 파일
+		<li>Datatables 국제화 : resources/dandelion/datatables/datatables_ko.properties
+		<li>HSQLDB 사용 
+		<li>컨텍스트 로드시 HSQLDB를 초기화 하기 위한 Scriptella 라이브러리 사용, WEB-INF/lib/scriptella.jar, ...common.db.lisstener.WebDBInitializer.java, resources/db/* 파일들
+		<li>Tomcat 커넥션풀 사용 : webapp/META-INF/context.xml, resources/db/database.properties, ...common.db.DBConn.java
+	</ol> 
 	</div>
 </div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
