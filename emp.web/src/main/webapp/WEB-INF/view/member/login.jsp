@@ -10,7 +10,7 @@
 <div class="container">
 	<div class="pg-opt">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 pc">
                 <h2><fmt:message key="LOGIN"/><small> <fmt:message key="${not empty message ? message : 'BLANK'}"/></small></h2>
             </div>
             <div class="col-md-6">

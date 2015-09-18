@@ -13,7 +13,7 @@ response.setStatus(200);
 <div class="container">
 	<div class="pg-opt">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 pc">
                 <h2><fmt:message key="ERROR"/></h2>
             </div>
             <div class="col-md-6">

@@ -8,6 +8,7 @@ window.onload = function(){
     function log(msg){
         var log = document.getElementById("log")|| document.querySelector(".log");
         if(log) log.innerHTML += msg + "<br>";
+        document.querySelector("body > h1").innerHTML = "공유 워커 작업 완료"; 
     }
 
     // TODO 공유워커 생성
@@ -25,7 +26,7 @@ window.onload = function(){
 </script>
 </head>
 <body>
-    <h1>공유 워커 작업끝</h1>
+    <h1>공유 워커 작업중...</h1>
     <div id="log"><p>로그</p></div> 
 </body>
 </html>

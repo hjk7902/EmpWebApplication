@@ -10,7 +10,7 @@
 <div class="container">
 	<div class="pg-opt">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 pc">
                 <h2><fmt:message key="UPDATE_USER_INFO"/><small>${message}</small></h2>
             </div>
             <div class="col-md-6">
