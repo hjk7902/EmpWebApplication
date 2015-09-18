@@ -1,0 +1,49 @@
+<!-- 파일명 : elements/selectorapi.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Selector API</title>
+<script defer>
+window.onload = function() {
+	// 클래스 이름이 'warning', 또는 'note'인 단락 엘리먼트(<p>)를 모두 찾음 
+	var special = document.querySelectorAll("p.warning, p.note"); 
+	
+	// id가 'main', 'basic', 'exclamation'인 엘리먼트들 중 첫 번째 발견된 엘리먼트를 찾음 
+	var el = document.querySelector("#main, #basic, #exclamation"); 
+	 
+	// HTML 문서의 <body>에 속한 <style> 엘리먼트들 중 
+	// 'type' 속성이 없거나, 'text/css'인 첫 번째 발견된 엘리먼트를 찾음 
+	var style = document.body.querySelector("style[type='text/css'], style:not([type])"); 
+	 
+	// id가 'fruits'인 엘리먼트의  <input>엘리먼트들 중 선택된(checked) 엘리먼트를 찾음 
+	var list = document.querySelectorAll("#fruits input:checked"); 
+	// 위의 코드는 다음과 같이 작성할 수도 있음
+	var fruits = document.getElementById('fruits');
+	var list = fruits.querySelectorAll("input:checked");
+	
+	console.log(special);
+	console.log(el);
+	console.log(style);
+	console.log(list);
+}
+</script>
+
+</head>
+<body>
+<style type="text/css">
+p {
+    color: red;
+}
+</style>
+<p class="warning">클래스 속성이 warning 입니다.</p>
+<p class="note">클래스 속성인 note 입니다.</p>
+<div id="basic">아이디 속성이 basic 입니다.</div>
+
+<ul id="fruits">
+	<li><input type="checkbox" value="apple">사과
+	<li><input type="checkbox" value="pineapple" checked>파인애플
+	<li><input type="checkbox" value="watermelon" checked>수박
+</ul>
+</body>
+</html>

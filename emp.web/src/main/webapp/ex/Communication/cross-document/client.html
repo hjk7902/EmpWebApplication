@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>채널 통신</title>
+<script>
+window.onload = function(){
+	var button = document.querySelector("button");
+
+    button.onclick = function(){
+        var params = {
+            cht: document.querySelector("select").value,
+            chs: "250x150",
+            chd: "t:" + document.querySelector("#data").value,
+            chl: document.querySelector("#label").value
+        };
+        var destFrame = document.querySelector("iframe");
+        destFrame.contentWindow.postMessage(params, "*");
+    }
+}
+</script>
+</head>
+<body>
+<h1>차트 서비스 사용 예제</h1>
+차트 종류
+<select>
+<option value="p">2D 파이 차트</option>
+<option value="p3">3D 파이 차트</option>
+<option value="bvg">바 차트</option>
+<option value="lc">라인 차트</option>
+</select><br>
+항목(|로 구분)<input type="text" id="label"><br>
+데이터(,로 구분)<input type="text" id="data"><br>
+<button>차트 생성</button><br>
+<iframe src="chart.html" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" width="250" height="150"></iframe>
+</body>
+</html>

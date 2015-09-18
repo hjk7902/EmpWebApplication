@@ -1,7 +1,7 @@
 <%-- samples/rss/news_rss.html --%>
-<%@ page language="java" contentType="text/xml; charset=EUC-KR"
-    pageEncoding="EUC-KR" trimDirectiveWhitespaces="true"%>
+<%@ page language="java" contentType="text/xml; charset=UTF-8"
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% %>
 <c:import charEncoding="UTF-8" url="${param.rssurl}"></c:import> 
-<!-- À§¿¡¼­ °¡ÀåÁß¿äÇÑ ºÎºÐÀº param.rssurl ÀÎµ¥ ÀÌ°ÍÀ¸·Î jquery mobile °ú ±³½ÅÇÒ¶§ ¾²ÀÌ´Â ÁÖ¼Ò ÆÄ¶ó¹ÌÅÍ °ªÀ¸·Î ÀÛµ¿µÈ´Ù.-->
+<!-- ìœ„ì—ì„œ ê°€ìž¥ì¤‘ìš”í•œ ë¶€ë¶„ì€ param.rssurl ì¸ë° ì´ê²ƒìœ¼ë¡œ jquery mobile ê³¼ êµì‹ í• ë•Œ ì“°ì´ëŠ” ì£¼ì†Œ íŒŒë¼ë¯¸í„° ê°’ìœ¼ë¡œ ìž‘ë™ëœë‹¤.-->

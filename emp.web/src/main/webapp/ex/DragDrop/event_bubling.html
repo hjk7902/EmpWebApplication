@@ -1,9 +1,9 @@
-<!-- ÆÄÀÏ¸í : drag_drop/event_bubbling.html -->
+<!-- íŒŒì¼ëª… : drag_drop/event_bubbling.html -->
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>ÀÌº¥Æ® ¹öºí¸µ</title>
+<meta charset="UTF-8">
+<title>ì´ë²¤íŠ¸ ë²„ë¸”ë§</title>
 <script>
 window.onload = function(){
 	var a = document.getElementById("a");
@@ -14,17 +14,17 @@ window.onload = function(){
 	b.onclick = function(event) {
 		event.preventDefault();
 		console.log('b');
-		event.stopPropagation();//event bubblingÀ» ¹æÁö
+		event.stopPropagation();//event bubblingì„ ë°©ì§€
 	}
 }
 </script>
 </head>
 <body>
-<p>°³¹ßÀÚµµ±¸ -> Console ÅÇÀ» ¿­°í Å¬¸¯ °á°ú¸¦ È®ÀÎÇÏ¼¼¿ä.</p>
+<p>ê°œë°œìë„êµ¬ -> Console íƒ­ì„ ì—´ê³  í´ë¦­ ê²°ê³¼ë¥¼ í™•ì¸í•˜ì„¸ìš”.</p>
 <div id="a">
-	<p>Å¬¸¯ÇÏ¸é a°¡ Ãâ·ÂµÇ´Â °÷</p>
+	<p>í´ë¦­í•˜ë©´ aê°€ ì¶œë ¥ë˜ëŠ” ê³³</p>
 	<div id="b">
-		<p>Å¬¸¯ÇÏ¸é b°¡ Ãâ·ÂµÇ´Â°÷</p>
+		<p>í´ë¦­í•˜ë©´ bê°€ ì¶œë ¥ë˜ëŠ”ê³³</p>
 	</div>
 </div>
 </body>

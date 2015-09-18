@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>html5</display-name>
+		<!-- WebSocket Examples -->
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>wsEchoStream</servlet-name>
+		<servlet-class>websocket.echo.EchoStream</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>wsEchoStream</servlet-name>
+		<url-pattern>/ws/echoStream</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>wsEchoMessage</servlet-name>
+		<servlet-class>websocket.echo.EchoMessage</servlet-class>
+		<!-- Uncomment the following block to increase the default maximum WebSocket 
+			buffer size from 2MB to 20MB which is required for the Autobahn test suite 
+			to pass fully. -->
+		<!-- <init-param> <param-name>byteBufferMaxSize</param-name> <param-value>20971520</param-value> 
+			</init-param> <init-param> <param-name>charBufferMaxSize</param-name> <param-value>20971520</param-value> 
+			</init-param> -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>wsEchoMessage</servlet-name>
+		<url-pattern>/ws/echoMessage</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>wsSnake</servlet-name>
+		<servlet-class>websocket.snake.SnakeWebSocketServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>wsSnake</servlet-name>
+		<url-pattern>/ws/snake</url-pattern>
+	</servlet-mapping>
+</web-app>

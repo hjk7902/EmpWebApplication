@@ -4,12 +4,12 @@
 	var centerX = centerY = 150;
 	
 	ctx.lineCap = "round";
-	setInterval(clock, 10);
+	setInterval(clock, 10);//10msë§ˆë‹¤ clock ë©”ì„œë“œ í˜¸ì¶œ
 	clock();
 	function clock() {
 	    ctx.clearRect(0, 0, 300, 300);
 	    
-	    //Å×µÎ¸®
+	    //í…Œë‘ë¦¬
 	    var clockBorder = 15;
 	    var radgrad = ctx.createRadialGradient(150,150,100+clockBorder,150,150,100);
 	    radgrad.addColorStop(0, '#554400');
@@ -23,7 +23,7 @@
 	    ctx.fill();
 	    ctx.closePath();
 	    
-	    //¼ıÀÚÆÇ
+	    //ìˆ«ìíŒ
 	    for(var i=0; i<12; i++) {
 			ctx.beginPath();
 			ctx.fillStyle = "#0000FF";
@@ -42,7 +42,7 @@
 	    ctx.beginPath();
 	    ctx.moveTo(150,150);
 	    var seconds = (new Date().getTime() / 1000) % 60;//new Date().getSeconds();
-	    var angle = (360/60) * seconds * Math.PI/180; //radian °ª 
+	    var angle = (360/60) * seconds * Math.PI/180; //radian ê°’ 
 	    ctx.strokeStyle = "#ff0000"; // line color
 	    ctx.lineWidth = 1;     
 	    ctx.lineTo(150+Math.sin(angle)*80, 150-Math.cos(angle)*80);
@@ -55,7 +55,7 @@
 	    ctx.lineWidth = 3;     
 	    ctx.strokeStyle = "#000000"; // line color
 	    ctx.moveTo(150,150);
-	    angle = (360/60) * minutes * Math.PI/180; //radian °ª
+	    angle = (360/60) * minutes * Math.PI/180; //radian ê°’
 	    ctx.lineTo(150+Math.sin(angle)*75, 150-Math.cos(angle)*75);
 	    ctx.stroke();
 	    ctx.closePath();
@@ -65,7 +65,7 @@
 	    ctx.beginPath();
 	    ctx.lineWidth = 5;
 	    ctx.moveTo(150,150);
-	    angle = (360/12) * hours * Math.PI/180; //radian °ª
+	    angle = (360/12) * hours * Math.PI/180; //radian ê°’
 	    ctx.lineTo(150+Math.sin(angle)*60, 150-Math.cos(angle)*60);
 	    ctx.stroke();
 	    ctx.closePath();

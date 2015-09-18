@@ -1,0 +1,8 @@
+@import url(default.css);
+.search_result_div table {
+    width: 100% !important;
+}
+.search_result_div table tr th:nth-child(odd),
+.search_result_div table tr td:nth-child(odd) {
+    display: none;
+}

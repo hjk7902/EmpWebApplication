@@ -4,15 +4,15 @@
         if(log) log.innerHTML += msg + "<br>";
     }
 
-    // TODO ¿öÄ¿ »ı¼º
-    //»ı¼ºµÇ´Â ¶§ worker.jsÀÇ ³»¿ëÀ» ¼öÇàÇÔ. Áö±İÀº ¼öÇàÇÒ ³»¿ëÀÌ¾øÀ½
+    // TODO ì›Œì»¤ ìƒì„±
+    //ìƒì„±ë˜ëŠ” ë•Œ worker.jsì˜ ë‚´ìš©ì„ ìˆ˜í–‰í•¨. ì§€ê¸ˆì€ ìˆ˜í–‰í•  ë‚´ìš©ì´ì—†ìŒ
     var worker = new Worker("worker.js");
 
-    // TODO message ÀÌº¥Æ® Ã³¸®
-    //ui´Ü  ÇÚµé¸µÀº ¿©±â¼­
+    // TODO message ì´ë²¤íŠ¸ ì²˜ë¦¬
+    //uië‹¨  í•¸ë“¤ë§ì€ ì—¬ê¸°ì„œ
     worker.onmessage = function(me){
         log(me.data);
-        //È­¸é¿¡ Á¾·áµÇ¾úÀ¸´Ï  ¹öÆ° È°¼ºÈ­. ÀÛ¾÷Áß ÀÌ¹ÌÁö Á¦°Å
+        //í™”ë©´ì— ì¢…ë£Œë˜ì—ˆìœ¼ë‹ˆ  ë²„íŠ¼ í™œì„±í™”. ì‘ì—…ì¤‘ ì´ë¯¸ì§€ ì œê±°
         calc.removeAttribute("disabled");
         document.getElementById("workerImg").innerHTML = "";
     };  
@@ -20,24 +20,24 @@
     var sendBtn = document.getElementById("send");
     sendBtn.onclick = function(){
         var msg = document.getElementById("msg").value;
-        // TODO ¿öÄ¿¿¡ ¸Ş¼¼Áö Àü¼Û
+        // TODO ì›Œì»¤ì— ë©”ì„¸ì§€ ì „ì†¡
         worker.postMessage(msg);   
     };
 
     var calcBtn = document.getElementById("calc");
     calcBtn.onclick = function(){
         var num = document.getElementById("msg").value;
-        // TODO ¿öÄ¿¿¡ ¸Ş¼¼Áö Àü¼Û("calc");
+        // TODO ì›Œì»¤ì— ë©”ì„¸ì§€ ì „ì†¡("calc");
         worker.postMessage({"msg":"calc", "num":num});
-        //¿©·¯¹ø µ¿ÀÛ¸øÇÏ°Ô ¹öÆ° Á¦¾î
+        //ì—¬ëŸ¬ë²ˆ ë™ì‘ëª»í•˜ê²Œ ë²„íŠ¼ ì œì–´
         calcBtn.setAttribute("disabled", "disabled");
-        //ÀÛ¾÷ÁßÀÓÀ» È­¸é¿¡ º¸¿©ÁÜ
+        //ì‘ì—…ì¤‘ì„ì„ í™”ë©´ì— ë³´ì—¬ì¤Œ
         document.getElementById("workerImg").innerHTML = "<img src='worker.png'>";
     };
 
     var stopBtn = document.getElementById("stop");
     stopBtn.onclick = function(){
-        // TODO ¿öÄ¿ Á¾·á ¿öÄ¿¸¦ °­Á¦·Î Á¾·á 
+        // TODO ì›Œì»¤ ì¢…ë£Œ ì›Œì»¤ë¥¼ ê°•ì œë¡œ ì¢…ë£Œ 
         worker.terminate();   
         calcBtn.removeAttribute("disabled");
         document.getElementById("workerImg").innerHTML = "";

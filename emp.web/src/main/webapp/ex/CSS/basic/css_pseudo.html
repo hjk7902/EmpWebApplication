@@ -7,7 +7,7 @@
 div:hover {
 	background-color: red;
 }
-/* 이거 없네요.ㅎㅎ 죄송. 자바스크립트 onblur 이벤트랑 해갈렸음다.*/
+/* :blur 선택자는 없습니다. onblur 이벤트를 이용해야 합니다.*/
 div:blur {
 	background-color: black; 
 }
@@ -15,14 +15,14 @@ div:active {
 	background-color: blue;
 }
 input:focus {
-	background-color: cyan;
+	background-color: purple;
 }
-/* 체크박스와 라디오는 배경색 지정이 안되네요.*/
-input:checked {
+/* 체크박스와 라디오는 배경색 지정이 안됩니다.*/
+input:radio {
 	background-color: red;
 }
 input:disabled {
-	background-color: white;
+	background-color: cyan;
 }
 </style>
 </head>
@@ -31,10 +31,9 @@ input:disabled {
 <form>
 아이디 : <input type="text" name="userid"><br>
 비번 : <input type="password" name="password" disabled><br>
-성별 : <input type="radio" name="sex" value="M">남자
+성별 : <label><input type="radio" name="sex" value="M">남자</label>
 <input type="radio" name="sex" value="F">여자<br>
 <input type="submit">
 </form>
-
 </body>
 </html>

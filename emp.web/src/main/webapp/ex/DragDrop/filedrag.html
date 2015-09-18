@@ -1,8 +1,8 @@
-<!-- 파일명 : drag_drop/filedrag.html -->
+<!-- ���ϸ� : drag_drop/filedrag.html -->
 <!DOCTYPE html>
 <html>
 <head>
-<title>drag &amp; drop 테스트</title>
+<title>drag &amp; drop �׽�Ʈ</title>
 <style type="text/css">
 .hover {
     border: 10px solid #000;
@@ -50,7 +50,7 @@ window.onload = function() {
     }
 }
 
-//파일의 내용을 읽는 함수
+//������ ������ �д� �Լ�
 function readFile(file) {
     document.getElementById("fileName").textContent = file.name;
     document.getElementById("fileSize").textContent = "(" + file.size + "byte)";
@@ -76,15 +76,15 @@ function readFile(file) {
 
 <body>
 <section id="content">
-    <h1>Drag &amp; Drop 그리고 File I/O 예제</h1>
-    <p>텍스트 파일을 끌어다 놓아보세요.</p>
+    <h1>Drag &amp; Drop �׸��� File I/O ����</h1>
+    <p>�ؽ�Ʈ ������ ����� ���ƺ�����.</p>
     <article>
     <input id="file" type="file">
     <select id="encoding">
-        <option>EUC-KR</option>
+        <option>UTF-8</option>
         <option>UTF-8</option>
     </select>
-    <button id="read">읽기</button><br />
+    <button id="read">�б�</button><br />
     <div>
         <span id="fileName">File Name</span>
         <span id="fileSize">File Size</span>

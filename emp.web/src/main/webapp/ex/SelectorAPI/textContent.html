@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>텍스트 컨텐츠 제어</title>
+<script>
+window.onload = function() {
+    var contentArea = document.getElementById("content");
+
+    var getBtn = document.getElementById("get");
+    var setBtn = document.getElementById("set");
+
+    var textField = document.querySelector("input[type=text]");
+
+    getBtn.onclick = function() {
+        contentArea.textContent = textField.value;
+		textField.value = "";
+    }
+    setBtn.onclick = function() {
+        textField.value = "Some Value";
+
+    }
+}
+</script>
+</head>
+
+<body>
+<input type="text">
+<input type="button" id="get" value="Get">
+<input type="button" id="set" value="Set">
+<div id="content"></div>
+</body>
+</html>

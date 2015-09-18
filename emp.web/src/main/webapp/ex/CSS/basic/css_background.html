@@ -1,5 +1,8 @@
+<!doctype html>
 <html> 
 <head> 
+<meta charset="utf-8">
+<title>css background</title>
 <style type="text/css"> 
 body { 
     margin-left:200px; 
@@ -17,44 +20,49 @@ body {
     text-align:left; 
     padding:8px; 
 } 
-.dhx_list_icon {
+.list_icon {
     margin-top:12px;
-    width:11px !important;
-    height:10px;
-    margin-left:4px;
-    background-image:url(./images/images.png);
+    width:22px !important;    
+    height:20px;
+    background-image:url(./images/icons.png);
     background-repeat:no-repeat;
-    background-position:0 -56px;
+    background-position:0 -70px;
 }
-
-.dhx_calendar_icon {
+.calendar_icon {
     margin-top:9px;
-    height:13px;
-    background-image:url(./images/images.png);
-    background-position:0 -78px;
+    height:23px;
+    text-indent: 25px;
+    background-image:url(./images/icons.png);
+    background-position:0 -125px;
     background-repeat:no-repeat;
 }
-.dhx_cal_prev_button div {
-    background-image:url(./images/images.png);
+.cal_prev_button {
+	height:20px;
+    background-image:url(./images/icons.png);
     background-repeat:no-repeat;
-    background-position:0 -92px;
+    background-position:0 -150px;
     left:5px;
 }
-.dhx_cal_next_button div {
-    background-image:url(./images/images.png);
+.cal_next_button {
+	height:20px;
+    background-image:url(./images/icons.png);
     background-repeat:no-repeat;
-    background-position:0 -106px;
+    background-position:0 -172px;
     right:5px;
 }
-
 </style> 
 </head> 
 <body> 
 <div class="container"> 
 <div class="center_div"> 
-<h1>¾È³çÇÏ¼¼¿ä.</h1> 
-<p>ÀÌ ¿¹Á¦´Â CSS ¿¹Á¦ÀÔ´Ï´Ù. background ¼Ó¼º°ü·Ã ¿¹Á¦¸¦ ½Ç½ÀÇÏ°í ÀÖ½À´Ï´Ù. </p> 
+<h1>ì•ˆë…•í•˜ì„¸ìš”.</h1> 
+<p>ì´ ì˜ˆì œëŠ” CSS ì˜ˆì œì…ë‹ˆë‹¤. background ì†ì„±ê´€ë ¨ ì˜ˆì œë¥¼ ì‹¤ìŠµí•˜ê³  ìˆìŠµë‹ˆë‹¤. </p> 
 </div> 
 </div> 
+<p></p>
+<p class="list_icon"></p>
+<p class="calendar_icon">ë‹¬ë ¥ ì•„ì´ì½˜ì…ë‹ˆë‹¤.</p>
+<p class="cal_prev_button"></p>
+<p class="cal_next_button"></p>
 </body> 
 </html> 

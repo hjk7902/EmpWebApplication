@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
 var xmlHttp;
@@ -16,7 +16,7 @@ function createXMLHttpRequest() {
 function startRequest() {
     createXMLHttpRequest();
     xmlHttp.onreadystatechange = handleStateChange;
-    xmlHttp.open("GET", "result.jsp", true);
+    xmlHttp.open("GET", "http://www.kt.com", true);
     xmlHttp.send(null);
 }
     
@@ -36,6 +36,7 @@ window.onload = function() {
 </script>
 </head>
 <body>
-<input type="button" value=" ��û ">
+<input type="button" value=" 요청 ">
+<p contenteditable="true">요청중에 이 곳을 수정할 수 있습니다.</p>
 </body>
 </html>

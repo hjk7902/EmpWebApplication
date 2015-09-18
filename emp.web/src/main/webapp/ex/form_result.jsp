@@ -1,16 +1,16 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="euc-kr">
-<title>¿äÃ» µ¥ÀÌÅÍ</title>
+<meta charset="UTF-8">
+<title>ìš”ì²­ ë°ì´í„°</title>
 </head>
 <body>
-<h1>Çì´õ Á¤º¸ÀÔ´Ï´Ù.</h1>
+<h1>í—¤ë” ì •ë³´ì…ë‹ˆë‹¤.</h1>
 <%
-	request.setCharacterEncoding("euc-kr");
-	response.setContentType("text/html;charset=euc-kr");
+	request.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html;charset=UTF-8");
 
 	Enumeration<String> headerNames = request.getHeaderNames();
 	while(headerNames.hasMoreElements()) {
@@ -24,7 +24,7 @@
 		out.println("<br>");
 	}	
 %>
-<h1>ÆÄ¶ó¹ÌÅÍ Á¤º¸ÀÔ´Ï´Ù.</h1>
+<h1>íŒŒë¼ë¯¸í„° ì •ë³´ì…ë‹ˆë‹¤.</h1>
 <%
 	Enumeration<String> paramNames = request.getParameterNames();
 	while(paramNames.hasMoreElements()) {

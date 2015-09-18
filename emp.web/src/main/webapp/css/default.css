@@ -1,5 +1,5 @@
 @charset "utf-8";
-@media only screen and (max-width:430px), only screen and (max-device-width:430px), handheld{
+@media only screen and (max-width:420px), only screen and (max-device-width:420px), handheld{
     .pc {
         display: none;  /* 테이블에서 collapse에 적용된다. */
         visibility: hidden;
@@ -20,7 +20,12 @@
     }
 }
 
-@media only screen and (max-width:800px) {
+@media only screen and (max-width:991px) {
+	.pc {
+        display: none;  /* 테이블에서 collapse에 적용된다. */
+        visibility: hidden;
+    }
+    
     /* dandelion datatables 검색과 다운로드 버튼 안보이게 */
     .dataTables_filter {
     	display: none;
@@ -31,7 +36,6 @@
     	display: none;
         visibility: hidden;
     }
-    
 }
 
 body div.content {

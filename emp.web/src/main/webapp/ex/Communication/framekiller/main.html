@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML5 Project</title>
+<script>
+var prevent_bust = 0;
+window.onbeforeunload = function() { 
+	prevent_bust++ 
+}
+setInterval( function() {
+	if(prevent_bust > 0) {
+		prevent_bust -= 2;
+		window.top.location = 'http://localhost/Html5Prj/communication/framekiller/main.html';
+	}
+}, true);
+</script>
+</head>
+<body>
+<h1>메인 1</h1>
+<iframe src="inframe.html" width="300" height="200"></iframe>
+</body>
+</html>

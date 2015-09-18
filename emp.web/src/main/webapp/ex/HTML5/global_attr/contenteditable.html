@@ -1,0 +1,47 @@
+<!-- 파일명 : elements/global_attr/contenteditable.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>contentEditable test</title>
+<script>
+window.onload = function(){
+	var status = document.querySelector("#status");
+	var editables = document.querySelectorAll("span[contenteditable=true]");
+
+	for(i=0; i<editables.length; i++) {
+        console.log(editables[i]);
+        editables[i].onblur = function(event) {
+			var field = this.id;
+			var value = this.innerText;
+			var url = "http://localhost:8080/html5/HTML5/edit.jsp";
+			var param = field + "=" + value;
+            console.log(param);
+		    xmlHttp.open("POST", url, true);
+
+            xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		    xmlHttp.send(param);
+		}
+	}
+	
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = handleStateChange;
+
+    function handleStateChange() {
+        if(xmlHttp.readyState == 4) {
+            if(xmlHttp.status == 200) {
+                status.innerText = "Result: " + xmlHttp.responseText;
+            }
+        }
+    }
+}
+</script>
+</head>
+<body>
+<article>
+<p>이름 : <span id="name" contenteditable="true">이름을 입력하세요.</span></p>
+<p>이메일 : <span id="email" contenteditable="true">이메일을 입력하세요.</span></p>
+</article>		
+<div id="status">수정이 되면 이곳이 바뀝니다.</div>
+</body>
+</html>

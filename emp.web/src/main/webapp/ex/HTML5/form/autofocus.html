@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+
+<script>
+function hasAutofocus() {
+	var element = document.createElement('input');
+	return 'autofocus' in element;
+}
+
+$(function(){
+	if(!hasAutofocus()){
+		$('input[autofocus=autofocus]').focus();
+	}
+});
+</script>
+</head>
+<body>
+
+<label for="name">이름</label>
+<input type="text" name="name" autofocus="autofocus" id="name">
+
+</body>
+</html>

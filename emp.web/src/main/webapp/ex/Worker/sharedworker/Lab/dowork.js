@@ -1,17 +1,17 @@
 //doorker.js
 var target;
-// °øÀ¯¿öÄ¿ »ı¼º ½Ã È£Ãâ
+// ê³µìœ ì›Œì»¤ ìƒì„± ì‹œ í˜¸ì¶œ
 onconnect = function(me){
-    target = me.ports[0];//¸¶Áö¸·À¸·Î °øÀ¯¿öÄ¿¸¦ »ı¼ºÇÑ Æ÷Æ® Á¤º¸¸¦ ÀúÀåÇÔ
+    target = me.ports[0];//ë§ˆì§€ë§‰ìœ¼ë¡œ ê³µìœ ì›Œì»¤ë¥¼ ìƒì„±í•œ í¬íŠ¸ ì •ë³´ë¥¼ ì €ì¥í•¨
 
     target.onmessage = function(e){
-    	//¹é±×¶ó¿îµå·Î Ã³¸®µÇ¾î¾ß ÇÒ ÀÛ¾÷
+    	//ë°±ê·¸ë¼ìš´ë“œë¡œ ì²˜ë¦¬ë˜ì–´ì•¼ í•  ì‘ì—…
 		setTimeout(function() {
 			var sum = 0;
 	        for(var i=1; i<=e.data; i++){
 				sum += i;
 	        }
 	        target.postMessage(sum);
-		}, 5000);//5ÃÊ°£ ½°
+		}, 5000);//5ì´ˆê°„ ì‰¼
     };
 };

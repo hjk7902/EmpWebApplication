@@ -1,0 +1,35 @@
+ <!-- 파일명 : elements/form/datalist.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>datalist 예제</title>
+</head>
+<body>
+<!-- 파이어폭스또는 크롬 21이상으로 실행하세요 -->
+웹페이지 <input type="url" list="url_list" name="link">
+    <datalist id="url_list">
+        <option label="w3schools" value="http://www.w3schools.com">
+        <option label="google" value="http://www.google.com">
+        <option label="consolution" value="http://consolution.co.kr">
+        <option label="consolbook" value="http://consolbook.com">
+    </datalist>
+<p></p>
+<label>도시 이름 <input list="cities"></label>
+<datalist id="cities">
+    <label>choose one
+        <select>
+            <option value="Paris">Paris</option>
+            <option value="London">London</option>
+            <option value="Berlin">Berlin</option>
+            <option value="New York">New York</option>
+            <option value="Tokyo">Tokyo</option>
+            <option value="Sydney">Sydney</option>
+            <option value="Johannesburg">Johannesburg</option>
+        </select>
+    </label>
+</datalist>
+</body>
+</html>
+
+ 

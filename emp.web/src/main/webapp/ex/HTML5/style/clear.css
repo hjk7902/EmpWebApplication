@@ -1,0 +1,22 @@
+/* html ������ link ������Ʈ �Ӽ� ���� �ݵ�� rel="stylesheet"�� �ؾ� �� */
+@CHARSET "UTF-8";
+
+section {
+	float: left; 
+	width: 300px; 
+	background: yellow
+}
+
+aside {
+	float: left;
+	width: 200px;
+	background: cyan;
+}
+
+.clearfix:after {
+	content: ".";
+	visibility: hidden;
+	display: block;
+	height: 0;
+	clear: both;
+}

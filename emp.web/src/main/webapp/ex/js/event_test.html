@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Enent Test</title>
 <script type="text/javascript">
 function handler() {
-	console.log("ÀÌº¥Æ® ¹ß»ıÇÔ");
+	console.log("ì´ë²¤íŠ¸ ë°œìƒí•¨");
 }
 window.onload = function() {
 	var pElement = document.querySelector("#two");
 	pElement.onclick = function() {
 		console.log(pElement.textContent);
-		console.log(event);//ÆÄ¶ó¹ÌÅÍ·Î event¸¦ Á¤ÀÇÇÏÁö ¾Ê¾Æµµ evnet °´Ã¼ Àü´ŞµÊ
+		console.log(event);//íŒŒë¼ë¯¸í„°ë¡œ eventë¥¼ ì •ì˜í•˜ì§€ ì•Šì•„ë„ evnet ê°ì²´ ì „ë‹¬ë¨
 	}
 	
 	var naverElement = document.querySelector("#naver");
 	naverElement.onclick = function(event) {
-		event.preventDefault();//¿¤¸®¸ÕÆ®ÀÇ ±âº» ¾×¼ÇÀ» Ãë¼Ò½ÃÅ´
+		event.preventDefault();//ì—˜ë¦¬ë¨¼íŠ¸ì˜ ê¸°ë³¸ ì•¡ì…˜ì„ ì·¨ì†Œì‹œí‚´
 		console.log(naverElement.href);
-		//return false;//¿¤¸®¸ÕÆ®ÀÇ ±âº» ¾×¼ÇÀ» Ãë¼Ò½ÃÅ´
+		//return false;//ì—˜ë¦¬ë¨¼íŠ¸ì˜ ê¸°ë³¸ ì•¡ì…˜ì„ ì·¨ì†Œì‹œí‚´
 	}
 	
 	//var threeElement = document.querySelector("#three");
@@ -30,11 +30,11 @@ window.onload = function() {
 </script>
 </head>
 <body>
-°³¹ßÀÚ µµ±¸¿¡¼­ È®ÀÎÇÏ¼¼¿ä.
-<p onclick="handler()">Ã¹ ¹øÂ° ¹®ÀåÀÔ´Ï´Ù.</p>
-<p id="two">µÎ ¹øÂ° ¹®ÀåÀÔ´Ï´Ù.</p>
-<a href="http://www.naver.com" id="naver">³×ÀÌ¹ö</a>
-<p id="three">¼¼ ¹øÂ° ¹®ÀåÀÔ´Ï´Ù.</p>
+ê°œë°œì ë„êµ¬ì—ì„œ í™•ì¸í•˜ì„¸ìš”.
+<p onclick="handler()">ì²« ë²ˆì§¸ ë¬¸ì¥ì…ë‹ˆë‹¤.</p>
+<p id="two">ë‘ ë²ˆì§¸ ë¬¸ì¥ì…ë‹ˆë‹¤.</p>
+<a href="http://www.naver.com" id="naver">ë„¤ì´ë²„</a>
+<p id="three">ì„¸ ë²ˆì§¸ ë¬¸ì¥ì…ë‹ˆë‹¤.</p>
 
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	var pEle = document.querySelector("p#here");
+	pEle.onclick = function() {
+		alert(pEle.textContent);
+	}
+}
+$(function() {
+	var pEle2 = $("p#there");
+	pEle2.click(function() {
+		//alert(pEle2.text())
+		pEle2.css("color", "red");
+		$("input[type='text']").val(pEle2.text());
+		$("p#here").slideUp();
+	});
+	pEle2.dblclick(function() {
+		$("p#here").slideDown();
+	});
+});
+</script>
+</head>
+<body>
+<p id="here">여기를 클릭하세요</p>
+<p id="there">저기를 클릭하세요</p>
+<input type="text">
+</body>
+</html>

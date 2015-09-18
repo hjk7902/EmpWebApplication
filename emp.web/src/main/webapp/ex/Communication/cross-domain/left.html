@@ -1,0 +1,35 @@
+<!-- 파일명 : left.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script type="text/javascript">
+window.onload = function() {
+    document.getElementById('title').innerHTML = "Html5Prj Domain: " + document.location.host;
+    window.document.onmousemove = function(event) {
+        //if(!e) e = window.event;
+        // 객체로 만들기
+        var position = {x: event.clientX, y: event.clientY};   
+        var targetWindow = window.parent.frames[1];
+        // TODO 마우스의 좌표를 상대 문서에 전송한다.
+        targetWindow.postMessage(position, "*"); 
+    };
+
+    window.onmessage = function(event){
+        //if(!me) me = window.event;
+        // 원하는 도메인에서만 오는 경우만 처리하고자 할 경우
+        if(event.origin =="http://localhost:8081"){
+            // TODO display에 전송받은 마우스 좌표(문자)를 출력한다.
+            document.getElementById("display").innerHTML = event.data.x + ", " + event.data.y;
+        }
+    };
+};
+</script>
+</head>
+<body>
+    <div id="title"></div>
+    <br>
+    <div id="display"></div>
+</body>
+</html>

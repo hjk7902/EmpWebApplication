@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
 function Person() {
@@ -10,24 +10,24 @@ function Person() {
 }
 
 var person1 = new Person();
-person1.name = "È«±æµ¿";
+person1.name = "í™ê¸¸ë™";
 person1.age = 30;
 console.log(person1.name + " " + person1.age);
 
-Person.prototype.city = "¼­¿ï";//¸ðµç ÀÎ½ºÅÏ½º°¡ »ó¼Ó ¹Þ´Â´Ù.
+Person.prototype.city = "ì„œìš¸";//ëª¨ë“  ì¸ìŠ¤í„´ìŠ¤ê°€ ìƒì† ë°›ëŠ”ë‹¤.
 console.log(person1.city);
-person1.city = "´º¿å";//ÀÎ½ºÅÏ½º¿¡ city¶ó´Â º¯¼ö Ãß°¡µÈ´Ù.
-//ÇÁ·ÎÅäÅ¸ÀÔÀÇ º¯¼ö °ªÀÌ ¼öÁ¤µÇÁö ¾Ê´Â´Ù.
-//ÇÁ·ÎÅäÅ¸ÀÔ º¯¼öÀÇ °ªÀ» ¼öÁ¤ÇÏ·Á¸é ¹Ýµå½Ã ÇÁ·ÎÅäÅ¸ÀÔ°´Ã¼¸¦
-//ÅëÇØ¼­ ¼öÁ¤ÇØ¾ß ÇÑ´Ù.
-console.log(Person.prototype.city);//¼­¿ï Ãâ·ÂµÊ. ´º¿åÀÌ Ãâ·ÂµÇÁö ¾Ê´Â´Ù.
-//ÇÁ·ÎÅäÅ¸ÀÔ º¯¼öÀÇ ºñ ´ëÄª¼ºÀÌ¶ó ºÎ¸¥´Ù.
+person1.city = "ë‰´ìš•";//ì¸ìŠ¤í„´ìŠ¤ì— cityë¼ëŠ” ë³€ìˆ˜ ì¶”ê°€ëœë‹¤.
+//í”„ë¡œí† íƒ€ìž…ì˜ ë³€ìˆ˜ ê°’ì´ ìˆ˜ì •ë˜ì§€ ì•ŠëŠ”ë‹¤.
+//í”„ë¡œí† íƒ€ìž… ë³€ìˆ˜ì˜ ê°’ì„ ìˆ˜ì •í•˜ë ¤ë©´ ë°˜ë“œì‹œ í”„ë¡œí† íƒ€ìž…ê°ì²´ë¥¼
+//í†µí•´ì„œ ìˆ˜ì •í•´ì•¼ í•œë‹¤.
+console.log(Person.prototype.city);//ì„œìš¸ ì¶œë ¥ë¨. ë‰´ìš•ì´ ì¶œë ¥ë˜ì§€ ì•ŠëŠ”ë‹¤.
+//í”„ë¡œí† íƒ€ìž… ë³€ìˆ˜ì˜ ë¹„ ëŒ€ì¹­ì„±ì´ë¼ ë¶€ë¥¸ë‹¤.
 
-Person.job = "ÇÁ·Î±×·¡¸Ó";
-console.log(Person.job);//°ø°³º¯¼ö ¿µ¿ª
+Person.job = "í”„ë¡œê·¸ëž˜ë¨¸";
+console.log(Person.job);//ê³µê°œë³€ìˆ˜ ì˜ì—­
 </script>
 </head>
 <body>
-°³¹ßÀÚ µµ±¸¸¦ ÅëÇØ È®ÀÎÇØ º¸¼¼¿ä.
+ê°œë°œìž ë„êµ¬ë¥¼ í†µí•´ í™•ì¸í•´ ë³´ì„¸ìš”.
 </body>
 </html>

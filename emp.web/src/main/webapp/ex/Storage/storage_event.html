@@ -1,22 +1,22 @@
-<!-- ÆÄÀÏ¸í : webstorage/storage_event.html -->
+<!-- íŒŒì¼ëª… : webstorage/storage_event.html -->
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
 	window.addEventListener("storage", function(event) {
-		console.log("¼öÁ¤µÈ key : " + event.key);
-		console.log("Ã³À½ °ª : " + event.oldValue);
-		console.log("»õ·Î¿î °ª : " + event.newValue);
-		console.log("ÆäÀÌÁö º¯°æÀÌ ÀÌ·ç¾îÁö´Â URL : " + event.url);
-		console.log("º¯°æÀÌ ÀÌ·ç¾îÁö´Â À©µµ¿ì : " + event.source);
+		console.log("ìˆ˜ì •ëœ key : " + event.key);
+		console.log("ì²˜ìŒ ê°’ : " + event.oldValue);
+		console.log("ìƒˆë¡œìš´ ê°’ : " + event.newValue);
+		console.log("í˜ì´ì§€ ë³€ê²½ì´ ì´ë£¨ì–´ì§€ëŠ” URL : " + event.url);
+		console.log("ë³€ê²½ì´ ì´ë£¨ì–´ì§€ëŠ” ìœˆë„ìš° : " + event.source);
 	});
 </script>
 </head>
 <body>
-°³¹ßÀÚµµ±¸ÀÇ ÄÜ¼ÖÃ¢À» ¿­¾î ³õÀ¸¼¼¿ä. <br>
-±×¸®°í ´Ù¸¥ ÆÄÀÏ¿¡¼­ localstorage¿¡ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¿¹¸¦ ½ÇÇàÇØº¸¼¼¿ä.
+ê°œë°œìë„êµ¬ì˜ ì½˜ì†”ì°½ì„ ì—´ì–´ ë†“ìœ¼ì„¸ìš”. <br>
+ê·¸ë¦¬ê³  ë‹¤ë¥¸ íŒŒì¼ì—ì„œ localstorageì— ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” ì˜ˆë¥¼ ì‹¤í–‰í•´ë³´ì„¸ìš”.
 
 </body>
 </html>

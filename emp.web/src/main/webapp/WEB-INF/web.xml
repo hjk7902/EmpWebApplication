@@ -45,4 +45,13 @@
   	<servlet-name>EX</servlet-name>
   	<url-pattern>/ex/view</url-pattern>
   </servlet-mapping>
+  
+  <mime-mapping>
+      <extension>htm</extension>
+      <mime-type>text/html;charset=utf-8</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+      <extension>html</extension>
+      <mime-type>text/html;charset=utf-8</mime-type>
+  </mime-mapping>
 </web-app>

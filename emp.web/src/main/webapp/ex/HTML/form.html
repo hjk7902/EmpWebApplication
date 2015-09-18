@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="euc-kr">
+<meta charset="UTF-8">
 <title>form</title>
 </head>
 <body>
-<h1>Æû °ü·Ã ÅÂ±× ½Ç½ÀÀÔ´Ï´Ù.</h1>
+<h1>í¼ ê´€ë ¨ íƒœê·¸ ì‹¤ìŠµìž…ë‹ˆë‹¤.</h1>
 <form action="result.jsp" method="post">
 <fieldset>
-<legend>ÀÔ·Â ¾ç½Ä</legend>
-¾ÆÀÌµð : <input type="text" name="userid"><br>
-<!-- ÆÄ¶ó¹ÌÅÍÀÇ ÀÌ¸§ÀÌ name ¼Ó¼ºÀÇ °ªÀÌ µÈ´Ù. -->
-ºñ¹Ð¹øÈ£ : <input type="password" name="userpw"><br>
-ÆÄÀÏ : <input type="file" name="filename"><br>
-¿îµ¿ : <input type="checkbox" name="hobby" value="soccer">Ãà±¸ 
-	  <input type="checkbox" name="hobby" value="baseball">¾ß±¸
-	  <input type="checkbox" name="hobby" value="golf">°ñÇÁ
-	  <input type="checkbox" name="hobby" value="swimming">¼ö¿µ<br>
-<!-- Ã¼Å©¹Ú½º´Â °°Àº ±×·ìÀÏ °æ¿ì name ¼Ó¼ºÀÇ °ªÀÌ °°¾Æ¾ß ÇÑ´Ù. -->	  
-Á÷¾÷ : <input type="radio" name="job" value="programmer">ÇÁ·Î±×·¡¸Ó
-	  <input type="radio" name="job" value="salesman">¼¼ÀÏÁî¸Ç
-	  <input type="radio" name="job" value="professor">±³¼ö<br>
-<!-- ¶óµð¿À´Â °°Àº ±×·ìÀÏ °æ¿ì name ¼Ó¼ºÀÇ °ªÀÌ °°¾Æ¾ß ÇÑ´Ù. -->	
+<legend>ìž…ë ¥ ì–‘ì‹</legend>
+ì•„ì´ë”” : <input type="text" name="userid"><br>
+<!-- íŒŒë¼ë¯¸í„°ì˜ ì´ë¦„ì´ name ì†ì„±ì˜ ê°’ì´ ëœë‹¤. -->
+ë¹„ë°€ë²ˆí˜¸ : <input type="password" name="userpw"><br>
+íŒŒì¼ : <input type="file" name="filename"><br>
+ìš´ë™ : <input type="checkbox" name="hobby" value="soccer">ì¶•êµ¬ 
+	  <input type="checkbox" name="hobby" value="baseball">ì•¼êµ¬
+	  <input type="checkbox" name="hobby" value="golf">ê³¨í”„
+	  <input type="checkbox" name="hobby" value="swimming">ìˆ˜ì˜<br>
+<!-- ì²´í¬ë°•ìŠ¤ëŠ” ê°™ì€ ê·¸ë£¹ì¼ ê²½ìš° name ì†ì„±ì˜ ê°’ì´ ê°™ì•„ì•¼ í•œë‹¤. -->	  
+ì§ì—… : <input type="radio" name="job" value="programmer">í”„ë¡œê·¸ëž˜ë¨¸
+	  <input type="radio" name="job" value="salesman">ì„¸ì¼ì¦ˆë§¨
+	  <input type="radio" name="job" value="professor">êµìˆ˜<br>
+<!-- ë¼ë””ì˜¤ëŠ” ê°™ì€ ê·¸ë£¹ì¼ ê²½ìš° name ì†ì„±ì˜ ê°’ì´ ê°™ì•„ì•¼ í•œë‹¤. -->	
 <input type="hidden" name="id" value="uid0001">
-<select name="major" multiple><!-- multiple ¼Ó¼ºÀº º¹¼ö °³ ¼±ÅÃÇÒ ¼ö ÀÖµµ·Ï ÇÔ -->
-	<option value="1">ÄÄÇ»ÅÍ
-	<option>°æÁ¦
-	<option>°æ¿µ
-	<option>ÀÚµ¿Â÷
-	<option>Àü±â
-	<option>°ÇÃà
-</select><br><!-- result.jsp¿¡ request.setCharacterEncoding("euc-kr");¸¦ Æ÷ÇÔ½ÃÅ´ -->
-<!-- textarea´Â ¿©·¯ÁÙ ÀÔ·Â ¾ç½ÄÀ» ¸¸µé¾î ÁÜ -->
+<select name="major" multiple><!-- multiple ì†ì„±ì€ ë³µìˆ˜ ê°œ ì„ íƒí•  ìˆ˜ ìžˆë„ë¡ í•¨ -->
+	<option value="1">ì»´í“¨í„°
+	<option>ê²½ì œ
+	<option>ê²½ì˜
+	<option>ìžë™ì°¨
+	<option>ì „ê¸°
+	<option>ê±´ì¶•
+</select><br><!-- result.jspì— request.setCharacterEncoding("UTF-8");ë¥¼ í¬í•¨ì‹œí‚´ -->
+<!-- textareaëŠ” ì—¬ëŸ¬ì¤„ ìž…ë ¥ ì–‘ì‹ì„ ë§Œë“¤ì–´ ì¤Œ -->
 <textarea rows="5" cols="70">
-	ÀÌ°÷¿¡ ÀÔ·ÂÇÑ µ¥ÀÌÅÍ´Â
-			ÅØ½ºÆ® ¿µ¿ª¿¡ ±×´ë·Î Ç¥½ÃµË´Ï´Ù.
+	ì´ê³³ì— ìž…ë ¥í•œ ë°ì´í„°ëŠ”
+			í…ìŠ¤íŠ¸ ì˜ì—­ì— ê·¸ëŒ€ë¡œ í‘œì‹œë©ë‹ˆë‹¤.
 </textarea><br>
-<input type="submit" value=" È®ÀÎ ">
-<input type="reset" value=" Ãë¼Ò ">
+<input type="submit" value=" í™•ì¸ ">
+<input type="reset" value=" ì·¨ì†Œ ">
 </fieldset>
 </form>
 </body>
 </html>
-
-
-

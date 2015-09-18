@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="utf-8" />
+    <title>Channel Messaging 예제</title>
+	
+          <style>
+              .messageLog{
+                  width:200px;height:200px;
+                  overflow:scroll;float:left;
+              }
+          </style>
+          <script type="text/javascript">
+/*
+Channel 을 생성한 후에 두개의 Port 를 시작하고, 
+port 1 의 postMessage 를 통해 Message 를 보내고, port2 에서 Message 를 처리
+*/
+              var channel = new MessageChannel();
+
+              channel.port1.start();
+              channel.port2.start();
+
+              function addDisplay() {
+                  var div = document.createElement("div");
+                  div.className = "messageLog";
+                  document.getElementById("messageLogs").appendChild(div);
+
+                  channel.port2.addEventListener("message", function(e){
+                  div.innerHTML += "<div>" + e.data + "</div>";       
+                  }, false);
+
+              }
+              function showMsg() {
+                  var msg = document.getElementById("msg").value;
+                  channel.port1.postMessage(msg);                
+              }
+          </script>
+   </head>
+   <body>
+          <h1>채널 메세징 예제</h1>
+    <input id="msg" type="text">
+          <button onclick="showMsg()">송신</button>
+          <button onclick="addDisplay()">표시 영역 추가</button>
+          <div id="messageLogs"></div>
+   </body>
+</html>

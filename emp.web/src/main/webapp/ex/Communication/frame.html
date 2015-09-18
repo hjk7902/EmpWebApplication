@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>Communication API 예제</title>
+<script type="text/javascript">
+	var MyOrigin = "http://localhost:8080";
+	window.addEventListener("message", function(e){
+		if(e.origin==MyOrigin) {
+			document.body.innerHTML = "<div>e.origin : " + e.origin + " <br/> " + 
+			e.data.date + " : 송신된 값은 " + e.data.number + " 입니다.</div>";
+		}
+	}, false);
+</script>
+</head>
+<body>    
+<div id = "msg"></div>
+Html5Sub
+</body>
+</html>

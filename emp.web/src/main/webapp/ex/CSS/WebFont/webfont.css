@@ -1,14 +1,14 @@
-@CHARSET "EUC-KR";
+@CHARSET "UTF-8";
 
 @font-face { 
 	font-family:'SCRIPT 9Web';
 	src:url('./fonts/script9.eot');
-	src:local('°ÿ'), url('./fonts/script9.woff') format('woff'),
+	src:local('‚Äª'), url('./fonts/script9.woff') format('woff'),
 		url('./fonts/SCRIPT 9.ttf') format('truetype');
 }
 
 .html5demo { 
-	font-family:"SCRIPT 9Web", "µ∏øÚ"; 
+	font-family:"SCRIPT 9Web", "ÎèãÏõÄ"; 
 }
 
 .html5demo div {

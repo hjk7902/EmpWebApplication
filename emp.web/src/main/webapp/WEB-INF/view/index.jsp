@@ -24,8 +24,18 @@
     </div>
 
 	<div class="content">
-	<h3>이 사이트는 Servlet/JSP, HTML5, CSS3, JavaScript 등을 학습하기 위해 만들어졌습니다.
-	이 사이트에 사용된 기술은 다음과 같습니다.</h3>
+	<div class="alert alert-info" role="alert">
+	<ol>
+		<li>이 사이트는 벡엔드 기술 Java, Servlet/JSP, JDBC, MVC Pattern 등과 프론트엔드 기술 HTML5, CSS3, JavaScript 등을 학습하기 위해 만들어졌습니다.
+		<li>이 사이트는 인터넷 익스플로러 8과 그 이하버전을 지원하지 않습니다.
+		<li>이 사이트에 사용된 기술은 다음과 같습니다.
+	</ol>
+	</div>
+	<div class="pc alert alert-danger">
+	<ol>
+		<li><a href="http://cafe.naver.com/javaspecialistgroup.cafe" class="alert-link" target="_blank">네이버 자바전문가그룹 카페로 이동하시려면 여기를 클릭하세요.</a>
+	</ol>
+	</div>
 	<ol>
 		<li>Maven Web Project
 		<li>Servlet : ...web 페키지 내의 Servlet 파일, 파라미터 이름으로 액션이 처리되도록 했음
@@ -36,7 +46,7 @@
 		<li>Tag Library : 게시판 페이징처리에 사용했음
 		<li>HTML5
 		<li>CSS3
-		<li>CSS3를 이용한 반응형 웹 페이지 : Meta태그 이용
+		<li>CSS3를 이용한 반응형 웹 페이지 : link 태그 이용
 		<li>HTML5 API
 		<li>Dandelion Datatables framework : EMP 테이블 데이터 목록 출력하는 곳에서 사용 view/emp/list.jsp 파일
 		<li>Datatables 국제화 : resources/dandelion/datatables/datatables_ko.properties
@@ -45,6 +55,7 @@
 		<li>Tomcat 커넥션풀 사용 : webapp/META-INF/context.xml, resources/db/database.properties, ...common.db.DBConn.java
 	</ol> 
 	</div>
+	<p>
 </div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
 </body>

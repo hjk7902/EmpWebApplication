@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5 실습예제</title>
+<script>
+window.onload = function(){
+   window.onmessage = function(me){
+        var params = event.data;
+        var urlparam = "cht="+params.cht + "&chs="+params.chs + 
+            "&chd="+params.chd + "&chl="+params.chl;
+        console.log(urlparam);
+        var url = "http://chart.apis.google.com/chart?" + urlparam;
+        document.querySelector("img").src = url;
+    }
+}
+</script>
+</head>
+<body>
+    <img alt="챠트  로딩중....">
+</body>
+</html>

@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-try {
-	//var a = 10;
-    console.log(a);
-    console.log("¿¹¿Ü ¹ß»ıÇÒ °¡´É¼ºÀÌ ÀÖ´Â ÄÚµå ¾Æ·¡")
-}catch(error) {
-    console.info(error.message);
-    console.info(error.name);
-}finally {
-    console.info("return resource");
-}
+var a = function(data) {
+	  if(data===0) throw new Error("data is 0");
+	  console.log(10/data);
+	}
+	var b = function() {
+	  try {
+	    a(0);
+	  }catch(error) {
+	    console.log(error.message);
+	  }
+	  console.log("success");
+	}
+
 </script>
 </head>
 <body>
-°³¹ßÀÚ µµ±¸¸¦ ¿­¾îº¸¼¼¿ä.
+ê°œë°œì ë„êµ¬ë¥¼ ì—´ì–´ë³´ì„¸ìš”.
 </body>
 </html>
