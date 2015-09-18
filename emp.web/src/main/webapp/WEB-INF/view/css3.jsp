@@ -24,10 +24,41 @@
     </div>
 
 	<div class="content">
-	CSS3<p>
-	<ul>
-		<li><a href="<c:url value='/'/>">...</a>
-	</ul>
+		<div class="row">
+		<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<div class="caption">
+			<h3>CSS</h3>
+			<ul>
+				<li><a href="<c:url value='/ex/CSS/Lab/start/EmpList.html'/>" target=_blank>CSS 사용 전</a>
+				<li><a href="<c:url value='/ex/CSS/Lab/end/EmpList.html'/>" target=_blank>CSS 사용 후</a>
+				<li><a href="<c:url value='/ex/CSS/Lab/end_mobile/EmpList.html'/>" target=_blank>PC/Mobile Layout</a>
+			</ul>
+			</div>
+		</div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<div class="caption">
+			<h3>Selector API</h3>
+			<ul>
+				<li><a href="<c:url value='/ex/'/>" target=_blank></a>
+			</ul>
+			</div>
+		</div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<div class="caption">
+			<h3>Responsive Web</h3>
+			<ul>
+				<li><a href="<c:url value='/ex/CSS/MediaQuery/media_layout.html'/>" target=_blank>브라우저 크기에 따른 단 수 조정 예</a>
+				<li><a href="<c:url value='/ex/CSS/MediaQuery/media_print.html'/>" target=_blank>Media Print</a>
+			</ul>
+			</div>
+		</div>
+		</div>
+	</div>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>

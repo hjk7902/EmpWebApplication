@@ -56,7 +56,7 @@ $('#cart')
         quantLeftEl = $('p:last span', item);
         quantLeft   = parseInt(quantLeftEl.text(), 10) - 1;
         quantBoughtEl = $('.quantity', prevCartItem);
-        //µå·ÓÇÏ±â Àü »óÇ°ÀÇ °¹¼ö + 1À» ·ÎÄÃ½ºÅä¸®Áö¿¡ ÀúÀå
+        //ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + 1ï¿½ï¿½ ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         console.log(parseInt(quantBoughtEl.text(), 10)+1);
         localStorage.setItem(id, parseInt(quantBoughtEl.text(), 10)+1);
         

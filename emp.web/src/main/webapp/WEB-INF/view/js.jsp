@@ -24,10 +24,38 @@
     </div>
 
 	<div class="content">
-	JavaScript<p>
-	<ul>
-		<li><a href="<c:url value='/'/>">...</a>
-	</ul>
+	<div class="row">
+		<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<div class="caption">
+			<h3>JavaScript</h3>
+			<ul>
+				<li><a href="<c:url value='/ex/'/>" target=_blank></a>
+			</ul>
+			</div>
+		</div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<div class="caption">
+			<h3>AJAX</h3>
+			<ul>
+				<li><a href="<c:url value='/ex/'/>" target=_blank></a>
+			</ul>
+			</div>
+		</div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<div class="caption">
+			<h3>jQuery</h3>
+			<ul>
+				<li><a href="<c:url value='/ex/'/>" target=_blank></a>
+			</ul>
+			</div>
+		</div>
+		</div>
+	</div>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>

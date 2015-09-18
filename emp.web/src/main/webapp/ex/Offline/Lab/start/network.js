@@ -1,36 +1,36 @@
-//ÆÄÀÏ¸í : network.js
+//íŒŒì¼ëª… : network.js
 var net_msg = document.querySelector(".net-status-msg");
 
 function init(){
-    //ºê¶ó¿ìÀú°¡ ÆäÀÌÁö¸¦ ·ÎµùÇßÀ» ¶§ ³×Æ®¿öÅ© »óÅÂ Ã¼Å©
+    //ë¸Œë¼ìš°ì €ê°€ í˜ì´ì§€ë¥¼ ë¡œë”©í–ˆì„ ë•Œ ë„¤íŠ¸ì›Œí¬ ìƒíƒœ ì²´í¬
     var status = navigator.onLine ? "online" : "offline";
     if(status == "offline") {
-        console.log("¿ÀÇÁ¶óÀÎ »óÅÂ ÀÔ´Ï´Ù.");
-        net_msg.innerText = "¿ÀÇÁ¶óÀÎ »óÅÂ ÀÔ´Ï´Ù.";
+        console.log("ì˜¤í”„ë¼ì¸ ìƒíƒœ ì…ë‹ˆë‹¤.");
+        net_msg.innerText = "ì˜¤í”„ë¼ì¸ ìƒíƒœ ì…ë‹ˆë‹¤.";
     }else {
-        console.log("¿Â¶óÀÎ »óÅÂ ÀÔ´Ï´Ù.");
-        net_msg.innerText = "¿Â¶óÀÎ »óÅÂ ÀÔ´Ï´Ù.";
+        console.log("ì˜¨ë¼ì¸ ìƒíƒœ ì…ë‹ˆë‹¤.");
+        net_msg.innerText = "ì˜¨ë¼ì¸ ìƒíƒœ ì…ë‹ˆë‹¤.";
     }
     
-    //Ä³½Ã ¾÷µ¥ÀÌÆ® ±â´É
+    //ìºì‹œ ì—…ë°ì´íŠ¸ ê¸°ëŠ¥
     window.applicationCache.onupdateready = function() {
         applicationCache.swapCache();
-        if(confirm('ÆäÀÌÁö°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù. ÆäÀÌÁö¸¦ ´Ù½Ã ·ÎµåÇÒ±î¿ä?')) {
+        if(confirm('í˜ì´ì§€ê°€ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤. í˜ì´ì§€ë¥¼ ë‹¤ì‹œ ë¡œë“œí• ê¹Œìš”?')) {
             window.location.reload();
         }
     
     };
     
-    //ÀÎÅÍ³İ ¿¬°áÀÌ ²÷°åÀ» ¶§
+    //ì¸í„°ë„· ì—°ê²°ì´ ëŠê²¼ì„ ë•Œ
     window.onoffline = function() {
         console.log("offline");
-        net_msg.innerText = "ÀÎÅÍ³İ ¿¬°áÀÌ ²÷°å½À´Ï´Ù.";
+        net_msg.innerText = "ì¸í„°ë„· ì—°ê²°ì´ ëŠê²¼ìŠµë‹ˆë‹¤.";
     };
     
-    //ÀÎÅÍ³İ ¿¬°áµÇ¾úÀ» ¶§
+    //ì¸í„°ë„· ì—°ê²°ë˜ì—ˆì„ ë•Œ
     window.ononline = function() {
         console.log("online");
-        net_msg.innerText = "ÀÎÅÍ³İÀÌ ¿¬°áµÇ¾ú½À´Ï´Ù.";
+        net_msg.innerText = "ì¸í„°ë„·ì´ ì—°ê²°ë˜ì—ˆìŠµë‹ˆë‹¤.";
     };
 };
 init();

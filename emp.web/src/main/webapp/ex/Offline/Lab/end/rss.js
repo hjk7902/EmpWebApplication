@@ -1,5 +1,5 @@
 //rss.js
-var xhr = new XMLHttpRequest();	//ajax¸¦ À§ÇÑ °´Ã¼ »ı¼º
+var xhr = new XMLHttpRequest();	//ajaxë¥¼ ìœ„í•œ ê°ì²´ ìƒì„±
 
 function init(){
 	var links = document.querySelectorAll("div[data-role='content'] p > a");
@@ -10,8 +10,8 @@ function init(){
 	}
 };
 function getRssData(event) {
-    //event.preventDefault(); //³ÖÀ¸¸é ÆäÀÌÁö ÀüÈ¯ ¾ÈµÊ
-	getAllNews();//µ¥ÀÌÅÍº£ÀÌ½ºÀÇ Á¤º¸¸¦ ¹Ì¸® È­¸é¿¡ »Ñ¸²
+    //event.preventDefault(); //ë„£ìœ¼ë©´ í˜ì´ì§€ ì „í™˜ ì•ˆë¨
+	getAllNews();//ë°ì´í„°ë² ì´ìŠ¤ì˜ ì •ë³´ë¥¼ ë¯¸ë¦¬ í™”ë©´ì— ë¿Œë¦¼
 
     var rss_url = this.dataset.rssurl;
     if (rss_url == "") {
@@ -20,10 +20,10 @@ function getRssData(event) {
     }
     xhr.onreadystatechange = function() {
     	if(xhr.readyState == 4 && xhr.status == 200){
-    	    displayResult(xhr.responseXML);//°á°ú¸¦ XML·Î ¹Ş¾Æ¾ß ÆÄ½ÌÀÌ °¡´ÉÇÔ
+    	    displayResult(xhr.responseXML);//ê²°ê³¼ë¥¼ XMLë¡œ ë°›ì•„ì•¼ íŒŒì‹±ì´ ê°€ëŠ¥í•¨
 	    }
 	};
-	rss_url = encodeURIComponent(rss_url);//ÁÖ¼Ò ÀÎÄÚµù,ÁÖ¼Ò¿¡ ÇÑ±ÛÀÌ Æ÷ÇÔµÇ¾î ÀÖÀ» °æ¿ì
+	rss_url = encodeURIComponent(rss_url);//ì£¼ì†Œ ì¸ì½”ë”©,ì£¼ì†Œì— í•œê¸€ì´ í¬í•¨ë˜ì–´ ìˆì„ ê²½ìš°
 	xhr.open("GET", "./proxy_common.jsp?rssurl=" + rss_url, true);
 	xhr.send(null);
 }
@@ -35,14 +35,14 @@ function displayResult(result) {
 
 	target.innerHTML = "";
     if(items.length > 0) {
-    	clearNews();//µ¥ÀÌÅÍº£ÀÌ½º¿¡ ÀúÀåµÈ Á¤º¸¸¦ Áö¿ò
+    	clearNews();//ë°ì´í„°ë² ì´ìŠ¤ì— ì €ì¥ëœ ì •ë³´ë¥¼ ì§€ì›€
     }
     for(var i=0, n=items.length; i<n; i++) {
-		var title = items[i].querySelector('title').textContent;//´º½º title, textContent´Â NodeÀÇ ÅØ½ºÆ®¸¦ Set/Return
-		//var title = items[i].getElementsByTagName('title')[0].textContent; //À§ÀÇ ÄÚµå¿Í µ¿ÀÏÇÔ
-		var link = items[i].querySelector('link').textContent;//´º½º ¸µÅ© ÁÖ¼Ò
-		var desc = items[i].querySelector('description').textContent;//´º½º ¼³¸í
-		var t_el = document.createElement("p");	//<p> ¿¤¸®¸ÕÆ® °´Ã¼ »ı¼º
+		var title = items[i].querySelector('title').textContent;//ë‰´ìŠ¤ title, textContentëŠ” Nodeì˜ í…ìŠ¤íŠ¸ë¥¼ Set/Return
+		//var title = items[i].getElementsByTagName('title')[0].textContent; //ìœ„ì˜ ì½”ë“œì™€ ë™ì¼í•¨
+		var link = items[i].querySelector('link').textContent;//ë‰´ìŠ¤ ë§í¬ ì£¼ì†Œ
+		var desc = items[i].querySelector('description').textContent;//ë‰´ìŠ¤ ì„¤ëª…
+		var t_el = document.createElement("p");	//<p> ì—˜ë¦¬ë¨¼íŠ¸ ê°ì²´ ìƒì„±
 		
 		t_el.innerHTML = (i+1) +". <a href='" + link + "'>" + title + "</a><span>" + desc + "</span>";
 		target.appendChild(t_el);

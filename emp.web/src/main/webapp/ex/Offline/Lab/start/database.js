@@ -107,7 +107,7 @@ newsdomain.indexedDB.getAllNewsItems = function() {
     var cursorRequest = store.openCursor(keyRange);
 	var target = document.querySelector("#news_rss div[data-role=content] .content-list");
 	target.innerHTML = "";
-	var t_el = document.createElement("p");	//<p> 郡府刚飘 按眉 积己
+	var t_el = document.createElement("p");	//<p> 鞐橂Μ毹柬姼 臧濎泊 靸濎劚
 	var i=1;
     cursorRequest.onsuccess = function(e) {
         var result = e.target.result;

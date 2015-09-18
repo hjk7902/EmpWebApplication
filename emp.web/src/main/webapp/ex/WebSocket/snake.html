@@ -109,9 +109,9 @@
                 }
             }, false);
             if (window.location.protocol == 'http:') {
-                Game.connect('ws://' + window.location.host + '/html5/ws/snake');
+                Game.connect('ws://' + window.location.host + '/ws/snake');
             } else {
-                Game.connect('wss://' + window.location.host + '/html5/ws/snake');
+                Game.connect('wss://' + window.location.host + '/ws/snake');
             }
         };
 

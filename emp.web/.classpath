@@ -23,11 +23,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="Lib/catalina-7.0.39.2.jar"/>
+	<classpathentry kind="lib" path="Lib/tomcat-juli.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
