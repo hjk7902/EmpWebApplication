@@ -100,7 +100,6 @@
 				<li><a href="<c:url value='/ex/Communication/cross-document/client.html'/>" target=_blank>IFrame을 이용한 챠트 서비스 사용 예 - client.html 문서에 iframe을 이용해 챠트를 나타낼 수 있는 페이지를 삽입했다. 데이터 입력은 client.html에서 받고 결과를 iframe내의 문서를 이용해 보여준다.</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 				<li><a href="<c:url value='/ex/Communication/one2many/publisher.html'/>" target=_blank>포트 공개를 이용한 1:다 메시지 전송 예 - 하나의 문서에서 여러 페이지로 메시지를 보내는 예제이다.</a>
-				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 			</ul>
 			</div>
 		</div>
@@ -112,7 +111,7 @@
 			<ul>
 				<li><a href="<c:url value='/ex/Worker/worker/Lab/end/workertest.html'/>" target=_blank>전용 워커 예 - 입력필드에 입력한 수까지 1씩 증가하면서 값을 모두 더한 다음 결과는 연산 2초 후 UI쓰레드에게 보내진다.)</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
-				<li><a href="<c:url value='/ex/Worker/sharedworker/Lab/start.html'/>" target=_blank>공유 워커 예 - start.html 문서에서 입력 필드에 값을 입력한 다음 작업시작 버튼을 클릭하면 공유워커에 작업을 실행시킨다. 새로 보여지는 end.html에서 결과를 화면에 나타낸다.</a>
+				<li><a href="<c:url value='/ex/Worker/sharedworker/Lab/start.html'/>" target=_blank>공유 워커 예 - start.html 문서에서 입력 필드에 값을 입력한 다음 작업시작 버튼을 클릭하면 공유워커에 작업을 실행시킨다. 새로 보여지는 end.html에서 워커의 실행 결과를 화면에 나타낸다.</a>
 			</ul>
 			</div>
 		</div>
@@ -123,7 +122,6 @@
 			<h3>SSE</h3>
 			<ul>
 				<li><a href="<c:url value='/ex/SSE/stockdisplay.html'/>" target=_blank>Server Sent Event 예제 - setInterval 함수를 사용하지 않고 서버의 데이터를 새로 받아온다.</a>
-				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 			</ul>
 			</div>
 		</div>
