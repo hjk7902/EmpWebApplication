@@ -24,6 +24,11 @@
     </div>
 
 	<div class="content">
+	<div class="pc alert alert-danger">
+	<ol>
+		<li><a href="http://javaspecialist.co.kr/download/html5_src_v25.zip" class="alert-link" >소스코드 다운로드</a>
+	</ol>
+	</div>
 	<div class="row">
 		<div class="col-sm-6 col-md-4">
 		<div class="thumbnail">
