@@ -5,9 +5,9 @@
     }
     window.onload = function(){  
         document.getElementById("start").onclick = function(){
-            //°è¼Ó À§Ä¡ Á¤º¸¸¦ ¹Þ°í ½ÍÀ» ¶§ watchPosition»ç¿ë
-            //¼º°ø ½Ã success¸Þ¼­µå, ½ÇÆÐ ½Ã error¸Þ¼­µå È£Ãâ
-            //maximumAge À§Ä¡Á¤º¸ÀÇ À¯È¿ ½Ã°£
+            //ê³„ì† ìœ„ì¹˜ ì •ë³´ë¥¼ ë°›ê³  ì‹¶ì„ ë•Œ watchPositionì‚¬ìš©
+            //ì„±ê³µ ì‹œ successë©”ì„œë“œ, ì‹¤íŒ¨ ì‹œ errorë©”ì„œë“œ í˜¸ì¶œ
+            //maximumAge ìœ„ì¹˜ì •ë³´ì˜ ìœ íš¨ ì‹œê°„
             watchId = window.navigator.geolocation.watchPosition(
                 success,
                 error, 
@@ -20,14 +20,14 @@
         };
 
         document.getElementById("stop").onclick = function(){
-            // TODO À§Ä¡ ÃßÀûÀ» ÁßÁöÇÑ´Ù.
-            //watchPositionÀ¸·ÎºÎÅÍ ¸®ÅÏ¹ÞÀº id°ªÀ» ÀÎÀÚ·Î Á¦°øÇÔ
+            // TODO ìœ„ì¹˜ ì¶”ì ì„ ì¤‘ì§€í•œë‹¤.
+            //watchPositionìœ¼ë¡œë¶€í„° ë¦¬í„´ë°›ì€ idê°’ì„ ì¸ìžë¡œ ì œê³µí•¨
 
 		};
 
-        // TODO ±¸±Û¸ÊÀ» ºÒ·¯¿É´Ï´Ù.
-        // LatLng¿Í MapÀ½ http://maps.google.com/maps/api/js¿¡ Á¤ÀÇµÈ Å¬·¡½º
-        // À§µµ, °æµµ¸¦ °¡Áö°í ÀÖ´Â Å¬·¡½º
+        // TODO êµ¬ê¸€ë§µì„ ë¶ˆëŸ¬ì˜µë‹ˆë‹¤.
+        // LatLngì™€ MapìŒ http://maps.google.com/maps/api/jsì— ì •ì˜ëœ í´ëž˜ìŠ¤
+        // ìœ„ë„, ê²½ë„ë¥¼ ê°€ì§€ê³  ìžˆëŠ” í´ëž˜ìŠ¤
         
 		 
 
@@ -35,22 +35,22 @@
 
     }
 
-    // À§Ä¡ È®ÀÎ ¼º°ø ½Ã
+    // ìœ„ì¹˜ í™•ì¸ ì„±ê³µ ì‹œ
     function success(position){
-        // TODO ÁöµµÀÇ Áß¾ÓÀ» ÇöÀç À§Ä¡·Î ¼¼ÆÃÇÑ´Ù. À§µµ, °æµµ ÀÎÀÚ
+        // TODO ì§€ë„ì˜ ì¤‘ì•™ì„ í˜„ìž¬ ìœ„ì¹˜ë¡œ ì„¸íŒ…í•œë‹¤. ìœ„ë„, ê²½ë„ ì¸ìž
        
 		
 
         map.setCenter(center);  
-        // TODO ¸¶Ä¿ Ç¥½Ã
+        // TODO ë§ˆì»¤ í‘œì‹œ
         
 		 
 
 
     }
 
-    // À§Ä¡ È®ÀÎ ½ÇÆÐ ½Ã
+    // ìœ„ì¹˜ í™•ì¸ ì‹¤íŒ¨ ì‹œ
     function error(error){
-        log("Á¶È¸ ½ÇÆÐ: " + error.code);
+        log("ì¡°íšŒ ì‹¤íŒ¨: " + error.code);
     }
 })();

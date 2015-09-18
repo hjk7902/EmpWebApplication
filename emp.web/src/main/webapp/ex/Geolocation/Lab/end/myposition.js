@@ -5,9 +5,9 @@
     }
     window.onload = function(){  
         document.getElementById("start").onclick = function(){
-            //°è¼Ó À§Ä¡ Á¤º¸¸¦ ¹Ş°í ½ÍÀ» ¶§ watchPosition»ç¿ë
-            //¼º°ø ½Ã success¸Ş¼­µå, ½ÇÆĞ ½Ã error¸Ş¼­µå È£Ãâ
-            //maximumAge À§Ä¡Á¤º¸ÀÇ À¯È¿ ½Ã°£
+            //ê³„ì† ìœ„ì¹˜ ì •ë³´ë¥¼ ë°›ê³  ì‹¶ì„ ë•Œ watchPositionì‚¬ìš©
+            //ì„±ê³µ ì‹œ successë©”ì„œë“œ, ì‹¤íŒ¨ ì‹œ errorë©”ì„œë“œ í˜¸ì¶œ
+            //maximumAge ìœ„ì¹˜ì •ë³´ì˜ ìœ íš¨ ì‹œê°„
             watchId = window.navigator.geolocation.watchPosition(
                 success,
                 error, 
@@ -20,14 +20,14 @@
         };
 
         document.getElementById("stop").onclick = function(){
-            // TODO À§Ä¡ ÃßÀûÀ» ÁßÁöÇÑ´Ù.
-            //watchPosition¿¡ ³Ö¾îÁÖ¾ú´Â id°ªÀ» ÀÎÀÚ·Î
+            // TODO ìœ„ì¹˜ ì¶”ì ì„ ì¤‘ì§€í•œë‹¤.
+            //watchPositionì— ë„£ì–´ì£¼ì—ˆëŠ” idê°’ì„ ì¸ìë¡œ
             window.navigator.geolocation.clearWatch(watchId);
         };
 
-        // TODO ±¸±Û¸ÊÀ» ºÒ·¯¿É´Ï´Ù.
-        // LatLng¿Í MapÀ½ http://maps.google.com/maps/api/js¿¡ Á¤ÀÇµÈ Å¬·¡½º
-        // À§µµ, °æµµ¸¦ °¡Áö°í ÀÖ´Â Å¬·¡½º
+        // TODO êµ¬ê¸€ë§µì„ ë¶ˆëŸ¬ì˜µë‹ˆë‹¤.
+        // LatLngì™€ MapìŒ http://maps.google.com/maps/api/jsì— ì •ì˜ëœ í´ë˜ìŠ¤
+        // ìœ„ë„, ê²½ë„ë¥¼ ê°€ì§€ê³  ìˆëŠ” í´ë˜ìŠ¤
         var center = new google.maps.LatLng(37.519768, 126.939769);
         map = new google.maps.Map(document.getElementById("map"), {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -36,24 +36,24 @@
         });  
     }
 
-    // À§Ä¡ È®ÀÎ ¼º°ø ½Ã
+    // ìœ„ì¹˜ í™•ì¸ ì„±ê³µ ì‹œ
     function success(position){
-        // TODO ÁöµµÀÇ Áß¾ÓÀ» ÇöÀç À§Ä¡·Î ¼¼ÆÃÇÑ´Ù. À§µµ, °æµµ ÀÎÀÚ
+        // TODO ì§€ë„ì˜ ì¤‘ì•™ì„ í˜„ì¬ ìœ„ì¹˜ë¡œ ì„¸íŒ…í•œë‹¤. ìœ„ë„, ê²½ë„ ì¸ì
         var center = new google.maps.LatLng(
             position.coords.latitude,
             position.coords.longitude
         );  
         map.setCenter(center);  
-        // TODO ¸¶Ä¿ Ç¥½Ã
+        // TODO ë§ˆì»¤ í‘œì‹œ
         var marker = new google.maps.Marker({
             position: center,
-            title: "³»À§Ä¡",
+            title: "ë‚´ìœ„ì¹˜",
             map: map
         });  
     }
 
-    // À§Ä¡ È®ÀÎ ½ÇÆĞ ½Ã
+    // ìœ„ì¹˜ í™•ì¸ ì‹¤íŒ¨ ì‹œ
     function error(error){
-        log("Á¶È¸ ½ÇÆĞ: " + error.code);
+        log("ì¡°íšŒ ì‹¤íŒ¨: " + error.code);
     }
 })();

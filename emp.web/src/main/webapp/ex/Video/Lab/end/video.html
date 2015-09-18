@@ -6,62 +6,62 @@
 #time, #seekbar { width: 400px; }
 </style>
 <script>
-//ÆäÀÌÁö°¡ ·ÎµåµÇ¸é ½ÇÇà
+//í˜ì´ì§€ê°€ ë¡œë“œë˜ë©´ ì‹¤í–‰
 window.onload = function() {
-	//video ¿¤¸®¸ÕÆ®ÀÇ DOM°´Ã¼¸¦ ¹İÈ¯¹Ş¾Æ ÀúÀå
+	//video ì—˜ë¦¬ë¨¼íŠ¸ì˜ DOMê°ì²´ë¥¼ ë°˜í™˜ë°›ì•„ ì €ì¥
     var video = document.querySelector("#video");
-    var videoUrl = video.currentSrc;//ÇöÀç ÇÃ·¹ÀÌµÇ°í ÀÖ´Â ÆÄÀÏÀÇ °æ·Î
-    console.log(videoUrl);//°³¹ßÀÚµµ±¸ -> Console¿¡ Ãâ·Â
+    var videoUrl = video.currentSrc;//í˜„ì¬ í”Œë ˆì´ë˜ê³  ìˆëŠ” íŒŒì¼ì˜ ê²½ë¡œ
+    console.log(videoUrl);//ê°œë°œìë„êµ¬ -> Consoleì— ì¶œë ¥
  
-    //id ¼Ó¼ºÀÇ °ªÀÌ timeÀÎ ¿¤¸®¸ÕÆ®¸¦ Ã£´Â´Ù.
+    //id ì†ì„±ì˜ ê°’ì´ timeì¸ ì—˜ë¦¬ë¨¼íŠ¸ë¥¼ ì°¾ëŠ”ë‹¤.
     var progress = document.querySelector("#time");
     
-    //video ¿¤¸®¸ÕÆ®¿¡ ÀÌº¥Æ® ¼³Á¤, timeupdate ÀÌº¥Æ®
+    //video ì—˜ë¦¬ë¨¼íŠ¸ì— ì´ë²¤íŠ¸ ì„¤ì •, timeupdate ì´ë²¤íŠ¸
     video.addEventListener("timeupdate", function(event){
-    	//ÇöÀç ÇÃ·¹ÀÌ½Ã°£/ÃÑ½Ã°£ -> percent¿¡ ÀúÀå
+    	//í˜„ì¬ í”Œë ˆì´ì‹œê°„/ì´ì‹œê°„ -> percentì— ì €ì¥
         var percent = this.currentTime / this.duration;
-        progress.value = percent;  //Progress ¿¤¸®¸ÕÆ®ÀÇ °ªÀ¸·Î ¼³Á¤
+        progress.value = percent;  //Progress ì—˜ë¦¬ë¨¼íŠ¸ì˜ ê°’ìœ¼ë¡œ ì„¤ì •
     });
     
-    //input ¿¤¸®¸ÕÆ®¸¦ »ı¼ºÇÑ´Ù.
+    //input ì—˜ë¦¬ë¨¼íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
     var playButton = document.createElement("input");
-    //¸¸µé¾îÁø input¿¤¸®¸ÕÆ®¿¡ ¼Ó¼ºÀ» ºÎ¿©
+    //ë§Œë“¤ì–´ì§„ inputì—˜ë¦¬ë¨¼íŠ¸ì— ì†ì„±ì„ ë¶€ì—¬
     playButton.id = "playButton";
-    playButton.type = "button"; //input ¿ä¼Ò°¡ ¹öÆ°ÀÌ µÇµµ·Ï
-    playButton.value = "Pause"; //¹öÆ°ÀÇ ÀÌ¸§
+    playButton.type = "button"; //input ìš”ì†Œê°€ ë²„íŠ¼ì´ ë˜ë„ë¡
+    playButton.value = "Pause"; //ë²„íŠ¼ì˜ ì´ë¦„
     console.log(playButton);
-    //video ¿¤¸®¸ÕÆ®ÀÇ ºÎ¸ğ ¿¤¸®¸ÕÆ®
+    //video ì—˜ë¦¬ë¨¼íŠ¸ì˜ ë¶€ëª¨ ì—˜ë¦¬ë¨¼íŠ¸
     video.parentNode.appendChild(playButton);
     
-    //ÇÃ·¹ÀÌ¹öÆ°ÀÇ Å¬¸¯ ÀÌº¥Æ® ¼³Á¤
+    //í”Œë ˆì´ë²„íŠ¼ì˜ í´ë¦­ ì´ë²¤íŠ¸ ì„¤ì •
     playButton.onclick = function(event) {
-        event.preventDefault();//¹öÆ°ÀÌ °¡Áö°í ÀÖ´Â ±âº» ÀÌº¥Æ® Ãë¼Ò
-        if(video.paused) { //ºñµğ¿À°¡ Áß´ÜµÈ »óÅÂÀÌ¸é
+        event.preventDefault();//ë²„íŠ¼ì´ ê°€ì§€ê³  ìˆëŠ” ê¸°ë³¸ ì´ë²¤íŠ¸ ì·¨ì†Œ
+        if(video.paused) { //ë¹„ë””ì˜¤ê°€ ì¤‘ë‹¨ëœ ìƒíƒœì´ë©´
             if(videoUrl != video.currentSrc) {
                 video.src = videoUrl;
-                video.load();  //ºñµğ¿À¸¦ ·Îµå½ÃÅ´
+                video.load();  //ë¹„ë””ì˜¤ë¥¼ ë¡œë“œì‹œí‚´
             }else {
-                video.play();  //ÇÃ·¹ÀÌµÇ´Â µµÁß¿¡ Áß´ÜµÇ¾ú±â ¶§¹®¿¡ ´Ù½Ã ÇÃ·¹ÀÌ
+                video.play();  //í”Œë ˆì´ë˜ëŠ” ë„ì¤‘ì— ì¤‘ë‹¨ë˜ì—ˆê¸° ë•Œë¬¸ì— ë‹¤ì‹œ í”Œë ˆì´
             }
-            this.value = "Pause"; //ÇÃ·¹ÀÌ¹öÆ°ÀÇ ·¹ÀÌºíÀ» Pause·Î º¯°æ
+            this.value = "Pause"; //í”Œë ˆì´ë²„íŠ¼ì˜ ë ˆì´ë¸”ì„ Pauseë¡œ ë³€ê²½
         }else {
-            video.pause();  //ºñµğ¿À¸¦ Áß´Ü½ÃÅ´
-            this.value = "Play"; //ÇÃ·¹ÀÌ¹öÆ°ÀÇ ·¹ÀÌºíÀ» Play·Î º¯°æ
+            video.pause();  //ë¹„ë””ì˜¤ë¥¼ ì¤‘ë‹¨ì‹œí‚´
+            this.value = "Play"; //í”Œë ˆì´ë²„íŠ¼ì˜ ë ˆì´ë¸”ì„ Playë¡œ ë³€ê²½
         }
     };
     
     
-    //Ç®½ºÅ©¸°À» Áö¿øÇÏ´Â ºê¶ó¿ìÀú¿¡ Ç®½ºÅ©¸° ±â´ÉÀ» Ãß°¡ÇÏ±â À§ÇÑ ÄÚµå
+    //í’€ìŠ¤í¬ë¦°ì„ ì§€ì›í•˜ëŠ” ë¸Œë¼ìš°ì €ì— í’€ìŠ¤í¬ë¦° ê¸°ëŠ¥ì„ ì¶”ê°€í•˜ê¸° ìœ„í•œ ì½”ë“œ
     if(video.requestFullscreen || video.mozRequestFullScreen || video.webkitRequestFullScreen) {
-    	//¿¤¸®¸ÕÆ® »ı¼º - Ç®½ºÅ©¸°¹öÆ°
+    	//ì—˜ë¦¬ë¨¼íŠ¸ ìƒì„± - í’€ìŠ¤í¬ë¦°ë²„íŠ¼
         var fullButton = document.createElement("input");
         fullButton.id = "fullScreen";
-        fullButton.type = "button"; //¹öÆ° ¿¤¸®¸ÕÆ®°¡ µÇµµ·Ï ÇÔ
-        fullButton.value = "Full Screen";//¹öÆ°ÀÇ ·¹ÀÌºí
+        fullButton.type = "button"; //ë²„íŠ¼ ì—˜ë¦¬ë¨¼íŠ¸ê°€ ë˜ë„ë¡ í•¨
+        fullButton.value = "Full Screen";//ë²„íŠ¼ì˜ ë ˆì´ë¸”
         console.log(fullButton);
-        video.parentNode.appendChild(fullButton);//bodyÅÂ±×ÀÇ ¸Ç ¾Æ·¡¿¡
+        video.parentNode.appendChild(fullButton);//bodyíƒœê·¸ì˜ ë§¨ ì•„ë˜ì—
     
-        //Ç®½ºÅ©¸°¹öÆ°ÀÌ Å¬¸¯µÇ¸é
+        //í’€ìŠ¤í¬ë¦°ë²„íŠ¼ì´ í´ë¦­ë˜ë©´
         fullButton.onclick = function() {
         	//var fullScreen = video.requestFullscreen || video.mozRequestFullScreen || video.webkitRequestFullScreen; 
 			//if(fullScreen) {
@@ -79,11 +79,11 @@ window.onload = function() {
         };
     }
     
-    //½½¶óÀÌ´õ ÄÁÆ®·ÑÀ» Ã£¾Æ¼­(range)
+    //ìŠ¬ë¼ì´ë” ì»¨íŠ¸ë¡¤ì„ ì°¾ì•„ì„œ(range)
     var range = document.querySelector("#seekbar");
     
-    //½½¶óÀÌ´õ ÄÁÆ®·ÑÀÇ À§Ä¡°¡ º¯°æµÇ¸é
-    //ÇöÀç ÇÃ·¹ÀÌ ½Ã°£À» º¯°æ
+    //ìŠ¬ë¼ì´ë” ì»¨íŠ¸ë¡¤ì˜ ìœ„ì¹˜ê°€ ë³€ê²½ë˜ë©´
+    //í˜„ì¬ í”Œë ˆì´ ì‹œê°„ì„ ë³€ê²½
     range.addEventListener("click", function(event) {
         video.currentTime = this.value / video.duration ;
     });
@@ -101,6 +101,6 @@ window.onload = function() {
 
 <input type="range" id="seekbar" min="0" max="100"><br>
 
-<!-- ÀÌ °÷Àº vodeo.parentNode.appendChild()ÇÒ ¶§ ¿¤¸®¸ÕÆ®°¡ Ãß°¡µÇ´Â °÷ -->
+<!-- ì´ ê³³ì€ vodeo.parentNode.appendChild()í•  ë•Œ ì—˜ë¦¬ë¨¼íŠ¸ê°€ ì¶”ê°€ë˜ëŠ” ê³³ -->
 </body>
 </html>
