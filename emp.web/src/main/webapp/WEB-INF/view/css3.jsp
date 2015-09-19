@@ -33,6 +33,11 @@
 				<li><a href="<c:url value='/ex/CSS/Lab/start/EmpList.html'/>" target=_blank>CSS 사용 전</a>
 				<li><a href="<c:url value='/ex/CSS/Lab/end/EmpList.html'/>" target=_blank>CSS 사용 후</a>
 				<li><a href="<c:url value='/ex/CSS/Lab/end_mobile/EmpList.html'/>" target=_blank>PC/Mobile Layout</a>
+				<li><a href="<c:url value='/ex/CSS/Border/border-image.html'/>" target=_blank>Border Image</a>
+				<li><a href="<c:url value='/ex/CSS/Border/box-shadow.html'/>" target=_blank>Box Shadow</a>
+				<li><a href="<c:url value='/ex/CSS/Animation/animation.html'/>" target=_blank>Animation</a>
+				<li><a href="<c:url value='/ex/CSS/Transform/cube.html'/>" target=_blank>Transform</a>
+				<li><a href="<c:url value='/ex/CSS/WebFont/index.html'/>" target=_blank>WebFont</a>
 			</ul>
 			</div>
 		</div>
@@ -40,9 +45,9 @@
 		<div class="col-sm-6 col-md-4">
 		<div class="thumbnail">
 			<div class="caption">
-			<h3>Selector API</h3>
+			<h3>CSS Selector</h3>
 			<ul>
-				<li><a href="<c:url value='/ex/'/>" target=_blank></a>
+				<li><a href="<c:url value='/ex/CSS/cssorder.html'/>" target=_blank>스타일 우선순위</a>
 			</ul>
 			</div>
 		</div>

@@ -36,9 +36,7 @@
 			<h3>HTML 4.01</h3>
 			<ul>
 				<li><a href="<c:url value='/ex/HTML/Lab/end/EmpForm.html'/>" target=_blank>HTML 4.01  폼태그</a>
-				<li class="pc"><a href="<c:url value='/ex/HTML5/metadata/defertest.html'/>" target=_blank>defer</a> <a href="<c:url value='/ex/HTML5/metadata/asynctest.html'/>" target=_blank>async</a> : 각각 다른 페이지에서 실행 한 다음 박스가 보이면 개발자도구의 Console 탭 결과를 비교해 보세요.
-				<li class="pc">
-				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
+				<li><a href="<c:url value='/ex/HTML5/metadata/defertest.html'/>" target=_blank>defer</a> vs. <a href="<c:url value='/ex/HTML5/metadata/asynctest.html'/>" target=_blank>async</a> : 각각 다른 페이지에서 실행 한 다음 박스가 보이면 개발자도구의 Console 탭 결과를 비교해 보세요.
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>

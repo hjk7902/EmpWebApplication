@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSS 우선순위</title>
+<style type="text/css">
+p {
+	color:red;
+	text-align:left;
+}
+#quiz1 {
+	color:blue;
+}
+.testClass {
+	color:green;
+	text-align:right;
+}
+</style>
+</head>
+<body>
+<h1>스타일의 우선순위를 확인하세요.</h1>
+<p>Hello World : 태그</p>
+<p id="quiz1">Hello World : 태그와 아이디 속성</p>
+<p class="testClass">Hello World : 태그와 클래스 속성</p>
+<p id="quiz1" class="testClass">Hello World : 태그와 아이디속성과 클래스 속성</p>
+</body>
+</html>
