@@ -1,15 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true"%>
 <%
 	Thread.sleep(5000);
+	double rand = Math.random();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-요청 결과 입니다.
-</body>
-</html>
+서버 응답 데이터 : <%= rand %>

@@ -36,8 +36,8 @@
 			<h3>HTML 4.01</h3>
 			<ul>
 				<li><a href="<c:url value='/ex/HTML/Lab/end/EmpForm.html'/>" target=_blank>HTML 4.01  폼태그</a>
-				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
-				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
+				<li class="pc"><a href="<c:url value='/ex/HTML5/metadata/defertest.html'/>" target=_blank>defer</a> <a href="<c:url value='/ex/HTML5/metadata/asynctest.html'/>" target=_blank>async</a> : 각각 다른 페이지에서 실행 한 다음 박스가 보이면 개발자도구의 Console 탭 결과를 비교해 보세요.
+				<li class="pc">
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
@@ -54,7 +54,7 @@
 				<li><a href="<c:url value='/ex/HTML5/structured_elements.html'/>" target=_blank>HTML5 구조적 엘리먼트</a>
 				<li><a href="<c:url value='/ex/HTML5/new_elements.html'/>" target=_blank>HTML5 신규 엘리먼트</a>
 				<li><a href="<c:url value='/ex/HTML5/form/input_properties.html'/>" target=_blank>HTML5 입력 양식</a>
-				<li><a href="<c:url value='/ex/HTML5/global_attr/contenteditable.html'/>" target=_blank>contentEditable 속성</a>
+				<li><a href="<c:url value='/ex/HTML5/global_attr/contenteditable.html'/>" target=_blank>contentEditable</a> <a href="<c:url value='/ex/HTML5/keygen.html'/>" target=_blank>keygen</a>
 				<li><a href="<c:url value='/ex/HTML5/global_attr/popup_badcase.html'/>" target=_blank>알림 창 띄우기(badcase)</a>
 				<li><a href="<c:url value='/ex/HTML5/global_attr/custom-data.html'/>" target=_blank>커스텀 데이터 속성을 이용한 알림 창 띄우기</a>
 				<li><a href="<c:url value='/ex/HTML5/global_attr/custom-data_jquery.html'/>" target=_blank>jQuery를 이용한 알림 창 띄우기</a>

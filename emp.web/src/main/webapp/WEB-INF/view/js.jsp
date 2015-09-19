@@ -40,7 +40,8 @@
 			<div class="caption">
 			<h3>AJAX</h3>
 			<ul>
-				<li><a href="<c:url value='/ex/'/>" target=_blank></a>
+				<li><a href="<c:url value='/ex/Ajax/simple_ajax.html'/>" target=_blank>ajax 예제</a>
+				<li><a href="<c:url value='/ex/Ajax/ahoh.html'/>" target=_blank>ajax를 이용한 링크 비동기 요청 예제</a>
 			</ul>
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-//ÆÄÀÏ¸í : elements/metadata/defertest.js
+//HTML5/metadata/drawrect.js
 var ContentFilter = {
 	fill : function (id) {
 		var toFill = document.getElementById(id);
@@ -18,4 +18,4 @@ function drawRect() {
 	if(ContentFilter) ContentFilter.fill(id);
 	console.log(document.querySelector("img[alt=second]"));
 }
-drawRect();
+setTimeout(drawRect, 5000);
