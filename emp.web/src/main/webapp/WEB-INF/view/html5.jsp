@@ -124,7 +124,8 @@
 			<div class="caption">
 			<h3>SSE</h3>
 			<ul>
-				<li><a href="<c:url value='/ex/SSE/stockdisplay.html'/>" target=_blank>Server Sent Event 예제 - setInterval 함수를 사용하지 않고 서버의 데이터를 새로 받아온다.</a>
+				<li><a href="<c:url value='/ex/SSE/stockdisplay.html'/>" target=_blank>setInterval 함수를 사용하지 않고 서버의 데이터를 새로 받아옵니다.</a>
+				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 			</ul>
 			</div>
 		</div>
@@ -134,9 +135,10 @@
 			<div class="caption">
 			<h3>WebSocket</h3>
 			<ul>
-				<li><a href="<c:url value='/ex/WebSocket/chat.html'/>" target=_blank>웹소켓을 이용한 채팅 프로그램.</a>
-				<li><a href="<c:url value='/ex/WebSocket/echo.html'/>" target=_blank>웹소켓을 이용한 에코 예제.</a>
-				<li><a href="<c:url value='/ex/WebSocket/snake.html'/>" target=_blank>웹소켓을 이용한 snake 게임.</a>
+				<li>Tomcat 7버전, $TOMCAT_HOME/lib/ 폴더에 websocket-api.jar 파일 포함
+				<li><a href="<c:url value='/ex/WebSocket/chat.html'/>" target=_blank>채팅 프로그램.</a>
+					<a href="<c:url value='/ex/WebSocket/echo.html'/>" target=_blank>에코 예제.</a>
+					<a href="<c:url value='/ex/WebSocket/snake.html'/>" target=_blank>snake 게임.</a>
 			</ul>
 			</div>
 		</div>
@@ -144,24 +146,9 @@
 		<div class="col-sm-6 col-md-4">
 		<div class="thumbnail">
 			<div class="caption">
-			<h3>Offline Application</h3>
+			<h3>Geolocation API</h3>
 			<ul>
-				<li><a href="<c:url value='/ex/Offline/cart/index.html'/>" target=_blank>드래그로 장바구니 담기(오프라인)</a>
-				<li><a href="<c:url value='/ex/Offline/Lab/end/news_rss.html'/>" target=_blank>뉴스보기(IndexedDB+오프라인)</a>
-				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
-			</ul>
-			</div>
-		</div>
-		</div>
-		<div class="col-sm-6 col-md-4">
-		<div class="thumbnail">
-			<div class="caption">
-			<h3>Database</h3>
-			<ul>
-				<li><a href="<c:url value='/ex/Database/IndexedDB/Lab/end/news_rss.html'/>" target=_blank>뉴스보기(IndexedDB)</a>
-				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
-				<li class="pc"><a href="<c:url value='/ex/Database/sqldatabase/bookmark.html'/>" target=_blank>SQLDatabase 예제</a>
-				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
+				<li><a href="<c:url value='/ex/Geolocation/Lab/end/myposition.html'/>" target=_blank>내 위치 표시하기(휴대폰 설정에서 브라우저가 위치정보(GPS)를 사용할 수 있는 상태이면 현재 위치를 지도에 표시해 줍니다.)</a>
 			</ul>
 			</div>
 		</div>
@@ -182,9 +169,24 @@
 		<div class="col-sm-6 col-md-4">
 		<div class="thumbnail">
 			<div class="caption">
-			<h3>Geolocation API</h3>
+			<h3>Database</h3>
 			<ul>
-				<li><a href="<c:url value='/ex/Geolocation/Lab/end/myposition.html'/>" target=_blank>내 위치 표시하기(휴대폰 설정에서 브라우저가 위치정보(GPS)를 사용할 수 있는 상태이면 현재 위치를 지도에 표시헤 줍니다.)</a>
+				<li><a href="<c:url value='/ex/Database/IndexedDB/Lab/end/news_rss.html'/>" target=_blank>뉴스보기(IndexedDB)</a>
+				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
+				<li class="pc"><a href="<c:url value='/ex/Database/sqldatabase/bookmark.html'/>" target=_blank>SQLDatabase 예제</a>
+				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
+			</ul>
+			</div>
+		</div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<div class="caption">
+			<h3>Offline Application</h3>
+			<ul>
+				<li><a href="<c:url value='/ex/Offline/cart/index.html'/>" target=_blank>드래그로 장바구니 담기(오프라인)</a>
+				<li><a href="<c:url value='/ex/Offline/Lab/end/news_rss.html'/>" target=_blank>뉴스보기(IndexedDB+오프라인)</a>
+				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 			</ul>
 			</div>
