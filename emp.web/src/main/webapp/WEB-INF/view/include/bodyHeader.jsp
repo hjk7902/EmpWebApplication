@@ -87,7 +87,7 @@
                     <ul class="dropdown-menu dropdown-menu-user animate-wr">
                         <li id="dropdownForm">
                             <div class="dropdown-form">
-                                <form class="form-horizontal form-light p-15" action="<c:url value='/manage/Search.do'/>" method="post" role="form">
+                                <form class="form-horizontal form-light p-15" action="<c:url value='/manage'/>" method="post" role="form">
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="keyword" placeholder="키워드를 입력하세요.">
                                         <span class="input-group-btn">
