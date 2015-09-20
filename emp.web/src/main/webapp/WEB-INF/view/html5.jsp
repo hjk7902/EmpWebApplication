@@ -34,7 +34,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>HTML 4.01</h3>
-			<ul>
+			<ul id="sample">
 				<li><a href="<c:url value='/ex/HTML/Lab/end/EmpForm.html'/>" target=_blank>HTML 4.01  폼태그</a>
 				<li><a href="<c:url value='/ex/HTML5/metadata/defertest.html'/>" target=_blank>defer</a> vs. <a href="<c:url value='/ex/HTML5/metadata/asynctest.html'/>" target=_blank>async</a> : 각각 다른 페이지에서 실행 한 다음 박스가 보이면 개발자도구의 Console 탭 결과를 비교해 보세요.
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
@@ -48,7 +48,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>HTML5</h3>
-			<ul>
+			<ul id="sample">
 				<li><a href="<c:url value='/ex/HTML5/structured_elements.html'/>" target=_blank>HTML5 구조적 엘리먼트</a>
 				<li><a href="<c:url value='/ex/HTML5/new_elements.html'/>" target=_blank>HTML5 신규 엘리먼트</a>
 				<li><a href="<c:url value='/ex/HTML5/form/input_properties.html'/>" target=_blank>HTML5 입력 양식</a>
@@ -64,7 +64,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>Drag &amp; Drop</h3>
-			<ul>
+			<ul id="sample">
 				<li><a href="<c:url value='/ex/DragDrop/dragndrop_icon.html'/>" target=_blank>이미지 이동시키기</a>
 				<li><a href="<c:url value='/ex/DragDrop/image_preview.html'/>" target=_blank> 이미지 미리보기</a>
 				<!-- li><a href="<c:url value='/ex/DragDrop/dragout.html'/>" target=_blank>Drag out으로 파일 다운로드하기</a-->
@@ -81,7 +81,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>Audio/Video, Canvas</h3>
-			<ul>
+			<ul id="sample">
 				<li><a href="<c:url value='/ex/Video/Lab/end/video.html'/>" target=_blank>Video 플레이어 예제</a>
 				<li><a href="<c:url value='/ex/Video/Lab/advanced/video.html'/>" target=_blank>썸네일 뷰를 포함하는 Video 플레이어 예제</a>
 				<li><a href="<c:url value='/ex/Video/track/track.html'/>" target=_blank>자막기능을 사용하는 Video 플레이어</a>
@@ -99,10 +99,10 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>Communication API</h3>
-			<ul>
-				<li><a href="<c:url value='/ex/Communication/cross-document/client.html'/>" target=_blank>IFrame을 이용한 챠트 서비스 사용 예 - client.html 문서에 iframe을 이용해 챠트를 나타낼 수 있는 페이지를 삽입했다. 데이터 입력은 client.html에서 받고 결과를 iframe내의 문서를 이용해 보여준다.</a>
+			<ul id="sample">
+				<li><a href="<c:url value='/ex/Communication/cross-document/client.html'/>" target=_blank>IFrame을 이용한 챠트 서비스 사용 예</a> - client.html 문서에 iframe을 이용해 챠트를 나타낼 수 있는 페이지를 삽입했다. 데이터 입력은 client.html에서 받고 결과를 iframe내의 문서를 이용해 보여준다.
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
-				<li><a href="<c:url value='/ex/Communication/one2many/publisher.html'/>" target=_blank>포트 공개를 이용한 1:다 메시지 전송 예 - 하나의 문서에서 여러 페이지로 메시지를 보내는 예제이다.</a>
+				<li><a href="<c:url value='/ex/Communication/one2many/publisher.html'/>" target=_blank>포트 공개를 이용한 1:다 메시지 전송 예</a> - 하나의 문서에서 여러 페이지로 메시지를 보내는 예제이다.
 			</ul>
 			</div>
 		</div>
@@ -111,10 +111,10 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>Worker</h3>
-			<ul>
-				<li><a href="<c:url value='/ex/Worker/worker/Lab/end/workertest.html'/>" target=_blank>전용 워커 예 - 입력필드에 입력한 수까지 1씩 증가하면서 값을 모두 더한 다음 결과는 연산 2초 후 UI쓰레드에게 보내진다.)</a>
+			<ul id="sample">
+				<li><a href="<c:url value='/ex/Worker/worker/Lab/end/workertest.html'/>" target=_blank>전용 워커 예</a> - 입력필드에 입력한 수까지 1씩 증가하면서 값을 모두 더한 다음 결과는 연산 2초 후 UI쓰레드에게 보내진다.)
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
-				<li><a href="<c:url value='/ex/Worker/sharedworker/Lab/start.html'/>" target=_blank>공유 워커 예 - start.html 문서에서 입력 필드에 값을 입력한 다음 작업시작 버튼을 클릭하면 공유워커에 작업을 실행시킨다. 새로 보여지는 end.html에서 워커의 실행 결과를 화면에 나타낸다.</a>
+				<li><a href="<c:url value='/ex/Worker/sharedworker/Lab/start.html'/>" target=_blank>공유 워커 예</a> - start.html 문서에서 입력 필드에 값을 입력한 다음 작업시작 버튼을 클릭하면 공유워커에 작업을 실행시킨다. 새로 보여지는 end.html에서 워커의 실행 결과를 화면에 나타낸다.
 			</ul>
 			</div>
 		</div>
@@ -123,7 +123,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>SSE</h3>
-			<ul>
+			<ul id="sample">
 				<li><a href="<c:url value='/ex/SSE/stockdisplay.html'/>" target=_blank>setInterval 함수를 사용하지 않고 서버의 데이터를 새로 받아옵니다.</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 			</ul>
@@ -134,7 +134,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>WebSocket</h3>
-			<ul>
+			<ul id="sample">
 				<li>Tomcat 7버전, $TOMCAT_HOME/lib/ 폴더에 websocket-api.jar 파일 포함
 				<li><a href="<c:url value='/ex/WebSocket/chat.html'/>" target=_blank>채팅 프로그램.</a>
 					<a href="<c:url value='/ex/WebSocket/echo.html'/>" target=_blank>에코 예제.</a>
@@ -147,8 +147,8 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>Geolocation API</h3>
-			<ul>
-				<li><a href="<c:url value='/ex/Geolocation/Lab/end/myposition.html'/>" target=_blank>내 위치 표시하기(휴대폰 설정에서 브라우저가 위치정보(GPS)를 사용할 수 있는 상태이면 현재 위치를 지도에 표시해 줍니다.)</a>
+			<ul id="sample">
+				<li><a href="<c:url value='/ex/Geolocation/Lab/end/myposition.html'/>" target=_blank>내 위치 표시하기</a> - 휴대폰 설정에서 브라우저가 위치정보(GPS)를 사용할 수 있는 상태이면 현재 위치를 지도에 표시해 줍니다.
 			</ul>
 			</div>
 		</div>
@@ -157,7 +157,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>Local/Session Storage</h3>
-			<ul>
+			<ul id="sample">
 				<li><a href="<c:url value='/ex/Storage/notepad.html'/>" target=_blank>Local Storage를 이용한 메모장</a>
 				<li><a href="<c:url value='/ex/Storage/storage_event.html'/>" target=_blank>Storage 이벤트 테스트</a>
 				<li><a href="<c:url value='/ex/Storage/storage_json.html'/>" target=_blank>JSON 객체 저장하기</a>
@@ -170,7 +170,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>Database</h3>
-			<ul>
+			<ul id="sample">
 				<li><a href="<c:url value='/ex/Database/IndexedDB/Lab/end/news_rss.html'/>" target=_blank>뉴스보기(IndexedDB)</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
 				<li class="pc"><a href="<c:url value='/ex/Database/sqldatabase/bookmark.html'/>" target=_blank>SQLDatabase 예제</a>
@@ -183,7 +183,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 			<h3>Offline Application</h3>
-			<ul>
+			<ul id="sample">
 				<li><a href="<c:url value='/ex/Offline/cart/index.html'/>" target=_blank>드래그로 장바구니 담기(오프라인)</a>
 				<li><a href="<c:url value='/ex/Offline/Lab/end/news_rss.html'/>" target=_blank>뉴스보기(IndexedDB+오프라인)</a>
 				<li class="pc"><a href="<c:url value='#'/>" target=_blank>&nbsp;</a>
