@@ -98,95 +98,93 @@ public class EmpServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		Enumeration<String> paramNames= request.getParameterNames();
-		String path = "notfound";
-		if(paramNames.hasMoreElements()) {
-			path = paramNames.nextElement();
-			if(path.equals("insert")) {
-				try {
-					int empno = Integer.parseInt(request.getParameter("empno"));
-					String ename = request.getParameter("ename");
-					String job = request.getParameter("job");
-					int mgr = Integer.parseInt(request.getParameter("mgr"));
-					String hiredate = request.getParameter("hiredate");
-					double sal = Double.parseDouble(request.getParameter("sal"));
-					String commStr = request.getParameter("comm");
-					int deptno = Integer.parseInt(request.getParameter("deptno"));
-					EmpVO emp = new EmpVO();
-					emp.setEname(ename);
-					emp.setEmpno(empno);
-					emp.setJob(job);
-					emp.setMgr(mgr);
-					emp.setHiredate(java.sql.Date.valueOf(hiredate));
-					emp.setSal(sal);
-					if(commStr == null || commStr.equals("")) {
-						emp.setComm(0);
-					}else {
-						emp.setComm(Double.parseDouble(commStr));
-					}
-					emp.setDeptno(deptno);
-					empDao.insertEmp(emp);
-					logger.info("Insert Success : " + emp.toString());
-					response.sendRedirect("emp?list");
-					return;	
-				}catch(Exception e) {
-					logger.error(e.getMessage());
-					request.setAttribute("message", "INSERT_ERROR");
-					path="error";
+		String path = request.getQueryString();
+		if("insert".equals(path)) {
+			try {
+				int empno = Integer.parseInt(request.getParameter("empno"));
+				String ename = request.getParameter("ename");
+				String job = request.getParameter("job");
+				int mgr = Integer.parseInt(request.getParameter("mgr"));
+				String hiredate = request.getParameter("hiredate");
+				double sal = Double.parseDouble(request.getParameter("sal"));
+				String commStr = request.getParameter("comm");
+				int deptno = Integer.parseInt(request.getParameter("deptno"));
+				EmpVO emp = new EmpVO();
+				emp.setEname(ename);
+				emp.setEmpno(empno);
+				emp.setJob(job);
+				emp.setMgr(mgr);
+				emp.setHiredate(java.sql.Date.valueOf(hiredate));
+				emp.setSal(sal);
+				if(commStr == null || commStr.equals("")) {
+					emp.setComm(0);
+				}else {
+					emp.setComm(Double.parseDouble(commStr));
 				}
-			}else if(path.equals("update")) {
-				try {
-					int empno = Integer.parseInt(request.getParameter("empno"));
-					String ename = request.getParameter("ename");
-					String job = request.getParameter("job");
-					int mgr = Integer.parseInt(request.getParameter("mgr"));
-					String hiredate = request.getParameter("hiredate");
-					double sal = Double.parseDouble(request.getParameter("sal"));
-					String commStr = request.getParameter("comm");
-					int deptno = Integer.parseInt(request.getParameter("deptno"));
-					EmpVO emp = new EmpVO();
-					emp.setEname(ename);
-					emp.setEmpno(empno);
-					emp.setJob(job);
-					emp.setMgr(mgr);
-					emp.setHiredate(java.sql.Date.valueOf(hiredate));
-					emp.setSal(sal);
-					if(commStr == null || commStr.equals("")) {
-						emp.setComm(0);
-					}else {
-						emp.setComm(Double.parseDouble(commStr));
-					}
-					emp.setDeptno(deptno);
-					empDao.updateEmp(emp);
-					logger.info("Update Success : " + emp.toString());
-					response.sendRedirect("emp?list");
-					return;	
-				}catch(Exception e) {
-					logger.error(e.getMessage());
-					request.setAttribute("message", "UPDATE_ERROR");
-					path="error";
-				}
-			}else if(path.equals("delete")) {
-				try {
-					int empno = Integer.parseInt(request.getParameter("empno"));
-					String ename = request.getParameter("ename");
-					EmpVO emp = empDao.getEmpDetails(empno);
-					if(ename.equalsIgnoreCase(emp.getEname())) {
-						empDao.deleteEmp(empno);
-						logger.info("Delete Success : " + emp.toString());
-						response.sendRedirect("emp?list");
-						return;
-					}else {
-						logger.error("삭제 실패 : 사원이름이 다릅니다");
-						request.setAttribute("message", "DELETE_ERROR");
-						path="error";
-					}
-				}catch(Exception e) {
-					logger.error(e.getMessage());
-					request.setAttribute("message", e.getMessage());
-					path="error";
-				}
+				emp.setDeptno(deptno);
+				empDao.insertEmp(emp);
+				logger.info("Insert Success : " + emp.toString());
+				response.sendRedirect("emp?list");
+				return;	
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				request.setAttribute("message", "INSERT_ERROR");
+				path="error";
 			}
+		}else if("update".equals(path)) {
+			try {
+				int empno = Integer.parseInt(request.getParameter("empno"));
+				String ename = request.getParameter("ename");
+				String job = request.getParameter("job");
+				int mgr = Integer.parseInt(request.getParameter("mgr"));
+				String hiredate = request.getParameter("hiredate");
+				double sal = Double.parseDouble(request.getParameter("sal"));
+				String commStr = request.getParameter("comm");
+				int deptno = Integer.parseInt(request.getParameter("deptno"));
+				EmpVO emp = new EmpVO();
+				emp.setEname(ename);
+				emp.setEmpno(empno);
+				emp.setJob(job);
+				emp.setMgr(mgr);
+				emp.setHiredate(java.sql.Date.valueOf(hiredate));
+				emp.setSal(sal);
+				if(commStr == null || commStr.equals("")) {
+					emp.setComm(0);
+				}else {
+					emp.setComm(Double.parseDouble(commStr));
+				}
+				emp.setDeptno(deptno);
+				empDao.updateEmp(emp);
+				logger.info("Update Success : " + emp.toString());
+				response.sendRedirect("emp?list");
+				return;	
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				request.setAttribute("message", "UPDATE_ERROR");
+				path="error";
+			}
+		}else if("delete".equals(path)) {
+			try {
+				int empno = Integer.parseInt(request.getParameter("empno"));
+				String ename = request.getParameter("ename");
+				EmpVO emp = empDao.getEmpDetails(empno);
+				if(ename.equalsIgnoreCase(emp.getEname())) {
+					empDao.deleteEmp(empno);
+					logger.info("Delete Success : " + emp.toString());
+					response.sendRedirect("emp?list");
+					return;
+				}else {
+					logger.error("삭제 실패 : 사원이름이 다릅니다");
+					request.setAttribute("message", "DELETE_ERROR");
+					path="error";
+				}
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				request.setAttribute("message", e.getMessage());
+				path="error";
+			}
+		}else {
+			path = "notfound";
 		}
 		RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/view/emp/" + path + ".jsp");
 		disp.forward(request, response);

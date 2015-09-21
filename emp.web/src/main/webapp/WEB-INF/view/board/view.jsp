@@ -38,10 +38,10 @@
 	</tr>
 	<tr>
 		<td colspan=2 align="right">
-		<a href='<c:url value="/board?list&page=${page}"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
-		<a href='<c:url value="/board?reply=${board.bbsno}&page=${page}"/>'><button type="button" class="btn btn-info"><fmt:message key="REPLY"/></button></a>
-		<a href='<c:url value="/board?update=${board.bbsno}&page=${page}"/>'><button type="button" class="btn btn-info"><fmt:message key="UPDATE"/></button></a>
-		<a href='<c:url value="/board?delete=${board.bbsno}&page=${page}&replynumber=${board.replynumber}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
+		<a href='<c:url value="/board?list=${page}"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
+		<a href='<c:url value="/board?reply=${board.bbsno}"/>'><button type="button" class="btn btn-info"><fmt:message key="REPLY"/></button></a>
+		<a href='<c:url value="/board?update=${board.bbsno}"/>'><button type="button" class="btn btn-info"><fmt:message key="UPDATE"/></button></a>
+		<a href='<c:url value="/board?delete=${board.bbsno}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
 		</td>
 	</tr>
 	</table>

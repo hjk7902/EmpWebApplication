@@ -44,7 +44,7 @@
 			<td>${board.name}</td>
 			<td>
 			<jk2:reply replynum="${board.replynumber}" replystep="${board.replystep}"/>
-			<a href='<c:url value="/board?view=${board.bbsno}&&page=${page}"/>'>
+			<a href='<c:url value="/board?view=${board.bbsno}"/>'>
 			${board.subject}</a>
 			</td>
 			<td class="pc">${board.readcount}</td>

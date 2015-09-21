@@ -354,19 +354,29 @@ public class BoardDAO {
 	 * 게시글 삭제하는 메소드<br>
 	 * 메인글이면 메인글과 댓글 모두 삭제, 댓글이면 댓글만 삭제
 	 * @param bbsno 삭제하려는 글번호
-	 * @param replynumber 댓글인지 메인글인지 확인하기 위해
 	 */
-	public void deleteArticle(int bbsno, int replynumber) {
+	public void deleteArticle(int bbsno) {
 		String sql ="";
 		Connection con = null;
 		try {
 			con = getConnection();
+
+			sql = "select replynumber from board where bbsno=?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bbsno);
+			ResultSet rs = pstmt.executeQuery();
+			int replynumber = 0;
+			if(rs.next()) {
+				replynumber = rs.getInt("replynumber");
+			}
+			
 			if(replynumber > 0) {
 				sql = "delete from board where bbsno=?";
 			}else {
 				sql = "delete from board where masterid=?";
 			}
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(sql);
+
 			pstmt.setInt(1, bbsno);
 			pstmt.executeUpdate();
 		} catch (Exception e) {

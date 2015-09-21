@@ -62,86 +62,81 @@ public class MemberServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-
-		Enumeration<String> paramNames= request.getParameterNames();
-		String path = "login";
-		if(paramNames.hasMoreElements()) {
-			path = paramNames.nextElement();
-			if("update".equals(path)) {
-				try {
-					String userid = request.getParameter("userid");
-					String password = request.getParameter("password");
-					String name = request.getParameter("name");		
-					String phone = request.getParameter("phone");
-					String address = request.getParameter("address");
-					
-					MemberVO member = new MemberVO();
-					member.setUserid(userid);
-					member.setPassword(password);
-					member.setName(name);
-					member.setPhone(phone);
-					member.setAddress(address);
-					
-					dao.update(member);
-					request.setAttribute("message", "UPDATED_MEMBER_INFO");
-					request.setAttribute("member", member);
-					path = "update";
-				}catch(Exception e){
-					request.setAttribute("message", e.getMessage());
-					e.printStackTrace();
-					path = "error";
-				}
-			}else if("delete".equals(path)){
-				try {
-					HttpSession session = request.getSession();
-					MemberVO member = new MemberVO();
-					member.setUserid((String)session.getAttribute("userid"));
-					member.setPassword(request.getParameter("password"));
-					if(dao.delete(member) > 0) {
-						session.invalidate();//삭제되었으면 로그아웃 처리
-						response.sendRedirect("/");//메인 페이지로 이동
-						return;
-					}else {
-						request.setAttribute("message", "DELETE_FAIL");
-						path = "error";
-					}
-				}catch(Exception e){
-					request.setAttribute("message", e.getMessage());
-					e.printStackTrace();
-					path = "error";
-				}
-			}else if("join".equals(path)) {
-				try {
-					HttpSession session = request.getSession();
-	
-					String userid = request.getParameter("userid");
-					String password = request.getParameter("password");
-					String name = request.getParameter("name");		
-					String phone = request.getParameter("phone");
-					String address = request.getParameter("address");
-	
-					MemberVO member = new MemberVO();
-					member.setUserid(userid);
-					member.setPassword(password);
-					member.setName(name);
-					member.setPhone(phone);
-					member.setAddress(address);
-					
-					dao.insert(member);
-					session.invalidate();
-					logger.debug("join");
-					response.sendRedirect("view?member/login");
-					return;
-				}catch(Exception e){
-					request.setAttribute("message", e.getMessage());
-					e.printStackTrace();
-					path = "error";
-				}
-			}else {
-				request.getSession().invalidate();//회원가입시 로그인했던 사용자 로그아웃 시킴
+		String path = request.getQueryString();
+		if("update".equals(path)) {
+			try {
+				String userid = request.getParameter("userid");
+				String password = request.getParameter("password");
+				String name = request.getParameter("name");		
+				String phone = request.getParameter("phone");
+				String address = request.getParameter("address");
+				
+				MemberVO member = new MemberVO();
+				member.setUserid(userid);
+				member.setPassword(password);
+				member.setName(name);
+				member.setPhone(phone);
+				member.setAddress(address);
+				
+				dao.update(member);
+				request.setAttribute("message", "UPDATED_MEMBER_INFO");
+				request.setAttribute("member", member);
+				path = "update";
+			}catch(Exception e){
+				request.setAttribute("message", e.getMessage());
+				e.printStackTrace();
+				path = "error";
 			}
+		}else if("delete".equals(path)){
+			try {
+				HttpSession session = request.getSession();
+				MemberVO member = new MemberVO();
+				member.setUserid((String)session.getAttribute("userid"));
+				member.setPassword(request.getParameter("password"));
+				if(dao.delete(member) > 0) {
+					session.invalidate();//삭제되었으면 로그아웃 처리
+					response.sendRedirect("/");//메인 페이지로 이동
+					return;
+				}else {
+					request.setAttribute("message", "DELETE_FAIL");
+					path = "error";
+				}
+			}catch(Exception e){
+				request.setAttribute("message", e.getMessage());
+				e.printStackTrace();
+				path = "error";
+			}
+		}else if("join".equals(path)) {
+			try {
+				HttpSession session = request.getSession();
 
-		}		
+				String userid = request.getParameter("userid");
+				String password = request.getParameter("password");
+				String name = request.getParameter("name");		
+				String phone = request.getParameter("phone");
+				String address = request.getParameter("address");
+
+				MemberVO member = new MemberVO();
+				member.setUserid(userid);
+				member.setPassword(password);
+				member.setName(name);
+				member.setPhone(phone);
+				member.setAddress(address);
+				
+				dao.insert(member);
+				session.invalidate();
+				logger.debug("join");
+				response.sendRedirect("view?member/login");
+				return;
+			}catch(Exception e){
+				request.setAttribute("message", e.getMessage());
+				e.printStackTrace();
+				path = "error";
+			}
+		}else {
+			request.getSession().invalidate();//회원가입시 로그인했던 사용자 로그아웃 시킴
+		}
+
 //		4. jsp로 forward
 		RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/view/member/" + path + ".jsp");
 		disp.forward(request, response);
