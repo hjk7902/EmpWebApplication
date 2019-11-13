@@ -1,4 +1,4 @@
-# Emp Table manager web application
+# Emp table manage web application
 
 * The default encoding of the project is utf-8.
 * You must change the project encoding to utf-8.
