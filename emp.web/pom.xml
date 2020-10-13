@@ -19,7 +19,7 @@
 		<!-- gson -->
 		<gson.version>2.3.1</gson.version>
 		<!-- junit -->
-		<junit.version>3.8.1</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<!-- Dandelion version -->
 		<dandelion.version>0.10.1</dandelion.version>
 
